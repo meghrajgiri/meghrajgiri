@@ -3,19 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-color: #263c48;
+  --secondary-color: #5a6d75;
+  --button-color: #3c5867;
+  --button-outline-color: #788c96;
+  --button-secondary-color: #f5fbff;
+  --background-color: #eef4f7;
+  --white-10: #fafafa;
+  --white-15: #a6abad;
+  --white-20: #edeff3;
+  --white-35: #f5f8fa;
+  --white-50: #f9f9f9;
+  --white-100: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.dark {
+  --primary-color: #a5c8dd; /* Lighter variant of primary for readability */
+  --secondary-color: #879ba3; /* Soft desaturated version */
+  --button-color: #5c7b8c; /* Darker than primary for contrast */
+  --button-outline-color: #94a9b3; /* Subtle contrast for outlines */
+  --button-secondary-color: #1b2a32; /* Dark background for secondary buttons */
+  --background-color: #12181c; /* Deep dark shade for background */
+  --white-10: #1e262a; /* Near-black but slightly lighter */
+  --white-15: #5a6d75; /* Darker gray-blue */
+  --white-20: #283238; /* Soft dark gray */
+  --white-35: #1a2328; /* Dark but not fully black */
+  --white-50: #1a2328; /* Dark but not fully black */
+  --white-100: #1e262a; /* Keep pure white for text contrast */
 }
