@@ -1,18 +1,32 @@
-import type { Config } from "tailwindcss";
+import { withTV } from "tailwind-variants/transformer";
 
-export default {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+import { Config } from "tailwindcss";
+
+module.exports = withTV({
+  darkMode: "class",
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        "hero-grid": "url('/hero-img.png')",
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "var(--primary-color)",
+        secondary: "var(--secondary-color)",
+        button: "var(--button-color)",
+        "button-outline": "var(--button-outline-color)",
+        "button-secondary": "var(--button-secondary-color)",
+        background: "var(--background-color)",
+        white: {
+          10: "var(--white-10)",
+          15: "var(--white-15)",
+          20: "var(--white-20)",
+          35: "var(--white-35)",
+          50: "var(--white-50)",
+          100: "var(--white-100)",
+        },
       },
     },
   },
   plugins: [],
-} satisfies Config;
+} satisfies Config);

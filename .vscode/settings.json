@@ -1,0 +1,28 @@
+{
+    "javascript.preferences.quoteStyle": "single",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always",
+        "source.organizeImports": "always"
+    },
+    "cSpell.words": [
+        "extralight",
+        "Giri",
+        "meghraj"
+    ],
+    "tailwindCSS.experimental.classRegex": [
+        [
+            "(?:twMerge|twJoin)\\(([^;\\(]*)[\\);]",
+            "[`'\"`]([^'\"`;\r\n]*)[`'\"`]"
+        ],
+        [
+            "tv\\(([^)]*)\\)",
+            "[\"'`]([^\"'`]*).*?[\"'`]"
+        ]
+    ],
+    "tailwindCSS.classAttributes": [
+        "class",
+        "className",
+        "ngClass",
+        "class:list"
+    ]
+}
