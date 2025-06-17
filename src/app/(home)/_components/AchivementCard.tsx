@@ -1,4 +1,4 @@
-import StatsCards from "../StatsCards";
+import StatsCard from "./StatsCard";
 
 const statsData = [
   {
@@ -100,7 +100,16 @@ const statsData = [
 export default function AchivementCard() {
   return (
     <div className="mt-6 w-full max-w-[1140px]">
-      <StatsCards stats={statsData} />
+      <div className="grid grid-cols-3 gap-6 rounded-xl border-2 border-white-100 p-4">
+        {statsData.map((stat, idx) => (
+          <StatsCard
+            key={idx}
+            icon={stat.icon}
+            value={stat.value}
+            label={stat.label}
+          />
+        ))}
+      </div>
     </div>
   );
 }
