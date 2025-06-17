@@ -11,6 +11,7 @@ export default function Home() {
       <HeroSection />
       <div className="mx-auto max-w-[1120px]">
         <SkillsSection />
+
         <ProjectSection />
         <ToolsSection />
         <TestimonialsSection />
