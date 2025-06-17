@@ -17,29 +17,7 @@ const statsData = [
     value: "500k+",
     label: "Trust Client",
   },
-  {
-    icon: (
-      // Crown icon
-      <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-        <path
-          d="M3 7l5 7 4-5 4 5 5-7"
-          stroke="#223344"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M2 17h20v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2z"
-          stroke="#223344"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-    value: "1M+",
-    label: "",
-  },
+
   {
     icon: (
       // Trophy icon

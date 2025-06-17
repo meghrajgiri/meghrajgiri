@@ -25,7 +25,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = (props) => {
         text={subTitle}
         weight="medium"
         variant="para-18"
-        className="max-w-[461px] text-center text-secondary"
+        className="max-w-[840px] text-center text-secondary"
       />
     </div>
   );
