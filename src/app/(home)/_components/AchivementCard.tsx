@@ -77,7 +77,7 @@ const statsData = [
 
 export default function AchivementCard() {
   return (
-    <div className="mt-6 w-full max-w-[1140px]">
+    <div className="mt-6 w-full max-w-[1200px]">
       <div className="grid grid-cols-3 gap-6 rounded-xl border-2 border-white-100 p-4">
         {statsData.map((stat, idx) => (
           <StatsCard
