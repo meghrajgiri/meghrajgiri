@@ -142,8 +142,7 @@ const SkillsSection = () => {
         badgeText="Experiences"
         badgeIcon={<ExperienceIcon />}
       />
-      <div>
-        <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-3 gap-8 p-6 sm:grid-cols-2 md:grid-cols-3">
           {skills.map((skill, idx) => (
             <SkillCard
               key={idx}
@@ -153,7 +152,6 @@ const SkillsSection = () => {
             />
           ))}
         </div>
-      </div>
     </div>
   );
 };
