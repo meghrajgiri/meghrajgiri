@@ -33,7 +33,7 @@ export default function ProjectCard({
                 {tool}
               </span>
               <span className="rounded-lg border border-zinc-500 bg-gray-400 p-2 text-sm text-gray-500">
-                {price}
+                ${price}
               </span>
             </div>
           </div>
