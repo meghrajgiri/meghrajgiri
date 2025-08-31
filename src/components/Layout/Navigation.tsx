@@ -1,25 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
 import { SITE_DATA } from "@/config";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [, setIsOnHeroSection] = useState(true);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
+      // Check if we're on hero section (roughly first screen height)
+      setIsOnHeroSection(window.scrollY < window.innerHeight * 0.8);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // No scroll locking needed for dropdown menu
 
   const navItems = SITE_DATA.navigation.items;
 
@@ -33,12 +38,12 @@ export function Navigation() {
 
   if (!mounted) {
     return (
-      <header className="fixed top-0 left-0 right-0 z-50 h-16">
-        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="w-32 h-8 bg-muted/50 rounded animate-pulse" />
+      <header className="fixed left-0 right-0 top-0 z-50 h-16">
+        <div className="container mx-auto flex h-16 items-center justify-between px-6">
+          <div className="bg-muted/50 h-8 w-32 animate-pulse rounded" />
           <div className="flex space-x-4">
-            <div className="w-20 h-8 bg-muted/50 rounded animate-pulse" />
-            <div className="w-10 h-10 bg-muted/50 rounded-lg animate-pulse" />
+            <div className="bg-muted/50 h-8 w-20 animate-pulse rounded" />
+            <div className="bg-muted/50 h-10 w-10 animate-pulse rounded-lg" />
           </div>
         </div>
       </header>
@@ -47,46 +52,55 @@ export function Navigation() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-2xl border-b border-border/30 shadow-xl shadow-primary/5"
-          : "bg-transparent"
+      className={`fixed z-50 w-full transition-all duration-500 ${
+        isScrolled ? "top-0 px-6 py-3 md:py-4" : "top-0"
       }`}
     >
-      <nav className="container mx-auto px-6 h-20 flex items-center justify-between">
+      <nav
+        className={`container mx-auto flex items-center justify-between px-6 transition-all duration-500 ${
+          isScrolled
+            ? "border-border h-16 rounded-xl border bg-background py-3 shadow-lg md:h-20 md:py-6"
+            : "h-20"
+        }`}
+      >
         {/* Professional Logo */}
-        <div className="flex items-center space-x-4 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <div
+          className="group flex cursor-pointer items-center space-x-4"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
           <div className="relative">
-            <div className="w-12 h-12 bg-gradient-to-br from-primary via-primary/90 to-accent-foreground rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/20 group-hover:shadow-primary/40 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
-              <span className="text-xl font-black text-primary-foreground tracking-tight">{SITE_DATA.personal.initials}</span>
+            <div className="via-primary/90 to-accent-foreground shadow-primary/20 group-hover:shadow-primary/40 flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-primary shadow-2xl transition-all duration-500 group-hover:rotate-3 group-hover:scale-110">
+              <span className="text-primary-foreground text-lg font-black tracking-tight">
+                {SITE_DATA.personal.initials}
+              </span>
             </div>
             {/* Professional status indicator */}
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+            <div className="absolute -right-1 -top-1 flex h-3 w-3 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-emerald-500 shadow-lg">
+              <div className="bg-white h-1.5 w-1.5 animate-pulse rounded-full" />
             </div>
           </div>
-          <div className="space-y-1 hidden sm:block">
-            <div className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-300 tracking-tight">
+          <div className="hidden space-y-1 sm:block">
+            <div className="text-foreground text-lg font-bold tracking-tight transition-colors duration-300 group-hover:text-primary">
               {SITE_DATA.personal.name}
             </div>
-            <div className="text-xs text-muted-foreground font-medium tracking-wide uppercase">
+            <div className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
               {SITE_DATA.personal.role}
             </div>
           </div>
         </div>
 
         {/* Professional Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-2">
+        <div className="hidden items-center space-x-2 md:flex">
           {navItems.map((item, index) => (
             <button
               key={item.href}
               onClick={() => scrollToSection(item.href)}
-              className="relative px-5 py-3 text-muted-foreground/80 hover:text-foreground transition-all duration-300 font-semibold text-sm rounded-2xl hover:bg-card/50 backdrop-blur-sm group border border-transparent hover:border-border/30"
-              style={{animationDelay: `${index * 0.1}s`}}
+              className="text-muted-foreground/80 hover:text-foreground hover:bg-card/50 hover:border-border/30 group relative rounded-2xl border border-transparent px-5 py-3 text-sm font-semibold backdrop-blur-sm transition-all duration-300"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <span className="relative z-10 tracking-wide">{item.label}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/10 to-accent-foreground/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100" />
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-accent-foreground group-hover:w-8 transition-all duration-300" />
+              <div className="from-primary/5 via-primary/10 to-accent-foreground/5 absolute inset-0 scale-95 rounded-2xl bg-gradient-to-r opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100" />
+              <div className="to-accent-foreground absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 transform bg-gradient-to-r from-primary transition-all duration-300 group-hover:w-8" />
             </button>
           ))}
         </div>
@@ -96,13 +110,18 @@ export function Navigation() {
           {/* Professional Theme Toggle Button */}
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="relative w-12 h-12 rounded-2xl bg-card/40 backdrop-blur-sm border border-border/30 hover:border-primary/30 hover:bg-card/60 transition-all duration-500 flex items-center justify-center focus-ring group overflow-hidden shadow-lg hover:shadow-xl"
+            className="bg-card/40 border-border/30 hover:border-primary/30 hover:bg-card/60 focus-ring group relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl border shadow-lg backdrop-blur-sm transition-all duration-500 hover:shadow-xl"
             aria-label="Toggle theme"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/10 to-accent-foreground/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl" />
-            <div className="relative z-10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
+            <div className="from-primary/5 via-primary/10 to-accent-foreground/5 absolute inset-0 rounded-2xl bg-gradient-to-r opacity-0 transition-all duration-500 group-hover:opacity-100" />
+            <div className="relative z-10 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110">
               {theme === "dark" ? (
-                <svg className="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="h-4 w-4 text-amber-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -111,7 +130,12 @@ export function Navigation() {
                   />
                 </svg>
               ) : (
-                <svg className="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="h-4 w-4 text-slate-700"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -121,18 +145,23 @@ export function Navigation() {
                 </svg>
               )}
             </div>
-            <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-primary/20 transition-all duration-300" />
+            <div className="group-hover:ring-primary/20 absolute inset-0 rounded-2xl ring-2 ring-transparent transition-all duration-300" />
           </button>
 
           {/* Enhanced Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden relative w-11 h-11 rounded-xl bg-muted/50 hover:bg-muted transition-all duration-300 flex items-center justify-center focus-ring group overflow-hidden"
+            className="bg-muted/50 hover:bg-muted focus-ring group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl transition-all duration-300 md:hidden"
             aria-label="Toggle mobile menu"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="from-primary/10 to-accent/10 absolute inset-0 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <div className="relative z-10 transition-transform duration-300">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 {isMobileMenuOpen ? (
                   <path
                     strokeLinecap="round"
@@ -154,29 +183,74 @@ export function Navigation() {
         </div>
       </nav>
 
-      {/* Enhanced Mobile Menu */}
+      {/* Dropdown Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-xl animate-slideIn">
-          <div className="container mx-auto px-6 py-6 space-y-2">
-            {navItems.map((item, index) => (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className="group relative w-full text-left p-4 text-muted-foreground hover:text-foreground transition-all duration-300 font-medium rounded-xl hover:bg-muted/30 animate-fadeIn"
-                style={{animationDelay: `${index * 0.1}s`}}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-1.5 h-1.5 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span className="relative z-10">{item.label}</span>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-              </button>
-            ))}
-            
-            {/* Mobile menu footer */}
-            <div className="pt-4 mt-4 border-t border-border/50">
-              <div className="text-center text-sm text-muted-foreground">
-                {SITE_DATA.navigation.mobileMenu.footer}
+        <div className="md:hidden">
+          {/* Background overlay (optional - for closing when clicking outside) */}
+          <div
+            className="fixed inset-0"
+            style={{ zIndex: 999 }}
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          {/* Blurry Dropdown Menu */}
+          <div
+            className="bg-background/90 border-border/30 absolute left-0 right-0 top-full border-b shadow-2xl backdrop-blur-xl"
+            style={{ zIndex: 1000 }}
+          >
+            <div className="container mx-auto px-6 py-6">
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    scrollToSection("#about");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-foreground bg-card/20 hover:bg-card/40 border-border/20 hover:border-primary/30 block w-full rounded-xl border px-6 py-4 text-left font-medium backdrop-blur-sm transition-all duration-300 hover:text-primary"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-primary/60 h-2 w-2 rounded-full opacity-60" />
+                    <span>About</span>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => {
+                    scrollToSection("#skills");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-foreground bg-card/20 hover:bg-card/40 border-border/20 hover:border-primary/30 block w-full rounded-xl border px-6 py-4 text-left font-medium backdrop-blur-sm transition-all duration-300 hover:text-primary"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-primary/60 h-2 w-2 rounded-full opacity-60" />
+                    <span>Skills</span>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => {
+                    scrollToSection("#projects");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-foreground bg-card/20 hover:bg-card/40 border-border/20 hover:border-primary/30 block w-full rounded-xl border px-6 py-4 text-left font-medium backdrop-blur-sm transition-all duration-300 hover:text-primary"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-primary/60 h-2 w-2 rounded-full opacity-60" />
+                    <span>Projects</span>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => {
+                    scrollToSection("#contact");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-foreground bg-card/20 hover:bg-card/40 border-border/20 hover:border-primary/30 block w-full rounded-xl border px-6 py-4 text-left font-medium backdrop-blur-sm transition-all duration-300 hover:text-primary"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-primary/60 h-2 w-2 rounded-full opacity-60" />
+                    <span>Contact</span>
+                  </div>
+                </button>
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Navigation } from "@/components/Layout/Navigation";
+import { LoadingScreen } from "@/components/Layout/LoadingScreen";
 import { SITE_DATA } from "@/config";
 
 const inter = Inter({
@@ -58,45 +59,46 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative min-h-screen bg-background">
-            {/* Enhanced background effects */}
-            <div className="fixed inset-0 -z-10">
-              {/* Animated gradient mesh */}
-              <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/5 to-background" />
+          <Navigation />
+          <LoadingScreen>
+            <div className="relative min-h-screen bg-background">
+              {/* Enhanced background effects */}
+              <div className="fixed inset-0 -z-10">
+                {/* Animated gradient mesh */}
+                <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/5 to-background" />
+                
+                {/* Floating orbs */}
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/2 dark:bg-accent/1 rounded-full blur-3xl animate-pulse-subtle" style={{animationDelay: '1s'}} />
+                
+                {/* Subtle grid pattern */}
+                <div 
+                  className="absolute inset-0 opacity-[0.02] dark:opacity-[0.016]"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(var(--border) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--border) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '40px 40px',
+                  }}
+                />
+              </div>
               
-              {/* Floating orbs */}
-              <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/3 rounded-full blur-3xl animate-pulse-subtle" />
-              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/2 rounded-full blur-3xl animate-pulse-subtle" style={{animationDelay: '1s'}} />
-              
-              {/* Subtle grid pattern */}
-              <div 
-                className="absolute inset-0 opacity-[0.02]"
-                style={{
-                  backgroundImage: `
-                    linear-gradient(var(--border) 1px, transparent 1px),
-                    linear-gradient(90deg, var(--border) 1px, transparent 1px)
-                  `,
-                  backgroundSize: '40px 40px',
-                }}
-              />
-            </div>
-            
-            {/* Main content */}
-            <div className="relative">
-              <Navigation />
-              <main className="min-h-screen">
-                {children}
-              </main>
-              <footer className="border-t bg-card/50 backdrop-blur-sm">
-                <div className="container mx-auto px-6 py-8">
-                  <div className="text-center text-muted-foreground">
-                    <p>&copy; {new Date().getFullYear()} {SITE_DATA.metadata.author}. All rights reserved.</p>
-                    <p className="mt-2 text-sm">Built with Next.js, TypeScript, and Tailwind CSS</p>
+              {/* Main content */}
+              <div className="relative">
+                <main className="min-h-screen">
+                  {children}
+                </main>
+                <footer className="border-t bg-card/50 backdrop-blur-sm">
+                  <div className="container mx-auto px-6 py-8">
+                    <div className="text-center text-muted-foreground">
+                      <p>&copy; {new Date().getFullYear()} {SITE_DATA.metadata.author}. All rights reserved.</p>
+                      <p className="mt-2 text-sm">Built with Next.js, TypeScript, and Tailwind CSS</p>
+                    </div>
                   </div>
-                </div>
-              </footer>
+                </footer>
+              </div>
             </div>
-          </div>
+          </LoadingScreen>
         </ThemeProvider>
       </body>
     </html>
