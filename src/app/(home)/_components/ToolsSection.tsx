@@ -4,7 +4,7 @@ import SectionHeading from "./SectionHeading";
 
 const ToolsSection = () => {
   return (
-    <div className="bg-white-35 p-24">
+    <div className="rounded-xl bg-white-35 p-24">
       <SectionHeading
         title="My Skills that Shine,  Expertise You Can Trust"
         subTitle="Explore my portfolio and see how I bring ideas to life"

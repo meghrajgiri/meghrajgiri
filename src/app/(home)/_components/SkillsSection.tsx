@@ -135,23 +135,23 @@ const skills = [
 
 const SkillsSection = () => {
   return (
-    <div className="bg-white-35 p-24">
+    <div className="rounded-xl bg-white-35 p-24">
       <SectionHeading
         title="My Skills that Shine,  Expertise You Can Trust"
         subTitle="Explore my expertise and see how I can leverage my skills to drive your projects forward."
         badgeText="Experiences"
         badgeIcon={<ExperienceIcon />}
       />
-        <div className="grid grid-cols-3 gap-8 p-6 sm:grid-cols-2 md:grid-cols-3">
-          {skills.map((skill, idx) => (
-            <SkillCard
-              key={idx}
-              icon={skill.icon}
-              title={skill.title}
-              description={skill.description}
-            />
-          ))}
-        </div>
+      <div className="grid grid-cols-3 gap-8 p-6 sm:grid-cols-2 md:grid-cols-3">
+        {skills.map((skill, idx) => (
+          <SkillCard
+            key={idx}
+            icon={skill.icon}
+            title={skill.title}
+            description={skill.description}
+          />
+        ))}
+      </div>
     </div>
   );
 };
