@@ -1,5 +1,4 @@
 import { withTV } from "tailwind-variants/transformer";
-
 import { Config } from "tailwindcss";
 
 module.exports = withTV({
@@ -7,23 +6,58 @@ module.exports = withTV({
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
-      backgroundImage: {
-        "hero-grid": "url('/hero-img.png')",
-      },
       colors: {
-        primary: "var(--primary-color)",
-        secondary: "var(--secondary-color)",
-        button: "var(--button-color)",
-        "button-outline": "var(--button-outline-color)",
-        "button-secondary": "var(--button-secondary-color)",
-        background: "var(--background-color)",
-        white: {
-          10: "var(--white-10)",
-          15: "var(--white-15)",
-          20: "var(--white-20)",
-          35: "var(--white-35)",
-          50: "var(--white-50)",
-          100: "var(--white-100)",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        card: {
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
+        },
+        primary: {
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
+        },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
+        muted: {
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+        },
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+      },
+      fontFamily: {
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+      },
+      animation: {
+        "fade-in": "fadeIn 0.6s ease-out",
+        "slide-in": "slideIn 0.5s ease-out",
+        "float": "float 3s ease-in-out infinite",
+        "pulse-subtle": "pulse-subtle 2s ease-in-out infinite",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        slideIn: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "pulse-subtle": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.8" },
         },
       },
     },

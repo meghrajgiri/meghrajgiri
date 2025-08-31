@@ -1,157 +1,74 @@
-import SkillCard from "@/components/cards/SkillCard";
+import { SITE_DATA } from "@/config";
 import { ExperienceIcon } from "@/components/icons";
 import SectionHeading from "./SectionHeading";
 
-const skills = [
-  {
-    icon: (
-      // Globe icon for Web Design
-      <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="#223344" strokeWidth="2" />
-        <path
-          d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"
-          stroke="#223344"
-          strokeWidth="2"
-        />
-      </svg>
-    ),
-    title: "Web Design",
-    description:
-      "with more than 4 years of experience in this field, more than many people like our services",
-  },
-  {
-    icon: (
-      // Paint palette for Graphic Designer
-      <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="#223344" strokeWidth="2" />
-        <circle cx="8" cy="10" r="1" fill="#223344" />
-        <circle cx="16" cy="10" r="1" fill="#223344" />
-        <circle cx="9" cy="15" r="1" fill="#223344" />
-        <circle cx="15" cy="15" r="1" fill="#223344" />
-      </svg>
-    ),
-    title: "Graphic Designer",
-    description:
-      "with more than 4 years of experience in this field, more than many people like our services",
-  },
-  {
-    icon: (
-      // Layout icon for UI Design
-      <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-        <rect
-          x="3"
-          y="3"
-          width="18"
-          height="18"
-          rx="2"
-          stroke="#223344"
-          strokeWidth="2"
-        />
-        <rect
-          x="7"
-          y="7"
-          width="10"
-          height="4"
-          rx="1"
-          stroke="#223344"
-          strokeWidth="2"
-        />
-        <rect
-          x="7"
-          y="13"
-          width="4"
-          height="4"
-          rx="1"
-          stroke="#223344"
-          strokeWidth="2"
-        />
-        <rect
-          x="13"
-          y="13"
-          width="4"
-          height="4"
-          rx="1"
-          stroke="#223344"
-          strokeWidth="2"
-        />
-      </svg>
-    ),
-    title: "UI Design",
-    description:
-      "with more than 4 years of experience in this field, more than many people like our services",
-  },
-  {
-    icon: (
-      // Pen nib for Logo Designer
-      <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-        <path d="M12 19l7-7-7-7-7 7 7 7z" stroke="#223344" strokeWidth="2" />
-        <circle cx="12" cy="12" r="2" fill="#223344" />
-      </svg>
-    ),
-    title: "Logo Designer",
-    description:
-      "with more than 4 years of experience in this field, more than many people like our services",
-  },
-  {
-    icon: (
-      // Code brackets for Web Development
-      <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-        <path
-          d="M8 17l-5-5 5-5M16 7l5 5-5 5"
-          stroke="#223344"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <rect
-          x="10"
-          y="3"
-          width="4"
-          height="18"
-          rx="2"
-          fill="#223344"
-          opacity="0.1"
-        />
-      </svg>
-    ),
-    title: "Web Development",
-    description:
-      "with more than 4 years of experience in this field, more than many people like our services",
-  },
-  {
-    icon: (
-      // Play icon for Motion Designer
-      <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="#223344" strokeWidth="2" />
-        <polygon points="10,8 16,12 10,16" fill="#223344" />
-      </svg>
-    ),
-    title: "Motion Designer",
-    description:
-      "with more than 4 years of experience in this field, more than many people like our services",
-  },
-  // Add more skills as needed
-];
-
 const SkillsSection = () => {
   return (
-    <div className="rounded-xl bg-white-35 p-24">
-      <SectionHeading
-        title="My Skills that Shine,  Expertise You Can Trust"
-        subTitle="Explore my expertise and see how I can leverage my skills to drive your projects forward."
-        badgeText="Experiences"
-        badgeIcon={<ExperienceIcon />}
-      />
-      <div className="grid grid-cols-3 gap-8 p-6 sm:grid-cols-2 md:grid-cols-3">
-        {skills.map((skill, idx) => (
-          <SkillCard
-            key={idx}
-            icon={skill.icon}
-            title={skill.title}
-            description={skill.description}
-          />
-        ))}
+    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6 sm:p-12 lg:p-24">
+      {/* Animated background particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 h-32 w-32 rounded-full bg-purple-500/20 blur-xl animate-pulse"></div>
+        <div className="absolute top-3/4 right-1/4 h-48 w-48 rounded-full bg-blue-500/20 blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-3/4 h-24 w-24 rounded-full bg-pink-500/20 blur-xl animate-pulse delay-2000"></div>
       </div>
+      
+      {/* Floating geometric shapes */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-20 h-4 w-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-bounce"></div>
+        <div className="absolute top-40 right-32 h-3 w-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-bounce delay-300"></div>
+        <div className="absolute bottom-32 left-1/3 h-5 w-5 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-bounce delay-700"></div>
+      </div>
+      
+      <div className="relative z-10">
+        <SectionHeading
+          title={SITE_DATA.skills.title}
+          subTitle={SITE_DATA.skills.subtitle}
+          badgeText={SITE_DATA.skills.badge}
+          badgeIcon={<ExperienceIcon />}
+        />
+        <div className="grid grid-cols-1 gap-8 p-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+          {SITE_DATA.skills.categories.map((category, categoryIdx) => (
+            <div
+              key={categoryIdx}
+              className="space-y-6 transform-gpu transition-all duration-700 hover:scale-105 animate-float"
+              style={{
+                animationDelay: `${categoryIdx * 200}ms`
+              }}
+            >
+              {/* Category Header */}
+              <div className="text-center space-y-3">
+                <div className="text-4xl mb-2">{category.icon}</div>
+                <h3 className="text-xl font-bold text-white">{category.title}</h3>
+              </div>
+              
+              {/* Skills in Category */}
+              <div className="space-y-4">
+                {category.skills.map((skill, skillIdx) => (
+                  <div
+                    key={skillIdx}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:border-purple-400/50 transition-all duration-300"
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-white font-medium">{skill.name}</span>
+                      <span className="text-purple-300 text-sm">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-white/10 rounded-full h-2">
+                      <div
+                        className={`h-2 rounded-full bg-gradient-to-r ${skill.color} transition-all duration-1000 ease-out`}
+                        style={{ 
+                          width: `${skill.level}%`,
+                          animationDelay: `${(categoryIdx * 4 + skillIdx) * 100}ms`
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
     </div>
   );
 };

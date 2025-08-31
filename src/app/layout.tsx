@@ -1,32 +1,102 @@
-import Footer from "@/components/Layout/Footer";
-import Navbar from "@/components/Layout/Navbar";
-import ThemeProvider from "@/providers/ThemeProvider";
 import type { Metadata } from "next";
-import { Onest } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Navigation } from "@/components/Layout/Navigation";
+import { SITE_DATA } from "@/config";
 
-const onestFont = Onest({
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Meghraj Giri - Full Stack Developer",
-  description: "Full Stack Developer",
+  title: SITE_DATA.metadata.title,
+  description: SITE_DATA.metadata.description,
+  keywords: SITE_DATA.metadata.keywords,
+  authors: [{ name: SITE_DATA.metadata.author }],
+  creator: SITE_DATA.metadata.author,
+  openGraph: {
+    type: SITE_DATA.metadata.type as "website",
+    locale: SITE_DATA.metadata.locale,
+    url: SITE_DATA.metadata.url,
+    title: SITE_DATA.metadata.title,
+    description: SITE_DATA.metadata.description,
+    siteName: SITE_DATA.metadata.siteName,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_DATA.metadata.title,
+    description: SITE_DATA.metadata.description,
+    creator: SITE_DATA.metadata.twitter,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body className={`${onestFont.className} bg-background antialiased`}>
-        <div className="bg-white absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        <ThemeProvider>
-          <Navbar />
-          {children}
-          <Footer />
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <body className="font-sans antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="relative min-h-screen bg-background">
+            {/* Enhanced background effects */}
+            <div className="fixed inset-0 -z-10">
+              {/* Animated gradient mesh */}
+              <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/5 to-background" />
+              
+              {/* Floating orbs */}
+              <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/3 rounded-full blur-3xl animate-pulse-subtle" />
+              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/2 rounded-full blur-3xl animate-pulse-subtle" style={{animationDelay: '1s'}} />
+              
+              {/* Subtle grid pattern */}
+              <div 
+                className="absolute inset-0 opacity-[0.02]"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(var(--border) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--border) 1px, transparent 1px)
+                  `,
+                  backgroundSize: '40px 40px',
+                }}
+              />
+            </div>
+            
+            {/* Main content */}
+            <div className="relative">
+              <Navigation />
+              <main className="min-h-screen">
+                {children}
+              </main>
+              <footer className="border-t bg-card/50 backdrop-blur-sm">
+                <div className="container mx-auto px-6 py-8">
+                  <div className="text-center text-muted-foreground">
+                    <p>&copy; {new Date().getFullYear()} {SITE_DATA.metadata.author}. All rights reserved.</p>
+                    <p className="mt-2 text-sm">Built with Next.js, TypeScript, and Tailwind CSS</p>
+                  </div>
+                </div>
+              </footer>
+            </div>
+          </div>
         </ThemeProvider>
       </body>
     </html>
