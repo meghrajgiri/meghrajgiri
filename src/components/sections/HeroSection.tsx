@@ -41,7 +41,7 @@ export function HeroSection() {
   return (
     <section
       id="hero-section"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 sm:px-0"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 sm:px-0 bg-background"
     >
       {/* Mouse Follow Effect */}
       <div

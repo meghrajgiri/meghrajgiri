@@ -1,112 +1,148 @@
 "use client";
 
+import { SITE_DATA } from "@/config";
+
 export function SkillsSection() {
-  const skillCategories = [
+  const skillSections = [
     {
       title: "Frontend",
+      icon: "🎨",
+      description: "Modern UI/UX development",
       skills: [
-        { name: "React", level: 95 },
-        { name: "Next.js", level: 90 },
-        { name: "TypeScript", level: 88 },
-        { name: "Tailwind CSS", level: 92 },
+        { name: "React", icon: "⚛️" },
+        { name: "Next.js", icon: "▲" },
+        { name: "TypeScript", icon: "📘" },
+        { name: "Tailwind CSS", icon: "💨" },
+        { name: "JavaScript", icon: "🟨" },
+        { name: "Vue.js", icon: "💚" },
+        { name: "CSS3", icon: "🎨" },
+        { name: "HTML5", icon: "📄" }
       ]
     },
     {
       title: "Backend",
+      icon: "⚙️",
+      description: "Scalable server solutions",
       skills: [
-        { name: "Node.js", level: 85 },
-        { name: "Python", level: 80 },
-        { name: "PostgreSQL", level: 82 },
-        { name: "MongoDB", level: 78 },
+        { name: "Node.js", icon: "🟢" },
+        { name: "Python", icon: "🐍" },
+        { name: "PostgreSQL", icon: "🐘" },
+        { name: "MongoDB", icon: "🍃" },
+        { name: "Express.js", icon: "🚂" },
+        { name: "FastAPI", icon: "⚡" },
+        { name: "Redis", icon: "🔴" },
+        { name: "GraphQL", icon: "🔗" }
       ]
     },
     {
       title: "Tools & Cloud",
+      icon: "☁️",
+      description: "Development & deployment tools",
       skills: [
-        { name: "AWS", level: 75 },
-        { name: "Docker", level: 80 },
-        { name: "Git", level: 90 },
-        { name: "Figma", level: 85 },
+        { name: "AWS", icon: "📦" },
+        { name: "Docker", icon: "🐳" },
+        { name: "Git", icon: "🌿" },
+        { name: "Figma", icon: "🎨" },
+        { name: "Vercel", icon: "▲" },
+        { name: "VS Code", icon: "💙" },
+        { name: "Postman", icon: "📮" },
+        { name: "Kubernetes", icon: "☸️" }
+      ]
+    },
+    {
+      title: "Other Skills",
+      icon: "✨",
+      description: "APIs, testing & optimization",
+      skills: [
+        { name: "REST APIs", icon: "🔌" },
+        { name: "Testing", icon: "✅" },
+        { name: "Performance", icon: "⚡" },
+        { name: "SEO", icon: "🔍" },
+        { name: "Accessibility", icon: "♿" },
+        { name: "CI/CD", icon: "🔄" },
+        { name: "Monitoring", icon: "📊" },
+        { name: "Security", icon: "🔒" }
       ]
     }
   ];
 
   return (
-    <section id="skills" className="py-24 px-6 bg-muted/30">
+    <section id="skills" className="py-24 px-6 overflow-hidden bg-background">
       <div className="container mx-auto max-w-6xl">
         <div className="space-y-16">
           {/* Section Header */}
           <div className="text-center space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-gradient">Skills & Expertise</h2>
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/5 border border-primary/20 dark:border-primary/10 backdrop-blur-sm">
+              <span className="text-sm font-medium text-primary">{SITE_DATA.skills.badge}</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
+              {SITE_DATA.skills.title}
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Technologies and tools I use to bring ideas to life
+              {SITE_DATA.skills.subtitle}
             </p>
           </div>
 
-          {/* Skills Grid */}
-          <div className="grid lg:grid-cols-3 gap-8">
-            {skillCategories.map((category, categoryIndex) => (
-              <div key={category.title} className="space-y-6">
-                <h3 className="text-xl font-semibold text-center">{category.title}</h3>
-                <div className="space-y-4">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skill.name} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="font-medium">{skill.name}</span>
-                        <span className="text-sm text-muted-foreground">{skill.level}%</span>
+          {/* Marquee Skills Sections */}
+          <div className="space-y-12">
+            {skillSections.map((section, sectionIndex) => (
+              <div key={section.title} className="space-y-6">
+                {/* Section Header */}
+                <div className="text-center space-y-2">
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="text-2xl">{section.icon}</div>
+                    <h3 className="text-2xl font-bold">{section.title}</h3>
+                  </div>
+                  <p className="text-muted-foreground text-sm">{section.description}</p>
+                </div>
+
+                {/* Marquee Container */}
+                <div className="relative overflow-hidden">
+                  <div 
+                    className={`flex gap-6 w-max ${sectionIndex % 2 === 1 ? 'animate-marquee-reverse' : 'animate-marquee'}`}
+                  >
+                    {/* First set of skills */}
+                    {section.skills.map((skill) => (
+                      <div 
+                        key={`${skill.name}-1`}
+                        className="group relative bg-card/30 backdrop-blur-sm border border-border rounded-2xl p-6 
+                          hover:border-primary/30 hover:bg-card/50 transition-all duration-300 hover:scale-105
+                          flex flex-col items-center justify-center text-center space-y-3 h-[120px] w-[140px] flex-shrink-0"
+                      >
+                        <div className="text-3xl group-hover:scale-110 transition-transform duration-300">
+                          {skill.icon}
+                        </div>
+                        <div className="space-y-1">
+                          <h4 className="font-semibold text-sm group-hover:text-primary transition-colors duration-300">
+                            {skill.name}
+                          </h4>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient rounded-full transition-all duration-1000 ease-out"
-                          style={{ 
-                            width: `${skill.level}%`,
-                            animationDelay: `${(categoryIndex * category.skills.length + skillIndex) * 0.1}s`
-                          }}
-                        />
+                    ))}
+                    {/* Duplicate set for seamless loop */}
+                    {section.skills.map((skill) => (
+                      <div 
+                        key={`${skill.name}-2`}
+                        className="group relative bg-card/30 backdrop-blur-sm border border-border rounded-2xl p-6 
+                          hover:border-primary/30 hover:bg-card/50 transition-all duration-300 hover:scale-105
+                          flex flex-col items-center justify-center text-center space-y-3 h-[120px] w-[140px] flex-shrink-0"
+                      >
+                        <div className="text-3xl group-hover:scale-110 transition-transform duration-300">
+                          {skill.icon}
+                        </div>
+                        <div className="space-y-1">
+                          <h4 className="font-semibold text-sm group-hover:text-primary transition-colors duration-300">
+                            {skill.name}
+                          </h4>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Additional Skills */}
-          <div className="text-center space-y-8">
-            <h3 className="text-2xl font-semibold">Additional Skills</h3>
-            <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-              {[
-                "GraphQL", "REST APIs", "Microservices", "Testing (Jest, Cypress)",
-                "State Management (Redux, Zustand)", "Performance Optimization",
-                "SEO", "Accessibility", "Agile/Scrum", "Code Review",
-                "Mentoring", "Technical Writing"
-              ].map((skill, index) => (
-                <span 
-                  key={skill}
-                  className="px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium hover-lift cursor-default"
-                  style={{ animationDelay: `${index * 0.05}s` }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Call to Action */}
-          <div className="text-center bg-gradient-subtle rounded-2xl p-8 border border-border">
-            <h3 className="text-xl font-semibold mb-4">Ready to work together?</h3>
-            <p className="text-muted-foreground mb-6">
-              Let&apos;s discuss how these skills can help bring your project to life
-            </p>
-            <button 
-              onClick={() => {
-                const element = document.querySelector("#contact");
-                if (element) element.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-6 py-3 bg-gradient text-primary-foreground rounded-lg font-semibold hover-lift focus-ring"
-            >
-              Start a Conversation
-            </button>
           </div>
         </div>
       </div>

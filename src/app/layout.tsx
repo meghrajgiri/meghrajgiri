@@ -88,7 +88,7 @@ export default function RootLayout({
                 <main className="min-h-screen">
                   {children}
                 </main>
-                <footer className="border-t bg-card/50 backdrop-blur-sm">
+                <footer className="border-t border-border/30 dark:border-transparent bg-card/50 backdrop-blur-sm">
                   <div className="container mx-auto px-6 py-8">
                     <div className="text-center text-muted-foreground">
                       <p>&copy; {new Date().getFullYear()} {SITE_DATA.metadata.author}. All rights reserved.</p>
