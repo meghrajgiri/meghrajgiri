@@ -1,67 +1,68 @@
 "use client";
 
+import { Icon } from '@iconify/react';
 import { SITE_DATA } from "@/config";
 
 export function SkillsSection() {
   const skillSections = [
     {
       title: "Frontend",
-      icon: "🎨",
+      icon: "mdi:palette",
       description: "Modern UI/UX development",
       skills: [
-        { name: "React", icon: "⚛️" },
-        { name: "Next.js", icon: "▲" },
-        { name: "TypeScript", icon: "📘" },
-        { name: "Tailwind CSS", icon: "💨" },
-        { name: "JavaScript", icon: "🟨" },
-        { name: "Vue.js", icon: "💚" },
-        { name: "CSS3", icon: "🎨" },
-        { name: "HTML5", icon: "📄" }
+        { name: "React", icon: "logos:react" },
+        { name: "Next.js", icon: "logos:nextjs-icon" },
+        { name: "TypeScript", icon: "logos:typescript-icon" },
+        { name: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
+        { name: "JavaScript", icon: "logos:javascript" },
+        { name: "Vue.js", icon: "logos:vue" },
+        { name: "CSS3", icon: "logos:css-3" },
+        { name: "HTML5", icon: "logos:html-5" }
       ]
     },
     {
       title: "Backend",
-      icon: "⚙️",
+      icon: "mdi:cog",
       description: "Scalable server solutions",
       skills: [
-        { name: "Node.js", icon: "🟢" },
-        { name: "Python", icon: "🐍" },
-        { name: "PostgreSQL", icon: "🐘" },
-        { name: "MongoDB", icon: "🍃" },
-        { name: "Express.js", icon: "🚂" },
-        { name: "FastAPI", icon: "⚡" },
-        { name: "Redis", icon: "🔴" },
-        { name: "GraphQL", icon: "🔗" }
+        { name: "Node.js", icon: "logos:nodejs-icon" },
+        { name: "Python", icon: "logos:python" },
+        { name: "PostgreSQL", icon: "logos:postgresql" },
+        { name: "MongoDB", icon: "logos:mongodb-icon" },
+        { name: "Express.js", icon: "simple-icons:express" },
+        { name: "FastAPI", icon: "logos:fastapi-icon" },
+        { name: "Redis", icon: "logos:redis" },
+        { name: "GraphQL", icon: "logos:graphql" }
       ]
     },
     {
       title: "Tools & Cloud",
-      icon: "☁️",
+      icon: "mdi:cloud",
       description: "Development & deployment tools",
       skills: [
-        { name: "AWS", icon: "📦" },
-        { name: "Docker", icon: "🐳" },
-        { name: "Git", icon: "🌿" },
-        { name: "Figma", icon: "🎨" },
-        { name: "Vercel", icon: "▲" },
-        { name: "VS Code", icon: "💙" },
-        { name: "Postman", icon: "📮" },
-        { name: "Kubernetes", icon: "☸️" }
+        { name: "AWS", icon: "logos:aws" },
+        { name: "Docker", icon: "logos:docker-icon" },
+        { name: "Git", icon: "logos:git-icon" },
+        { name: "Figma", icon: "logos:figma" },
+        { name: "Vercel", icon: "logos:vercel-icon" },
+        { name: "VS Code", icon: "logos:visual-studio-code" },
+        { name: "Postman", icon: "logos:postman-icon" },
+        { name: "Kubernetes", icon: "logos:kubernetes" }
       ]
     },
     {
       title: "Other Skills",
-      icon: "✨",
+      icon: "mdi:star",
       description: "APIs, testing & optimization",
       skills: [
-        { name: "REST APIs", icon: "🔌" },
-        { name: "Testing", icon: "✅" },
-        { name: "Performance", icon: "⚡" },
-        { name: "SEO", icon: "🔍" },
-        { name: "Accessibility", icon: "♿" },
-        { name: "CI/CD", icon: "🔄" },
-        { name: "Monitoring", icon: "📊" },
-        { name: "Security", icon: "🔒" }
+        { name: "REST APIs", icon: "mdi:api" },
+        { name: "Testing", icon: "mdi:test-tube" },
+        { name: "Performance", icon: "mdi:speedometer" },
+        { name: "SEO", icon: "mdi:magnify" },
+        { name: "Accessibility", icon: "mdi:wheelchair-accessibility" },
+        { name: "CI/CD", icon: "mdi:sync" },
+        { name: "Monitoring", icon: "mdi:chart-line" },
+        { name: "Security", icon: "mdi:shield-check" }
       ]
     }
   ];
@@ -90,7 +91,7 @@ export function SkillsSection() {
                 {/* Section Header */}
                 <div className="text-center space-y-2">
                   <div className="flex items-center justify-center gap-3">
-                    <div className="text-2xl">{section.icon}</div>
+                    <Icon icon={section.icon} className="text-2xl text-primary" />
                     <h3 className="text-2xl font-bold">{section.title}</h3>
                   </div>
                   <p className="text-muted-foreground text-sm">{section.description}</p>
@@ -110,7 +111,7 @@ export function SkillsSection() {
                           flex flex-col items-center justify-center text-center space-y-3 h-[120px] w-[140px] flex-shrink-0"
                       >
                         <div className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                          {skill.icon}
+                          <Icon icon={skill.icon} />
                         </div>
                         <div className="space-y-1">
                           <h4 className="font-semibold text-sm group-hover:text-primary transition-colors duration-300">
@@ -129,7 +130,7 @@ export function SkillsSection() {
                           flex flex-col items-center justify-center text-center space-y-3 h-[120px] w-[140px] flex-shrink-0"
                       >
                         <div className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                          {skill.icon}
+                          <Icon icon={skill.icon} />
                         </div>
                         <div className="space-y-1">
                           <h4 className="font-semibold text-sm group-hover:text-primary transition-colors duration-300">
