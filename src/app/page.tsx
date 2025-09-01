@@ -8,9 +8,9 @@ export default function Home() {
   return (
     <div className="animate-fadeIn">
       <HeroSection />
-      <AboutSection />
-      <SkillsSection />
       <ProjectsSection />
+      <SkillsSection />
+      <AboutSection />
       <ContactSection />
     </div>
   );
