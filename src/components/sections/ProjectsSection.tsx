@@ -68,27 +68,6 @@ export function ProjectsSection() {
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center space-x-4">
-                    <a
-                      href={project.links?.demo || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-white text-black rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200"
-                    >
-                      View Project
-                    </a>
-                    {project.links?.case_study && (
-                      <a
-                        href={project.links.case_study}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 border border-white text-white rounded-lg font-medium hover:bg-white hover:text-black transition-colors duration-200"
-                      >
-                        Case Study
-                      </a>
-                    )}
-                  </div>
                 </div>
 
                 {/* Project Info */}
