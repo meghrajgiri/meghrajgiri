@@ -127,8 +127,8 @@ export function AboutSection() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`relative flex flex-1 items-center justify-center space-x-1.5 whitespace-nowrap rounded-md px-3 py-2 text-xs font-medium transition-all duration-300 sm:flex-none sm:space-x-3 sm:rounded-xl sm:px-6 sm:py-4 sm:text-base md:px-8 md:py-4 ${
                   activeTab === tab.id
-                    ? "from-primary/80 to-primary/60 text-white bg-gradient-to-r shadow-md"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    ? "bg-slate-800 dark:from-primary dark:to-primary/80 dark:bg-gradient-to-r text-white shadow-md"
+                    : "text-slate-600 dark:text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 } ${index > 0 ? "border-border/50 border-l" : ""}`}
               >
                 <span className="text-sm sm:text-lg">{tab.icon}</span>
