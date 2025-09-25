@@ -4,8 +4,8 @@ export const contactConfig = {
   subtitle: "Have a project in mind? Let's discuss how we can bring your ideas to life.",
   
   contactInfo: {
-    email: "hello@meghrajgiri.dev",
-    phone: "+977 9800000000",
+    email: "meghraj.giri2000@gmail.com",
+    phone: "+977 9804410241",
     location: "Kathmandu, Nepal",
     timezone: "GMT+5:45"
   },

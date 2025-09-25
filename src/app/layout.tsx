@@ -92,7 +92,6 @@ export default function RootLayout({
                   <div className="container mx-auto px-6 py-8">
                     <div className="text-center text-muted-foreground">
                       <p>&copy; {new Date().getFullYear()} {SITE_DATA.metadata.author}. All rights reserved.</p>
-                      <p className="mt-2 text-sm">Built with Next.js, TypeScript, and Tailwind CSS</p>
                     </div>
                   </div>
                 </footer>
