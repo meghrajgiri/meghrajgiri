@@ -8,11 +8,11 @@ const supabase = createClient(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { status } = await request.json();
-    const { id } = params;
+    const { id } = await params;
 
     // Validate status
     if (!['unread', 'read', 'replied'].includes(status)) {
