@@ -1,25 +1,25 @@
-import { SITE_DATA } from "@/config";
+import { getAllConfig } from "@/lib/config";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectDetail } from "@/components/projects/ProjectDetail";
+
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-function getProject(slug: string) {
-  return SITE_DATA.projects.projects.find((p) => p.slug === slug);
-}
-
 export async function generateStaticParams() {
-  return SITE_DATA.projects.projects.map((project) => ({
-    slug: project.slug,
-  }));
+  const config = await getAllConfig();
+  return config.projects.projects
+    .filter((p) => p.published !== false)
+    .map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProject(slug);
+  const config = await getAllConfig();
+  const project = config.projects.projects.find((p) => p.slug === slug && p.published !== false);
 
   if (!project) {
     return { title: "Project Not Found" };
@@ -40,8 +40,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: `${SITE_DATA.metadata.url}/projects/${project.slug}`,
-      siteName: SITE_DATA.metadata.siteName,
+      url: `${config.metadata.url}/projects/${project.slug}`,
+      siteName: config.metadata.siteName,
       type: "article",
       images: [
         {
@@ -56,24 +56,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      creator: SITE_DATA.metadata.twitter,
+      creator: config.metadata.twitter,
       images: [project.image],
     },
     alternates: {
-      canonical: `${SITE_DATA.metadata.url}/projects/${project.slug}`,
+      canonical: `${config.metadata.url}/projects/${project.slug}`,
     },
   };
 }
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
-  const project = getProject(slug);
+  const config = await getAllConfig();
+  const project = config.projects.projects.find((p) => p.slug === slug && p.published !== false);
 
   if (!project) {
     notFound();
   }
 
-  // JSON-LD structured data
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -82,8 +82,8 @@ export default async function ProjectPage({ params }: Props) {
     image: project.image,
     author: {
       "@type": "Person",
-      name: SITE_DATA.metadata.author,
-      url: SITE_DATA.metadata.url,
+      name: config.metadata.author,
+      url: config.metadata.url,
     },
     dateCreated: project.year,
     genre: project.category,

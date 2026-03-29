@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import { SITE_DATA } from "@/config";
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 
 const skillSections = [
   {
@@ -49,6 +49,8 @@ const skillSections = [
 ];
 
 export function SkillsSection() {
+  const siteConfig = useSiteConfig();
+
   return (
     <section id="skills" className="bg-background px-6 py-24">
       <div className="container mx-auto max-w-5xl">
@@ -57,14 +59,14 @@ export function SkillsSection() {
           <div className="space-y-4 text-center">
             <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 backdrop-blur-sm dark:border-primary/10 dark:bg-primary/5">
               <span className="text-sm font-medium text-primary">
-                {SITE_DATA.skills.badge}
+                {siteConfig.skills.badge}
               </span>
             </div>
             <h2 className="text-4xl font-bold md:text-5xl">
-              {SITE_DATA.skills.title}
+              {siteConfig.skills.title}
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              {SITE_DATA.skills.subtitle}
+              {siteConfig.skills.subtitle}
             </p>
           </div>
 

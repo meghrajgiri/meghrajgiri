@@ -1,9 +1,10 @@
 "use client";
 
-import { SITE_DATA } from "@/config";
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import { useEffect, useRef, useState } from "react";
 
 export function AboutSection() {
+  const siteConfig = useSiteConfig();
   const [isVisible, setIsVisible] = useState(false);
   const [activeTab, setActiveTab] = useState<
     "overview" | "journey" | "education"
@@ -31,7 +32,7 @@ export function AboutSection() {
     { id: "education", label: "Education", icon: "🎓" },
   ] as const;
 
-  const experiences = SITE_DATA.experience.experiences;
+  const experiences = siteConfig.experience.experiences;
 
   return (
     <section
@@ -60,14 +61,14 @@ export function AboutSection() {
           <div className="bg-primary/10 dark:bg-primary/5 border-primary/20 dark:border-primary/10 mb-4 inline-flex items-center rounded-full border px-4 py-2 backdrop-blur-sm sm:mb-6 sm:px-6 sm:py-3">
             <span className="mr-2 text-sm font-medium text-primary">✨</span>
             <span className="text-xs font-medium text-primary sm:text-sm">
-              {SITE_DATA.about.badge}
+              {siteConfig.about.badge}
             </span>
           </div>
           <h2 className="mb-4 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text px-4 text-3xl font-bold text-transparent sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            {SITE_DATA.about.title}
+            {siteConfig.about.title}
           </h2>
           <p className="mx-auto max-w-3xl px-4 text-base leading-relaxed text-muted-foreground sm:text-lg md:text-xl lg:text-2xl">
-            {SITE_DATA.about.subtitle}
+            {siteConfig.about.subtitle}
           </p>
         </div>
 
@@ -108,7 +109,7 @@ export function AboutSection() {
             <div className="mx-auto max-w-4xl space-y-6 sm:space-y-8">
               {/* Content */}
               <div className="space-y-4 sm:space-y-6">
-                {SITE_DATA.about.description.map((paragraph, index) => (
+                {siteConfig.about.description.map((paragraph, index) => (
                   <p
                     key={index}
                     className="px-4 text-center text-base leading-relaxed text-muted-foreground sm:text-lg"
@@ -120,7 +121,7 @@ export function AboutSection() {
 
               {/* Stats Cards */}
               <div className="mx-auto grid max-w-2xl grid-cols-1 gap-4 px-4 sm:grid-cols-3 sm:gap-6">
-                {SITE_DATA.about.stats.map((stat, index) => (
+                {siteConfig.about.stats.map((stat, index) => (
                   <div
                     key={index}
                     className="from-card/80 to-card/40 hover:border-primary/30 group rounded-xl border border-border bg-gradient-to-br p-4 text-center backdrop-blur-xl transition-all duration-300 hover:scale-105 sm:rounded-2xl sm:p-6"
@@ -242,17 +243,17 @@ export function AboutSection() {
                   <div className="from-primary/10 to-accent/10 border-primary/20 inline-flex items-center gap-2 rounded-full border bg-gradient-to-r px-4 py-2 sm:px-6 sm:py-3">
                     <span className="text-base sm:text-lg">🎓</span>
                     <span className="text-xs font-medium sm:text-sm">
-                      {SITE_DATA.education.title}
+                      {siteConfig.education.title}
                     </span>
                   </div>
                   <p className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base">
-                    {SITE_DATA.education.subtitle}
+                    {siteConfig.education.subtitle}
                   </p>
                 </div>
 
                 {/* Education Cards */}
                 <div className="space-y-4 px-4 sm:space-y-8">
-                  {SITE_DATA.education.education.map((education, index) => (
+                  {siteConfig.education.education.map((education, index) => (
                     <div
                       key={education.id}
                       className="from-card/60 to-card/30 hover:border-primary/30 group relative overflow-hidden rounded-xl border border-border bg-gradient-to-br p-4 transition-all duration-500 hover:scale-105 sm:rounded-3xl sm:p-8"
@@ -336,7 +337,7 @@ export function AboutSection() {
                     Academic Highlights
                   </h3>
                   <div className="mx-auto grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
-                    {SITE_DATA.education.highlights.map((highlight, index) => (
+                    {siteConfig.education.highlights.map((highlight, index) => (
                       <div key={index} className="space-y-2">
                         <div className="text-xl font-bold text-primary sm:text-2xl">
                           {highlight.value}
@@ -359,11 +360,11 @@ export function AboutSection() {
         >
           <div className="relative inline-block">
             <h3 className="mb-3 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-2xl font-bold text-transparent sm:mb-4 sm:text-3xl">
-              {SITE_DATA.about.callToAction.title}
+              {siteConfig.about.callToAction.title}
             </h3>
           </div>
           <p className="mx-auto mb-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:mb-8 sm:text-lg">
-            {SITE_DATA.about.callToAction.description}
+            {siteConfig.about.callToAction.description}
           </p>
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <button
@@ -375,7 +376,7 @@ export function AboutSection() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-accent-foreground to-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <span className="relative z-10 flex items-center justify-center gap-2">
-                {SITE_DATA.about.callToAction.buttonText}
+                {siteConfig.about.callToAction.buttonText}
                 <svg
                   className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
                   fill="none"

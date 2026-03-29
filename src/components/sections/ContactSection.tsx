@@ -1,9 +1,10 @@
 "use client";
 
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import { useState } from "react";
-import { SITE_DATA } from "@/config";
 
 export function ContactSection() {
+  const siteConfig = useSiteConfig();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -62,8 +63,8 @@ export function ContactSection() {
         </svg>
       ),
       title: "Email",
-      value: SITE_DATA.contact.contactInfo.email,
-      link: `mailto:${SITE_DATA.contact.contactInfo.email}`
+      value: siteConfig.contact.contactInfo.email,
+      link: `mailto:${siteConfig.contact.contactInfo.email}`
     },
     {
       icon: (
@@ -73,7 +74,7 @@ export function ContactSection() {
         </svg>
       ),
       title: "Location",
-      value: SITE_DATA.contact.contactInfo.location,
+      value: siteConfig.contact.contactInfo.location,
       link: null
     },
     {
@@ -83,7 +84,7 @@ export function ContactSection() {
         </svg>
       ),
       title: "Response Time",
-      value: SITE_DATA.contact.availability.responseTime,
+      value: siteConfig.contact.availability.responseTime,
       link: null
     }
   ];
@@ -94,9 +95,9 @@ export function ContactSection() {
         <div className="space-y-16">
           {/* Section Header */}
           <div className="text-center space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-gradient">{SITE_DATA.contact.title}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient">{siteConfig.contact.title}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {SITE_DATA.contact.subtitle}
+              {siteConfig.contact.subtitle}
             </p>
           </div>
 
@@ -114,7 +115,7 @@ export function ContactSection() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium">
-                      {SITE_DATA.contact.form.fields.name.label} *
+                      {siteConfig.contact.form.fields.name.label} *
                     </label>
                     <input
                       type="text"
@@ -124,12 +125,12 @@ export function ContactSection() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                      placeholder={SITE_DATA.contact.form.fields.name.placeholder}
+                      placeholder={siteConfig.contact.form.fields.name.placeholder}
                     />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium">
-                      {SITE_DATA.contact.form.fields.email.label} *
+                      {siteConfig.contact.form.fields.email.label} *
                     </label>
                     <input
                       type="email"
@@ -139,13 +140,13 @@ export function ContactSection() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                      placeholder={SITE_DATA.contact.form.fields.email.placeholder}
+                      placeholder={siteConfig.contact.form.fields.email.placeholder}
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="subject" className="text-sm font-medium">
-                    {SITE_DATA.contact.form.fields.subject.label} *
+                    {siteConfig.contact.form.fields.subject.label} *
                   </label>
                   <input
                     type="text"
@@ -155,12 +156,12 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                    placeholder={SITE_DATA.contact.form.fields.subject.placeholder}
+                    placeholder={siteConfig.contact.form.fields.subject.placeholder}
                   />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium">
-                    {SITE_DATA.contact.form.fields.message.label} *
+                    {siteConfig.contact.form.fields.message.label} *
                   </label>
                   <textarea
                     id="message"
@@ -170,7 +171,7 @@ export function ContactSection() {
                     required
                     rows={6}
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200 resize-none"
-                    placeholder={SITE_DATA.contact.form.fields.message.placeholder}
+                    placeholder={siteConfig.contact.form.fields.message.placeholder}
                   />
                 </div>
                 <button
@@ -178,7 +179,7 @@ export function ContactSection() {
                   disabled={isSubmitting}
                   className="w-full px-6 py-4 bg-gradient text-primary-foreground rounded-lg font-semibold hover-lift focus-ring disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
                 >
-                  {isSubmitting ? "Sending..." : SITE_DATA.contact.form.submitButton}
+                  {isSubmitting ? "Sending..." : siteConfig.contact.form.submitButton}
                 </button>
                 
                 {/* Status Messages */}
@@ -189,7 +190,7 @@ export function ContactSection() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       <p className="text-green-800 dark:text-green-200 font-medium">
-                        {SITE_DATA.contact.form.successMessage}
+                        {siteConfig.contact.form.successMessage}
                       </p>
                     </div>
                   </div>
@@ -202,7 +203,7 @@ export function ContactSection() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z" />
                       </svg>
                       <p className="text-red-800 dark:text-red-200 font-medium">
-                        {SITE_DATA.contact.form.errorMessage}
+                        {siteConfig.contact.form.errorMessage}
                       </p>
                     </div>
                   </div>
@@ -246,7 +247,7 @@ export function ContactSection() {
               <div className="space-y-4 pt-8 border-t border-border">
                 <h4 className="font-semibold">Follow Me</h4>
                 <div className="flex space-x-4">
-                  {SITE_DATA.contact.socialLinks.map((link) => (
+                  {siteConfig.contact.socialLinks.map((link) => (
                     <a
                       key={link.name}
                       href={link.url}
@@ -270,9 +271,9 @@ export function ContactSection() {
                     </svg>
                   </div>
                   <div className="space-y-1">
-                    <h4 className="font-medium">{SITE_DATA.contact.availability.status}</h4>
+                    <h4 className="font-medium">{siteConfig.contact.availability.status}</h4>
                     <p className="text-sm text-muted-foreground">
-                      {SITE_DATA.contact.availability.responseTime}. {SITE_DATA.contact.availability.workingHours}
+                      {siteConfig.contact.availability.responseTime}. {siteConfig.contact.availability.workingHours}
                     </p>
                   </div>
                 </div>
