@@ -1,11 +1,12 @@
 "use client";
 
-import { SITE_DATA } from "@/config";
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export function Navigation() {
+  const siteConfig = useSiteConfig();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -22,7 +23,7 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = SITE_DATA.navigation.items;
+  const navItems = siteConfig.navigation.items;
 
   if (!mounted) {
     return (
@@ -59,7 +60,7 @@ export function Navigation() {
           <div className="relative">
             <div className="via-primary/90 to-accent-foreground shadow-primary/20 group-hover:shadow-primary/40 flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-primary shadow-2xl transition-all duration-500 group-hover:rotate-3 group-hover:scale-110">
               <span className="text-primary-foreground text-lg font-black tracking-tight">
-                {SITE_DATA.personal.initials}
+                {siteConfig.personal.initials}
               </span>
             </div>
             <div className="absolute -right-1 -top-1 flex h-3 w-3 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-emerald-500 shadow-lg">
@@ -68,10 +69,10 @@ export function Navigation() {
           </div>
           <div className="hidden space-y-1 sm:block">
             <div className="text-foreground text-lg font-bold tracking-tight transition-colors duration-300 group-hover:text-primary">
-              {SITE_DATA.personal.name}
+              {siteConfig.personal.name}
             </div>
             <div className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
-              {SITE_DATA.personal.role}
+              {siteConfig.personal.role}
             </div>
           </div>
         </Link>

@@ -1,6 +1,6 @@
 "use client";
 
-import { SITE_DATA } from "@/config";
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import { useEffect, useState } from "react";
 
 interface LoadingScreenProps {
@@ -8,6 +8,7 @@ interface LoadingScreenProps {
 }
 
 export function LoadingScreen({ children }: LoadingScreenProps) {
+  const siteConfig = useSiteConfig();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export function LoadingScreen({ children }: LoadingScreenProps) {
             <div className="relative">
               <div className="via-primary/90 shadow-primary/20 flex h-16 w-16 animate-pulse items-center justify-center rounded-3xl bg-gradient-to-br from-primary to-accent-foreground shadow-2xl">
                 <span className="text-xl font-black tracking-tight text-primary-foreground">
-                  {SITE_DATA.personal.initials}
+                  {siteConfig.personal.initials}
                 </span>
               </div>
               {/* Status indicator */}
@@ -67,7 +68,7 @@ export function LoadingScreen({ children }: LoadingScreenProps) {
           {/* Loading Text */}
           <div className="space-y-4">
             <h1 className="text-2xl font-bold text-foreground md:text-3xl">
-              {SITE_DATA.personal.name}
+              {siteConfig.personal.name}
             </h1>
             <p className="animate-pulse text-muted-foreground">
               Loading amazing experiences...

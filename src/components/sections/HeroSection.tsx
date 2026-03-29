@@ -1,9 +1,10 @@
 "use client";
 
-import { SITE_DATA } from "@/config";
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import { useEffect, useState } from "react";
 
 export function HeroSection() {
+  const siteConfig = useSiteConfig();
   const [mounted, setMounted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -117,13 +118,13 @@ export function HeroSection() {
                   <h1 className="text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                     <span className="relative block">
                       <span className="from-foreground to-foreground bg-gradient-to-r via-primary bg-clip-text text-transparent">
-                        {SITE_DATA.hero.mainTitle.line1}
+                        {siteConfig.hero.mainTitle.line1}
                       </span>
                       <div className="to-accent-foreground absolute -right-2 -top-1 h-6 w-6 animate-bounce rounded-full bg-gradient-to-r from-primary opacity-60 sm:-right-4 sm:-top-2 sm:h-8 sm:w-8"></div>
                     </span>
                     <span className="relative mt-1 block sm:mt-2">
                       <span className="via-accent-foreground bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
-                        {SITE_DATA.hero.mainTitle.line2}
+                        {siteConfig.hero.mainTitle.line2}
                       </span>
                     </span>
                   </h1>
@@ -138,24 +139,24 @@ export function HeroSection() {
                 <div className="relative">
                   <p className="text-muted-foreground mx-auto max-w-2xl text-base leading-relaxed sm:text-lg md:text-xl lg:mx-0">
                     {
-                      SITE_DATA.hero.description.split(
-                        SITE_DATA.hero.highlightedTerms.term1,
+                      siteConfig.hero.description.split(
+                        siteConfig.hero.highlightedTerms.term1,
                       )[0]
                     }
                     <span className="relative inline-block">
                       <span className="text-foreground font-semibold">
-                        {SITE_DATA.hero.highlightedTerms.term1}
+                        {siteConfig.hero.highlightedTerms.term1}
                       </span>
                       <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-gradient-to-r from-primary to-transparent" />
                     </span>
                     {
-                      SITE_DATA.hero.description
-                        .split(SITE_DATA.hero.highlightedTerms.term1)[1]
-                        .split(SITE_DATA.hero.highlightedTerms.term2)[0]
+                      siteConfig.hero.description
+                        .split(siteConfig.hero.highlightedTerms.term1)[1]
+                        .split(siteConfig.hero.highlightedTerms.term2)[0]
                     }
                     <span className="relative inline-block">
                       <span className="text-foreground font-semibold">
-                        {SITE_DATA.hero.highlightedTerms.term2}
+                        {siteConfig.hero.highlightedTerms.term2}
                       </span>
                       <span className="from-accent-foreground absolute bottom-0 left-0 block h-0.5 w-full bg-gradient-to-r to-transparent" />
                     </span>
@@ -168,24 +169,24 @@ export function HeroSection() {
             <div className="flex flex-col items-center justify-center gap-4 pt-6 sm:flex-row sm:gap-6 sm:pt-8 lg:justify-start">
               <button
                 onClick={() =>
-                  scrollToSection(SITE_DATA.hero.buttons.primary.href)
+                  scrollToSection(siteConfig.hero.buttons.primary.href)
                 }
                 className="text-primary-foreground hover:shadow-primary/25 focus-ring group relative w-full overflow-hidden rounded-xl bg-primary px-6 py-3 text-base font-semibold shadow-2xl transition-all duration-300 hover:scale-105 sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4"
               >
                 <div className="via-accent-foreground absolute inset-0 bg-gradient-to-r from-primary to-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <span className="relative z-10">
-                  {SITE_DATA.hero.buttons.primary.text}
+                  {siteConfig.hero.buttons.primary.text}
                 </span>
               </button>
               <button
                 onClick={() =>
-                  scrollToSection(SITE_DATA.hero.buttons.secondary.href)
+                  scrollToSection(siteConfig.hero.buttons.secondary.href)
                 }
                 className="bg-card/50 border-border hover:border-primary/50 focus-ring group relative w-full overflow-hidden rounded-xl border-2 px-6 py-3 text-base font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4"
               >
                 <div className="bg-primary/5 absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <span className="relative z-10">
-                  {SITE_DATA.hero.buttons.secondary.text}
+                  {siteConfig.hero.buttons.secondary.text}
                 </span>
               </button>
             </div>
@@ -196,7 +197,7 @@ export function HeroSection() {
               style={{ animationDelay: "0.5s" }}
             >
               <div className="mx-auto grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6 md:gap-8 lg:mx-0">
-                {SITE_DATA.hero.stats.map((stat, index) => (
+                {siteConfig.hero.stats.map((stat, index) => (
                   <div
                     key={index}
                     className="bg-card/30 border-border hover:border-primary/30 animate-fadeIn group relative rounded-xl border p-4 backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:rounded-2xl sm:p-6"
@@ -268,7 +269,7 @@ export function HeroSection() {
                     {/* Actual profile image */}
                     <img
                       src="/Meghraj.png"
-                      alt={`${SITE_DATA.personal.name} - ${SITE_DATA.personal.role}`}
+                      alt={`${siteConfig.personal.name} - ${siteConfig.personal.role}`}
                       className="h-full w-full object-cover object-center"
                     />
                     {/* Subtle overlay for better integration */}
@@ -290,7 +291,7 @@ export function HeroSection() {
 
               {/* Skills badges floating around - responsive */}
               <div className="hidden lg:block">
-                {SITE_DATA.hero.floatingSkills.map((skill, index) => {
+                {siteConfig.hero.floatingSkills.map((skill, index) => {
                   const positions = [
                     { position: "absolute -left-8 top-8", delay: "0s" },
                     { position: "absolute -right-12 top-1/3", delay: "1s" },
@@ -313,7 +314,7 @@ export function HeroSection() {
 
               {/* Mobile skills badges - horizontal layout */}
               <div className="mt-6 flex flex-wrap justify-center gap-2 lg:hidden">
-                {SITE_DATA.hero.floatingSkills
+                {siteConfig.hero.floatingSkills
                   .slice(0, 3)
                   .map((skill, index) => (
                     <div

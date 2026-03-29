@@ -1,45 +1,51 @@
-import { SITE_DATA } from "@/config";
+import { getAllConfig } from "@/lib/config";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
 
-export const metadata: Metadata = {
-  title: "Projects | Meghraj Giri - Full Stack Developer",
-  description:
-    "Explore my portfolio of projects spanning E-Commerce, Healthcare, Ed-Tech, Fin-Tech, and more. Built with React, Next.js, TypeScript, and modern technologies.",
-  keywords: [
-    "Projects",
-    "Portfolio",
-    "Web Development",
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Full Stack",
-    "Meghraj Giri",
-  ],
-  openGraph: {
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getAllConfig();
+  return {
     title: "Projects | Meghraj Giri - Full Stack Developer",
     description:
-      "Explore my portfolio of projects spanning E-Commerce, Healthcare, Ed-Tech, Fin-Tech, and more.",
-    url: `${SITE_DATA.metadata.url}/projects`,
-    siteName: SITE_DATA.metadata.siteName,
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Projects | Meghraj Giri",
-    description:
-      "Explore my portfolio of projects spanning E-Commerce, Healthcare, Ed-Tech, Fin-Tech, and more.",
-    creator: SITE_DATA.metadata.twitter,
-  },
-  alternates: {
-    canonical: `${SITE_DATA.metadata.url}/projects`,
-  },
-};
+      "Explore my portfolio of projects spanning E-Commerce, Healthcare, Ed-Tech, Fin-Tech, and more. Built with React, Next.js, TypeScript, and modern technologies.",
+    keywords: [
+      "Projects",
+      "Portfolio",
+      "Web Development",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Full Stack",
+      "Meghraj Giri",
+    ],
+    openGraph: {
+      title: "Projects | Meghraj Giri - Full Stack Developer",
+      description:
+        "Explore my portfolio of projects spanning E-Commerce, Healthcare, Ed-Tech, Fin-Tech, and more.",
+      url: `${config.metadata.url}/projects`,
+      siteName: config.metadata.siteName,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Projects | Meghraj Giri",
+      description:
+        "Explore my portfolio of projects spanning E-Commerce, Healthcare, Ed-Tech, Fin-Tech, and more.",
+      creator: config.metadata.twitter,
+    },
+    alternates: {
+      canonical: `${config.metadata.url}/projects`,
+    },
+  };
+}
 
-export default function ProjectsPage() {
-  const { projects, badge, title, subtitle, callToAction } =
-    SITE_DATA.projects;
+export default async function ProjectsPage() {
+  const config = await getAllConfig();
+  const { badge, title, subtitle, callToAction } = config.projects;
+  const projects = config.projects.projects.filter((p) => p.published !== false);
 
   return (
     <section className="min-h-screen px-6 pb-24 pt-32">
@@ -58,7 +64,6 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          {/* Client component for filtering + grid */}
           <ProjectsGrid projects={projects} />
 
           {/* CTA */}

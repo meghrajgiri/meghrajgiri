@@ -1,10 +1,11 @@
 "use client";
 
-import { SITE_DATA } from "@/config";
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import Link from "next/link";
 
 export function ProjectsSection() {
-  const projects = SITE_DATA.projects.projects.slice(0, 3);
+  const siteConfig = useSiteConfig();
+  const projects = siteConfig.projects.projects.filter((p) => p.published !== false).slice(0, 3);
 
   return (
     <section id="projects" className="bg-slate-50/50 px-6 py-24 dark:bg-slate-100/5">
@@ -14,14 +15,14 @@ export function ProjectsSection() {
           <div className="space-y-4 text-center">
             <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 backdrop-blur-sm dark:border-primary/10 dark:bg-primary/5">
               <span className="text-sm font-medium text-primary">
-                {SITE_DATA.projects.badge}
+                {siteConfig.projects.badge}
               </span>
             </div>
             <h2 className="text-gradient text-4xl font-bold md:text-5xl">
-              {SITE_DATA.projects.title}
+              {siteConfig.projects.title}
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              {SITE_DATA.projects.subtitle}
+              {siteConfig.projects.subtitle}
             </p>
           </div>
 

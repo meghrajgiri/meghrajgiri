@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "add-project": "node scripts/add-project.mjs"
+    "add-project": "node scripts/add-project.mjs",
+    "db:migrate": "node --env-file=.env supabase/migrate.mjs",
+    "db:migrate:latest": "node --env-file=.env supabase/migrate.mjs 002",
+    "db:seed": "node --env-file=.env scripts/seed-config.mjs"
   },
   "dependencies": {
     "@iconify/react": "^6.0.1",
