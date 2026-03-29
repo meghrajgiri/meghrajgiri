@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { SITE_DATA } from "@/config";
+import { useEffect, useState } from "react";
 
 interface LoadingScreenProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ export function LoadingScreen({ children }: LoadingScreenProps) {
     // Wait for the page to fully load
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); // 1.5 seconds loading time
+    }, 1000); // 1.5 seconds loading time
 
     return () => clearTimeout(timer);
   }, []);
@@ -25,64 +25,74 @@ export function LoadingScreen({ children }: LoadingScreenProps) {
         {/* Background effects */}
         <div className="absolute inset-0">
           {/* Animated gradient mesh */}
-          <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/5 to-background" />
-          
+          <div className="via-muted/5 absolute inset-0 bg-gradient-to-br from-background to-background" />
+
           {/* Floating orbs */}
-          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/3 rounded-full blur-3xl animate-pulse-subtle" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/2 rounded-full blur-3xl animate-pulse-subtle" style={{animationDelay: '1s'}} />
-          
+          <div className="bg-primary/3 absolute left-1/4 top-1/4 h-72 w-72 animate-pulse-subtle rounded-full blur-3xl" />
+          <div
+            className="bg-accent/2 absolute bottom-1/4 right-1/4 h-96 w-96 animate-pulse-subtle rounded-full blur-3xl"
+            style={{ animationDelay: "1s" }}
+          />
+
           {/* Subtle grid pattern */}
-          <div 
+          <div
             className="absolute inset-0 opacity-[0.02]"
             style={{
               backgroundImage: `
                 linear-gradient(var(--border) 1px, transparent 1px),
                 linear-gradient(90deg, var(--border) 1px, transparent 1px)
               `,
-              backgroundSize: '40px 40px',
+              backgroundSize: "40px 40px",
             }}
           />
         </div>
 
         {/* Loading Content */}
-        <div className="relative z-10 text-center space-y-8">
+        <div className="relative z-10 space-y-8 text-center">
           {/* Logo */}
           <div className="flex justify-center">
             <div className="relative">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary via-primary/90 to-accent-foreground rounded-3xl flex items-center justify-center shadow-2xl shadow-primary/20 animate-pulse">
-                <span className="text-xl font-black text-primary-foreground tracking-tight">{SITE_DATA.personal.initials}</span>
+              <div className="via-primary/90 shadow-primary/20 flex h-16 w-16 animate-pulse items-center justify-center rounded-3xl bg-gradient-to-br from-primary to-accent-foreground shadow-2xl">
+                <span className="text-xl font-black tracking-tight text-primary-foreground">
+                  {SITE_DATA.personal.initials}
+                </span>
               </div>
               {/* Status indicator */}
-              <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-                <div className="w-2 h-2 bg-white rounded-full animate-ping" />
+              <div className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-emerald-500 shadow-lg">
+                <div className="h-2 w-2 animate-ping rounded-full bg-white" />
               </div>
             </div>
           </div>
 
           {/* Loading Text */}
           <div className="space-y-4">
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+            <h1 className="text-2xl font-bold text-foreground md:text-3xl">
               {SITE_DATA.personal.name}
             </h1>
-            <p className="text-muted-foreground animate-pulse">
+            <p className="animate-pulse text-muted-foreground">
               Loading amazing experiences...
             </p>
           </div>
 
           {/* Loading Animation */}
           <div className="flex justify-center space-x-2">
-            <div className="w-3 h-3 bg-primary rounded-full animate-bounce" style={{animationDelay: '0s'}} />
-            <div className="w-3 h-3 bg-primary rounded-full animate-bounce" style={{animationDelay: '0.1s'}} />
-            <div className="w-3 h-3 bg-primary rounded-full animate-bounce" style={{animationDelay: '0.2s'}} />
+            <div
+              className="h-3 w-3 animate-bounce rounded-full bg-primary"
+              style={{ animationDelay: "0s" }}
+            />
+            <div
+              className="h-3 w-3 animate-bounce rounded-full bg-primary"
+              style={{ animationDelay: "0.1s" }}
+            />
+            <div
+              className="h-3 w-3 animate-bounce rounded-full bg-primary"
+              style={{ animationDelay: "0.2s" }}
+            />
           </div>
         </div>
       </div>
     );
   }
 
-  return (
-    <div className="animate-fadeIn">
-      {children}
-    </div>
-  );
+  return <div className="animate-fadeIn">{children}</div>;
 }

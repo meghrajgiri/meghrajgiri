@@ -1,6 +1,7 @@
 import { aboutConfig } from "./about";
 import { contactConfig } from "./contact";
 import { educationConfig } from "./education";
+import { experienceConfig } from "./experience";
 import { heroConfig } from "./hero";
 import { metadataConfig } from "./metadata";
 import { navigationConfig } from "./navigation";
@@ -18,6 +19,7 @@ export const SITE_DATA = {
   projects: projectsConfig,
   contact: contactConfig,
   education: educationConfig,
+  experience: experienceConfig,
   metadata: metadataConfig,
 } as const;
 
