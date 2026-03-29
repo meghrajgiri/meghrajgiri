@@ -7,6 +7,7 @@ export const projectsConfig = {
   projects: [
     {
       id: 1,
+      slug: "thriftverse",
       title: "React Native E-commerce App - Thriftverse",
       description:
         "Thriftverse is a thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products.",
@@ -45,9 +46,9 @@ export const projectsConfig = {
       },
       highlights: ["Unique Storefront", "Seamless Checkout", "Track Order"],
     },
-    ,
     {
       id: 2,
+      slug: "cannabiz-elite",
       title: "Clinic Management System - Cannabiz Elite (Australia)",
       description:
         "Cannabiz Elite is a clinic management system purpose-built for Australian cannabis and telehealth clinics",
@@ -90,9 +91,9 @@ export const projectsConfig = {
         "Product Management",
       ],
     },
-    ,
     {
       id: 3,
+      slug: "lyve",
       title: "The LYVE app",
       description:
         "The Lyve App is a next-generation marketplace focused on transforming how users buy and sell event tickets and resell costume reservations",
@@ -120,13 +121,14 @@ export const projectsConfig = {
       links: {},
       highlights: ["Real-time chat", "Costume Marketplace"],
     },
-    ,
     {
       id: 4,
+      slug: "khatapata",
       title: "Inventory Management System - Khatapata (PWA)",
       description:
         "Inventory Management System (PWA) for Small Businesses to manage thier stocks, order and daily tasks",
-      longDescription: "Inventory Management System (PWA) for Small Businesses",
+      longDescription:
+        "Inventory Management System (PWA) for Small Businesses",
       image: "/projects/khatapata/khata_1.png",
       screenshots: [
         "/projects/khatapata/khata_10.png",
@@ -165,6 +167,7 @@ export const projectsConfig = {
     },
     {
       id: 5,
+      slug: "college-cost-secrets",
       title: "College Cost Secrets",
       description:
         "A bootstrapped financial planning service helping US families reduce college costs",
@@ -192,15 +195,28 @@ export const projectsConfig = {
       year: "2024",
       links: {},
       highlights: [],
-    },,
+    },
     {
       id: 6,
+      slug: "bookvid",
       title: "Bookvid - Live Video Booking Marketplace",
-      description: "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions.",
-      longDescription: "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions. It allows users to create booking pages, schedule sessions, and receive automatic payments through integrations with popular payment (e.g., PayPal, Venmo) and calendar apps. Clients can self-schedule, and users are notified of bookings and payments, simplifying managing and monetizing virtual meetings. The platform supports both individual and group sessions and ensures secure, encrypted communication",
+      description:
+        "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions.",
+      longDescription:
+        "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions. It allows users to create booking pages, schedule sessions, and receive automatic payments through integrations with popular payment (e.g., PayPal, Venmo) and calendar apps. Clients can self-schedule, and users are notified of bookings and payments, simplifying managing and monetizing virtual meetings. The platform supports both individual and group sessions and ensures secure, encrypted communication",
       image: "/projects/bookvid/bookvid.webp",
-      screenshots: ["/projects/bookvid/bookvid_1.jpg","/projects/bookvid/bookvid_2.jpg","/projects/bookvid/bookvid_3.jpg","/projects/bookvid/bookvid_4.jpg","/projects/bookvid/bookvid_5.jpg","/projects/bookvid/bookvid_6.jpg","/projects/bookvid/bookvid_7.jpg","/projects/bookvid/bookvid_8.jpg","/projects/bookvid/bookvid_9.jpg"],
-      technologies: ["Calendly","Next.js","Web Sockets","Tailwind CSS"],
+      screenshots: [
+        "/projects/bookvid/bookvid_1.jpg",
+        "/projects/bookvid/bookvid_2.jpg",
+        "/projects/bookvid/bookvid_3.jpg",
+        "/projects/bookvid/bookvid_4.jpg",
+        "/projects/bookvid/bookvid_5.jpg",
+        "/projects/bookvid/bookvid_6.jpg",
+        "/projects/bookvid/bookvid_7.jpg",
+        "/projects/bookvid/bookvid_8.jpg",
+        "/projects/bookvid/bookvid_9.jpg",
+      ],
+      technologies: ["Calendly", "Next.js", "Web Sockets", "Tailwind CSS"],
       category: "Other",
       status: "Completed",
       year: "2024",
@@ -208,27 +224,39 @@ export const projectsConfig = {
       highlights: [
         "Event Booking",
         "Session Booking",
-        "Calendar Integration"
-      ]
+        "Calendar Integration",
+      ],
     },
     {
       id: 7,
+      slug: "yume",
       title: "Gambling Recovery App - Yume",
-      description: "Yume is an app designed to help individuals overcome gambling addiction.",
-      longDescription: "Yume is an app designed to help individuals overcome gambling addiction. Delivered 10K+ users and 25%+ paying conversion rate within 3 months of launch. The app was acquired by National Debt Relief within 6 months. Built for iOS using React Native, Expo, Firebase, and Redux with full App Store release.",
+      description:
+        "Yume is an app designed to help individuals overcome gambling addiction.",
+      longDescription:
+        "Yume is an app designed to help individuals overcome gambling addiction. Delivered 10K+ users and 25%+ paying conversion rate within 3 months of launch. The app was acquired by National Debt Relief within 6 months. Built for iOS using React Native, Expo, Firebase, and Redux with full App Store release.",
       image: "/projects/yume/thumbnail.png",
-      screenshots: ["/projects/yume/yume_1.jpg","/projects/yume/yume_2.jpg","/projects/yume/yume_3.jpg","/projects/yume/yume_4.jpg","/projects/yume/yume_5.jpg","/projects/yume/yume_6.jpg"],
-      technologies: ["React Native","Expo.io","Firebase","Stream Chat","Tailwind CSS"],
+      screenshots: [
+        "/projects/yume/yume_1.jpg",
+        "/projects/yume/yume_2.jpg",
+        "/projects/yume/yume_3.jpg",
+        "/projects/yume/yume_4.jpg",
+        "/projects/yume/yume_5.jpg",
+        "/projects/yume/yume_6.jpg",
+      ],
+      technologies: [
+        "React Native",
+        "Expo.io",
+        "Firebase",
+        "Stream Chat",
+        "Tailwind CSS",
+      ],
       category: "Other",
       status: "Completed",
       year: "2024",
       links: {},
-      highlights: [
-        "Real-time chat",
-        "Group Chat",
-        "OAuth2"
-      ]
-    }
+      highlights: ["Real-time chat", "Group Chat", "OAuth2"],
+    },
   ],
 
   callToAction: {

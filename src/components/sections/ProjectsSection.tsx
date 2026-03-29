@@ -1,120 +1,105 @@
 "use client";
 
-import { useState } from "react";
 import { SITE_DATA } from "@/config";
+import Link from "next/link";
 
 export function ProjectsSection() {
-  const [selectedCategory, setSelectedCategory] = useState("all");
-
-  const categories = [
-    { id: "all", name: "All Projects" },
-    { id: "Fin-Tech", name: "Fin-Tech" },
-    { id: "Ed-Tech", name: "Ed-Tech" },
-    { id: "E-Commerce", name: "E-Commerce" },
-    { id: "Web3", name: "Web3" },
-  ];
-
-  const projects = SITE_DATA.projects.projects;
-
-  const filteredProjects = selectedCategory === "all" 
-    ? projects 
-    : projects.filter(project => project.category === selectedCategory);
+  const projects = SITE_DATA.projects.projects.slice(0, 3);
 
   return (
-    <section id="projects" className="py-24 px-6 bg-slate-50/50 dark:bg-slate-100/5">
+    <section id="projects" className="bg-slate-50/50 px-6 py-24 dark:bg-slate-100/5">
       <div className="container mx-auto max-w-7xl">
         <div className="space-y-16">
           {/* Section Header */}
-          <div className="text-center space-y-4">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/5 border border-primary/20 dark:border-primary/10 backdrop-blur-sm">
-              <span className="text-sm font-medium text-primary">{SITE_DATA.projects.badge}</span>
+          <div className="space-y-4 text-center">
+            <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 backdrop-blur-sm dark:border-primary/10 dark:bg-primary/5">
+              <span className="text-sm font-medium text-primary">
+                {SITE_DATA.projects.badge}
+              </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gradient">{SITE_DATA.projects.title}</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-gradient text-4xl font-bold md:text-5xl">
+              {SITE_DATA.projects.title}
+            </h2>
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               {SITE_DATA.projects.subtitle}
             </p>
           </div>
 
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-2">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 focus-ring ${
-                  selectedCategory === category.id
-                    ? "bg-gradient text-primary-foreground"
-                    : "bg-muted hover:bg-accent text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, index) => (
-              <div 
+          {/* Projects Grid - Top 3 */}
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, index) => (
+              <Link
                 key={project.id}
-                className="group space-y-4"
+                href={`/projects/${project.slug}`}
+                className="hover-lift group overflow-hidden rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="relative overflow-hidden rounded-xl bg-muted aspect-video hover-lift">
-                  {/* Project image */}
-                  <img 
-                    src={project.image} 
+                <div className="relative aspect-video overflow-hidden bg-muted">
+                  <img
+                    src={project.image}
                     alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  
+                  {project.status === "In Progress" && (
+                    <div className="absolute right-3 top-3 rounded-full bg-amber-500/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                      In Progress
+                    </div>
+                  )}
                 </div>
 
-                {/* Project Info */}
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between">
-                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-200">
+                <div className="space-y-3 p-5">
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="text-xl font-semibold transition-colors duration-200 group-hover:text-primary">
                       {project.title}
                     </h3>
-                    <span className="px-2 py-1 bg-gradient text-primary-foreground text-xs font-semibold rounded-md">
+                    <span className="bg-gradient shrink-0 rounded-md px-2 py-1 text-xs font-semibold text-primary-foreground">
                       {project.category}
                     </span>
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="line-clamp-2 leading-relaxed text-muted-foreground">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
+                    {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 bg-muted text-muted-foreground text-xs font-medium rounded-md"
+                        className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground"
                       >
                         {tech}
                       </span>
                     ))}
+                    {project.technologies.length > 4 && (
+                      <span className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
+                        +{project.technologies.length - 4}
+                      </span>
+                    )}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
-          {/* Call to Action */}
-          <div className="text-center space-y-6">
-            <h3 className="text-2xl font-bold">
-              {SITE_DATA.projects.callToAction.title}
-            </h3>
-            <p className="text-muted-foreground mx-auto max-w-2xl">
-              {SITE_DATA.projects.callToAction.description}
-            </p>
-            <button
-              onClick={() => {
-                const element = document.querySelector("#contact");
-                if (element) element.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-8 py-4 bg-gradient text-primary-foreground rounded-lg font-semibold hover-lift focus-ring"
+          {/* View All */}
+          <div className="text-center">
+            <Link
+              href="/projects"
+              className="bg-gradient focus-ring hover-lift inline-flex items-center gap-2 rounded-lg px-8 py-4 font-semibold text-primary-foreground"
             >
-              {SITE_DATA.projects.callToAction.buttonText}
-            </button>
+              View All Projects
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>
