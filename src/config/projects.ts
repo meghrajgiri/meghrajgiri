@@ -1,102 +1,240 @@
 export const projectsConfig = {
-  badge: "My Work", 
+  badge: "My Work",
   title: "Featured Projects",
-  subtitle: "Innovative solutions across Fin-Tech, Ed-Tech, E-Commerce, and Web3 industries",
-  
+  subtitle:
+    "Innovative solutions across Fin-Tech, Ed-Tech, E-Commerce, and Web3 industries",
+
   projects: [
     {
       id: 1,
-      title: "Lyve (Alight)",
-      description: "A comprehensive fintech platform designed to streamline financial services and enhance user experience.",
-      longDescription: "Developed a sophisticated financial technology platform for Alight, focusing on employee benefits and financial wellness. The platform integrates modern UI/UX principles with robust backend systems to deliver seamless financial services.",
-      image: "/projects/lyve.webp",
-      technologies: ["React", "Node.js", "TypeScript", "PostgreSQL", "AWS", "Stripe API"],
-      category: "Fin-Tech",
-      status: "Completed",
-      year: "2024",
-      links: {
-        demo: "https://lyve.alight.com",
-        case_study: "/case-studies/lyve"
-      },
-      highlights: [
-        "Secure financial data processing",
-        "Real-time transaction monitoring",
-        "Employee benefits management",
-        "Responsive design across all devices",
-        "GDPR and SOX compliance"
-      ]
-    },
-    {
-      id: 2,
-      title: "LaunchX",
-      description: "An educational technology platform empowering entrepreneurs and startups with comprehensive learning resources.",
-      longDescription: "Built an innovative ed-tech platform that provides entrepreneurship education and startup incubation tools. Features include interactive courses, mentorship matching, and project collaboration spaces.",
-      image: "/projects/launchx.webp",
-      technologies: ["Next.js", "TypeScript", "MongoDB", "Socket.io", "Tailwind CSS", "Vercel"],
-      category: "Ed-Tech",
-      status: "Completed", 
-      year: "2023",
-      links: {
-        demo: "https://launchx.edu",
-        case_study: "/case-studies/launchx"
-      },
-      highlights: [
-        "Interactive learning modules",
-        "Real-time mentorship matching",
-        "Collaborative project workspace",
-        "Progress tracking and analytics",
-        "Mobile-first responsive design"
-      ]
-    },
-    {
-      id: 3,
-      title: "BookVid",
-      description: "A modern e-commerce platform for digital content, focusing on books and video educational materials.",
-      longDescription: "Created a comprehensive e-commerce solution specializing in digital educational content. The platform features advanced search, recommendation systems, and seamless digital content delivery.",
-      image: "/projects/bookvid.webp",
-      technologies: ["Vue.js", "Express.js", "MySQL", "Redis", "Elasticsearch", "AWS S3"],
+      title: "React Native E-commerce App - Thriftverse",
+      description:
+        "Thriftverse is a thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products.",
+      longDescription:
+        "Thriftverse is a modern thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products. The platform includes a buyer-facing web app with secure eSewa checkout, and a store-owner mobile app where influencers or sellers can sign up, manage their store, and share their custom subdomain. Thriftverse also handles logistics through Nepal Can Move (NCM), including order tracking, shipping coordination, and automated email notifications for both buyers and store owners.",
+      image: "/projects/thriftverse/thumbnail.png",
+      screenshots: [
+        "/projects/thriftverse/thrift_1.PNG",
+        "/projects/thriftverse/thrift_10.PNG",
+        "/projects/thriftverse/thrift_11.PNG",
+        "/projects/thriftverse/thrift_12.PNG",
+        "/projects/thriftverse/thrift_2.PNG",
+        "/projects/thriftverse/thrift_3.PNG",
+        "/projects/thriftverse/thrift_4.PNG",
+        "/projects/thriftverse/thrift_5.PNG",
+        "/projects/thriftverse/thrift_6.PNG",
+        "/projects/thriftverse/thrift_7.PNG",
+        "/projects/thriftverse/thrift_8.png",
+        "/projects/thriftverse/thrift_9.png",
+      ],
+      technologies: [
+        "React Native",
+        "React",
+        "Next.js",
+        "Node.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Supabase",
+        "Resend",
+      ],
       category: "E-Commerce",
       status: "Completed",
-      year: "2023", 
+      year: "2026",
       links: {
-        demo: "https://bookvid.com",
-        case_study: "/case-studies/bookvid"
+        demo: "https://www.thriftverse.shop/",
+      },
+      highlights: ["Unique Storefront", "Seamless Checkout", "Track Order"],
+    },
+    ,
+    {
+      id: 2,
+      title: "Clinic Management System - Cannabiz Elite (Australia)",
+      description:
+        "Cannabiz Elite is a clinic management system purpose-built for Australian cannabis and telehealth clinics",
+      longDescription:
+        "Cannabiz Elite is a clinic management system purpose-built for Australian cannabis and telehealth clinics. Unlike generic practice management software designed for GPs or specialists, the platform understands the unique operational needs of medicinal cannabis providers. From scheduling and telehealth through to prescription management and dispensary coordination, every feature is tailored to cannabis clinic workflows. This isn't a generic system retrofitted for cannabis — it's cannabis clinic management from the ground up.",
+      image: "/projects/cannabiz-elite/thumbnail.png",
+      screenshots: [
+        "/projects/cannabiz-elite/can_1.png",
+        "/projects/cannabiz-elite/can_10.png",
+        "/projects/cannabiz-elite/can_11.png",
+        "/projects/cannabiz-elite/can_12.png",
+        "/projects/cannabiz-elite/can_13.png",
+        "/projects/cannabiz-elite/can_14.png",
+        "/projects/cannabiz-elite/can_2.png",
+        "/projects/cannabiz-elite/can_3.png",
+        "/projects/cannabiz-elite/can_4.png",
+        "/projects/cannabiz-elite/can_5.png",
+        "/projects/cannabiz-elite/can_6.png",
+        "/projects/cannabiz-elite/can_7.png",
+        "/projects/cannabiz-elite/can_8.png",
+        "/projects/cannabiz-elite/can_9.png",
+      ],
+      technologies: [
+        "React",
+        "Next.JS",
+        "MedusaJS",
+        "Node.js",
+        "PostgreSQL",
+        "Resend",
+        "Twilio",
+      ],
+      category: "Healthcare",
+      status: "In Progress",
+      year: "2026",
+      links: {},
+      highlights: [
+        "Parchment",
+        "HIPAA compliance",
+        "Clerk Auth",
+        "Product Management",
+      ],
+    },
+    ,
+    {
+      id: 3,
+      title: "The LYVE app",
+      description:
+        "The Lyve App is a next-generation marketplace focused on transforming how users buy and sell event tickets and resell costume reservations",
+      longDescription:
+        "The Lyve App is a next-generation marketplace focused on transforming how users buy and sell event tickets and resell costume reservations. Designed with simplicity and efficiency in mind, The Lyve App streamlines these transactions with a 100% guarantee on both purchases and sales. Whether you're an event planner, a costume reservations sell, or a customer, the app ensures a hassle-free experience.",
+      image: "/projects/lyve/lyve.webp",
+      screenshots: [
+        "/projects/lyve/lyve_1.jpg",
+        "/projects/lyve/lyve_2.jpg",
+        "/projects/lyve/lyve_3.jpg",
+        "/projects/lyve/lyve_4.jpg",
+        "/projects/lyve/lyve_5.jpg",
+      ],
+      technologies: [
+        "React Native",
+        "Expo.io",
+        "Firebase",
+        "Tailwind CSS",
+        "GraphQl",
+        "Node.js",
+      ],
+      category: "E-Commerce",
+      status: "Completed",
+      year: "2025",
+      links: {},
+      highlights: ["Real-time chat", "Costume Marketplace"],
+    },
+    ,
+    {
+      id: 4,
+      title: "Inventory Management System - Khatapata (PWA)",
+      description:
+        "Inventory Management System (PWA) for Small Businesses to manage thier stocks, order and daily tasks",
+      longDescription: "Inventory Management System (PWA) for Small Businesses",
+      image: "/projects/khatapata/khata_1.png",
+      screenshots: [
+        "/projects/khatapata/khata_10.png",
+        "/projects/khatapata/khata_11.png",
+        "/projects/khatapata/khata_12.png",
+        "/projects/khatapata/khata_13.png",
+        "/projects/khatapata/khata_14.png",
+        "/projects/khatapata/khata_15.png",
+        "/projects/khatapata/khata_16.png",
+        "/projects/khatapata/khata_17.png",
+        "/projects/khatapata/khata_18.png",
+        "/projects/khatapata/khata_2.png",
+        "/projects/khatapata/khata_3.png",
+        "/projects/khatapata/khata_4.png",
+        "/projects/khatapata/khata_5.png",
+        "/projects/khatapata/khata_6.png",
+        "/projects/khatapata/khata_7.png",
+        "/projects/khatapata/khata_8.png",
+        "/projects/khatapata/khata_9.png",
+      ],
+      technologies: ["Next.js", "TypeScript", "Supabase", "PWA"],
+      category: "Fin-Tech",
+      status: "Completed",
+      year: "2023",
+      links: {
+        demo: "https://www.khatapata.store/",
       },
       highlights: [
-        "Advanced search and filtering",
-        "AI-powered recommendations",
-        "Secure digital content delivery",
-        "Multi-payment gateway integration",
-        "Admin dashboard with analytics"
+        "PWA",
+        "Inventory tracking",
+        "Todo lists",
+        "Expense Tracking",
+        "Live Dashboard",
+        "Multi currency",
+      ],
+    },
+    {
+      id: 5,
+      title: "College Cost Secrets",
+      description:
+        "A bootstrapped financial planning service helping US families reduce college costs",
+      longDescription:
+        "A bootstrapped financial planning service helping US families reduce college costs through SAI optimization and one-on-one consulting. Developed the subscriber dashboard, financial planning tools, and client portal using React and Next.js. The platform serves families that have collectively saved $100M in college expenses, with a Kevin Harrington endorsement and 15+ years of operation.",
+      image: "/projects/ccs/ccs.webp",
+      screenshots: [
+        "/projects/ccs/ccs_1.jpg",
+        "/projects/ccs/ccs_2.jpg",
+        "/projects/ccs/ccs_3.jpg",
+        "/projects/ccs/ccs_4.jpg",
+        "/projects/ccs/ccs_5.jpg",
+        "/projects/ccs/ccs_6.jpg",
+        "/projects/ccs/ccs_7.jpg",
+      ],
+      technologies: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Nest.js",
+      ],
+      category: "Ed-Tech",
+      status: "Completed",
+      year: "2024",
+      links: {},
+      highlights: [],
+    },,
+    {
+      id: 6,
+      title: "Bookvid - Live Video Booking Marketplace",
+      description: "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions.",
+      longDescription: "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions. It allows users to create booking pages, schedule sessions, and receive automatic payments through integrations with popular payment (e.g., PayPal, Venmo) and calendar apps. Clients can self-schedule, and users are notified of bookings and payments, simplifying managing and monetizing virtual meetings. The platform supports both individual and group sessions and ensures secure, encrypted communication",
+      image: "/projects/bookvid/bookvid.webp",
+      screenshots: ["/projects/bookvid/bookvid_1.jpg","/projects/bookvid/bookvid_2.jpg","/projects/bookvid/bookvid_3.jpg","/projects/bookvid/bookvid_4.jpg","/projects/bookvid/bookvid_5.jpg","/projects/bookvid/bookvid_6.jpg","/projects/bookvid/bookvid_7.jpg","/projects/bookvid/bookvid_8.jpg","/projects/bookvid/bookvid_9.jpg"],
+      technologies: ["Calendly","Next.js","Web Sockets","Tailwind CSS"],
+      category: "Other",
+      status: "Completed",
+      year: "2024",
+      links: {},
+      highlights: [
+        "Event Booking",
+        "Session Booking",
+        "Calendar Integration"
       ]
     },
     {
-      id: 4,
-      title: "CCS (Crypto Commerce System)",
-      description: "A cutting-edge Web3 e-commerce platform enabling cryptocurrency payments and NFT marketplace functionality.",
-      longDescription: "Developed a revolutionary Web3 commerce platform that bridges traditional e-commerce with blockchain technology. Features include crypto payments, NFT marketplace, and decentralized identity management.",
-      image: "/projects/ccs.webp",
-      technologies: ["React", "Solidity", "Ethereum", "IPFS", "Web3.js", "MetaMask"],
-      category: "Web3",
+      id: 7,
+      title: "Gambling Recovery App - Yume",
+      description: "Yume is an app designed to help individuals overcome gambling addiction.",
+      longDescription: "Yume is an app designed to help individuals overcome gambling addiction. Delivered 10K+ users and 25%+ paying conversion rate within 3 months of launch. The app was acquired by National Debt Relief within 6 months. Built for iOS using React Native, Expo, Firebase, and Redux with full App Store release.",
+      image: "/projects/yume/thumbnail.png",
+      screenshots: ["/projects/yume/yume_1.jpg","/projects/yume/yume_2.jpg","/projects/yume/yume_3.jpg","/projects/yume/yume_4.jpg","/projects/yume/yume_5.jpg","/projects/yume/yume_6.jpg"],
+      technologies: ["React Native","Expo.io","Firebase","Stream Chat","Tailwind CSS"],
+      category: "Other",
       status: "Completed",
       year: "2024",
-      links: {
-        demo: "https://ccs-web3.com",
-        case_study: "/case-studies/ccs"
-      },
+      links: {},
       highlights: [
-        "Multi-cryptocurrency payment support",
-        "NFT minting and marketplace",
-        "Smart contract integration", 
-        "Decentralized storage with IPFS",
-        "MetaMask wallet integration"
+        "Real-time chat",
+        "Group Chat",
+        "OAuth2"
       ]
     }
   ],
-  
+
   callToAction: {
     title: "Interested in working together?",
-    description: "I'm always open to discussing new opportunities and interesting projects.",
-    buttonText: "Get In Touch"
-  }
+    description:
+      "I'm always open to discussing new opportunities and interesting projects.",
+    buttonText: "Get In Touch",
+  },
 };
