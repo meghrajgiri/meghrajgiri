@@ -1,6 +1,7 @@
 "use client";
 
 import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export function HeroSection() {
@@ -42,7 +43,7 @@ export function HeroSection() {
   return (
     <section
       id="hero-section"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 sm:px-0 bg-background"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 sm:px-0"
     >
       {/* Mouse Follow Effect */}
       <div
@@ -58,11 +59,11 @@ export function HeroSection() {
       <div className="via-muted/10 absolute inset-0 bg-gradient-to-br from-background to-background">
         {/* Elegant static orbs */}
         <div
-          className="from-accent-foreground/6 via-accent-foreground/3 dark:from-accent-foreground/4 dark:via-accent-foreground/2 animate-pulse-subtle absolute bottom-1/3 right-1/4 h-96 w-96 rounded-full bg-gradient-to-tl to-transparent blur-3xl"
+          className="from-accent-foreground/6 via-accent-foreground/3 dark:from-accent-foreground/4 dark:via-accent-foreground/2 absolute bottom-1/3 right-1/4 h-96 w-96 animate-pulse-subtle rounded-full bg-gradient-to-tl to-transparent blur-3xl"
           style={{ animationDelay: "2s" }}
         />
         <div
-          className="from-primary/5 dark:from-primary/3 animate-pulse-subtle absolute right-1/3 top-1/2 h-48 w-48 rounded-full bg-gradient-to-bl to-transparent blur-2xl"
+          className="from-primary/5 dark:from-primary/3 absolute right-1/3 top-1/2 h-48 w-48 animate-pulse-subtle rounded-full bg-gradient-to-bl to-transparent blur-2xl"
           style={{ animationDelay: "4s" }}
         />
 
@@ -90,7 +91,7 @@ export function HeroSection() {
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
-              className="animate-float absolute hidden sm:block"
+              className="absolute hidden animate-float sm:block"
               style={{
                 left: `${15 + Math.random() * 70}%`,
                 top: `${15 + Math.random() * 70}%`,
@@ -117,13 +118,13 @@ export function HeroSection() {
                 <div className="relative">
                   <h1 className="text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                     <span className="relative block">
-                      <span className="from-foreground to-foreground bg-gradient-to-r via-primary bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
                         {siteConfig.hero.mainTitle.line1}
                       </span>
-                      <div className="to-accent-foreground absolute -right-2 -top-1 h-6 w-6 animate-bounce rounded-full bg-gradient-to-r from-primary opacity-60 sm:-right-4 sm:-top-2 sm:h-8 sm:w-8"></div>
+                      <div className="absolute -right-2 -top-1 h-6 w-6 animate-bounce rounded-full bg-gradient-to-r from-primary to-accent-foreground opacity-60 sm:-right-4 sm:-top-2 sm:h-8 sm:w-8"></div>
                     </span>
                     <span className="relative mt-1 block sm:mt-2">
-                      <span className="via-accent-foreground bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-r from-primary via-accent-foreground to-primary bg-clip-text text-transparent">
                         {siteConfig.hero.mainTitle.line2}
                       </span>
                     </span>
@@ -131,34 +132,34 @@ export function HeroSection() {
 
                   {/* Floating decorative elements around title - responsive */}
                   <div className="absolute -right-4 -top-2 h-2 w-2 animate-ping rounded-full bg-primary opacity-60 sm:-right-8 sm:-top-4 sm:h-3 sm:w-3"></div>
-                  <div className="bg-accent-foreground absolute -bottom-1 -left-2 h-3 w-3 animate-pulse rounded-full opacity-40 sm:-bottom-2 sm:-left-4 sm:h-4 sm:w-4"></div>
-                  <div className="from-primary/40 animate-float absolute -right-6 top-1/2 hidden h-8 w-2 rounded-full bg-gradient-to-b to-transparent sm:block sm:h-12 lg:-right-12"></div>
+                  <div className="absolute -bottom-1 -left-2 h-3 w-3 animate-pulse rounded-full bg-accent-foreground opacity-40 sm:-bottom-2 sm:-left-4 sm:h-4 sm:w-4"></div>
+                  <div className="from-primary/40 absolute -right-6 top-1/2 hidden h-8 w-2 animate-float rounded-full bg-gradient-to-b to-transparent sm:block sm:h-12 lg:-right-12"></div>
                 </div>
 
                 {/* Enhanced Description */}
                 <div className="relative">
-                  <p className="text-muted-foreground mx-auto max-w-2xl text-base leading-relaxed sm:text-lg md:text-xl lg:mx-0">
+                  <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg md:text-xl lg:mx-0">
                     {
-                      siteConfig.hero.description.split(
+                      siteConfig.hero?.description?.split(
                         siteConfig.hero.highlightedTerms.term1,
                       )[0]
                     }
                     <span className="relative inline-block">
-                      <span className="text-foreground font-semibold">
+                      <span className="font-semibold text-foreground">
                         {siteConfig.hero.highlightedTerms.term1}
                       </span>
                       <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-gradient-to-r from-primary to-transparent" />
                     </span>
                     {
-                      siteConfig.hero.description
-                        .split(siteConfig.hero.highlightedTerms.term1)[1]
-                        .split(siteConfig.hero.highlightedTerms.term2)[0]
+                      siteConfig.hero?.description
+                        ?.split(siteConfig.hero.highlightedTerms.term1)[1]
+                        ?.split(siteConfig.hero.highlightedTerms.term2)[0]
                     }
                     <span className="relative inline-block">
-                      <span className="text-foreground font-semibold">
+                      <span className="font-semibold text-foreground">
                         {siteConfig.hero.highlightedTerms.term2}
                       </span>
-                      <span className="from-accent-foreground absolute bottom-0 left-0 block h-0.5 w-full bg-gradient-to-r to-transparent" />
+                      <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-gradient-to-r from-accent-foreground to-transparent" />
                     </span>
                   </p>
                 </div>
@@ -171,9 +172,9 @@ export function HeroSection() {
                 onClick={() =>
                   scrollToSection(siteConfig.hero.buttons.primary.href)
                 }
-                className="text-primary-foreground hover:shadow-primary/25 focus-ring group relative w-full overflow-hidden rounded-xl bg-primary px-6 py-3 text-base font-semibold shadow-2xl transition-all duration-300 hover:scale-105 sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4"
+                className="hover:shadow-primary/25 focus-ring group relative w-full overflow-hidden rounded-xl bg-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-2xl transition-all duration-300 hover:scale-105 sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4"
               >
-                <div className="via-accent-foreground absolute inset-0 bg-gradient-to-r from-primary to-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent-foreground to-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <span className="relative z-10">
                   {siteConfig.hero.buttons.primary.text}
                 </span>
@@ -182,7 +183,7 @@ export function HeroSection() {
                 onClick={() =>
                   scrollToSection(siteConfig.hero.buttons.secondary.href)
                 }
-                className="bg-card/50 border-border hover:border-primary/50 focus-ring group relative w-full overflow-hidden rounded-xl border-2 px-6 py-3 text-base font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4"
+                className="bg-card/50 hover:border-primary/50 focus-ring group relative w-full overflow-hidden rounded-xl border-2 border-border px-6 py-3 text-base font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4"
               >
                 <div className="bg-primary/5 absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <span className="relative z-10">
@@ -200,14 +201,14 @@ export function HeroSection() {
                 {siteConfig.hero.stats.map((stat, index) => (
                   <div
                     key={index}
-                    className="bg-card/30 border-border hover:border-primary/30 animate-fadeIn group relative rounded-xl border p-4 backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:rounded-2xl sm:p-6"
+                    className="bg-card/30 hover:border-primary/30 animate-fadeIn group relative rounded-xl border border-border p-4 backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:rounded-2xl sm:p-6"
                     style={{ animationDelay: stat.delay }}
                   >
                     <div className="space-y-1 text-center sm:space-y-2">
-                      <div className="text-gradient to-accent-foreground bg-gradient-to-r from-primary bg-clip-text text-2xl font-bold text-transparent sm:text-3xl md:text-4xl">
-                        {stat.number}
+                      <div className="text-gradient bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-2xl font-bold text-transparent sm:text-3xl md:text-4xl">
+                        {stat.value}
                       </div>
-                      <div className="text-muted-foreground text-xs font-medium sm:text-sm">
+                      <div className="text-xs font-medium text-muted-foreground sm:text-sm">
                         {stat.label}
                       </div>
                     </div>
@@ -218,14 +219,14 @@ export function HeroSection() {
             </div>
 
             {/* Floating scroll indicator */}
-            <div className="animate-float flex justify-center pt-8 lg:justify-start">
+            <div className="flex animate-float justify-center pt-8 lg:justify-start">
               <button
                 onClick={() => scrollToSection("#about")}
-                className="bg-card/30 border-border hover:border-primary/50 focus-ring group relative rounded-full border p-4 backdrop-blur-sm transition-all duration-300 hover:scale-110"
+                className="bg-card/30 hover:border-primary/50 focus-ring group relative rounded-full border border-border p-4 backdrop-blur-sm transition-all duration-300 hover:scale-110"
                 aria-label="Scroll to about section"
               >
                 <svg
-                  className="text-muted-foreground group-hover:text-foreground h-8 w-6 transition-colors duration-200"
+                  className="h-8 w-6 text-muted-foreground transition-colors duration-200 group-hover:text-foreground"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -265,28 +266,31 @@ export function HeroSection() {
                   />
 
                   {/* Profile image container */}
-                  <div className="from-card/80 to-card/40 border-border absolute inset-4 overflow-hidden rounded-full border bg-gradient-to-br shadow-2xl backdrop-blur-sm">
+                  <div className="from-card/80 to-card/40 absolute inset-4 overflow-hidden rounded-full border border-border bg-gradient-to-br shadow-2xl backdrop-blur-sm">
                     {/* Actual profile image */}
-                    <img
-                      src="/Meghraj.png"
+                    <Image
+                      src="/Meghraj.jpg"
                       alt={`${siteConfig.personal.name} - ${siteConfig.personal.role}`}
                       className="h-full w-full object-cover object-center"
+                      fill
+                      sizes="(max-width: 640px) 240px, (max-width: 1024px) 288px, 320px"
+                      priority
                     />
                     {/* Subtle overlay for better integration */}
                     <div className="to-primary/5 pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent" />
                   </div>
 
                   {/* Floating decorative elements - responsive */}
-                  <div className="to-accent animate-float absolute -right-4 -top-4 h-8 w-8 rounded-xl bg-gradient-to-br from-primary opacity-80 shadow-lg sm:-right-6 sm:-top-6 sm:h-10 sm:w-10 sm:rounded-2xl lg:h-12 lg:w-12" />
+                  <div className="absolute -right-4 -top-4 h-8 w-8 animate-float rounded-xl bg-gradient-to-br from-primary to-accent opacity-80 shadow-lg sm:-right-6 sm:-top-6 sm:h-10 sm:w-10 sm:rounded-2xl lg:h-12 lg:w-12" />
                   <div className="absolute -right-1 top-1/2 h-3 w-3 animate-ping rounded-full bg-primary sm:-right-2 sm:h-4 sm:w-4" />
                   <div
-                    className="bg-accent-foreground absolute -left-2 top-1/4 h-2 w-2 animate-ping rounded-full sm:-left-3 sm:h-3 sm:w-3"
+                    className="absolute -left-2 top-1/4 h-2 w-2 animate-ping rounded-full bg-accent-foreground sm:-left-3 sm:h-3 sm:w-3"
                     style={{ animationDelay: "1s" }}
                   />
                 </div>
 
                 {/* Background glow */}
-                <div className="from-primary/20 to-accent-foreground/20 dark:from-primary/12 dark:to-accent-foreground/12 animate-pulse-subtle absolute inset-0 scale-150 rounded-full bg-gradient-to-r via-transparent blur-3xl" />
+                <div className="from-primary/20 to-accent-foreground/20 dark:from-primary/12 dark:to-accent-foreground/12 absolute inset-0 scale-150 animate-pulse-subtle rounded-full bg-gradient-to-r via-transparent blur-3xl" />
               </div>
 
               {/* Skills badges floating around - responsive */}
@@ -304,7 +308,7 @@ export function HeroSection() {
                       className={`animate-float ${positions[index]?.position}`}
                       style={{ animationDelay: positions[index]?.delay }}
                     >
-                      <div className="bg-card/70 border-border rounded-lg border px-3 py-1.5 shadow-lg backdrop-blur-sm">
+                      <div className="bg-card/70 rounded-lg border border-border px-3 py-1.5 shadow-lg backdrop-blur-sm">
                         <span className="text-sm font-medium">{skill}</span>
                       </div>
                     </div>
@@ -319,7 +323,7 @@ export function HeroSection() {
                   .map((skill, index) => (
                     <div
                       key={skill}
-                      className="animate-fadeIn bg-card/70 border-border rounded-lg border px-3 py-1.5 shadow-lg backdrop-blur-sm"
+                      className="animate-fadeIn bg-card/70 rounded-lg border border-border px-3 py-1.5 shadow-lg backdrop-blur-sm"
                       style={{ animationDelay: `${index * 0.2}s` }}
                     >
                       <span className="text-xs font-medium">{skill}</span>
@@ -336,7 +340,7 @@ export function HeroSection() {
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="bg-primary/20 animate-float absolute hidden h-2 w-2 rounded-full sm:block"
+            className="bg-primary/20 absolute hidden h-2 w-2 animate-float rounded-full sm:block"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
