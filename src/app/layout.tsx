@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -12,8 +13,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Meghraj Giri - Full Stack Developer",
-  description:
-    "Full Stack Developer specializing in modern web technologies.",
+  description: "Full Stack Developer specializing in modern web technologies.",
   robots: {
     index: true,
     follow: true,
@@ -36,6 +36,7 @@ export default function RootLayout({
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <Analytics />
+        <SpeedInsights />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
