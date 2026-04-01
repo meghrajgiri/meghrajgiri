@@ -33,6 +33,9 @@ export async function generateMetadata(): Promise<Metadata> {
       description: meta.description,
       creator: meta.twitter,
     },
+    alternates: {
+      canonical: meta.url,
+    },
   };
 }
 
