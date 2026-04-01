@@ -38,22 +38,22 @@ export function HeroSection() {
     }
   };
 
-  if (!mounted) return null;
-
   return (
     <section
       id="hero-section"
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 sm:px-0"
     >
       {/* Mouse Follow Effect */}
-      <div
-        className="from-primary/5 via-primary/10 dark:from-primary/3 dark:via-primary/6 pointer-events-none absolute h-64 w-64 rounded-full bg-gradient-to-r to-transparent blur-3xl transition-all duration-300 ease-out"
-        style={{
-          left: mousePosition.x - 128,
-          top: mousePosition.y - 128,
-          transform: `translate3d(0, 0, 0)`,
-        }}
-      />
+      {mounted && (
+        <div
+          className="from-primary/5 via-primary/10 dark:from-primary/3 dark:via-primary/6 pointer-events-none absolute h-64 w-64 rounded-full bg-gradient-to-r to-transparent blur-3xl transition-all duration-300 ease-out"
+          style={{
+            left: mousePosition.x - 128,
+            top: mousePosition.y - 128,
+            transform: `translate3d(0, 0, 0)`,
+          }}
+        />
+      )}
 
       {/* Beautiful Static Background */}
       <div className="via-muted/10 absolute inset-0 bg-gradient-to-br from-background to-background">

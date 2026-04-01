@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { getConfig, saveConfig } from "@/lib/config";
 
@@ -72,6 +72,7 @@ export async function PUT(request: NextRequest) {
 
   try {
     await saveConfig(key, value);
+    revalidateTag("site-config");
     revalidatePath("/", "layout");
     return NextResponse.json({ success: true, key });
   } catch (error) {

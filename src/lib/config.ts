@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { createAdminClient } from "./supabase-admin";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -22,27 +23,31 @@ export async function getConfig<T = any>(key: string): Promise<T> {
 }
 
 /**
- * Fetch all config sections from Supabase.
+ * Fetch all config sections from Supabase (cached for 60s).
  */
-export async function getAllConfig() {
-  const supabase = createAdminClient();
-  const { data, error } = await supabase
-    .from("site_config")
-    .select("key, value")
-    .returns<{ key: string; value: any }[]>();
+export const getAllConfig = unstable_cache(
+  async () => {
+    const supabase = createAdminClient();
+    const { data, error } = await supabase
+      .from("site_config")
+      .select("key, value")
+      .returns<{ key: string; value: any }[]>();
 
-  if (error || !data) {
-    console.error("Failed to fetch site config:", error?.message);
-    return {} as SiteConfig;
-  }
+    if (error || !data) {
+      console.error("Failed to fetch site config:", error?.message);
+      return {} as SiteConfig;
+    }
 
-  const config: Record<string, any> = {};
-  for (const row of data) {
-    config[row.key] = row.value;
-  }
+    const config: Record<string, any> = {};
+    for (const row of data) {
+      config[row.key] = row.value;
+    }
 
-  return config as SiteConfig;
-}
+    return config as SiteConfig;
+  },
+  ["site-config"],
+  { revalidate: 60, tags: ["site-config"] },
+);
 
 export interface SiteConfig {
   personal: {
