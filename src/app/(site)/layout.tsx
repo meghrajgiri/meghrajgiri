@@ -1,4 +1,3 @@
-import { LoadingScreen } from "@/components/Layout/LoadingScreen";
 import { Navigation } from "@/components/Layout/Navigation";
 import { SiteConfigProvider } from "@/components/providers/SiteConfigProvider";
 import { getAllConfig } from "@/lib/config";
@@ -49,8 +48,7 @@ export default async function SiteLayout({
   return (
     <SiteConfigProvider config={config}>
       <Navigation />
-      <LoadingScreen>
-        <div className="relative min-h-screen bg-background">
+      <div className="relative min-h-screen bg-background">
           {/* Background effects */}
           <div className="fixed inset-0 -z-10">
             <div className="via-muted/5 absolute inset-0 bg-gradient-to-br from-background to-background" />
@@ -90,7 +88,6 @@ export default async function SiteLayout({
             </footer>
           </div>
         </div>
-      </LoadingScreen>
     </SiteConfigProvider>
   );
 }

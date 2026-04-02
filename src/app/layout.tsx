@@ -34,6 +34,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/Meghraj.jpg"
+          fetchPriority="high"
+        />
+      </head>
       <body className="font-sans antialiased">
         <Analytics />
         <SpeedInsights />

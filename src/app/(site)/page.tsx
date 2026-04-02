@@ -1,9 +1,11 @@
+import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { AboutSection } from "@/components/sections/AboutSection";
-import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
-import { ContactSection } from "@/components/sections/ContactSection";
 import { getAllConfig } from "@/lib/config";
+
+const SkillsSection = dynamic(() => import("@/components/sections/SkillsSection").then((m) => ({ default: m.SkillsSection })), { ssr: true });
+const AboutSection = dynamic(() => import("@/components/sections/AboutSection").then((m) => ({ default: m.AboutSection })), { ssr: true });
+const ContactSection = dynamic(() => import("@/components/sections/ContactSection").then((m) => ({ default: m.ContactSection })), { ssr: true });
 
 export default async function Home() {
   const config = await getAllConfig();
@@ -31,12 +33,16 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="animate-fadeIn">
-        <HeroSection />
-        <ProjectsSection />
-        <SkillsSection />
-        <AboutSection />
-        <ContactSection />
+      <div>
+        <div className="animate-heroFadeIn">
+          <HeroSection />
+        </div>
+        <div className="animate-fadeIn">
+          <ProjectsSection />
+          <SkillsSection />
+          <AboutSection />
+          <ContactSection />
+        </div>
       </div>
     </>
   );

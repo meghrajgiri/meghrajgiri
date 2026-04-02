@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -60,10 +61,12 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             <div className="relative aspect-video overflow-hidden bg-muted">
-              <img
+              <Image
                 src={project.image}
                 alt={project.title}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               {project.status === "In Progress" && (
                 <div className="absolute right-3 top-3 rounded-full bg-amber-500/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">

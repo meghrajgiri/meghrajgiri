@@ -27,14 +27,14 @@ export function Navigation() {
 
   if (!mounted) {
     return (
-      <header className="fixed left-0 right-0 top-0 z-50 h-16">
-        <div className="container mx-auto flex h-16 items-center justify-between px-6">
+      <header className="fixed left-0 right-0 top-0 z-50">
+        <nav className="container mx-auto flex h-20 items-center justify-between px-6">
           <div className="bg-muted/50 h-8 w-32 animate-pulse rounded" />
           <div className="flex space-x-4">
             <div className="bg-muted/50 h-8 w-20 animate-pulse rounded" />
             <div className="bg-muted/50 h-10 w-10 animate-pulse rounded-lg" />
           </div>
-        </div>
+        </nav>
       </header>
     );
   }

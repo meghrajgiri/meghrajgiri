@@ -14,21 +14,37 @@ export function HeroSection() {
   }, []);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    let rafId: number;
+    let cachedRect: DOMRect | null = null;
+
+    const cacheRect = () => {
       const heroSection = document.getElementById("hero-section");
-      if (heroSection) {
-        const rect = heroSection.getBoundingClientRect();
-        if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+      if (heroSection) cachedRect = heroSection.getBoundingClientRect();
+    };
+
+    cacheRect();
+    window.addEventListener("resize", cacheRect);
+    window.addEventListener("scroll", cacheRect, { passive: true });
+
+    const handleMouseMove = (e: MouseEvent) => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        if (cachedRect && e.clientY >= cachedRect.top && e.clientY <= cachedRect.bottom) {
           setMousePosition({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
+            x: e.clientX - cachedRect.left,
+            y: e.clientY - cachedRect.top,
           });
         }
-      }
+      });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", cacheRect);
+      window.removeEventListener("scroll", cacheRect);
+    };
   }, []);
 
   const scrollToSection = (href: string) => {
@@ -41,7 +57,7 @@ export function HeroSection() {
   return (
     <section
       id="hero-section"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 sm:px-0"
+      className="relative flex min-h-[calc(100vh-5rem)] items-center justify-center overflow-hidden bg-background px-4 mt-20 sm:px-0"
     >
       {/* Mouse Follow Effect */}
       {mounted && (
@@ -88,15 +104,20 @@ export function HeroSection() {
 
         {/* Floating sparkles - reduced on mobile */}
         <div className="pointer-events-none absolute inset-0">
-          {[...Array(4)].map((_, i) => (
+          {[
+            { left: "25%", top: "30%", delay: "0s", duration: "5s" },
+            { left: "65%", top: "20%", delay: "2s", duration: "6s" },
+            { left: "45%", top: "70%", delay: "4s", duration: "7s" },
+            { left: "80%", top: "55%", delay: "1s", duration: "5.5s" },
+          ].map((pos, i) => (
             <div
               key={i}
               className="absolute hidden animate-float sm:block"
               style={{
-                left: `${15 + Math.random() * 70}%`,
-                top: `${15 + Math.random() * 70}%`,
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${4 + Math.random() * 4}s`,
+                left: pos.left,
+                top: pos.top,
+                animationDelay: pos.delay,
+                animationDuration: pos.duration,
               }}
             >
               <div className="bg-primary/40 h-1 w-1 animate-ping rounded-full" />
@@ -111,7 +132,7 @@ export function HeroSection() {
           {/* Left side - Text Content */}
           <div className="space-y-6 text-center sm:space-y-8 lg:text-left">
             {/* Animated entrance */}
-            <div className="animate-fadeIn space-y-6">
+            <div className="space-y-6">
               {/* Creative Title Design */}
               <div className="mx-auto max-w-4xl space-y-8 lg:mx-0">
                 {/* Creative Main Title */}
@@ -194,14 +215,14 @@ export function HeroSection() {
 
             {/* Enhanced stats */}
             <div
-              className="animate-fadeIn pt-6 sm:pt-8"
+              className="pt-6 sm:pt-8"
               style={{ animationDelay: "0.5s" }}
             >
               <div className="mx-auto grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6 md:gap-8 lg:mx-0">
                 {siteConfig.hero.stats.map((stat, index) => (
                   <div
                     key={index}
-                    className="bg-card/30 hover:border-primary/30 animate-fadeIn group relative rounded-xl border border-border p-4 backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:rounded-2xl sm:p-6"
+                    className="bg-card/30 hover:border-primary/30 group relative rounded-xl border border-border p-4 backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:rounded-2xl sm:p-6"
                     style={{ animationDelay: stat.delay }}
                   >
                     <div className="space-y-1 text-center sm:space-y-2">
@@ -244,7 +265,7 @@ export function HeroSection() {
 
           {/* Right side - Profile Image */}
           <div
-            className="animate-fadeIn relative order-first flex justify-center lg:order-last"
+            className="relative order-first flex justify-center lg:order-last"
             style={{ animationDelay: "0.3s" }}
           >
             <div className="relative mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-md">
@@ -323,7 +344,7 @@ export function HeroSection() {
                   .map((skill, index) => (
                     <div
                       key={skill}
-                      className="animate-fadeIn bg-card/70 rounded-lg border border-border px-3 py-1.5 shadow-lg backdrop-blur-sm"
+                      className="bg-card/70 rounded-lg border border-border px-3 py-1.5 shadow-lg backdrop-blur-sm"
                       style={{ animationDelay: `${index * 0.2}s` }}
                     >
                       <span className="text-xs font-medium">{skill}</span>
@@ -337,15 +358,20 @@ export function HeroSection() {
 
       {/* Floating particles - reduced on mobile */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {[...Array(4)].map((_, i) => (
+        {[
+          { left: "15%", top: "40%", delay: "0.5s", duration: "4s" },
+          { left: "70%", top: "25%", delay: "2.5s", duration: "5s" },
+          { left: "40%", top: "75%", delay: "1s", duration: "6s" },
+          { left: "85%", top: "60%", delay: "3.5s", duration: "4.5s" },
+        ].map((pos, i) => (
           <div
             key={i}
             className="bg-primary/20 absolute hidden h-2 w-2 animate-float rounded-full sm:block"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`,
+              left: pos.left,
+              top: pos.top,
+              animationDelay: pos.delay,
+              animationDuration: pos.duration,
             }}
           />
         ))}
