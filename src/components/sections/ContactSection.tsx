@@ -12,6 +12,11 @@ export function ContactSection() {
     message: ""
   });
 
+  const getFieldConfig = (fieldName: string) => {
+    const field = siteConfig.contact.form.fields?.[fieldName];
+    return field || { label: fieldName.charAt(0).toUpperCase() + fieldName.slice(1), placeholder: `Enter ${fieldName}` };
+  };
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -115,7 +120,7 @@ export function ContactSection() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium">
-                      {siteConfig.contact.form.fields.name.label} *
+                      {getFieldConfig("name").label} *
                     </label>
                     <input
                       type="text"
@@ -125,12 +130,12 @@ export function ContactSection() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                      placeholder={siteConfig.contact.form.fields.name.placeholder}
+                      placeholder={getFieldConfig("name").placeholder}
                     />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium">
-                      {siteConfig.contact.form.fields.email.label} *
+                      {getFieldConfig("email").label} *
                     </label>
                     <input
                       type="email"
@@ -140,13 +145,13 @@ export function ContactSection() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                      placeholder={siteConfig.contact.form.fields.email.placeholder}
+                      placeholder={getFieldConfig("email").placeholder}
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="subject" className="text-sm font-medium">
-                    {siteConfig.contact.form.fields.subject.label} *
+                    {getFieldConfig("subject").label} *
                   </label>
                   <input
                     type="text"
@@ -156,12 +161,12 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                    placeholder={siteConfig.contact.form.fields.subject.placeholder}
+                    placeholder={getFieldConfig("subject").placeholder}
                   />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium">
-                    {siteConfig.contact.form.fields.message.label} *
+                    {getFieldConfig("message").label} *
                   </label>
                   <textarea
                     id="message"
@@ -171,7 +176,7 @@ export function ContactSection() {
                     required
                     rows={6}
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200 resize-none"
-                    placeholder={siteConfig.contact.form.fields.message.placeholder}
+                    placeholder={getFieldConfig("message").placeholder}
                   />
                 </div>
                 <button
