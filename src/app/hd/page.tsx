@@ -32,10 +32,15 @@ export default function HairDoctorsLandingPage() {
       {/*
         Loaded as a plain external script rather than inlined or wrapped in a React
         component: the identical file is handed to the third-party developer for the
-        real site, so the demo must exercise exactly what ships. `beforeInteractive`
-        because a click id has to be captured before any navigation can lose it.
+        real site, so the demo must exercise exactly what ships.
+
+        `afterInteractive`, NOT `beforeInteractive`: the latter is only honoured in the
+        root layout, and inside a page Next emits a preload link and never executes the
+        script — silently. Capturing a few hundred milliseconds later is harmless here
+        because the script writes its cookie on load and intercepts the CTA click, both
+        of which happen long before a human can click anything.
       */}
-      <Script src="/hd-tracking.js" strategy="beforeInteractive" />
+      <Script src="/hd-tracking.js" strategy="afterInteractive" />
 
       <div className="mx-auto max-w-3xl px-6 py-20">
         <p className="mb-4 inline-block rounded bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-900">

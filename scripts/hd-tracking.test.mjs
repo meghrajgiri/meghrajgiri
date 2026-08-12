@@ -26,11 +26,12 @@ function makeEnv({ hostname, search, protocol = "https:", links = [], cookie = "
       get href() { return current; },
     };
   });
+  const listeners = {};
   const win = {
     location: { hostname, search, protocol, href: `${protocol}//${hostname}/${search}` },
     document: {
       readyState: "complete",
-      addEventListener: () => {},
+      addEventListener: (type, fn) => { (listeners[type] ||= []).push(fn); },
       querySelectorAll: () => anchors,
       get cookie() { return store.cookie; },
       set cookie(v) {
@@ -44,7 +45,7 @@ function makeEnv({ hostname, search, protocol = "https:", links = [], cookie = "
     HD_TRACKING: undefined,
   };
   win.window = win;
-  return { win, store, anchors };
+  return { win, store, anchors, listeners };
 }
 
 function run(env, config) {
@@ -119,6 +120,39 @@ ok("honours configured bookingHosts", env.anchors[0].href.includes("gclid=G7"));
 env = makeEnv({ hostname: "hd.meghrajgiri.com", search: "?gclid=" + "x".repeat(2000) });
 api = run(env);
 ok("caps an oversized click id at 512 chars", api.get().first.gclid.length === 512);
+
+// --- click interception: the mechanism that survives a framework re-render ---
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "?gclid=G_CLICK&utm_source=google",
+  links: ["https://booking.meghrajgiri.com/signup"],
+});
+run(env);
+const anchor = env.anchors[0];
+// Simulate React restoring the original href after hydration.
+anchor.setAttribute("href", "https://booking.meghrajgiri.com/signup");
+ok("href reset by a re-render loses the decoration", !anchor.href.includes("gclid"));
+// Now click it: the capture-phase handler must re-apply before navigation.
+const clickHandler = env.listeners.click?.[0];
+ok("a capture-phase click listener was registered", typeof clickHandler === "function");
+clickHandler({ target: { nodeName: "A", getAttribute: anchor.getAttribute, parentNode: null, setAttribute: anchor.setAttribute } });
+ok("click re-applies attribution despite the reset", anchor.href.includes("gclid=G_CLICK"));
+
+// A click on a non-booking link must be left alone.
+env = makeEnv({ hostname: "hd.meghrajgiri.com", search: "?gclid=G1", links: ["https://example.com/x"] });
+run(env);
+const other = env.anchors[0];
+env.listeners.click[0]({ target: { nodeName: "A", getAttribute: other.getAttribute, parentNode: null, setAttribute: other.setAttribute } });
+ok("click on an unrelated host is untouched", other.href === "https://example.com/x");
+
+// A click on a nested element inside the anchor must still resolve to the anchor.
+env = makeEnv({ hostname: "hd.meghrajgiri.com", search: "?gclid=G_NEST", links: ["https://booking.meghrajgiri.com/signup"] });
+run(env);
+const nested = env.anchors[0];
+env.listeners.click[0]({
+  target: { nodeName: "SPAN", parentNode: { nodeName: "A", getAttribute: nested.getAttribute, setAttribute: nested.setAttribute, parentNode: null } },
+});
+ok("click on a child element still decorates the anchor", nested.href.includes("gclid=G_NEST"));
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

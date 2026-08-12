@@ -186,10 +186,54 @@
     }
   }
 
+  /**
+   * Append the params at click time, as the authoritative mechanism.
+   *
+   * Rewriting href attributes up front is not enough on a framework-rendered page: a
+   * re-render restores the href React thinks the element should have, silently undoing
+   * the decoration. Mutating href inside a capture-phase click handler happens after
+   * any re-render and immediately before the browser reads it to navigate, so it cannot
+   * be undone — and it also covers links added to the page after load.
+   */
+  function interceptClicks(getState) {
+    document.addEventListener(
+      "click",
+      function (event) {
+        // Let modified clicks through untouched (new tab, download, etc. still read href,
+        // which decorateLinks has already best-effort updated).
+        var node = event.target;
+        while (node && node.nodeName !== "A") node = node.parentNode;
+        if (!node || !node.getAttribute) return;
+
+        var href = node.getAttribute("href");
+        if (!href) return;
+
+        var attribution = (getState() || {}).first;
+        if (!attribution || isEmpty(attribution)) return;
+
+        var hosts = bookingHosts();
+        var url;
+        try {
+          url = new URL(href, location.href);
+        } catch (e) {
+          return;
+        }
+        if (hosts.indexOf(url.hostname) === -1) return;
+
+        for (var key in attribution) {
+          if (!Object.prototype.hasOwnProperty.call(attribution, key)) continue;
+          if (!url.searchParams.has(key)) url.searchParams.set(key, attribution[key]);
+        }
+        node.setAttribute("href", url.toString());
+      },
+      true // capture: run before any framework's own click handling
+    );
+  }
+
   var state = capture();
 
-  // Links may not exist yet if this runs in <head>; decorate once the DOM is ready,
-  // and expose a hook for pages that inject links later (SPAs, modals).
+  // Best-effort href rewrite so hovering, copying and middle-clicking show the tagged
+  // URL. The click interceptor above is what guarantees it on an actual navigation.
   function run() {
     decorateLinks(state);
   }
@@ -198,6 +242,9 @@
   } else {
     run();
   }
+  interceptClicks(function () {
+    return readCookie(COOKIE) || state;
+  });
 
   // Small public surface for debugging and for apps that render links dynamically.
   window.hdTracking = {
