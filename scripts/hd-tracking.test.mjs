@@ -1,0 +1,124 @@
+/**
+ * Tests for public/hd-tracking.js — run from the project root:
+ *   node scripts/hd-tracking.test.mjs
+ *
+ * The script is plain browser JS handed to a third-party developer, so it is exercised
+ * against a minimal DOM/location stub rather than a framework test runner. The cases
+ * that matter most are the cookie-domain ones: a cookie set on ".com.au" is rejected
+ * by browsers as a public suffix, and the failure is silent — attribution simply never
+ * persists on the production domain.
+ */
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const src = readFileSync(join(root, "public/hd-tracking.js"), "utf8");
+
+/** Minimal DOM/location stub — the script touches only these. */
+function makeEnv({ hostname, search, protocol = "https:", links = [], cookie = "" }) {
+  const store = { cookie };
+  const anchors = links.map((href) => {
+    let current = href;
+    return {
+      getAttribute: () => current,
+      setAttribute: (_k, v) => { current = v; },
+      get href() { return current; },
+    };
+  });
+  const win = {
+    location: { hostname, search, protocol, href: `${protocol}//${hostname}/${search}` },
+    document: {
+      readyState: "complete",
+      addEventListener: () => {},
+      querySelectorAll: () => anchors,
+      get cookie() { return store.cookie; },
+      set cookie(v) {
+        const [pair] = v.split(";");
+        const [k, val] = pair.split("=");
+        store.cookie = `${k}=${val}`;
+        store.lastWrite = v;
+      },
+    },
+    URL,
+    HD_TRACKING: undefined,
+  };
+  win.window = win;
+  return { win, store, anchors };
+}
+
+function run(env, config) {
+  if (config) env.win.HD_TRACKING = config;
+  const fn = new Function("window", "document", "location", `${src}\nreturn window.hdTracking;`);
+  return fn(env.win, env.win.document, env.win.location);
+}
+
+let pass = 0, fail = 0;
+const ok = (label, cond) => { cond ? pass++ : fail++; console.log(`${cond ? "PASS" : "FAIL"}  ${label}`); };
+
+// --- cookie domain resolution (the production-critical case) ---
+for (const [host, expected] of [
+  ["hd.meghrajgiri.com", "domain=.meghrajgiri.com"],
+  ["meghrajgiri.com", "domain=.meghrajgiri.com"],
+  ["telehairdoctors.com.au", "domain=.telehairdoctors.com.au"],
+  ["booking.telehairdoctors.com.au", "domain=.telehairdoctors.com.au"],
+  ["clinic.co.uk", "domain=.clinic.co.uk"],
+]) {
+  const env = makeEnv({ hostname: host, search: "?gclid=ABC" });
+  run(env);
+  ok(`${host} → ${expected}`, (env.store.lastWrite || "").includes(expected));
+}
+
+// localhost / IP must not get a dotted domain (cookie would be unsettable)
+for (const host of ["localhost", "127.0.0.1"]) {
+  const env = makeEnv({ hostname: host, search: "?gclid=ABC", protocol: "http:" });
+  run(env);
+  ok(`${host} → no domain attribute`, !(env.store.lastWrite || "").includes("domain="));
+  ok(`${host} → not marked secure over http`, !(env.store.lastWrite || "").includes("secure"));
+}
+
+// --- capture ---
+let env = makeEnv({ hostname: "hd.meghrajgiri.com", search: "?gclid=G1&utm_source=google&utm_medium=cpc&utm_campaign=Spring&utm_content=AdGroup1&utm_term=Variant%20A&junk=drop" });
+let api = run(env);
+let state = api.get();
+ok("captures gclid + full utm set", state.first.gclid === "G1" && state.first.utm_campaign === "Spring" && state.first.utm_term === "Variant A");
+ok("ignores unknown params", !("junk" in state.first));
+ok("records firstAt and lastAt", Boolean(state.firstAt && state.lastAt));
+
+// --- first touch is write-once ---
+const firstCookie = env.store.cookie;
+env = makeEnv({ hostname: "hd.meghrajgiri.com", search: "?gclid=G2&utm_source=meta", cookie: firstCookie });
+api = run(env);
+state = api.get();
+ok("second visit does NOT overwrite first touch", state.first.gclid === "G1");
+ok("second visit DOES update last touch", state.last.gclid === "G2");
+
+// --- no params: existing cookie untouched ---
+env = makeEnv({ hostname: "hd.meghrajgiri.com", search: "", cookie: firstCookie });
+api = run(env);
+ok("untagged visit preserves stored attribution", api.get().first.gclid === "G1");
+
+// --- link decoration ---
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "?gclid=G9&utm_source=google",
+  links: ["https://booking.meghrajgiri.com/signup", "https://booking.meghrajgiri.com/x?gclid=EXPLICIT", "https://example.com/other", "/internal"],
+});
+run(env);
+ok("decorates the booking link", env.anchors[0].href.includes("gclid=G9") && env.anchors[0].href.includes("utm_source=google"));
+ok("does not clobber an explicit value", env.anchors[1].href.includes("gclid=EXPLICIT"));
+ok("leaves unrelated hosts alone", env.anchors[2].href === "https://example.com/other");
+ok("leaves relative links alone", env.anchors[3].href === "/internal");
+
+// --- configured booking hosts ---
+env = makeEnv({ hostname: "hd.meghrajgiri.com", search: "?gclid=G7", links: ["https://booking.telehairdoctors.com.au/signup"] });
+run(env, { bookingHosts: ["booking.telehairdoctors.com.au"] });
+ok("honours configured bookingHosts", env.anchors[0].href.includes("gclid=G7"));
+
+// --- oversized value is capped ---
+env = makeEnv({ hostname: "hd.meghrajgiri.com", search: "?gclid=" + "x".repeat(2000) });
+api = run(env);
+ok("caps an oversized click id at 512 chars", api.get().first.gclid.length === 512);
+
+console.log(`\n${pass} passed, ${fail} failed`);
+process.exit(fail ? 1 : 0);
