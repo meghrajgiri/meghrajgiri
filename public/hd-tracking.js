@@ -141,10 +141,49 @@
   }
 
   /**
-   * Hosts to decorate links for. Defaults to the `booking.` sibling of this domain,
-   * which is the real topology (telehairdoctors.com.au → booking.telehairdoctors.com.au).
+   * Hosts declared on this script's own tag:
+   *   <script src="/hd-tracking.js" data-booking-hosts="booking.example.com,localhost"></script>
+   *
+   * Reading configuration off the tag avoids depending on a second inline script having
+   * executed first — an ordering guarantee no framework reliably provides — and keeps
+   * installation to one line for whoever adds this to the real site.
+   */
+  function hostsFromScriptTag() {
+    var el = document.currentScript;
+    if (!el) {
+      // currentScript is null in some injection paths (async, module); find ourselves.
+      var candidates = document.querySelectorAll('script[src*="hd-tracking"]');
+      el = candidates.length ? candidates[candidates.length - 1] : null;
+    }
+    var raw = el && el.getAttribute ? el.getAttribute("data-booking-hosts") : null;
+    if (!raw) return null;
+    var hosts = raw
+      .split(",")
+      .map(function (h) {
+        // Accept a full URL or a bare host; store just the hostname.
+        var trimmed = h.trim();
+        if (!trimmed) return "";
+        try {
+          return new URL(trimmed.indexOf("//") === -1 ? "http://" + trimmed : trimmed).hostname;
+        } catch (e) {
+          return trimmed;
+        }
+      })
+      .filter(Boolean);
+    return hosts.length ? hosts : null;
+  }
+
+  var TAG_HOSTS = hostsFromScriptTag();
+
+  /**
+   * Hosts to decorate links for, most explicit first:
+   *   1. the script tag's data-booking-hosts
+   *   2. window.HD_TRACKING.bookingHosts
+   *   3. the `booking.` sibling of this domain — the real topology
+   *      (telehairdoctors.com.au → booking.telehairdoctors.com.au)
    */
   function bookingHosts() {
+    if (TAG_HOSTS) return TAG_HOSTS;
     if (CONFIG.bookingHosts && CONFIG.bookingHosts.length) return CONFIG.bookingHosts;
     var domain = registrableDomain(location.hostname);
     return domain ? ["booking." + domain] : [];

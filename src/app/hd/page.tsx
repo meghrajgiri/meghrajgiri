@@ -26,6 +26,20 @@ export const metadata: Metadata = {
 const BOOKING_URL =
   process.env.NEXT_PUBLIC_HD_BOOKING_URL ?? "https://booking.meghrajgiri.com/signup";
 
+/**
+ * The CTA's hostname, handed to the tracking script so it decorates that link whatever
+ * the booking app's address is — `localhost` during testing, a subdomain in production.
+ * Falls back to an empty string, which makes the script use its own default rather than
+ * silently matching nothing.
+ */
+const bookingHost = (() => {
+  try {
+    return new URL(BOOKING_URL).hostname;
+  } catch {
+    return "";
+  }
+})();
+
 export default function HairDoctorsLandingPage() {
   return (
     <main className="min-h-screen bg-white text-neutral-900">
@@ -40,7 +54,15 @@ export default function HairDoctorsLandingPage() {
         because the script writes its cookie on load and intercepts the CTA click, both
         of which happen long before a human can click anything.
       */}
-      <Script src="/hd-tracking.js" strategy="afterInteractive" />
+      <Script
+        src="/hd-tracking.js"
+        strategy="afterInteractive"
+        // The page knows where its CTA points, so it declares that host rather than
+        // letting the script guess. Without this the script would default to
+        // booking.<this domain> and skip a CTA pointing anywhere else — a localhost
+        // target during testing, or a booking app on a different domain entirely.
+        data-booking-hosts={bookingHost}
+      />
 
       <div className="mx-auto max-w-3xl px-6 py-20">
         <p className="mb-4 inline-block rounded bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-900">

@@ -16,7 +16,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = readFileSync(join(root, "public/hd-tracking.js"), "utf8");
 
 /** Minimal DOM/location stub — the script touches only these. */
-function makeEnv({ hostname, search, protocol = "https:", links = [], cookie = "" }) {
+function makeEnv({ hostname, search, protocol = "https:", links = [], cookie = "", tagHosts = null }) {
   const store = { cookie };
   const anchors = links.map((href) => {
     let current = href;
@@ -32,7 +32,15 @@ function makeEnv({ hostname, search, protocol = "https:", links = [], cookie = "
     document: {
       readyState: "complete",
       addEventListener: (type, fn) => { (listeners[type] ||= []).push(fn); },
-      querySelectorAll: () => anchors,
+      // The script queries for anchors and (when currentScript is unavailable) for its
+      // own tag; answer both by selector.
+      querySelectorAll: (sel) =>
+        String(sel).indexOf("script") === 0
+          ? tagHosts === null
+            ? []
+            : [{ getAttribute: (k) => (k === "data-booking-hosts" ? tagHosts : null) }]
+          : anchors,
+      currentScript: null,
       get cookie() { return store.cookie; },
       set cookie(v) {
         const [pair] = v.split(";");
@@ -153,6 +161,45 @@ env.listeners.click[0]({
   target: { nodeName: "SPAN", parentNode: { nodeName: "A", getAttribute: nested.getAttribute, setAttribute: nested.setAttribute, parentNode: null } },
 });
 ok("click on a child element still decorates the anchor", nested.href.includes("gclid=G_NEST"));
+
+// --- configuration from the script tag (how the demo points at localhost) ---
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "?gclid=G_TAG&utm_source=google",
+  links: ["http://localhost:3000/signup"],
+  tagHosts: "localhost",
+});
+run(env);
+ok("data-booking-hosts decorates a localhost CTA", env.anchors[0].href.includes("gclid=G_TAG"));
+
+// Without the attribute the same link is skipped — the bug this fixes.
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "?gclid=G_NONE",
+  links: ["http://localhost:3000/signup"],
+});
+run(env);
+ok("without the attribute a localhost CTA is skipped", !env.anchors[0].href.includes("gclid"));
+
+// A full URL in the attribute is accepted, not just a bare host.
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "?gclid=G_URL",
+  links: ["http://localhost:3000/signup"],
+  tagHosts: "http://localhost:3000/signup",
+});
+run(env);
+ok("data-booking-hosts accepts a full URL", env.anchors[0].href.includes("gclid=G_URL"));
+
+// Multiple hosts, comma separated.
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "?gclid=G_MULTI",
+  links: ["https://booking.telehairdoctors.com.au/signup"],
+  tagHosts: "localhost, booking.telehairdoctors.com.au",
+});
+run(env);
+ok("data-booking-hosts accepts a comma-separated list", env.anchors[0].href.includes("gclid=G_MULTI"));
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
