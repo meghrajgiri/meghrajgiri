@@ -32,6 +32,22 @@
   var COOKIE = CONFIG.cookieName || "hd_attr";
   var DAYS = CONFIG.cookieDays || 90;
 
+  /**
+   * What to tag booking links with when the visitor arrived with NO ad attribution.
+   *
+   * Without this, an organic visitor who reads the landing page and clicks through is
+   * indistinguishable from someone who went straight to the booking link — both arrive
+   * with an empty query string, and the CRM has to call them both `direct_booking`.
+   * Tagging our own outbound links is what separates "came via the website" from "came
+   * straight to booking".
+   *
+   * Only ever applied when there is nothing better: real ad attribution always wins.
+   */
+  var FALLBACK = {
+    utm_source: CONFIG.fallbackSource || "website",
+    utm_medium: CONFIG.fallbackMedium || "referral",
+  };
+
   /** Everything worth carrying from an ad click through to a booking. */
   var PARAMS = [
     "gclid",
@@ -175,6 +191,20 @@
 
   var TAG_HOSTS = hostsFromScriptTag();
 
+  /** `data-fallback-source` / `data-fallback-medium` on the script tag override the defaults. */
+  (function readFallbackFromTag() {
+    var el = document.currentScript;
+    if (!el) {
+      var candidates = document.querySelectorAll('script[src*="hd-tracking"]');
+      el = candidates.length ? candidates[candidates.length - 1] : null;
+    }
+    if (!el || !el.getAttribute) return;
+    var source = el.getAttribute("data-fallback-source");
+    var medium = el.getAttribute("data-fallback-medium");
+    if (source) FALLBACK.utm_source = source;
+    if (medium) FALLBACK.utm_medium = medium;
+  })();
+
   /**
    * Hosts to decorate links for, most explicit first:
    *   1. the script tag's data-booking-hosts
@@ -199,8 +229,18 @@
    * Uses first-touch values — the booking app records acquisition, and its own funnel
    * events record the conversion.
    */
+  /**
+   * The attribution to put on booking links: the visitor's first touch if they have one,
+   * otherwise our own website tag so the CRM can tell this apart from a direct booking.
+   */
+  function attributionToApply(state) {
+    var first = (state || {}).first;
+    if (first && !isEmpty(first)) return first;
+    return FALLBACK;
+  }
+
   function decorateLinks(state) {
-    var attribution = state.first;
+    var attribution = attributionToApply(state);
     if (!attribution || isEmpty(attribution)) return;
     var hosts = bookingHosts();
     if (!hosts.length) return;
@@ -247,7 +287,7 @@
         var href = node.getAttribute("href");
         if (!href) return;
 
-        var attribution = (getState() || {}).first;
+        var attribution = attributionToApply(getState());
         if (!attribution || isEmpty(attribution)) return;
 
         var hosts = bookingHosts();

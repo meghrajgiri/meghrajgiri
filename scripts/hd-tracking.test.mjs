@@ -16,7 +16,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = readFileSync(join(root, "public/hd-tracking.js"), "utf8");
 
 /** Minimal DOM/location stub — the script touches only these. */
-function makeEnv({ hostname, search, protocol = "https:", links = [], cookie = "", tagHosts = null }) {
+function makeEnv({ hostname, search, protocol = "https:", links = [], cookie = "", tagHosts = null, tagFallback = null }) {
   const store = { cookie };
   const anchors = links.map((href) => {
     let current = href;
@@ -36,9 +36,20 @@ function makeEnv({ hostname, search, protocol = "https:", links = [], cookie = "
       // own tag; answer both by selector.
       querySelectorAll: (sel) =>
         String(sel).indexOf("script") === 0
-          ? tagHosts === null
+          ? tagHosts === null && tagFallback === null
             ? []
-            : [{ getAttribute: (k) => (k === "data-booking-hosts" ? tagHosts : null) }]
+            : [
+                {
+                  getAttribute: (k) =>
+                    k === "data-booking-hosts"
+                      ? tagHosts
+                      : k === "data-fallback-source"
+                        ? (tagFallback?.source ?? null)
+                        : k === "data-fallback-medium"
+                          ? (tagFallback?.medium ?? null)
+                          : null,
+                },
+              ]
           : anchors,
       currentScript: null,
       get cookie() { return store.cookie; },
@@ -200,6 +211,59 @@ env = makeEnv({
 });
 run(env);
 ok("data-booking-hosts accepts a comma-separated list", env.anchors[0].href.includes("gclid=G_MULTI"));
+
+// --- website fallback: an organic click-through must be distinguishable from someone
+// --- going straight to the booking link ---
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "",
+  links: ["http://localhost:3000/signup"],
+  tagHosts: "localhost",
+});
+run(env);
+ok(
+  "untagged visit still tags the booking link as website/referral",
+  env.anchors[0].href.includes("utm_source=website") && env.anchors[0].href.includes("utm_medium=referral"),
+);
+ok("fallback adds no click id", !env.anchors[0].href.includes("gclid"));
+
+// A real ad visit must NOT be downgraded to the fallback.
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "?gclid=REAL&utm_source=google&utm_medium=cpc",
+  links: ["http://localhost:3000/signup"],
+  tagHosts: "localhost",
+});
+run(env);
+ok("ad attribution wins over the fallback", env.anchors[0].href.includes("utm_source=google") && env.anchors[0].href.includes("gclid=REAL"));
+ok("fallback source not applied to an ad visit", !env.anchors[0].href.includes("utm_source=website"));
+
+// The fallback is configurable per site.
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "",
+  links: ["http://localhost:3000/signup"],
+  tagHosts: "localhost",
+  tagFallback: { source: "telehairdoctors", medium: "site" },
+});
+run(env);
+ok("data-fallback-source overrides the default", env.anchors[0].href.includes("utm_source=telehairdoctors") && env.anchors[0].href.includes("utm_medium=site"));
+
+// A returning visitor with a stored first touch keeps it, not the fallback.
+const adCookie = (() => {
+  const e = makeEnv({ hostname: "hd.meghrajgiri.com", search: "?gclid=FIRST_TOUCH&utm_source=google" });
+  run(e);
+  return e.store.cookie;
+})();
+env = makeEnv({
+  hostname: "hd.meghrajgiri.com",
+  search: "",
+  cookie: adCookie,
+  links: ["http://localhost:3000/signup"],
+  tagHosts: "localhost",
+});
+run(env);
+ok("stored first touch beats the fallback on a later untagged visit", env.anchors[0].href.includes("gclid=FIRST_TOUCH"));
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

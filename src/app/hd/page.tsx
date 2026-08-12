@@ -62,6 +62,13 @@ export default function HairDoctorsLandingPage() {
         // booking.<this domain> and skip a CTA pointing anywhere else — a localhost
         // target during testing, or a booking app on a different domain entirely.
         data-booking-hosts={bookingHost}
+        // Tags booking links for visitors who arrive with NO ad attribution, so an
+        // organic read-then-click is distinguishable from someone going straight to the
+        // booking link. Without it both arrive with an empty query string and the CRM has
+        // to record them both as direct_booking. Real ad attribution always takes
+        // precedence — see the subtask "Finalise the utm source…".
+        data-fallback-source="website"
+        data-fallback-medium="referral"
       />
 
       <div className="mx-auto max-w-3xl px-6 py-20">
