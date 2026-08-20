@@ -22,9 +22,14 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false, nocache: true },
 };
 
-/** Set by the deployment; falls back to the sibling booking host. */
+/**
+ * Set by the deployment; falls back to the sibling booking host.
+ *
+ * `||`, not `??`: a var declared but left empty in `.env` reaches the browser as `""`,
+ * which `??` treats as a real value and happily assigns to an href.
+ */
 const BOOKING_URL =
-  process.env.NEXT_PUBLIC_HD_BOOKING_URL ?? "https://booking.meghrajgiri.com/signup";
+  process.env.NEXT_PUBLIC_HD_BOOKING_URL || "https://booking.meghrajgiri.com/signup";
 
 /**
  * The CTA's hostname, handed to the tracking script so it decorates that link whatever
@@ -40,13 +45,45 @@ const bookingHost = (() => {
   }
 })();
 
+/**
+ * Where `hd-tracking.js` is served from.
+ *
+ * The file lives in the Hair Doctors frontend repo and is hosted by the booking app —
+ * NOT copied into this repo. It shares an exact contract with the booking app's own
+ * pixel layer (event names, and the appointment id used as the deduplication key), and
+ * two copies of that contract in two repos would drift the first time either side
+ * changed. This page is a consumer of the real thing, exactly as the marketing site is.
+ */
+const TRACKING_SRC =
+  process.env.NEXT_PUBLIC_HD_TRACKING_SRC ||
+  (() => {
+    try {
+      return new URL("/hd-tracking.js", BOOKING_URL).toString();
+    } catch {
+      return "https://booking.meghrajgiri.com/hd-tracking.js";
+    }
+  })();
+
+/**
+ * Pixel ids, supplied by the deployment. Left unset — the usual case for this staging
+ * page — the attribute is omitted, the script loads no vendor code, and the page stays
+ * free of third-party requests. The real site's developer sets the same attributes.
+ */
+const PIXEL_IDS = {
+  meta: process.env.NEXT_PUBLIC_HD_META_PIXEL_ID || undefined,
+  google: process.env.NEXT_PUBLIC_HD_GOOGLE_TAG_ID || undefined,
+  tiktok: process.env.NEXT_PUBLIC_HD_TIKTOK_PIXEL_ID || undefined,
+};
+
 export default function HairDoctorsLandingPage() {
   return (
     <main className="min-h-screen bg-white text-neutral-900">
       {/*
         Loaded as a plain external script rather than inlined or wrapped in a React
-        component: the identical file is handed to the third-party developer for the
-        real site, so the demo must exercise exactly what ships.
+        component, and fetched cross-origin from the booking app rather than from this
+        repo's own /public: the identical file, served from the identical place, is what
+        the third-party developer will point the real site at — so the demo exercises
+        exactly what ships, including the cross-origin fetch itself.
 
         `afterInteractive`, NOT `beforeInteractive`: the latter is only honoured in the
         root layout, and inside a page Next emits a preload link and never executes the
@@ -55,7 +92,7 @@ export default function HairDoctorsLandingPage() {
         of which happen long before a human can click anything.
       */}
       <Script
-        src="/hd-tracking.js"
+        src={TRACKING_SRC}
         strategy="afterInteractive"
         // The page knows where its CTA points, so it declares that host rather than
         // letting the script guess. Without this the script would default to
@@ -69,6 +106,12 @@ export default function HairDoctorsLandingPage() {
         // precedence — see the subtask "Finalise the utm source…".
         data-fallback-source="website"
         data-fallback-medium="referral"
+        // One tag carries the pixels too. Every change to the real marketing site costs
+        // a round trip through its third-party maintainer, so asking for three separate
+        // pixel installs would cost three. Each is skipped when its id is absent.
+        data-meta-pixel-id={PIXEL_IDS.meta}
+        data-google-tag-id={PIXEL_IDS.google}
+        data-tiktok-pixel-id={PIXEL_IDS.tiktok}
       />
 
       <div className="mx-auto max-w-3xl px-6 py-20">
