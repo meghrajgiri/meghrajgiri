@@ -37,12 +37,17 @@ export function Navigation() {
 
   const items = navigation?.items ?? [];
   const github = contact?.socialLinks?.find((l) => l.platform === "github")?.url;
+  const availability = contact?.availability?.status;
 
   const ThemeToggle = ({ className = "" }: { className?: string }) => (
     <button
       type="button"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`}
+      // Also gated on `mounted`. The server cannot know the visitor's theme, so
+      // `resolvedTheme` is undefined there and settled on the client — rendering the
+      // specific label straight away made the two disagree and failed hydration. The
+      // icon was already guarded; the label was not.
+      aria-label={mounted ? `Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme` : "Toggle theme"}
       className={`nb nb-sm nb-press focus-ring flex h-11 w-11 items-center justify-center bg-card text-foreground ${className}`}
     >
       {/* Rendered only after mount: the server cannot know the visitor's theme, and
@@ -74,9 +79,18 @@ export function Navigation() {
               <span className="block truncate text-[15px] font-semibold leading-tight">
                 {personal?.name ?? "Meghraj Giri"}
               </span>
-              <span className="hidden truncate font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground sm:block">
-                {personal?.role}
-              </span>
+              {/* Availability sits here rather than in the hero: it is the one fact
+                  worth carrying on every page, and it stays in view as you scroll. */}
+              {availability ? (
+                <span className="hidden items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground sm:flex">
+                  <span className="h-2.5 w-2.5 shrink-0 border-2 border-border bg-brand" aria-hidden />
+                  <span className="truncate">{availability}</span>
+                </span>
+              ) : (
+                <span className="hidden truncate font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground sm:block">
+                  {personal?.role}
+                </span>
+              )}
             </span>
           </Link>
 

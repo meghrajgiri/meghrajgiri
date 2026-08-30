@@ -77,8 +77,12 @@ export default function RootLayout({
         <SpeedInsights />
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          enableSystem
+          defaultTheme="dark"
+          // `enableSystem` is off deliberately. With it on, a visitor whose OS is set
+          // to light lands on the light theme regardless of the default — so "default
+          // dark" would only apply to people already in dark mode. The toggle still
+          // works and the choice is still remembered.
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}

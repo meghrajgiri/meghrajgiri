@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
+import { WindowBar } from "@/components/projects/WindowFrame";
 
 /**
  * Featured work — three projects at equal weight.
@@ -49,6 +50,7 @@ export function ProjectsSection() {
               href={`/projects/${project.slug}`}
               className="nb nb-press group flex flex-col overflow-hidden bg-card"
             >
+              <WindowBar path={`~/work/${project.slug}`} />
               <div className="relative aspect-[16/10] w-full overflow-hidden border-b-2 border-border bg-muted">
                 {project.image && (
                   <Image

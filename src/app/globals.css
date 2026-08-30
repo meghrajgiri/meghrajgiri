@@ -3,6 +3,44 @@
 @tailwind utilities;
 
 :root {
+  /* Dark is the default, so it lives on :root rather than behind a class.
+     next-themes mounts inside <body>, which means its class-setting script runs after
+     first paint — with the light palette on :root the page rendered light and snapped
+     to dark. Defaulting here removes that flash entirely. */
+  color-scheme: dark;
+  /* Dark — same construction, inverted. Black shadows vanish on a dark ground, so
+     the offset takes the border colour instead. */
+  --background: #1D1D1C;
+  --foreground: #E8EDDF;
+  --card: #242423;
+  --card-foreground: #E8EDDF;
+  --primary: #F5CB5C;
+  --primary-foreground: #242423;
+  --secondary: #2B2D2B;
+  --secondary-foreground: #E8EDDF;
+  --muted: #2B2D2B;
+  --muted-foreground: #A0B7AB;
+  --accent: #2B2D2B;
+  --accent-foreground: #E8EDDF;
+  --border: #E8EDDF;
+  --input: #E8EDDF;
+  --ring: #F5CB5C;
+
+  --brand: #F5CB5C;
+  --brand-soft: #3F2F04;
+  --brand-ink: #242423;
+  --brand-text: #F5CB5C;
+
+  --shadow-hard: 4px 4px 0 0 #E8EDDF;
+  --shadow-hard-sm: 2px 2px 0 0 #E8EDDF;
+  --border-hard: 2px;
+
+  --gradient: none;
+  --gradient-subtle: none;
+}
+
+.light {
+  color-scheme: light;
   /* Light — neubrutalism on the supplied palette.
      Colour is used as blocks rather than as text: tuscan_sun is a fill with carbon
      on top (10.05:1 inverted), which sidesteps the fact that #f5cb5c measures
@@ -44,6 +82,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   /* Dark — same construction, inverted. Black shadows vanish on a dark ground, so
      the offset takes the border colour instead. */
   --background: #1D1D1C;
