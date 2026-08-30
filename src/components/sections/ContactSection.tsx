@@ -73,7 +73,7 @@ export function ContactSection() {
   const field = (name: "name" | "email" | "subject" | "message") => {
     const cfg = getFieldConfig(name);
     const shared =
-      "w-full rounded-sm border border-border bg-background px-4 py-3 text-[15px] text-foreground placeholder:text-muted-foreground/70 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand";
+      "w-full border-2 border-border bg-card px-4 py-3 text-[15px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand";
     return (
       <div key={name}>
         <label
@@ -114,7 +114,7 @@ export function ContactSection() {
       <div className="container mx-auto max-w-6xl">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-brand">
+            <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
               Contact
             </p>
             <h2 className="mt-3 max-w-[16ch] text-[2rem] md:text-5xl">
@@ -165,7 +165,7 @@ export function ContactSection() {
                   </dt>
                   <dd className="mt-1.5 text-[15px] text-muted-foreground">
                     <span className="inline-flex items-center gap-2.5 text-foreground">
-                      <span className="h-[7px] w-[7px] rounded-full bg-brand" aria-hidden />
+                      <span className="h-3 w-3 border-2 border-border bg-brand" aria-hidden />
                       {availability.status}
                     </span>
                     {availability.responseTime && (
@@ -192,7 +192,7 @@ export function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="focus-ring inline-flex min-h-[48px] items-center rounded-sm bg-primary px-7 font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
+                className="nb nb-press focus-ring inline-flex min-h-[48px] items-center bg-brand px-7 font-bold text-[var(--brand-ink)] disabled:opacity-60"
               >
                 {isSubmitting ? "Sending…" : (form?.submitButton ?? "Send message")}
               </button>

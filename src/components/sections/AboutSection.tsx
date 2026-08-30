@@ -23,7 +23,7 @@ export function AboutSection() {
   return (
     <section id="about" className="px-6 py-16 md:py-24">
       <div className="container mx-auto max-w-6xl">
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-brand">
+        <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
           {about.badge}
         </p>
 
@@ -49,7 +49,7 @@ export function AboutSection() {
             {stats.length > 0 && (
               <dl className="flex flex-col">
                 {stats.map((stat) => (
-                  <div key={stat.label} className="border-t border-border py-4 last:border-b">
+                  <div key={stat.label} className="border-t-2 border-border py-4 last:border-b-2">
                     <dd className="font-mono text-2xl tabular-nums">{stat.value}</dd>
                     <dt className="mt-0.5 text-sm text-muted-foreground">{stat.label}</dt>
                   </div>
@@ -68,7 +68,7 @@ export function AboutSection() {
         </div>
 
         {about.callToAction && (
-          <div className="mt-20 border-t border-border pt-12">
+          <div className="mt-20 border-t-2 border-border pt-12">
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <h3 className="max-w-[22ch] text-[1.75rem] md:text-4xl">{about.callToAction.title}</h3>
@@ -78,7 +78,7 @@ export function AboutSection() {
               </div>
               <Link
                 href="/#contact"
-                className="focus-ring inline-flex min-h-[48px] items-center self-start rounded-sm bg-primary px-7 font-semibold text-primary-foreground transition-opacity hover:opacity-90 lg:self-auto"
+                className="nb nb-press focus-ring inline-flex min-h-[48px] items-center self-start bg-brand px-7 font-bold text-[var(--brand-ink)] lg:self-auto"
               >
                 {about.callToAction.buttonText}
               </Link>

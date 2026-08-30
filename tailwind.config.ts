@@ -33,6 +33,8 @@ module.exports = withTV({
         brand: {
           DEFAULT: "var(--brand)",
           soft: "var(--brand-soft)",
+          ink: "var(--brand-ink)",
+          text: "var(--brand-text)",
         },
         input: "var(--input)",
         ring: "var(--ring)",

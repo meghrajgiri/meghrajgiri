@@ -3,60 +3,72 @@
 @tailwind utilities;
 
 :root {
-  /* Light — clean paper, cool-neutral greys, one luminous accent.
-     The previous pass used a warm off-white with warm-grey text, which read muddy:
-     neither crisp nor committedly warm, and the olive cast in the greys flattened
-     everything. These neutrals are barely-cool and the muted tone is darker, so body
-     copy has weight instead of fading out. */
-  --background: #F8F8F6;
-  --foreground: #14161A;
-  --card: #FFFFFF;
-  --card-foreground: #14161A;
-  --primary: #14161A;
-  --primary-foreground: #F8F8F6;
-  --secondary: #EFEFEC;
-  --secondary-foreground: #14161A;
-  --muted: #EFEFEC;
-  --muted-foreground: #5C626B;
-  --accent: #EFEFEC;
-  --accent-foreground: #14161A;
-  --border: #E0E1DD;
-  --input: #CFD1CC;
-  --ring: #0A7C8C;
+  /* Light — neubrutalism on the supplied palette.
+     Colour is used as blocks rather than as text: tuscan_sun is a fill with carbon
+     on top (10.05:1 inverted), which sidesteps the fact that #f5cb5c measures
+     1.49:1 as text on white and could never be used for type. */
+  --background: #E8EDDF;
+  --foreground: #242423;
+  --card: #FAFBF8;
+  --card-foreground: #242423;
+  --primary: #242423;
+  --primary-foreground: #FAFBF8;
+  --secondary: #F1F4EB;
+  --secondary-foreground: #242423;
+  --muted: #F1F4EB;
+  --muted-foreground: #4A544C;
+  --accent: #F1F4EB;
+  --accent-foreground: #242423;
+  --border: #242423;
+  --input: #242423;
+  --ring: #242423;
 
-  /* #0B8A9C read well but measured 3.85:1 on this ground — under the 4.5:1 WCAG AA
-     floor, and it carries body-size text (section eyebrows, the projects link).
-     #0A7C8C is the lightest value that clears it, at 4.62:1. */
-  --brand: #0A7C8C;
-  --brand-soft: #DDF1F4;
+  /* The pop. A fill, never type. `--brand-ink` is what sits on top of it. */
+  --brand: #F5CB5C;
+  --brand-soft: #FDF5DE;
+  --brand-ink: #242423;
+  /* Accent text, for the rare place a block will not do. */
+  --brand-text: #7F5F08;
 
-  --gradient: linear-gradient(135deg, #14161A 0%, #0A7C8C 100%);
-  --gradient-subtle: linear-gradient(135deg, #F2F2EF 0%, #F8F8F6 100%);
+  /* Hard offset, zero blur — the whole point of the style. */
+  --shadow-hard: 4px 4px 0 0 #242423;
+  --shadow-hard-sm: 2px 2px 0 0 #242423;
+  --border-hard: 2px;
+
+  --gradient: none;
+  --gradient-subtle: none;
 }
 
 .dark {
-  /* Dark — the terminal's world, applied to the whole page. */
-  --background: #101215;
-  --foreground: #ECEEF0;
-  --card: #171A1E;
-  --card-foreground: #ECEEF0;
-  --primary: #ECEEF0;
-  --primary-foreground: #101215;
-  --secondary: #1D2126;
-  --secondary-foreground: #ECEEF0;
-  --muted: #1D2126;
-  --muted-foreground: #97A0AB;
-  --accent: #1D2126;
-  --accent-foreground: #ECEEF0;
-  --border: #282D33;
-  --input: #333940;
-  --ring: #3FC9DC;
+  /* Dark — same construction, inverted. Black shadows vanish on a dark ground, so
+     the offset takes the border colour instead. */
+  --background: #1D1D1C;
+  --foreground: #E8EDDF;
+  --card: #242423;
+  --card-foreground: #E8EDDF;
+  --primary: #F5CB5C;
+  --primary-foreground: #242423;
+  --secondary: #2B2D2B;
+  --secondary-foreground: #E8EDDF;
+  --muted: #2B2D2B;
+  --muted-foreground: #A0B7AB;
+  --accent: #2B2D2B;
+  --accent-foreground: #E8EDDF;
+  --border: #E8EDDF;
+  --input: #E8EDDF;
+  --ring: #F5CB5C;
 
-  --brand: #3FC9DC;
-  --brand-soft: #10343A;
+  --brand: #F5CB5C;
+  --brand-soft: #3F2F04;
+  --brand-ink: #242423;
+  --brand-text: #F5CB5C;
 
-  --gradient: linear-gradient(135deg, #ECEEF0 0%, #3FC9DC 100%);
-  --gradient-subtle: linear-gradient(135deg, #0C0E10 0%, #101215 100%);
+  --shadow-hard: 4px 4px 0 0 #E8EDDF;
+  --shadow-hard-sm: 2px 2px 0 0 #E8EDDF;
+  --border-hard: 2px;
+
+  --gradient: none;
+  --gradient-subtle: none;
 }
 
 * {
@@ -368,13 +380,34 @@ a {
 
 
 /* --- Editorial preview: display face on headings ------------------------- */
+/* --- Neubrutalist primitives --------------------------------------------- */
+.nb {
+  /* Deliberately sets no background. This rule lives after @tailwind utilities, so a
+     `background` here would beat every `bg-*` utility on the same element — which is
+     exactly how the terminal ended up rendering cream instead of near-black. Each
+     usage brings its own bg utility. */
+  border: var(--border-hard) solid var(--border);
+  box-shadow: var(--shadow-hard);
+  border-radius: 6px;
+}
+.nb-sm { box-shadow: var(--shadow-hard-sm); }
+/* Press-in on interaction: the shadow collapses and the element moves into it.
+   Instant, not eased — the style has no smooth transitions. */
+.nb-press { transition: transform 80ms steps(2), box-shadow 80ms steps(2); }
+.nb-press:hover { transform: translate(2px, 2px); box-shadow: var(--shadow-hard-sm); }
+.nb-press:active { transform: translate(4px, 4px); box-shadow: none; }
+@media (prefers-reduced-motion: reduce) {
+  .nb-press { transition: none; }
+  .nb-press:hover, .nb-press:active { transform: none; box-shadow: var(--shadow-hard); }
+}
+
 h1, h2, h3 {
   /* Cabinet Grotesk is a grotesk, not a serif: it carries a headline through weight
      and tight tracking rather than stroke contrast, so 400 at display size reads
      underset. 700 with tighter tracking is where it has presence. */
   font-family: var(--font-display), system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-weight: 800;
+  letter-spacing: -0.035em;
   line-height: 1.02;
   text-wrap: balance;
 }

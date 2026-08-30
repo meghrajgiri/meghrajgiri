@@ -13,7 +13,7 @@ export function SiteFooter({ config }: { config: SiteConfig }) {
   const socials = (contact?.socialLinks ?? []).filter((l) => l.url?.startsWith("http"));
 
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t-2 border-border">
       <div className="container mx-auto max-w-6xl px-6 py-14 md:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
@@ -32,7 +32,7 @@ export function SiteFooter({ config }: { config: SiteConfig }) {
             )}
             {contact?.availability?.status && (
               <p className="mt-5 inline-flex items-center gap-2.5 text-sm text-muted-foreground">
-                <span className="h-[7px] w-[7px] rounded-full bg-brand" aria-hidden />
+                <span className="h-3 w-3 border-2 border-border bg-brand" aria-hidden />
                 {contact.availability.status}
               </p>
             )}
@@ -95,7 +95,7 @@ export function SiteFooter({ config }: { config: SiteConfig }) {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t-2 border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
             &copy; {new Date().getFullYear()} {metadata?.author ?? personal?.name}
           </p>

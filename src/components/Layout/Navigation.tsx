@@ -43,7 +43,7 @@ export function Navigation() {
       type="button"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
       aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`}
-      className={`focus-ring flex h-11 w-11 items-center justify-center rounded-sm border border-border text-muted-foreground transition-colors hover:text-foreground ${className}`}
+      className={`nb nb-sm nb-press focus-ring flex h-11 w-11 items-center justify-center bg-card text-foreground ${className}`}
     >
       {/* Rendered only after mount: the server cannot know the visitor's theme, and
           guessing produces a hydration mismatch and a flash of the wrong icon. */}
@@ -64,10 +64,10 @@ export function Navigation() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b-2 border-border bg-background">
         <div className="container mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3.5">
           <Link href="/" className="focus-ring flex min-w-0 items-center gap-3 rounded-sm">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary font-mono text-[11px] font-medium text-primary-foreground">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center border-2 border-border bg-brand font-mono text-[11px] font-bold text-[var(--brand-ink)]">
               {personal?.initials ?? "MG"}
             </span>
             <span className="min-w-0">
@@ -99,7 +99,7 @@ export function Navigation() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub profile"
-                className="focus-ring hidden h-11 w-11 items-center justify-center rounded-sm border border-border text-muted-foreground transition-colors hover:text-foreground sm:flex"
+                className="nb nb-sm nb-press focus-ring hidden h-11 w-11 items-center justify-center bg-card text-foreground sm:flex"
               >
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
                   <path d="M12 .5a11.5 11.5 0 00-3.64 22.42c.58.1.79-.25.79-.55v-2.1c-3.2.7-3.88-1.400-3.88-1.4-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 015.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.42.36.79 1.08.79 2.18v3.23c0 .3.21.66.8.55A11.5 11.5 0 0012 .5z" />
@@ -113,7 +113,7 @@ export function Navigation() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="focus-ring flex h-11 w-11 items-center justify-center rounded-sm border border-border text-muted-foreground transition-colors hover:text-foreground lg:hidden"
+              className="nb nb-sm nb-press focus-ring flex h-11 w-11 items-center justify-center bg-card text-foreground lg:hidden"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
                 {open ? (
@@ -136,7 +136,7 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="focus-ring flex min-h-[60px] items-center border-b border-border text-2xl transition-colors hover:text-brand"
+                className="focus-ring flex min-h-[60px] items-center border-b-2 border-border text-2xl font-semibold"
               >
                 {item.label}
               </Link>
@@ -144,7 +144,7 @@ export function Navigation() {
             <Link
               href="/projects"
               onClick={() => setOpen(false)}
-              className="focus-ring flex min-h-[60px] items-center border-b border-border text-2xl transition-colors hover:text-brand"
+              className="focus-ring flex min-h-[60px] items-center border-b-2 border-border text-2xl font-semibold"
             >
               All projects
             </Link>

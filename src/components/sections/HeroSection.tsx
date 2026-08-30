@@ -37,7 +37,7 @@ export function HeroSection() {
     );
   };
 
-  const tile = "rounded-2xl border border-border bg-card p-6 md:p-7";
+  const tile = "nb bg-card p-6 md:p-7";
 
   return (
     <section className="px-6 pb-10 pt-10 md:pb-12 md:pt-14">
@@ -62,7 +62,7 @@ export function HeroSection() {
               {buttons?.primary && (
                 <Link
                   href={buttons.primary.href}
-                  className="focus-ring inline-flex min-h-[48px] items-center rounded-xl bg-primary px-6 font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                  className="nb nb-press focus-ring inline-flex min-h-[48px] items-center bg-brand px-6 font-bold text-[var(--brand-ink)]"
                 >
                   {buttons.primary.text}
                 </Link>
@@ -88,7 +88,7 @@ export function HeroSection() {
           {/* Facts. Counted from real data, not typed in. */}
           <div className={tile}>
             <p className="font-mono text-3xl tabular-nums md:text-4xl">{shipped}</p>
-            <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+            <p className="mt-1 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
               Products shipped
             </p>
           </div>
@@ -96,7 +96,7 @@ export function HeroSection() {
           <div className={`${tile} flex flex-col justify-between`}>
             {contact?.availability?.status && (
               <p className="inline-flex items-center gap-2.5 text-[15px]">
-                <span className="h-[7px] w-[7px] shrink-0 rounded-full bg-brand" aria-hidden />
+                <span className="h-3 w-3 shrink-0 border-2 border-border bg-brand" aria-hidden />
                 {contact.availability.status}
               </p>
             )}

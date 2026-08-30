@@ -115,22 +115,26 @@ export function Terminal() {
 
   return (
     <div
-      className="relative h-full overflow-hidden rounded-2xl border border-border bg-[#0F1114]"
+      className="nb relative h-full overflow-hidden bg-[#1D1D1C]"
       style={{ colorScheme: "dark" }}
     >
       {/*
         Ambient glow. Two offset pools rather than one centred blur, so the light reads
         as coming from somewhere instead of sitting behind the panel like a vignette.
+
+        Opacity is low on purpose: these tint with `var(--brand)`, and a luminous
+        accent at the value a muted one tolerated floods the panel and takes the text
+        with it. 0.16 is about the ceiling for a bright hue.
       */}
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full blur-[90px]"
-        style={{ background: "var(--brand)", opacity: 0.5 }}
+        style={{ background: "var(--brand)", opacity: 0.16 }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute -right-24 top-1/4 h-72 w-72 rounded-full blur-[90px]"
-        style={{ background: "var(--brand)", opacity: 0.28 }}
+        style={{ background: "var(--brand)", opacity: 0.09 }}
       />
       {/* Catches the top edge so the panel reads as glass rather than a flat rectangle. */}
       <div

@@ -29,14 +29,14 @@ export function ProjectsSection() {
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-brand">
+            <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
               {projects.badge}
             </p>
             <h2 className="mt-3 text-[2rem] md:text-5xl">{projects.title}</h2>
           </div>
           <Link
             href="/projects"
-            className="text-base text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand"
+            className="nb nb-sm nb-press focus-ring inline-flex min-h-[44px] items-center bg-brand px-4 text-[15px] font-bold text-[var(--brand-ink)]"
           >
             All {published.length} projects &rarr;
           </Link>
@@ -47,9 +47,9 @@ export function ProjectsSection() {
             <Link
               key={project.slug}
               href={`/projects/${project.slug}`}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-brand/50"
+              className="nb nb-press group flex flex-col overflow-hidden bg-card"
             >
-              <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border bg-muted">
+              <div className="relative aspect-[16/10] w-full overflow-hidden border-b-2 border-border bg-muted">
                 {project.image && (
                   <Image
                     src={project.image}
@@ -63,7 +63,7 @@ export function ProjectsSection() {
 
               <div className="flex flex-1 flex-col p-5">
                 <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="rounded-sm border border-brand bg-brand-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-brand">
+                  <span className="border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.1em] text-[var(--brand-ink)]">
                     {project.category}
                   </span>
                   <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
@@ -71,7 +71,7 @@ export function ProjectsSection() {
                   </span>
                 </div>
 
-                <h3 className="mt-3 text-xl leading-snug transition-colors group-hover:text-brand">
+                <h3 className="mt-3 text-xl leading-snug">
                   {project.title}
                 </h3>
                 <p className="mt-2.5 text-[15px] leading-relaxed text-muted-foreground">
@@ -79,8 +79,8 @@ export function ProjectsSection() {
                 </p>
 
                 {project.impact && (
-                  <p className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-brand">
-                    <span className="h-px w-4 bg-brand" aria-hidden />
+                  <p className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-[var(--brand-text)]">
+                    <span className="h-[3px] w-4 bg-brand" aria-hidden />
                     {project.impact}
                   </p>
                 )}
