@@ -7,15 +7,19 @@
      Colour is used as blocks rather than as text: tuscan_sun is a fill with carbon
      on top (10.05:1 inverted), which sidesteps the fact that #f5cb5c measures
      1.49:1 as text on white and could never be used for type. */
-  --background: #E8EDDF;
+  /* Ground lifted off soft_linen DEFAULT. At #E8EDDF the page sat almost on top of
+     the tiles, which flattened the offsets that carry this style. soft_linen.800
+     gives the tiles somewhere to sit, and the original tone becomes the secondary
+     surface so nothing is lost from the palette. */
+  --background: #F6F8F2;
   --foreground: #242423;
-  --card: #FAFBF8;
+  --card: #FFFFFF;
   --card-foreground: #242423;
   --primary: #242423;
   --primary-foreground: #FAFBF8;
-  --secondary: #F1F4EB;
+  --secondary: #E8EDDF;
   --secondary-foreground: #242423;
-  --muted: #F1F4EB;
+  --muted: #E8EDDF;
   --muted-foreground: #4A544C;
   --accent: #F1F4EB;
   --accent-foreground: #242423;

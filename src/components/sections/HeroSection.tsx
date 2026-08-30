@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import { Terminal } from "@/components/sections/Terminal";
@@ -44,7 +45,7 @@ export function HeroSection() {
       <div className="container mx-auto max-w-6xl">
         <div className="grid gap-4 md:grid-cols-4 md:gap-5">
           {/* Identity — the anchor tile */}
-          <div className={`${tile} flex flex-col justify-between md:col-span-2 md:row-span-2`}>
+          <div className={`${tile} flex flex-col md:col-span-2 md:row-span-2`}>
             <div>
               <p className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.14em] text-muted-foreground sm:text-[11px]">
                 {personal?.role ?? "Full stack developer"} &middot; {personal?.location ?? "Remote"}
@@ -58,7 +59,7 @@ export function HeroSection() {
               </p>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
               {buttons?.primary && (
                 <Link
                   href={buttons.primary.href}
@@ -85,23 +86,38 @@ export function HeroSection() {
             <Terminal />
           </div>
 
-          {/* Facts. Counted from real data, not typed in. */}
-          <div className={tile}>
-            <p className="font-mono text-3xl tabular-nums md:text-4xl">{shipped}</p>
-            <p className="mt-1 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
-              Products shipped
-            </p>
+          {/* Portrait. The disc behind it samples at #F5CC4C — one green step and
+              sixteen blue from tuscan_sun, so it reads as the accent rather than as a
+              second colour competing with it. */}
+          <div className="nb relative aspect-[5/6] overflow-hidden bg-brand md:aspect-auto">
+            <Image
+              src="/Meghraj.jpg"
+              alt={personal?.name ? `${personal.name}, ${personal.role}` : "Portrait"}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 280px"
+              className="object-cover"
+            />
           </div>
 
+          {/* Facts. Counted from real data, not typed in. */}
           <div className={`${tile} flex flex-col justify-between`}>
+            <div>
+              <p className="font-mono text-3xl tabular-nums md:text-4xl">{shipped}</p>
+              <p className="mt-1 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+                Products shipped
+              </p>
+            </div>
+
             {contact?.availability?.status && (
-              <p className="inline-flex items-center gap-2.5 text-[15px]">
+              <p className="mt-5 inline-flex items-center gap-2.5 text-[14px] leading-snug">
                 <span className="h-3 w-3 shrink-0 border-2 border-border bg-brand" aria-hidden />
                 {contact.availability.status}
               </p>
             )}
+
             {floatingSkills && floatingSkills.length > 0 && (
-              <p className="mt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
+              <p className="mt-3 font-mono text-[10px] leading-relaxed text-muted-foreground">
                 {floatingSkills.join(" · ")}
               </p>
             )}
