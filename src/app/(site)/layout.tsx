@@ -2,9 +2,6 @@ import { Navigation } from "@/components/Layout/Navigation";
 import { SiteConfigProvider } from "@/components/providers/SiteConfigProvider";
 import { getAllConfig } from "@/lib/config";
 import type { Metadata } from "next";
-import Link from "next/link";
-
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getAllConfig();
@@ -77,12 +74,6 @@ export default async function SiteLayout({
                     &copy; {new Date().getFullYear()}{" "}
                     {config.metadata.author}. All rights reserved.
                   </p>
-                  <Link
-                    href="/admin"
-                    className="text-muted-foreground/50 text-xs transition-colors hover:text-muted-foreground"
-                  >
-                    Admin
-                  </Link>
                 </div>
               </div>
             </footer>

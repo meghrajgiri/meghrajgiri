@@ -12,6 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.meghrajgiri.com"),
   title: "Meghraj Giri - Full Stack Developer",
   description: "Full Stack Developer specializing in modern web technologies.",
   robots: {

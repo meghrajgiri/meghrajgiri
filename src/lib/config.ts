@@ -1,4 +1,5 @@
 import { unstable_cache } from "next/cache";
+import fallbackConfig from "@/config/fallback.json";
 import { createAdminClient } from "./supabase-admin";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -34,8 +35,11 @@ export const getAllConfig = unstable_cache(
       .returns<{ key: string; value: any }[]>();
 
     if (error || !data) {
-      console.error("Failed to fetch site config:", error?.message);
-      return {} as SiteConfig;
+      console.error(
+        "Failed to fetch site config, serving committed snapshot:",
+        error?.message,
+      );
+      return fallbackConfig as unknown as SiteConfig;
     }
 
     const config: Record<string, any> = {};
@@ -43,7 +47,12 @@ export const getAllConfig = unstable_cache(
       config[row.key] = row.value;
     }
 
-    return config as SiteConfig;
+    // Spread over the snapshot rather than returning `config` directly. Callers read
+    // `config.metadata.author` and `config.projects.projects` without optional
+    // chaining, so a section missing from the response — a partial read, a row
+    // deleted by accident — would throw and 500 the whole public site. Merging means
+    // the worst case is one stale section, not an outage.
+    return { ...fallbackConfig, ...config } as unknown as SiteConfig;
   },
   ["site-config"],
   { revalidate: 60, tags: ["site-config"] },
@@ -170,7 +179,7 @@ export interface SiteConfig {
     author: string;
     url: string;
     siteName: string;
-    twitter: string;
+    twitter?: string;
     locale: string;
     type: string;
   };
@@ -194,3 +203,32 @@ export async function saveConfig(key: string, value: unknown) {
 
   if (error) throw error;
 }
+
+/**
+ * Last-edit times for the config sections, used to give the sitemap a truthful
+ * `lastmod` instead of the current timestamp on every request.
+ *
+ * Falls back to `null` rather than "now" so the caller can decide — an invented
+ * lastmod is worse than an omitted one.
+ */
+export const getConfigTimestamps = unstable_cache(
+  async (): Promise<{ site: Date | null; projects: Date | null }> => {
+    const supabase = createAdminClient();
+    const { data, error } = await supabase
+      .from("site_config")
+      .select("key, updated_at")
+      .returns<{ key: string; updated_at: string }[]>();
+
+    if (error || !data?.length) return { site: null, projects: null };
+
+    const times = data.map((r) => new Date(r.updated_at).getTime());
+    const projectsRow = data.find((r) => r.key === "projects");
+
+    return {
+      site: new Date(Math.max(...times)),
+      projects: projectsRow ? new Date(projectsRow.updated_at) : null,
+    };
+  },
+  ["site-config-timestamps"],
+  { revalidate: 60, tags: ["site-config"] },
+);

@@ -16,7 +16,7 @@ export default function AdminLogin() {
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      if (session) router.replace("/admin/contacts");
+      if (session) router.replace("/cms/contacts");
     };
     checkExisting();
   }, [router]);
@@ -37,7 +37,7 @@ export default function AdminLogin() {
       return;
     }
 
-    router.replace("/admin/contacts");
+    router.replace("/cms/contacts");
   };
 
   return (

@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 const navItems = [
   {
-    href: "/admin/contacts",
+    href: "/cms/contacts",
     label: "Contacts",
     icon: (
       <svg
@@ -27,16 +27,16 @@ const navItems = [
 ];
 
 const configItems = [
-  { href: "/admin/config/personal", label: "Personal" },
-  { href: "/admin/config/hero", label: "Hero" },
-  { href: "/admin/config/about", label: "About" },
-  { href: "/admin/config/skills", label: "Skills" },
-  { href: "/admin/config/projects", label: "Projects" },
-  { href: "/admin/config/experience", label: "Experience" },
-  { href: "/admin/config/education", label: "Education" },
-  { href: "/admin/config/contact", label: "Contact" },
-  { href: "/admin/config/metadata", label: "Metadata / SEO" },
-  { href: "/admin/config/navigation", label: "Navigation" },
+  { href: "/cms/config/personal", label: "Personal" },
+  { href: "/cms/config/hero", label: "Hero" },
+  { href: "/cms/config/about", label: "About" },
+  { href: "/cms/config/skills", label: "Skills" },
+  { href: "/cms/config/projects", label: "Projects" },
+  { href: "/cms/config/experience", label: "Experience" },
+  { href: "/cms/config/education", label: "Education" },
+  { href: "/cms/config/contact", label: "Contact" },
+  { href: "/cms/config/metadata", label: "Metadata / SEO" },
+  { href: "/cms/config/navigation", label: "Navigation" },
 ];
 
 export function AdminSidebar() {
@@ -45,14 +45,14 @@ export function AdminSidebar() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.replace("/admin/login");
+    router.replace("/cms");
   };
 
   return (
     <aside className="flex h-screen w-64 flex-col border-r border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
       {/* Header */}
       <div className="flex h-16 items-center border-b border-gray-200 px-6 dark:border-gray-800">
-        <Link href="/admin/contacts" className="flex items-center gap-3">
+        <Link href="/cms/contacts" className="flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900 text-sm font-bold text-white dark:bg-white dark:text-gray-900">
             A
           </div>

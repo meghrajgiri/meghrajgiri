@@ -2,8 +2,7 @@ import { getAllConfig } from "@/lib/config";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
-
-export const dynamic = "force-dynamic";
+import { buildBreadcrumbs, graph } from "@/lib/schema";
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getAllConfig();
@@ -46,8 +45,33 @@ export default async function ProjectsPage() {
   const config = await getAllConfig();
   const { badge, title, subtitle, callToAction } = config.projects;
   const projects = config.projects.projects.filter((p) => p.published !== false);
+  const baseUrl = config.metadata.url;
+
+  const jsonLd = graph([
+    buildBreadcrumbs(baseUrl, [
+      { name: "Home", path: "/" },
+      { name: "Projects", path: "/projects" },
+    ]),
+    {
+      "@type": "ItemList",
+      name: title,
+      description: subtitle,
+      numberOfItems: projects.length,
+      itemListElement: projects.map((project, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${baseUrl}/projects/${project.slug}`,
+        name: project.title,
+      })),
+    },
+  ]);
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     <section className="min-h-screen px-6 pb-24 pt-32">
       <div className="container mx-auto max-w-7xl">
         <div className="space-y-16">
@@ -82,5 +106,6 @@ export default async function ProjectsPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }
