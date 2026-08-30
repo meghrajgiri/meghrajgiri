@@ -18,11 +18,6 @@
         "delay": "0.2s",
         "label": "Products Shipped",
         "value": "20+"
-      },
-      {
-        "delay": "0.4s",
-        "label": "",
-        "value": ""
       }
     ],
     "buttons": {
@@ -309,6 +304,53 @@
         "title": "Clinic Management System - Cannabiz Elite (Australia)",
         "status": "In Progress",
         "category": "Healthcare",
+        "caseStudy": {
+          "metrics": [
+            {
+              "label": "Weeks to launch",
+              "value": "[N]"
+            },
+            {
+              "label": "Clinics onboarded",
+              "value": "[N]"
+            },
+            {
+              "label": "Consults processed",
+              "value": "[N]"
+            }
+          ],
+          "summary": "Cannabiz Elite is a clinic management system for Australian cannabis and telehealth clinics, built on Medusa v2 and shipped in [N weeks]. The hardest part was not the application — it was [specific constraint], which required [specific solution].",
+          "sections": [
+            {
+              "body": "[Australian telehealth is not a normal build. Describe what AHPRA, the Privacy Act and national prescribing infrastructure actually demanded of this system.]",
+              "heading": "The constraint"
+            },
+            {
+              "body": "[State it concretely, in the clinic's terms rather than technical ones.]",
+              "heading": "The problem"
+            },
+            {
+              "body": "[Why Medusa v2. Why the data model looks the way it does. What was deliberately excluded from v1.]",
+              "heading": "Approach and key decisions"
+            },
+            {
+              "body": "A prescription is not a product. It requires an authorised prescriber, it cannot be freely reordered, and it carries a clinical audit trail no cart abstraction provides.\n\n[The workflow that broke the mapping first was X — and fixing it meant Y.]",
+              "heading": "Where the abstraction breaks"
+            },
+            {
+              "body": "[Named, with what each one demanded in practice. Pending clearance.]",
+              "heading": "Integrations"
+            },
+            {
+              "body": "[Measurable outcomes. If commercial metrics are not publishable, use delivery facts — shipped in N weeks, N clinics, N consults.]",
+              "heading": "Results"
+            },
+            {
+              "body": "[The retrospective. This section does more for credibility than any other on the page.]",
+              "heading": "What I would do differently"
+            }
+          ]
+        },
         "highlights": [
           "Parchment",
           "HIPAA compliance",
@@ -582,7 +624,7 @@
     },
     "socialLinks": [
       {
-        "url": "https://linkedin.com/in/meghraj",
+        "url": "https://www.linkedin.com/in/meghrajgiri/",
         "icon": "linkedin",
         "name": "LinkedIn",
         "label": "Connect on LinkedIn",

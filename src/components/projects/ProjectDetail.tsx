@@ -29,8 +29,14 @@ interface Project {
 export function ProjectDetail({
   project,
   imageSizes = {},
+  caseStudy,
 }: {
   project: Project;
+  /**
+   * Server-rendered case-study body, slotted in as children so its Markdown is parsed
+   * on the server. This component is only a client component because of the lightbox.
+   */
+  caseStudy?: React.ReactNode;
   /**
    * Intrinsic dimensions keyed by src, measured on the server. Absent entries fall
    * back to a plain `<img>` rather than a guessed aspect ratio.
@@ -149,6 +155,8 @@ export function ProjectDetail({
             />
           )}
         </div>
+
+        {caseStudy}
 
         {/* Technologies & Highlights */}
         <div className="mb-12 grid gap-8 md:grid-cols-2">

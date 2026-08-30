@@ -3,49 +3,60 @@
 @tailwind utilities;
 
 :root {
-  /* Light mode - Black and White theme */
-  --background: #ffffff;
-  --foreground: #000000;
-  --card: #ffffff;
-  --card-foreground: #000000;
-  --primary: #000000;
-  --primary-foreground: #ffffff;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #000000;
-  --muted: #f5f5f5;
-  --muted-foreground: #666666;
-  --accent: #f5f5f5;
-  --accent-foreground: #000000;
-  --border: #f0f0f0;
-  --input: #e5e5e5;
-  --ring: #000000;
+  /* Light — clean paper, cool-neutral greys, one luminous accent.
+     The previous pass used a warm off-white with warm-grey text, which read muddy:
+     neither crisp nor committedly warm, and the olive cast in the greys flattened
+     everything. These neutrals are barely-cool and the muted tone is darker, so body
+     copy has weight instead of fading out. */
+  --background: #F8F8F6;
+  --foreground: #14161A;
+  --card: #FFFFFF;
+  --card-foreground: #14161A;
+  --primary: #14161A;
+  --primary-foreground: #F8F8F6;
+  --secondary: #EFEFEC;
+  --secondary-foreground: #14161A;
+  --muted: #EFEFEC;
+  --muted-foreground: #5C626B;
+  --accent: #EFEFEC;
+  --accent-foreground: #14161A;
+  --border: #E0E1DD;
+  --input: #CFD1CC;
+  --ring: #0A7C8C;
 
-  /* Gradients for accents */
-  --gradient: linear-gradient(135deg, #000000 0%, #333333 100%);
-  --gradient-subtle: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+  /* #0B8A9C read well but measured 3.85:1 on this ground — under the 4.5:1 WCAG AA
+     floor, and it carries body-size text (section eyebrows, the projects link).
+     #0A7C8C is the lightest value that clears it, at 4.62:1. */
+  --brand: #0A7C8C;
+  --brand-soft: #DDF1F4;
+
+  --gradient: linear-gradient(135deg, #14161A 0%, #0A7C8C 100%);
+  --gradient-subtle: linear-gradient(135deg, #F2F2EF 0%, #F8F8F6 100%);
 }
 
 .dark {
-  /* Dark mode - Balanced Gray Combination */
-  --background: #1a1a1a;
-  --foreground: #f0f0f0;
-  --card: #242424;
-  --card-foreground: #f0f0f0;
-  --primary: #e8e8e8;
-  --primary-foreground: #1a1a1a;
-  --secondary: #2e2e2e;
-  --secondary-foreground: #f0f0f0;
-  --muted: #2e2e2e;
-  --muted-foreground: #9ca3af;
-  --accent: #2e2e2e;
-  --accent-foreground: #f0f0f0;
-  --border: #2a2a2a;
-  --input: #333333;
-  --ring: #e8e8e8;
+  /* Dark — the terminal's world, applied to the whole page. */
+  --background: #101215;
+  --foreground: #ECEEF0;
+  --card: #171A1E;
+  --card-foreground: #ECEEF0;
+  --primary: #ECEEF0;
+  --primary-foreground: #101215;
+  --secondary: #1D2126;
+  --secondary-foreground: #ECEEF0;
+  --muted: #1D2126;
+  --muted-foreground: #97A0AB;
+  --accent: #1D2126;
+  --accent-foreground: #ECEEF0;
+  --border: #282D33;
+  --input: #333940;
+  --ring: #3FC9DC;
 
-  /* Gradients for dark mode */
-  --gradient: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
-  --gradient-subtle: linear-gradient(135deg, #0a0a0a 0%, #000000 100%);
+  --brand: #3FC9DC;
+  --brand-soft: #10343A;
+
+  --gradient: linear-gradient(135deg, #ECEEF0 0%, #3FC9DC 100%);
+  --gradient-subtle: linear-gradient(135deg, #0C0E10 0%, #101215 100%);
 }
 
 * {
@@ -353,4 +364,21 @@ a {
 ::selection {
   background: var(--primary);
   color: var(--primary-foreground);
+}
+
+
+/* --- Editorial preview: display face on headings ------------------------- */
+h1, h2, h3 {
+  /* Cabinet Grotesk is a grotesk, not a serif: it carries a headline through weight
+     and tight tracking rather than stroke contrast, so 400 at display size reads
+     underset. 700 with tighter tracking is where it has presence. */
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+/* Section eyebrows and metadata stay mono. */
+.text-gradient {
+  background-image: var(--gradient);
 }

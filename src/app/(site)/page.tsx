@@ -6,6 +6,7 @@ import { buildPerson, buildWebSite, graph } from "@/lib/schema";
 
 const SkillsSection = dynamic(() => import("@/components/sections/SkillsSection").then((m) => ({ default: m.SkillsSection })), { ssr: true });
 const AboutSection = dynamic(() => import("@/components/sections/AboutSection").then((m) => ({ default: m.AboutSection })), { ssr: true });
+const TestimonialsSection = dynamic(() => import("@/components/sections/TestimonialsSection").then((m) => ({ default: m.TestimonialsSection })), { ssr: true });
 const ContactSection = dynamic(() => import("@/components/sections/ContactSection").then((m) => ({ default: m.ContactSection })), { ssr: true });
 
 export default async function Home() {
@@ -24,9 +25,13 @@ export default async function Home() {
           <HeroSection />
         </div>
         <div className="animate-fadeIn">
+          {/* Work first and work biggest. The previous order — pitch, work, a
+              features-style tech grid, about, a contact form — is landing-page
+              anatomy. A portfolio leads with the work and keeps the selling short. */}
           <ProjectsSection />
-          <SkillsSection />
           <AboutSection />
+          <TestimonialsSection />
+          <SkillsSection />
           <ContactSection />
         </div>
       </div>

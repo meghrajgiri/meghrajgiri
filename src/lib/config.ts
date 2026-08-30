@@ -115,6 +115,25 @@ export interface SiteConfig {
       links: { demo?: string; github?: string; case_study?: string };
       highlights: string[];
       published?: boolean;
+      /**
+       * One measurable outcome, shown on the card. "Instead of 'Built a website'
+       * write 'Increased conversions 40%'." Omit rather than invent — a card with no
+       * result line is honest; a card with a made-up one is not.
+       */
+      impact?: string;
+      /**
+       * Long-form case study. Absent on the short project cards, which keep rendering
+       * exactly as before — the deep template only engages once there is something to
+       * put in it, so a project is never half-migrated.
+       */
+      caseStudy?: {
+        /** One paragraph, outcome first. The passage AI search engines quote. */
+        summary?: string;
+        /** Headline numbers. Omit rather than invent — an empty row beats a fake one. */
+        metrics?: Array<{ value: string; label: string }>;
+        /** Ordered prose sections; `body` is Markdown. */
+        sections?: Array<{ heading: string; body: string }>;
+      };
     }>;
     callToAction: { title: string; description: string; buttonText: string };
   };
@@ -182,6 +201,20 @@ export interface SiteConfig {
     twitter?: string;
     locale: string;
     type: string;
+  };
+  testimonials?: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    testimonials: Array<{
+      id: number;
+      quote: string;
+      /** A real person's name. Entries without one are not rendered. */
+      author: string;
+      title?: string;
+      company?: string;
+      image?: string;
+    }>;
   };
   navigation: {
     items: Array<{ href: string; label: string }>;
