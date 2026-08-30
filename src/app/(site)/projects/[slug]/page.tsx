@@ -1,6 +1,7 @@
 import { getAllConfig } from "@/lib/config";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { CaseStudy } from "@/components/projects/CaseStudy";
 import { ProjectDetail } from "@/components/projects/ProjectDetail";
 import { getImageSizes } from "@/lib/image-size";
 import { buildBreadcrumbs, buildPerson, graph, personId } from "@/lib/schema";
@@ -96,6 +97,7 @@ export default async function ProjectPage({ params }: Props) {
       dateCreated: project.year,
       genre: project.category,
       keywords: project.technologies.join(", "),
+      ...(project.caseStudy?.summary ? { abstract: project.caseStudy.summary } : {}),
     },
   ]);
 
@@ -105,7 +107,13 @@ export default async function ProjectPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProjectDetail project={project} imageSizes={imageSizes} />
+      <ProjectDetail
+        project={project}
+        imageSizes={imageSizes}
+        caseStudy={
+          project.caseStudy ? <CaseStudy caseStudy={project.caseStudy} /> : null
+        }
+      />
     </>
   );
 }

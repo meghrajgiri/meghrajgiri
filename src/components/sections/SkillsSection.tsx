@@ -48,66 +48,50 @@ const skillSections = [
   },
 ];
 
+/**
+ * Skills as a reference table, not a wall of pills.
+ *
+ * The previous centred badge-and-card treatment gave every technology equal visual
+ * weight and read as decoration. Grouping them under mono category labels on a tinted
+ * band makes the section scannable and stops it competing with the work above it.
+ */
+/**
+ * Stack, as a footnote rather than a feature grid.
+ *
+ * The previous treatment was a four-column card grid with 28 logos — the anatomy of a
+ * SaaS "features" section, and on a portfolio it competes with the work for attention
+ * while saying less than a single project page does. Each project already lists the
+ * stack it actually used; this is just the summary.
+ */
 export function SkillsSection() {
-  const siteConfig = useSiteConfig();
+  const { skills } = useSiteConfig();
 
   return (
-    <section id="skills" className="bg-background px-6 py-24">
-      <div className="container mx-auto max-w-5xl">
-        <div className="space-y-16">
-          {/* Section Header */}
-          <div className="space-y-4 text-center">
-            <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 backdrop-blur-sm dark:border-primary/10 dark:bg-primary/5">
-              <span className="text-sm font-medium text-primary">
-                {siteConfig.skills.badge}
-              </span>
-            </div>
-            <h2 className="text-4xl font-bold md:text-5xl">
-              {siteConfig.skills.title}
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              {siteConfig.skills.subtitle}
-            </p>
-          </div>
-
-          {/* Skill Categories */}
-          <div className="space-y-14">
+    <section id="skills" className="px-6 py-10 md:py-12">
+      <div className="container mx-auto max-w-6xl">
+        <div className="nb bg-card p-6 md:p-8">
+        <div className="grid gap-8 md:grid-cols-[200px_1fr] md:gap-16">
+          <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+            {skills?.badge ?? "Stack"}
+          </p>
+          <div className="flex flex-col gap-6">
             {skillSections.map((section) => (
-              <div key={section.title} className="space-y-6">
-                {/* Category Header */}
-                <div className="space-y-1 text-center">
-                  <div className="flex items-center justify-center gap-2">
-                    <Icon
-                      icon={section.icon}
-                      className="text-xl text-foreground"
-                    />
-                    <h3 className="text-xl font-bold">{section.title}</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    {section.description}
-                  </p>
-                </div>
-
-                {/* Skills Grid */}
-                <div className="flex flex-wrap justify-center gap-4">
+              <div key={section.title} className="flex flex-col gap-2 sm:flex-row sm:gap-6">
+                <h3 className="w-[130px] shrink-0 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                  {section.title}
+                </h3>
+                <ul className="flex flex-wrap gap-x-4 gap-y-1.5">
                   {section.skills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      className="group flex h-[110px] w-[130px] flex-col items-center justify-center gap-3 rounded-xl border border-border/60 bg-card/40 transition-all duration-300 hover:border-primary/30 hover:bg-card/80 hover:shadow-md"
-                    >
-                      <Icon
-                        icon={skill.icon}
-                        className="text-3xl transition-transform duration-300 group-hover:scale-110"
-                      />
-                      <span className="text-sm font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                        {skill.name}
-                      </span>
-                    </div>
+                    <li key={skill.name} className="flex items-center gap-2 text-[15px] text-muted-foreground">
+                      <Icon icon={skill.icon} className="h-4 w-4 shrink-0" aria-hidden />
+                      {skill.name}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </section>

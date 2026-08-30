@@ -1,4 +1,5 @@
 import { Navigation } from "@/components/Layout/Navigation";
+import { SiteFooter } from "@/components/Layout/SiteFooter";
 import { SiteConfigProvider } from "@/components/providers/SiteConfigProvider";
 import { getAllConfig } from "@/lib/config";
 import type { Metadata } from "next";
@@ -67,16 +68,7 @@ export default async function SiteLayout({
 
           <div className="relative">
             <main className="min-h-screen">{children}</main>
-            <footer className="border-border/30 bg-card/50 border-t backdrop-blur-sm dark:border-transparent">
-              <div className="container mx-auto px-6 py-8">
-                <div className="flex items-center justify-between text-muted-foreground">
-                  <p>
-                    &copy; {new Date().getFullYear()}{" "}
-                    {config.metadata.author}. All rights reserved.
-                  </p>
-                </div>
-              </div>
-            </footer>
+            <SiteFooter config={config} />
           </div>
         </div>
     </SiteConfigProvider>

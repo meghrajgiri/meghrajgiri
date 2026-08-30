@@ -1,380 +1,128 @@
 "use client";
 
-import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { WindowBar } from "@/components/projects/WindowFrame";
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 
+/**
+ * Bento hero: identity, shell and facts as tiles in one composition.
+ *
+ * The terminal previously sat beside the hero as a slab, which read as pasted on. As a
+ * tile among tiles it belongs to the layout instead of interrupting it.
+ *
+ * The grid is the enhancement, not the base — on a phone every tile is full width and
+ * stacks in reading order, so the composition degrades to a sensible column rather
+ * than a squeezed grid.
+ */
 export function HeroSection() {
-  const siteConfig = useSiteConfig();
-  const [mounted, setMounted] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { hero, personal, contact, projects } = useSiteConfig();
+  if (!hero) return null;
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const { mainTitle, description, highlightedTerms, buttons } = hero;
+  const published = (projects?.projects ?? []).filter((p) => p.published !== false);
+  const completed = published.filter((p) => (p.status ?? "").toLowerCase() === "completed").length;
+  const industries = new Set(published.map((p) => p.category).filter(Boolean)).size;
 
-  useEffect(() => {
-    let rafId: number;
-    let cachedRect: DOMRect | null = null;
+  /**
+   * Three stat cards. Configured values from the CMS come first; any remaining slots
+   * fill from counts derived off the project list, so the row is always three and the
+   * derived ones cannot drift out of date the way a typed-in figure does.
+   */
+  const stats = [
+    ...(hero.stats ?? []).filter((st) => st.value?.trim() && st.label?.trim()),
+    { value: String(completed), label: "Projects completed" },
+    { value: String(industries), label: "Industries" },
+    { value: String(published.length), label: "Products shipped" },
+  ].slice(0, 3);
+  const github = contact?.socialLinks?.find((l) => l.platform === "github")?.url;
 
-    const cacheRect = () => {
-      const heroSection = document.getElementById("hero-section");
-      if (heroSection) cachedRect = heroSection.getBoundingClientRect();
-    };
-
-    cacheRect();
-    window.addEventListener("resize", cacheRect);
-    window.addEventListener("scroll", cacheRect, { passive: true });
-
-    const handleMouseMove = (e: MouseEvent) => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        if (cachedRect && e.clientY >= cachedRect.top && e.clientY <= cachedRect.bottom) {
-          setMousePosition({
-            x: e.clientX - cachedRect.left,
-            y: e.clientY - cachedRect.top,
-          });
-        }
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("resize", cacheRect);
-      window.removeEventListener("scroll", cacheRect);
-    };
-  }, []);
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const lede = () => {
+    const terms = [highlightedTerms?.term1, highlightedTerms?.term2].filter(Boolean) as string[];
+    if (!terms.length) return description;
+    const pattern = new RegExp(`(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "g");
+    return description.split(pattern).map((part, i) =>
+      terms.includes(part) ? (
+        <span key={i} className="font-medium text-foreground underline decoration-brand decoration-2 underline-offset-[5px]">
+          {part}
+        </span>
+      ) : (
+        part
+      ),
+    );
   };
 
+  const tile = "nb bg-card p-6 md:p-7";
+
   return (
-    <section
-      id="hero-section"
-      className="relative flex min-h-[calc(100vh-5rem)] items-center justify-center overflow-hidden bg-background px-4 mt-20 sm:px-0"
-    >
-      {/* Mouse Follow Effect */}
-      {mounted && (
-        <div
-          className="from-primary/5 via-primary/10 dark:from-primary/3 dark:via-primary/6 pointer-events-none absolute h-64 w-64 rounded-full bg-gradient-to-r to-transparent blur-3xl transition-all duration-300 ease-out"
-          style={{
-            left: mousePosition.x - 128,
-            top: mousePosition.y - 128,
-            transform: `translate3d(0, 0, 0)`,
-          }}
-        />
-      )}
+    <section className="px-6 pb-10 pt-10 md:pb-12 md:pt-14">
+      <div className="container mx-auto max-w-6xl">
+        <div className="grid gap-4 md:grid-cols-3 md:gap-5">
+          {/* Identity */}
+          <div className={`${tile} flex flex-col md:col-span-2`}>
+            <div>
+              <p className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.14em] text-muted-foreground sm:text-[11px]">
+                {personal?.role ?? "Full stack developer"} &middot; {personal?.location ?? "Remote"}
+              </p>
+              <h1 className="mt-5 text-[2.4rem] leading-[1.03] sm:text-5xl lg:text-[3.4rem]">
+                {mainTitle?.line1}
+                <span className="block text-muted-foreground">{mainTitle?.line2}</span>
+              </h1>
+              <p className="mt-5 max-w-[46ch] text-[16px] leading-relaxed text-muted-foreground md:text-[17px]">
+                {lede()}
+              </p>
+            </div>
 
-      {/* Beautiful Static Background */}
-      <div className="via-muted/10 absolute inset-0 bg-gradient-to-br from-background to-background">
-        {/* Elegant static orbs */}
-        <div
-          className="from-accent-foreground/6 via-accent-foreground/3 dark:from-accent-foreground/4 dark:via-accent-foreground/2 absolute bottom-1/3 right-1/4 h-96 w-96 animate-pulse-subtle rounded-full bg-gradient-to-tl to-transparent blur-3xl"
-          style={{ animationDelay: "2s" }}
-        />
-        <div
-          className="from-primary/5 dark:from-primary/3 absolute right-1/3 top-1/2 h-48 w-48 animate-pulse-subtle rounded-full bg-gradient-to-bl to-transparent blur-2xl"
-          style={{ animationDelay: "4s" }}
-        />
+            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
+              {buttons?.primary && (
+                <Link
+                  href={buttons.primary.href}
+                  className="nb nb-press focus-ring inline-flex min-h-[48px] items-center bg-brand px-6 font-bold text-[var(--brand-ink)]"
+                >
+                  {buttons.primary.text}
+                </Link>
+              )}
+              {github && (
+                <a
+                  href={github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base underline decoration-border underline-offset-4"
+                >
+                  GitHub
+                </a>
+              )}
+            </div>
+          </div>
 
-        {/* Clean grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.022]"
-          style={{
-            backgroundImage: `
-              linear-gradient(currentColor 1px, transparent 1px),
-              linear-gradient(90deg, currentColor 1px, transparent 1px)
-            `,
-            backgroundSize: "50px 50px",
-            color: "var(--foreground)",
-          }}
-        />
+          {/* Right column: portrait, with the count sitting under it. */}
+          <div className="flex flex-col gap-4 md:gap-5">
+            <div className="nb flex flex-1 flex-col overflow-hidden bg-brand">
+              <WindowBar path="~/meghraj.jpg" />
+              <div className="relative min-h-[260px] flex-1">
+                <Image
+                  src="/Meghraj.jpg"
+                  alt={personal?.name ? `${personal.name}, ${personal.role}` : "Portrait"}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 340px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
 
-        {/* Elegant light rays */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="from-primary/20 absolute left-1/2 top-0 h-32 w-px -translate-x-1/2 rotate-12 transform bg-gradient-to-b to-transparent" />
-          <div className="from-accent-foreground/15 absolute bottom-0 right-1/3 h-24 w-px rotate-45 transform bg-gradient-to-t to-transparent" />
-        </div>
+          </div>
 
-        {/* Floating sparkles - reduced on mobile */}
-        <div className="pointer-events-none absolute inset-0">
-          {[
-            { left: "25%", top: "30%", delay: "0s", duration: "5s" },
-            { left: "65%", top: "20%", delay: "2s", duration: "6s" },
-            { left: "45%", top: "70%", delay: "4s", duration: "7s" },
-            { left: "80%", top: "55%", delay: "1s", duration: "5.5s" },
-          ].map((pos, i) => (
-            <div
-              key={i}
-              className="absolute hidden animate-float sm:block"
-              style={{
-                left: pos.left,
-                top: pos.top,
-                animationDelay: pos.delay,
-                animationDuration: pos.duration,
-              }}
-            >
-              <div className="bg-primary/40 h-1 w-1 animate-ping rounded-full" />
+          {/* Stat cards */}
+          {stats.map((stat) => (
+            <div key={stat.label} className="nb bg-card px-5 py-4">
+              <p className="font-mono text-3xl leading-none tabular-nums">{stat.value}</p>
+              <p className="mt-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
-        <div className="grid items-center gap-8 py-8 lg:grid-cols-2 lg:gap-12 lg:py-4">
-          {/* Left side - Text Content */}
-          <div className="space-y-6 text-center sm:space-y-8 lg:text-left">
-            {/* Animated entrance */}
-            <div className="space-y-6">
-              {/* Creative Title Design */}
-              <div className="mx-auto max-w-4xl space-y-8 lg:mx-0">
-                {/* Creative Main Title */}
-                <div className="relative">
-                  <h1 className="text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-                    <span className="relative block">
-                      <span className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
-                        {siteConfig.hero.mainTitle.line1}
-                      </span>
-                      <div className="absolute -right-2 -top-1 h-6 w-6 animate-bounce rounded-full bg-gradient-to-r from-primary to-accent-foreground opacity-60 sm:-right-4 sm:-top-2 sm:h-8 sm:w-8"></div>
-                    </span>
-                    <span className="relative mt-1 block sm:mt-2">
-                      <span className="bg-gradient-to-r from-primary via-accent-foreground to-primary bg-clip-text text-transparent">
-                        {siteConfig.hero.mainTitle.line2}
-                      </span>
-                    </span>
-                  </h1>
-
-                  {/* Floating decorative elements around title - responsive */}
-                  <div className="absolute -right-4 -top-2 h-2 w-2 animate-ping rounded-full bg-primary opacity-60 sm:-right-8 sm:-top-4 sm:h-3 sm:w-3"></div>
-                  <div className="absolute -bottom-1 -left-2 h-3 w-3 animate-pulse rounded-full bg-accent-foreground opacity-40 sm:-bottom-2 sm:-left-4 sm:h-4 sm:w-4"></div>
-                  <div className="from-primary/40 absolute -right-6 top-1/2 hidden h-8 w-2 animate-float rounded-full bg-gradient-to-b to-transparent sm:block sm:h-12 lg:-right-12"></div>
-                </div>
-
-                {/* Enhanced Description */}
-                <div className="relative">
-                  <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg md:text-xl lg:mx-0">
-                    {
-                      siteConfig.hero?.description?.split(
-                        siteConfig.hero.highlightedTerms.term1,
-                      )[0]
-                    }
-                    <span className="relative inline-block">
-                      <span className="font-semibold text-foreground">
-                        {siteConfig.hero.highlightedTerms.term1}
-                      </span>
-                      <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-gradient-to-r from-primary to-transparent" />
-                    </span>
-                    {
-                      siteConfig.hero?.description
-                        ?.split(siteConfig.hero.highlightedTerms.term1)[1]
-                        ?.split(siteConfig.hero.highlightedTerms.term2)[0]
-                    }
-                    <span className="relative inline-block">
-                      <span className="font-semibold text-foreground">
-                        {siteConfig.hero.highlightedTerms.term2}
-                      </span>
-                      <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-gradient-to-r from-accent-foreground to-transparent" />
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Enhanced action buttons */}
-            <div className="flex flex-col items-center justify-center gap-4 pt-6 sm:flex-row sm:gap-6 sm:pt-8 lg:justify-start">
-              <button
-                onClick={() =>
-                  scrollToSection(siteConfig.hero.buttons.primary.href)
-                }
-                className="hover:shadow-primary/25 focus-ring group relative w-full overflow-hidden rounded-xl bg-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-2xl transition-all duration-300 hover:scale-105 sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent-foreground to-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <span className="relative z-10">
-                  {siteConfig.hero.buttons.primary.text}
-                </span>
-              </button>
-              <button
-                onClick={() =>
-                  scrollToSection(siteConfig.hero.buttons.secondary.href)
-                }
-                className="bg-card/50 hover:border-primary/50 focus-ring group relative w-full overflow-hidden rounded-xl border-2 border-border px-6 py-3 text-base font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:w-auto sm:rounded-2xl sm:px-8 sm:py-4"
-              >
-                <div className="bg-primary/5 absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <span className="relative z-10">
-                  {siteConfig.hero.buttons.secondary.text}
-                </span>
-              </button>
-            </div>
-
-            {/* Enhanced stats */}
-            <div
-              className="pt-6 sm:pt-8"
-              style={{ animationDelay: "0.5s" }}
-            >
-              <div className="mx-auto grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6 md:gap-8 lg:mx-0">
-                {siteConfig.hero.stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className="bg-card/30 hover:border-primary/30 group relative rounded-xl border border-border p-4 backdrop-blur-sm transition-all duration-300 hover:scale-105 sm:rounded-2xl sm:p-6"
-                    style={{ animationDelay: stat.delay }}
-                  >
-                    <div className="space-y-1 text-center sm:space-y-2">
-                      <div className="text-gradient bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-2xl font-bold text-transparent sm:text-3xl md:text-4xl">
-                        {stat.value}
-                      </div>
-                      <div className="text-xs font-medium text-muted-foreground sm:text-sm">
-                        {stat.label}
-                      </div>
-                    </div>
-                    <div className="from-primary/5 absolute inset-0 rounded-xl bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:rounded-2xl" />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Floating scroll indicator */}
-            <div className="flex animate-float justify-center pt-8 lg:justify-start">
-              <button
-                onClick={() => scrollToSection("#about")}
-                className="bg-card/30 hover:border-primary/50 focus-ring group relative rounded-full border border-border p-4 backdrop-blur-sm transition-all duration-300 hover:scale-110"
-                aria-label="Scroll to about section"
-              >
-                <svg
-                  className="h-8 w-6 text-muted-foreground transition-colors duration-200 group-hover:text-foreground"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          {/* Right side - Profile Image */}
-          <div
-            className="relative order-first flex justify-center lg:order-last"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <div className="relative mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-md">
-              {/* Main profile container */}
-              <div className="relative">
-                {/* Profile image placeholder with beautiful effects */}
-                <div className="relative mx-auto h-60 w-60 sm:h-72 sm:w-72 lg:h-80 lg:w-80">
-                  {/* Rotating border rings */}
-                  <div
-                    className="border-border/30 absolute inset-0 animate-spin rounded-full border-2"
-                    style={{ animationDuration: "20s" }}
-                  />
-                  <div
-                    className="border-border/20 absolute inset-2 animate-spin rounded-full border"
-                    style={{
-                      animationDuration: "15s",
-                      animationDirection: "reverse",
-                    }}
-                  />
-
-                  {/* Profile image container */}
-                  <div className="from-card/80 to-card/40 absolute inset-4 overflow-hidden rounded-full border border-border bg-gradient-to-br shadow-2xl backdrop-blur-sm">
-                    {/* Actual profile image */}
-                    <Image
-                      src="/Meghraj.jpg"
-                      alt={`${siteConfig.personal.name} - ${siteConfig.personal.role}`}
-                      className="h-full w-full object-cover object-center"
-                      fill
-                      sizes="(max-width: 640px) 240px, (max-width: 1024px) 288px, 320px"
-                      priority
-                    />
-                    {/* Subtle overlay for better integration */}
-                    <div className="to-primary/5 pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent" />
-                  </div>
-
-                  {/* Floating decorative elements - responsive */}
-                  <div className="absolute -right-4 -top-4 h-8 w-8 animate-float rounded-xl bg-gradient-to-br from-primary to-accent opacity-80 shadow-lg sm:-right-6 sm:-top-6 sm:h-10 sm:w-10 sm:rounded-2xl lg:h-12 lg:w-12" />
-                  <div className="absolute -right-1 top-1/2 h-3 w-3 animate-ping rounded-full bg-primary sm:-right-2 sm:h-4 sm:w-4" />
-                  <div
-                    className="absolute -left-2 top-1/4 h-2 w-2 animate-ping rounded-full bg-accent-foreground sm:-left-3 sm:h-3 sm:w-3"
-                    style={{ animationDelay: "1s" }}
-                  />
-                </div>
-
-                {/* Background glow */}
-                <div className="from-primary/20 to-accent-foreground/20 dark:from-primary/12 dark:to-accent-foreground/12 absolute inset-0 scale-150 animate-pulse-subtle rounded-full bg-gradient-to-r via-transparent blur-3xl" />
-              </div>
-
-              {/* Skills badges floating around - responsive */}
-              <div className="hidden lg:block">
-                {siteConfig.hero.floatingSkills.map((skill, index) => {
-                  const positions = [
-                    { position: "absolute -left-8 top-8", delay: "0s" },
-                    { position: "absolute -right-12 top-1/3", delay: "1s" },
-                    { position: "absolute -left-12 bottom-1/4", delay: "2s" },
-                    { position: "absolute -right-8 bottom-8", delay: "0.5s" },
-                  ];
-                  return (
-                    <div
-                      key={skill}
-                      className={`animate-float ${positions[index]?.position}`}
-                      style={{ animationDelay: positions[index]?.delay }}
-                    >
-                      <div className="bg-card/70 rounded-lg border border-border px-3 py-1.5 shadow-lg backdrop-blur-sm">
-                        <span className="text-sm font-medium">{skill}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Mobile skills badges - horizontal layout */}
-              <div className="mt-6 flex flex-wrap justify-center gap-2 lg:hidden">
-                {siteConfig.hero.floatingSkills
-                  .slice(0, 3)
-                  .map((skill, index) => (
-                    <div
-                      key={skill}
-                      className="bg-card/70 rounded-lg border border-border px-3 py-1.5 shadow-lg backdrop-blur-sm"
-                      style={{ animationDelay: `${index * 0.2}s` }}
-                    >
-                      <span className="text-xs font-medium">{skill}</span>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Floating particles - reduced on mobile */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {[
-          { left: "15%", top: "40%", delay: "0.5s", duration: "4s" },
-          { left: "70%", top: "25%", delay: "2.5s", duration: "5s" },
-          { left: "40%", top: "75%", delay: "1s", duration: "6s" },
-          { left: "85%", top: "60%", delay: "3.5s", duration: "4.5s" },
-        ].map((pos, i) => (
-          <div
-            key={i}
-            className="bg-primary/20 absolute hidden h-2 w-2 animate-float rounded-full sm:block"
-            style={{
-              left: pos.left,
-              top: pos.top,
-              animationDelay: pos.delay,
-              animationDuration: pos.duration,
-            }}
-          />
-        ))}
       </div>
     </section>
   );

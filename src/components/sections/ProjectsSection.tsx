@@ -1,110 +1,100 @@
 "use client";
 
-import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import Image from "next/image";
 import Link from "next/link";
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
+import { WindowBar } from "@/components/projects/WindowFrame";
 
+/**
+ * Featured work — three projects at equal weight.
+ *
+ * A previous pass ran the lead project at hero scale with two beneath it. That gave a
+ * clear reading order but made the first project dominate the whole section, and the
+ * two below it read as afterthoughts. Equal cards let someone scan all three in one
+ * pass and pick, which is what a visitor is actually doing here.
+ *
+ * Source thumbnails run 1.73:1 to 2.15:1, so every frame is a fixed ratio with
+ * `object-cover` — a deliberate crop instead of three mismatched heights.
+ */
 export function ProjectsSection() {
-  const siteConfig = useSiteConfig();
-  const projects = siteConfig.projects.projects.filter((p) => p.published !== false).slice(0, 3);
+  const config = useSiteConfig();
+  const projects = config.projects;
+  if (!projects) return null;
+
+  const published = (projects.projects ?? []).filter((p) => p.published !== false);
+  const featured = published.slice(0, 3);
+  if (!featured.length) return null;
 
   return (
-    <section id="projects" className="bg-slate-50/50 px-6 py-24 dark:bg-slate-100/5">
-      <div className="container mx-auto max-w-7xl">
-        <div className="space-y-16">
-          {/* Section Header */}
-          <div className="space-y-4 text-center">
-            <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 backdrop-blur-sm dark:border-primary/10 dark:bg-primary/5">
-              <span className="text-sm font-medium text-primary">
-                {siteConfig.projects.badge}
-              </span>
-            </div>
-            <h2 className="text-gradient text-4xl font-bold md:text-5xl">
-              {siteConfig.projects.title}
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              {siteConfig.projects.subtitle}
+    <section id="featured-work" className="px-6 pb-14 pt-4 md:pb-20 md:pt-6">
+      <div className="container mx-auto max-w-6xl">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+              {projects.badge}
             </p>
+            <h2 className="mt-3 text-[2rem] md:text-5xl">{projects.title}</h2>
           </div>
+          <Link
+            href="/projects"
+            className="nb nb-sm nb-press focus-ring inline-flex min-h-[44px] items-center bg-brand px-4 text-[15px] font-bold text-[var(--brand-ink)]"
+          >
+            All {published.length} projects &rarr;
+          </Link>
+        </div>
 
-          {/* Projects Grid - Top 3 */}
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, index) => (
-              <Link
-                key={project.id}
-                href={`/projects/${project.slug}`}
-                className="hover-lift group overflow-hidden rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="relative aspect-video overflow-hidden bg-muted">
+        <div className="mt-10 grid gap-10 sm:grid-cols-2 md:mt-14 md:gap-8 lg:grid-cols-3">
+          {featured.map((project) => (
+            <Link
+              key={project.slug}
+              href={`/projects/${project.slug}`}
+              className="nb nb-press group flex flex-col overflow-hidden bg-card"
+            >
+              <WindowBar path={`~/work/${project.slug}`} />
+              <div className="relative aspect-[16/10] w-full overflow-hidden border-b-2 border-border bg-muted">
+                {project.image && (
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 372px"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                  {project.status === "In Progress" && (
-                    <div className="absolute right-3 top-3 rounded-full bg-amber-500/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                      In Progress
-                    </div>
-                  )}
+                )}
+              </div>
+
+              <div className="flex flex-1 flex-col p-5">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.1em] text-[var(--brand-ink)]">
+                    {project.category}
+                  </span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    {project.year}
+                  </span>
                 </div>
 
-                <div className="space-y-3 p-5">
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="text-xl font-semibold transition-colors duration-200 group-hover:text-primary">
-                      {project.title}
-                    </h3>
-                    <span className="bg-gradient shrink-0 rounded-md px-2 py-1 text-xs font-semibold text-primary-foreground">
-                      {project.category}
-                    </span>
-                  </div>
-                  <p className="line-clamp-2 leading-relaxed text-muted-foreground">
-                    {project.description}
+                <h3 className="mt-3 text-xl leading-snug">
+                  {project.title}
+                </h3>
+                <p className="mt-2.5 text-[15px] leading-relaxed text-muted-foreground">
+                  {project.description}
+                </p>
+
+                {project.impact && (
+                  <p className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-[var(--brand-text)]">
+                    <span className="h-[3px] w-4 bg-brand" aria-hidden />
+                    {project.impact}
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.slice(0, 4).map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.technologies.length > 4 && (
-                      <span className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
-                        +{project.technologies.length - 4}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                )}
 
-          {/* View All */}
-          <div className="text-center">
-            <Link
-              href="/projects"
-              className="bg-gradient focus-ring hover-lift inline-flex items-center gap-2 rounded-lg px-8 py-4 font-semibold text-primary-foreground"
-            >
-              View All Projects
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
+                {/* Pushed to the bottom so the stack lines up across cards of
+                    different description lengths. */}
+                <p className="mt-auto pt-5 font-mono text-[12px] leading-relaxed text-muted-foreground">
+                  {project.technologies.slice(0, 4).join(" · ")}
+                </p>
+              </div>
             </Link>
-          </div>
+          ))}
         </div>
       </div>
     </section>

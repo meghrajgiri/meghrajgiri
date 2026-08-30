@@ -30,11 +30,19 @@ module.exports = withTV({
           foreground: "var(--accent-foreground)",
         },
         border: "var(--border)",
+        brand: {
+          DEFAULT: "var(--brand)",
+          soft: "var(--brand-soft)",
+          ink: "var(--brand-ink)",
+          text: "var(--brand-text)",
+        },
         input: "var(--input)",
         ring: "var(--ring)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-body)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-out",

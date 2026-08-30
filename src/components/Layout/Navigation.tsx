@@ -1,209 +1,170 @@
 "use client";
 
-import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
-import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 
+/**
+ * Site header, designed at phone width first.
+ *
+ * The previous version was a floating pill that grew a shadow on scroll and hid its
+ * menu button behind a `md:` breakpoint — at 390px it rendered as a bare logo with no
+ * way to navigate at all. This is a plain sticky bar: a hairline rule instead of a
+ * shadow, a real drawer on small screens, and 48px minimum targets throughout.
+ */
 export function Navigation() {
-  const siteConfig = useSiteConfig();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { navigation, personal, contact } = useSiteConfig();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  useEffect(() => setMounted(true), []);
+
+  // A drawer that leaves the page scrollable behind it feels broken on a phone.
   useEffect(() => {
-    setMounted(true);
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
     };
+  }, [open]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const navItems = siteConfig.navigation.items;
+  const items = navigation?.items ?? [];
+  const github = contact?.socialLinks?.find((l) => l.platform === "github")?.url;
+  const availability = contact?.availability?.status;
 
-  if (!mounted) {
-    return (
-      <header className="fixed left-0 right-0 top-0 z-50">
-        <nav className="container mx-auto flex h-20 items-center justify-between px-6">
-          <div className="bg-muted/50 h-8 w-32 animate-pulse rounded" />
-          <div className="flex space-x-4">
-            <div className="bg-muted/50 h-8 w-20 animate-pulse rounded" />
-            <div className="bg-muted/50 h-10 w-10 animate-pulse rounded-lg" />
-          </div>
-        </nav>
-      </header>
-    );
-  }
+  const ThemeToggle = ({ className = "" }: { className?: string }) => (
+    <button
+      type="button"
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      // Also gated on `mounted`. The server cannot know the visitor's theme, so
+      // `resolvedTheme` is undefined there and settled on the client — rendering the
+      // specific label straight away made the two disagree and failed hydration. The
+      // icon was already guarded; the label was not.
+      aria-label={mounted ? `Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme` : "Toggle theme"}
+      className={`nb nb-sm nb-press focus-ring flex h-11 w-11 items-center justify-center bg-card text-foreground ${className}`}
+    >
+      {/* Rendered only after mount: the server cannot know the visitor's theme, and
+          guessing produces a hydration mismatch and a flash of the wrong icon. */}
+      {mounted && (
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden>
+          {resolvedTheme === "dark" ? (
+            <>
+              <circle cx="12" cy="12" r="4" />
+              <path strokeLinecap="round" d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+            </>
+          ) : (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
+          )}
+        </svg>
+      )}
+    </button>
+  );
 
   return (
-    <header
-      className={`fixed z-50 w-full transition-all duration-500 ${
-        isScrolled ? "top-0 px-6 py-3 md:py-4" : "top-0"
-      }`}
-    >
-      <nav
-        className={`container mx-auto flex items-center justify-between px-6 transition-all duration-500 ${
-          isScrolled
-            ? "border-border h-16 rounded-xl border bg-background py-3 shadow-lg md:h-20 md:py-6"
-            : "h-20"
-        }`}
-      >
-        {/* Logo */}
-        <Link
-          href="/"
-          className="group flex items-center space-x-4"
-        >
-          <div className="relative">
-            <div className="via-primary/90 to-accent-foreground shadow-primary/20 group-hover:shadow-primary/40 flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-primary shadow-2xl transition-all duration-500 group-hover:rotate-3 group-hover:scale-110">
-              <span className="text-primary-foreground text-lg font-black tracking-tight">
-                {siteConfig.personal.initials}
+    <>
+      <header className="sticky top-0 z-50 border-b-2 border-border bg-background">
+        <div className="container mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3.5">
+          <Link href="/" className="focus-ring flex min-w-0 items-center gap-3 rounded-sm">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center border-2 border-border bg-brand font-mono text-[11px] font-bold text-[var(--brand-ink)]">
+              {personal?.initials ?? "MG"}
+            </span>
+            <span className="min-w-0">
+              <span className="block truncate text-[15px] font-semibold leading-tight">
+                {personal?.name ?? "Meghraj Giri"}
               </span>
-            </div>
-            <div className="absolute -right-1 -top-1 flex h-3 w-3 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-emerald-500 shadow-lg">
-              <div className="bg-white h-1.5 w-1.5 animate-pulse rounded-full" />
-            </div>
-          </div>
-          <div className="hidden space-y-1 sm:block">
-            <div className="text-foreground text-lg font-bold tracking-tight transition-colors duration-300 group-hover:text-primary">
-              {siteConfig.personal.name}
-            </div>
-            <div className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
-              {siteConfig.personal.role}
-            </div>
-          </div>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden items-center space-x-2 md:flex">
-          {navItems.map((item, index) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-muted-foreground/80 hover:text-foreground hover:bg-card/50 hover:border-border/30 group relative rounded-2xl border border-transparent px-5 py-3 text-sm font-semibold backdrop-blur-sm transition-all duration-300"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <span className="relative z-10 tracking-wide">
-                {item.label}
-              </span>
-              <div className="from-primary/5 via-primary/10 to-accent-foreground/5 absolute inset-0 scale-95 rounded-2xl bg-gradient-to-r opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100" />
-              <div className="to-accent-foreground absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 transform bg-gradient-to-r from-primary transition-all duration-300 group-hover:w-8" />
-            </Link>
-          ))}
-        </div>
-
-        {/* Theme Toggle & Mobile Menu */}
-        <div className="flex items-center space-x-3">
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="bg-card/40 border-border/30 hover:border-primary/30 hover:bg-card/60 focus-ring group relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl border shadow-lg backdrop-blur-sm transition-all duration-500 hover:shadow-xl"
-            aria-label="Toggle theme"
-          >
-            <div className="from-primary/5 via-primary/10 to-accent-foreground/5 absolute inset-0 rounded-2xl bg-gradient-to-r opacity-0 transition-all duration-500 group-hover:opacity-100" />
-            <div className="relative z-10 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110">
-              {theme === "dark" ? (
-                <svg
-                  className="h-4 w-4 text-amber-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
-                </svg>
+              {/* Availability sits here rather than in the hero: it is the one fact
+                  worth carrying on every page, and it stays in view as you scroll. */}
+              {availability ? (
+                <span className="hidden items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground sm:flex">
+                  <span className="h-2.5 w-2.5 shrink-0 border-2 border-border bg-brand" aria-hidden />
+                  <span className="truncate">{availability}</span>
+                </span>
               ) : (
-                <svg
-                  className="h-4 w-4 text-slate-700"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                  />
-                </svg>
+                <span className="hidden truncate font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground sm:block">
+                  {personal?.role}
+                </span>
               )}
-            </div>
-            <div className="group-hover:ring-primary/20 absolute inset-0 rounded-2xl ring-2 ring-transparent transition-all duration-300" />
-          </button>
+            </span>
+          </Link>
 
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="bg-muted/50 hover:bg-muted focus-ring group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl transition-all duration-300 md:hidden"
-            aria-label="Toggle mobile menu"
-          >
-            <div className="from-primary/10 to-accent/10 absolute inset-0 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <div className="relative z-10 transition-transform duration-300">
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+            {items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-[15px] text-muted-foreground transition-colors hover:text-foreground"
               >
-                {isMobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex shrink-0 items-center gap-2">
+            {github && (
+              <a
+                href={github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+                className="nb nb-sm nb-press focus-ring hidden h-11 w-11 items-center justify-center bg-card text-foreground sm:flex"
+              >
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M12 .5a11.5 11.5 0 00-3.64 22.42c.58.1.79-.25.79-.55v-2.1c-3.2.7-3.88-1.400-3.88-1.4-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 015.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.42.36.79 1.08.79 2.18v3.23c0 .3.21.66.8.55A11.5 11.5 0 0012 .5z" />
+                </svg>
+              </a>
+            )}
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="nb nb-sm nb-press focus-ring flex h-11 w-11 items-center justify-center bg-card text-foreground lg:hidden"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                {open ? (
+                  <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
                 ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />
                 )}
               </svg>
-            </div>
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden">
-          <div
-            className="fixed inset-0"
-            style={{ zIndex: 999 }}
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-
-          <div
-            className="bg-background/90 border-border/30 absolute left-0 right-0 top-full border-b shadow-2xl backdrop-blur-xl"
-            style={{ zIndex: 1000 }}
-          >
-            <div className="container mx-auto px-6 py-6">
-              <div className="space-y-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-foreground bg-card/20 hover:bg-card/40 border-border/20 hover:border-primary/30 block w-full rounded-xl border px-6 py-4 text-left font-medium backdrop-blur-sm transition-all duration-300 hover:text-primary"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className="bg-primary/60 h-2 w-2 rounded-full opacity-60" />
-                      <span>{item.label}</span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            </button>
           </div>
         </div>
+      </header>
+
+      {/* Drawer. Full-height and opaque so the page behind never shows through mid-scroll. */}
+      {open && (
+        <div id="mobile-nav" className="fixed inset-0 top-[65px] z-40 bg-background lg:hidden">
+          <nav className="container mx-auto flex max-w-6xl flex-col px-6 py-2" aria-label="Primary mobile">
+            {items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="focus-ring flex min-h-[60px] items-center border-b-2 border-border text-2xl font-semibold"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              href="/projects"
+              onClick={() => setOpen(false)}
+              className="focus-ring flex min-h-[60px] items-center border-b-2 border-border text-2xl font-semibold"
+            >
+              All projects
+            </Link>
+          </nav>
+        </div>
       )}
-    </header>
+    </>
   );
 }

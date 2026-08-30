@@ -3,49 +3,115 @@
 @tailwind utilities;
 
 :root {
-  /* Light mode - Black and White theme */
-  --background: #ffffff;
-  --foreground: #000000;
-  --card: #ffffff;
-  --card-foreground: #000000;
-  --primary: #000000;
-  --primary-foreground: #ffffff;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #000000;
-  --muted: #f5f5f5;
-  --muted-foreground: #666666;
-  --accent: #f5f5f5;
-  --accent-foreground: #000000;
-  --border: #f0f0f0;
-  --input: #e5e5e5;
-  --ring: #000000;
+  /* Dark is the default, so it lives on :root rather than behind a class.
+     next-themes mounts inside <body>, which means its class-setting script runs after
+     first paint — with the light palette on :root the page rendered light and snapped
+     to dark. Defaulting here removes that flash entirely. */
+  color-scheme: dark;
+  /* Dark — same construction, inverted. Black shadows vanish on a dark ground, so
+     the offset takes the border colour instead. */
+  --background: #1D1D1C;
+  --foreground: #E8EDDF;
+  --card: #242423;
+  --card-foreground: #E8EDDF;
+  --primary: #F5CB5C;
+  --primary-foreground: #242423;
+  --secondary: #2B2D2B;
+  --secondary-foreground: #E8EDDF;
+  --muted: #2B2D2B;
+  --muted-foreground: #A0B7AB;
+  --accent: #2B2D2B;
+  --accent-foreground: #E8EDDF;
+  --border: #E8EDDF;
+  --input: #E8EDDF;
+  --ring: #F5CB5C;
 
-  /* Gradients for accents */
-  --gradient: linear-gradient(135deg, #000000 0%, #333333 100%);
-  --gradient-subtle: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+  --brand: #F5CB5C;
+  --brand-soft: #3F2F04;
+  --brand-ink: #242423;
+  --brand-text: #F5CB5C;
+
+  --shadow-hard: 4px 4px 0 0 #E8EDDF;
+  --shadow-hard-sm: 2px 2px 0 0 #E8EDDF;
+  --border-hard: 2px;
+
+  --gradient: none;
+  --gradient-subtle: none;
+}
+
+.light {
+  color-scheme: light;
+  /* Light — neubrutalism on the supplied palette.
+     Colour is used as blocks rather than as text: tuscan_sun is a fill with carbon
+     on top (10.05:1 inverted), which sidesteps the fact that #f5cb5c measures
+     1.49:1 as text on white and could never be used for type. */
+  /* Ground lifted off soft_linen DEFAULT. At #E8EDDF the page sat almost on top of
+     the tiles, which flattened the offsets that carry this style. soft_linen.800
+     gives the tiles somewhere to sit, and the original tone becomes the secondary
+     surface so nothing is lost from the palette. */
+  --background: #F6F8F2;
+  --foreground: #242423;
+  --card: #FFFFFF;
+  --card-foreground: #242423;
+  --primary: #242423;
+  --primary-foreground: #FAFBF8;
+  --secondary: #E8EDDF;
+  --secondary-foreground: #242423;
+  --muted: #E8EDDF;
+  --muted-foreground: #4A544C;
+  --accent: #F1F4EB;
+  --accent-foreground: #242423;
+  --border: #242423;
+  --input: #242423;
+  --ring: #242423;
+
+  /* The pop. A fill, never type. `--brand-ink` is what sits on top of it. */
+  --brand: #F5CB5C;
+  --brand-soft: #FDF5DE;
+  --brand-ink: #242423;
+  /* Accent text, for the rare place a block will not do. */
+  --brand-text: #7F5F08;
+
+  /* Hard offset, zero blur — the whole point of the style. */
+  --shadow-hard: 4px 4px 0 0 #242423;
+  --shadow-hard-sm: 2px 2px 0 0 #242423;
+  --border-hard: 2px;
+
+  --gradient: none;
+  --gradient-subtle: none;
 }
 
 .dark {
-  /* Dark mode - Balanced Gray Combination */
-  --background: #1a1a1a;
-  --foreground: #f0f0f0;
-  --card: #242424;
-  --card-foreground: #f0f0f0;
-  --primary: #e8e8e8;
-  --primary-foreground: #1a1a1a;
-  --secondary: #2e2e2e;
-  --secondary-foreground: #f0f0f0;
-  --muted: #2e2e2e;
-  --muted-foreground: #9ca3af;
-  --accent: #2e2e2e;
-  --accent-foreground: #f0f0f0;
-  --border: #2a2a2a;
-  --input: #333333;
-  --ring: #e8e8e8;
+  color-scheme: dark;
+  /* Dark — same construction, inverted. Black shadows vanish on a dark ground, so
+     the offset takes the border colour instead. */
+  --background: #1D1D1C;
+  --foreground: #E8EDDF;
+  --card: #242423;
+  --card-foreground: #E8EDDF;
+  --primary: #F5CB5C;
+  --primary-foreground: #242423;
+  --secondary: #2B2D2B;
+  --secondary-foreground: #E8EDDF;
+  --muted: #2B2D2B;
+  --muted-foreground: #A0B7AB;
+  --accent: #2B2D2B;
+  --accent-foreground: #E8EDDF;
+  --border: #E8EDDF;
+  --input: #E8EDDF;
+  --ring: #F5CB5C;
 
-  /* Gradients for dark mode */
-  --gradient: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
-  --gradient-subtle: linear-gradient(135deg, #0a0a0a 0%, #000000 100%);
+  --brand: #F5CB5C;
+  --brand-soft: #3F2F04;
+  --brand-ink: #242423;
+  --brand-text: #F5CB5C;
+
+  --shadow-hard: 4px 4px 0 0 #E8EDDF;
+  --shadow-hard-sm: 2px 2px 0 0 #E8EDDF;
+  --border-hard: 2px;
+
+  --gradient: none;
+  --gradient-subtle: none;
 }
 
 * {
@@ -353,4 +419,42 @@ a {
 ::selection {
   background: var(--primary);
   color: var(--primary-foreground);
+}
+
+
+/* --- Editorial preview: display face on headings ------------------------- */
+/* --- Neubrutalist primitives --------------------------------------------- */
+.nb {
+  /* Deliberately sets no background. This rule lives after @tailwind utilities, so a
+     `background` here would beat every `bg-*` utility on the same element — which is
+     exactly how the terminal ended up rendering cream instead of near-black. Each
+     usage brings its own bg utility. */
+  border: var(--border-hard) solid var(--border);
+  box-shadow: var(--shadow-hard);
+  border-radius: 6px;
+}
+.nb-sm { box-shadow: var(--shadow-hard-sm); }
+/* Press-in on interaction: the shadow collapses and the element moves into it.
+   Instant, not eased — the style has no smooth transitions. */
+.nb-press { transition: transform 80ms steps(2), box-shadow 80ms steps(2); }
+.nb-press:hover { transform: translate(2px, 2px); box-shadow: var(--shadow-hard-sm); }
+.nb-press:active { transform: translate(4px, 4px); box-shadow: none; }
+@media (prefers-reduced-motion: reduce) {
+  .nb-press { transition: none; }
+  .nb-press:hover, .nb-press:active { transform: none; box-shadow: var(--shadow-hard); }
+}
+
+h1, h2, h3 {
+  /* Cabinet Grotesk is a grotesk, not a serif: it carries a headline through weight
+     and tight tracking rather than stroke contrast, so 400 at display size reads
+     underset. 700 with tighter tracking is where it has presence. */
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+/* Section eyebrows and metadata stay mono. */
+.text-gradient {
+  background-image: var(--gradient);
 }

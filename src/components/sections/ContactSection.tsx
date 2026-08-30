@@ -3,6 +3,12 @@
 import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
 import { useState } from "react";
 
+/**
+ * Contact as a split: the ask on the left, the form on the right.
+ *
+ * Submit logic is unchanged — same state, same POST to /api/contact, same status
+ * handling. Only the layout and the field chrome are rewritten.
+ */
 export function ContactSection() {
   const siteConfig = useSiteConfig();
   const [formData, setFormData] = useState({
@@ -60,231 +66,149 @@ export function ContactSection() {
     }));
   };
 
-  const contactInfo = [
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      ),
-      title: "Email",
-      value: siteConfig.contact.contactInfo.email,
-      link: `mailto:${siteConfig.contact.contactInfo.email}`
-    },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      ),
-      title: "Location",
-      value: siteConfig.contact.contactInfo.location,
-      link: null
-    },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      title: "Response Time",
-      value: siteConfig.contact.availability.responseTime,
-      link: null
-    }
-  ];
+  const info = siteConfig.contact?.contactInfo;
+  const availability = siteConfig.contact?.availability;
+  const form = siteConfig.contact?.form;
+
+  const field = (name: "name" | "email" | "subject" | "message") => {
+    const cfg = getFieldConfig(name);
+    const shared =
+      "w-full border-2 border-border bg-card px-4 py-3 text-[15px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand";
+    return (
+      <div key={name}>
+        <label
+          htmlFor={`contact-${name}`}
+          className="mb-2 block font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground"
+        >
+          {cfg.label}
+        </label>
+        {name === "message" ? (
+          <textarea
+            id={`contact-${name}`}
+            name={name}
+            rows={5}
+            required
+            value={formData[name]}
+            onChange={handleChange}
+            placeholder={cfg.placeholder}
+            className={`${shared} resize-y`}
+          />
+        ) : (
+          <input
+            id={`contact-${name}`}
+            name={name}
+            type={name === "email" ? "email" : "text"}
+            required={name !== "subject"}
+            value={formData[name]}
+            onChange={handleChange}
+            placeholder={cfg.placeholder}
+            className={shared}
+          />
+        )}
+      </div>
+    );
+  };
 
   return (
-    <section id="contact" className="py-24 px-6 bg-gray-50/60 dark:bg-slate-50/10">
+    <section id="contact" className="px-6 py-16 md:py-24">
       <div className="container mx-auto max-w-6xl">
-        <div className="space-y-16">
-          {/* Section Header */}
-          <div className="text-center space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-gradient">{siteConfig.contact.title}</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {siteConfig.contact.subtitle}
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+              Contact
             </p>
-          </div>
+            <h2 className="mt-3 max-w-[16ch] text-[2rem] md:text-5xl">
+              {siteConfig.contact?.title}
+            </h2>
+            {siteConfig.contact?.subtitle && (
+              <p className="mt-6 max-w-[48ch] text-lg leading-relaxed text-muted-foreground">
+                {siteConfig.contact.subtitle}
+              </p>
+            )}
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <h3 className="text-2xl font-semibold">Send a Message</h3>
-                <p className="text-muted-foreground">
-                  Fill out the form below and I&apos;ll get back to you as soon as possible.
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium">
-                      {getFieldConfig("name").label} *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                      placeholder={getFieldConfig("name").placeholder}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">
-                      {getFieldConfig("email").label} *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                      placeholder={getFieldConfig("email").placeholder}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium">
-                    {getFieldConfig("subject").label} *
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                    placeholder={getFieldConfig("subject").placeholder}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">
-                    {getFieldConfig("message").label} *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200 resize-none"
-                    placeholder={getFieldConfig("message").placeholder}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-6 py-4 bg-gradient text-primary-foreground rounded-lg font-semibold hover-lift focus-ring disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-                >
-                  {isSubmitting ? "Sending..." : siteConfig.contact.form.submitButton}
-                </button>
-                
-                {/* Status Messages */}
-                {submitStatus === 'success' && (
-                  <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                    <div className="flex items-center space-x-2">
-                      <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <p className="text-green-800 dark:text-green-200 font-medium">
-                        {siteConfig.contact.form.successMessage}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                
-                {submitStatus === 'error' && (
-                  <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                    <div className="flex items-center space-x-2">
-                      <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z" />
-                      </svg>
-                      <p className="text-red-800 dark:text-red-200 font-medium">
-                        {siteConfig.contact.form.errorMessage}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </form>
-            </div>
-
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <h3 className="text-2xl font-semibold">Contact Information</h3>
-                <p className="text-muted-foreground">
-                  Prefer to reach out directly? Here are the best ways to contact me.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                {contactInfo.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
-                      {item.icon}
-                    </div>
-                    <div className="space-y-1">
-                      <h4 className="font-medium">{item.title}</h4>
-                      {item.link ? (
-                        <a
-                          href={item.link}
-                          className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-                        >
-                          {item.value}
-                        </a>
-                      ) : (
-                        <p className="text-muted-foreground">{item.value}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Social Links */}
-              <div className="space-y-4 pt-8 border-t border-border">
-                <h4 className="font-semibold">Follow Me</h4>
-                <div className="flex space-x-4">
-                  {siteConfig.contact.socialLinks.map((link) => (
+            <dl className="mt-10 flex flex-col">
+              {info?.email && (
+                <div className="border-t border-border py-4">
+                  <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    Email
+                  </dt>
+                  <dd className="mt-1.5">
                     <a
-                      key={link.name}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center hover:bg-accent transition-colors duration-200 focus-ring"
-                      aria-label={link.name}
+                      href={`mailto:${info.email}`}
+                      className="text-[17px] underline decoration-border underline-offset-4 transition-colors hover:decoration-brand"
                     >
-                      <span className="text-lg">{link.icon}</span>
+                      {info.email}
                     </a>
-                  ))}
+                  </dd>
                 </div>
-              </div>
-
-              {/* Quick Response Note */}
-              <div className="p-6 bg-card border border-border rounded-xl">
-                <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0">
-                    <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div className="space-y-1">
-                    <h4 className="font-medium">{siteConfig.contact.availability.status}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {siteConfig.contact.availability.responseTime}. {siteConfig.contact.availability.workingHours}
-                    </p>
-                  </div>
+              )}
+              {info?.phone && (
+                <div className="border-t border-border py-4">
+                  <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    Phone
+                  </dt>
+                  <dd className="mt-1.5 font-mono text-[15px] text-muted-foreground">{info.phone}</dd>
                 </div>
-              </div>
-            </div>
+              )}
+              {info?.location && (
+                <div className="border-t border-border py-4">
+                  <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    Based
+                  </dt>
+                  <dd className="mt-1.5 text-[15px] text-muted-foreground">{info.location}</dd>
+                </div>
+              )}
+              {availability && (
+                <div className="border-y border-border py-4">
+                  <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    Availability
+                  </dt>
+                  <dd className="mt-1.5 text-[15px] text-muted-foreground">
+                    <span className="inline-flex items-center gap-2.5 text-foreground">
+                      <span className="h-3 w-3 border-2 border-border bg-brand" aria-hidden />
+                      {availability.status}
+                    </span>
+                    {availability.responseTime && (
+                      <span className="mt-1 block">{availability.responseTime}</span>
+                    )}
+                    {availability.workingHours && (
+                      <span className="block">{availability.workingHours}</span>
+                    )}
+                  </dd>
+                </div>
+              )}
+            </dl>
           </div>
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <div className="grid gap-5 sm:grid-cols-2">
+              {field("name")}
+              {field("email")}
+            </div>
+            {field("subject")}
+            {field("message")}
+
+            <div className="flex flex-wrap items-center gap-4">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="nb nb-press focus-ring inline-flex min-h-[48px] items-center bg-brand px-7 font-bold text-[var(--brand-ink)] disabled:opacity-60"
+              >
+                {isSubmitting ? "Sending…" : (form?.submitButton ?? "Send message")}
+              </button>
+
+              {submitStatus === "success" && (
+                <p role="status" className="text-sm text-brand">
+                  {form?.successMessage ?? "Thanks — I'll be in touch."}
+                </p>
+              )}
+              {submitStatus === "error" && (
+                <p role="alert" className="text-sm text-red-600 dark:text-red-400">
+                  {form?.errorMessage ?? "Something went wrong. Please try again."}
+                </p>
+              )}
+            </div>
+          </form>
         </div>
       </div>
     </section>

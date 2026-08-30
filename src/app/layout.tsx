@@ -2,12 +2,37 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({
+/**
+ * Satoshi and Cabinet Grotesk, both from Indian Type Foundry via Fontshare and free
+ * for commercial use. Self-hosted variable files rather than the Fontshare CDN: one
+ * fewer connection to set up, and `next/font/local` inlines the @font-face and
+ * preloads it, so there is no flash of fallback text.
+ */
+const body = localFont({
+  src: [
+    { path: "../../public/fonts/Satoshi-Variable.woff2", weight: "300 900", style: "normal" },
+    { path: "../../public/fonts/Satoshi-VariableItalic.woff2", weight: "300 900", style: "italic" },
+  ],
+  variable: "--font-body",
+  display: "swap",
+  fallback: ["system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+});
+
+const display = localFont({
+  src: "../../public/fonts/CabinetGrotesk-Variable.woff2",
+  weight: "300 800",
+  variable: "--font-display",
+  display: "swap",
+  fallback: ["system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+});
+
+const mono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -34,7 +59,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${body.variable} ${display.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <link
           rel="preload"
@@ -48,8 +77,12 @@ export default function RootLayout({
         <SpeedInsights />
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          enableSystem
+          defaultTheme="dark"
+          // `enableSystem` is off deliberately. With it on, a visitor whose OS is set
+          // to light lands on the light theme regardless of the default — so "default
+          // dark" would only apply to people already in dark mode. The toggle still
+          // works and the choice is still remembered.
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}
