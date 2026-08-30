@@ -1,0 +1,395 @@
+{
+  "meta": {
+    "generated": "2026-08-30",
+    "seed": "australian healthcare software development",
+    "site": "https://www.meghrajgiri.com",
+    "method": "SERP-overlap clustering via live web search (no DataForSEO configured)",
+    "serpsSampled": 8,
+    "volumeNote": "No paid keyword tool was available. `volume` values are RELATIVE PRIORITY SCORES (0-100) derived from SERP competition and commercial intent, NOT search volumes. Replace with Keyword Planner data before committing to the calendar.",
+    "decisions": {
+      "date": "2026-08-30",
+      "commercialLayer": "BUILD \u2014 user takes direct clients. Accepts overlap with scssconsulting.com.au.",
+      "commercialStrategy": "Compete on solo-specialist long-tail only. Do not target 'healthcare software development company australia' \u2014 that SERP is agencies and listicles.",
+      "contentClearance": "REQUIRED before writing. Every post carries a `clearanceNeeded` field; confirm all in one pass."
+    }
+  },
+  "pillar": {
+    "title": "Building Healthcare Software for the Australian Market",
+    "keyword": "australian healthcare software development",
+    "volume": 100,
+    "template": "ultimate-guide",
+    "wordCount": 3200,
+    "url": "/blog/australian-healthcare-software-development",
+    "rationale": "The engineer's view of AU health compliance and integration. Every head-term SERP is held by agencies with 1000+ project counts and listicle farms; this pillar deliberately targets the implementation layer none of them write about.",
+    "clearanceNeeded": "Which of the three layers you can speak to from the real build, and at what depth. The pillar summarises every spoke, so it inherits the union of their clearance requirements."
+  },
+  "clusters": [
+    {
+      "name": "Compliance as engineering requirements",
+      "color": "#4E79A7",
+      "gap": "Every result is either the regulator's own site (ahpra.gov.au, oaic.gov.au) or a generic privacy-SaaS blog. Zero developer-facing content. Google's own summary for the AHPRA query said results 'focus more on practitioner obligations rather than detailed software development specifications'.",
+      "posts": [
+        {
+          "title": "AHPRA's virtual care rules, translated into software requirements",
+          "keyword": "ahpra compliant telehealth software",
+          "volume": 72,
+          "template": "explainer",
+          "wordCount": 1800,
+          "url": "/blog/ahpra-telehealth-software-requirements",
+          "status": "planned",
+          "clearanceNeeded": "Which AHPRA/virtual-care obligations actually shaped Cannabiz Elite's build \u2014 consent capture, practitioner identity display, record-keeping."
+        },
+        {
+          "title": "The 13 Australian Privacy Principles as a build checklist for health apps",
+          "keyword": "australian privacy principles health app",
+          "volume": 68,
+          "template": "how-to",
+          "wordCount": 1800,
+          "url": "/blog/australian-privacy-principles-health-app-checklist",
+          "status": "planned",
+          "clearanceNeeded": "How consent, data minimisation and access/correction were implemented. Any privacy review or assessment output."
+        },
+        {
+          "title": "What 'Privacy Act ready' actually means in your architecture",
+          "keyword": "privacy act 1988 health data architecture",
+          "volume": 55,
+          "template": "explainer",
+          "wordCount": 1500,
+          "url": "/blog/privacy-act-health-data-architecture",
+          "status": "planned",
+          "clearanceNeeded": "Hosting region, encryption approach, tenancy model, retention policy. Whether the architecture can be described at all."
+        }
+      ]
+    },
+    {
+      "name": "National infrastructure integration",
+      "color": "#E15759",
+      "gap": "Dominated by developer.digitalhealth.gov.au and implementer.digitalhealth.gov.au specs plus eRx's own vendor pages. Exactly one independent implementation write-up exists across both SERPs. Specs tell you the contract; nobody documents what it is like to actually ship against them.",
+      "posts": [
+        {
+          "title": "Integrating My Health Record via the FHIR Gateway: a real walkthrough",
+          "keyword": "my health record fhir gateway integration",
+          "volume": 78,
+          "template": "how-to",
+          "wordCount": 2000,
+          "url": "/blog/my-health-record-fhir-gateway-integration",
+          "status": "planned",
+          "clearanceNeeded": "Whether My Health Record integration was in scope; if so, the conformance steps, auth model and what failed first."
+        },
+        {
+          "title": "eRx Script Exchange integration for telehealth prescribing",
+          "keyword": "erx script exchange integration",
+          "volume": 65,
+          "template": "how-to",
+          "wordCount": 1700,
+          "url": "/blog/erx-script-exchange-integration",
+          "status": "planned",
+          "clearanceNeeded": "Whether eRx or another script exchange was integrated, and the token/dispense flow as built."
+        },
+        {
+          "title": "The Healthcare Identifiers Service: the prerequisite nobody documents",
+          "keyword": "healthcare identifiers service integration",
+          "volume": 48,
+          "template": "explainer",
+          "wordCount": 1400,
+          "url": "/blog/healthcare-identifiers-service-integration",
+          "status": "planned",
+          "clearanceNeeded": "Whether the HI Service was used, and what the onboarding actually required."
+        }
+      ]
+    },
+    {
+      "name": "Clinic systems and clinical workflow",
+      "color": "#59A14F",
+      "gap": "Vendor docs and directory listings only. The modelling question \u2014 how you represent a prescription, a consult or a script in a commerce/order system \u2014 is not addressed anywhere, and is the single most defensible thing Cannabiz Elite can speak to.",
+      "posts": [
+        {
+          "title": "Modelling prescriptions as orders: Medusa v2 workflows for a telehealth clinic",
+          "keyword": "medusa v2 healthcare workflow",
+          "volume": 70,
+          "template": "explainer",
+          "wordCount": 2000,
+          "url": "/blog/medusa-v2-telehealth-clinic-workflows",
+          "status": "planned",
+          "clearanceNeeded": "The prescription/consult data model in Medusa v2 \u2014 the single most valuable and most likely sensitive detail."
+        },
+        {
+          "title": "Integrating with Best Practice, Cliniko and Halaxy: what each one expects",
+          "keyword": "cliniko halaxy best practice api integration",
+          "volume": 62,
+          "template": "comparison",
+          "wordCount": 1800,
+          "url": "/blog/clinic-software-api-integration-australia",
+          "status": "planned",
+          "clearanceNeeded": "Which clinic systems were integrated and what each demanded in practice."
+        },
+        {
+          "title": "Telehealth MBS item numbers and the billing logic they imply",
+          "keyword": "telehealth mbs item numbers software",
+          "volume": 52,
+          "template": "explainer",
+          "wordCount": 1500,
+          "url": "/blog/telehealth-mbs-billing-logic",
+          "status": "planned",
+          "clearanceNeeded": "Whether MBS billing logic was implemented and how item numbers were handled."
+        }
+      ]
+    },
+    {
+      "name": "Commercial conversion layer",
+      "color": "#B07AA1",
+      "gap": "Head terms are held by agencies with 1,000+ delivered projects and by scssconsulting.com.au. The service page therefore targets solo-specialist long-tail \u2014 'developer' not 'company', and named integrations rather than generic 'healthcare software' \u2014 where a named engineer with a shipped Australian telehealth build outranks a generic agency page.",
+      "posts": [
+        {
+          "title": "Australian healthcare software development",
+          "keyword": "telehealth clinic management system developer",
+          "volume": 90,
+          "template": "landing-page",
+          "wordCount": 1400,
+          "url": "/services/australian-healthcare-software",
+          "status": "planned",
+          "secondaryKeywords": [
+            "medusajs healthcare developer",
+            "erx integration developer",
+            "my health record integration developer",
+            "cannabis clinic software developer australia",
+            "australian telehealth developer for hire"
+          ],
+          "clearanceNeeded": "Which capabilities you can claim publicly and in your own name rather than the agency's."
+        },
+        {
+          "title": "Cannabiz Elite \u2014 Australian telehealth clinic management",
+          "keyword": "telehealth clinic management system case study",
+          "volume": 60,
+          "template": "landing-page",
+          "wordCount": 1500,
+          "url": "/projects/cannabiz-elite",
+          "status": "planned",
+          "clearanceNeeded": "Client naming permission, plus any publishable metric \u2014 launch timeline, clinic count, transaction volume."
+        }
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "keyword": "hire developer medical practice management software australia",
+      "reason": "SERP returns software directories (Capterra, SourceForge, SoftwareSuggest) and vendors (Shexie, MediRecords), not development services. Google reads the intent as 'find practice management software to buy', not 'hire someone to build it'. Zero URL overlap with any development-services SERP. Targeting it would rank a service page against a buyer looking for an off-the-shelf product."
+    },
+    {
+      "keyword": "healthcare software development company australia",
+      "reason": "Held by agencies with 1000+ delivered projects (Appinventiv, DesignPluz, Vrinsoft) and listicle farms (vocal.media, techwize). A one-person site does not enter this auction, and it is the same SERP the employer already competes in."
+    }
+  ],
+  "links": [
+    {
+      "from": "pillar",
+      "to": "cluster-0-post-0",
+      "type": "mandatory",
+      "anchor": "AHPRA's virtual care rules"
+    },
+    {
+      "from": "pillar",
+      "to": "cluster-0-post-1",
+      "type": "mandatory",
+      "anchor": "the 13 Australian Privacy Principles"
+    },
+    {
+      "from": "pillar",
+      "to": "cluster-0-post-2",
+      "type": "mandatory",
+      "anchor": "Privacy Act ready architecture"
+    },
+    {
+      "from": "pillar",
+      "to": "cluster-1-post-0",
+      "type": "mandatory",
+      "anchor": "My Health Record FHIR Gateway"
+    },
+    {
+      "from": "pillar",
+      "to": "cluster-1-post-1",
+      "type": "mandatory",
+      "anchor": "eRx Script Exchange integration"
+    },
+    {
+      "from": "pillar",
+      "to": "cluster-1-post-2",
+      "type": "mandatory",
+      "anchor": "Healthcare Identifiers Service"
+    },
+    {
+      "from": "pillar",
+      "to": "cluster-2-post-0",
+      "type": "mandatory",
+      "anchor": "Medusa v2 telehealth workflows"
+    },
+    {
+      "from": "pillar",
+      "to": "cluster-2-post-1",
+      "type": "mandatory",
+      "anchor": "Cliniko, Halaxy and Best Practice APIs"
+    },
+    {
+      "from": "pillar",
+      "to": "cluster-2-post-2",
+      "type": "mandatory",
+      "anchor": "telehealth MBS billing logic"
+    },
+    {
+      "from": "cluster-0-post-0",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "cluster-0-post-1",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "cluster-0-post-2",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "cluster-1-post-0",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "cluster-1-post-1",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "cluster-1-post-2",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "cluster-2-post-0",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "cluster-2-post-1",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "cluster-2-post-2",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "cluster-0-post-0",
+      "to": "cluster-0-post-1",
+      "type": "sibling",
+      "anchor": "privacy principles for health apps"
+    },
+    {
+      "from": "cluster-0-post-1",
+      "to": "cluster-0-post-2",
+      "type": "sibling",
+      "anchor": "data residency and architecture"
+    },
+    {
+      "from": "cluster-0-post-2",
+      "to": "cluster-0-post-0",
+      "type": "sibling",
+      "anchor": "AHPRA virtual care requirements"
+    },
+    {
+      "from": "cluster-1-post-0",
+      "to": "cluster-1-post-2",
+      "type": "sibling",
+      "anchor": "Healthcare Identifiers prerequisite"
+    },
+    {
+      "from": "cluster-1-post-1",
+      "to": "cluster-1-post-0",
+      "type": "sibling",
+      "anchor": "My Health Record integration"
+    },
+    {
+      "from": "cluster-1-post-2",
+      "to": "cluster-1-post-1",
+      "type": "sibling",
+      "anchor": "eRx prescribing integration"
+    },
+    {
+      "from": "cluster-2-post-0",
+      "to": "cluster-2-post-2",
+      "type": "sibling",
+      "anchor": "MBS billing logic"
+    },
+    {
+      "from": "cluster-2-post-1",
+      "to": "cluster-2-post-0",
+      "type": "sibling",
+      "anchor": "modelling prescriptions as orders"
+    },
+    {
+      "from": "cluster-2-post-2",
+      "to": "cluster-2-post-1",
+      "type": "sibling",
+      "anchor": "clinic software integrations"
+    },
+    {
+      "from": "cluster-0-post-1",
+      "to": "cluster-1-post-0",
+      "type": "cross-cluster",
+      "anchor": "My Health Record data handling"
+    },
+    {
+      "from": "cluster-1-post-1",
+      "to": "cluster-2-post-0",
+      "type": "cross-cluster",
+      "anchor": "prescriptions in a clinic workflow"
+    },
+    {
+      "from": "cluster-2-post-0",
+      "to": "cluster-0-post-0",
+      "type": "cross-cluster",
+      "anchor": "AHPRA constraints on virtual care"
+    },
+    {
+      "from": "cluster-3-post-1",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "Australian healthcare software development"
+    },
+    {
+      "from": "cluster-2-post-0",
+      "to": "cluster-3-post-1",
+      "type": "cross-cluster",
+      "anchor": "the Cannabiz Elite build"
+    },
+    {
+      "from": "cluster-3-post-0",
+      "to": "pillar",
+      "type": "mandatory",
+      "anchor": "building healthcare software for Australia"
+    },
+    {
+      "from": "pillar",
+      "to": "cluster-3-post-0",
+      "type": "mandatory",
+      "anchor": "work with me on an Australian health build"
+    },
+    {
+      "from": "cluster-3-post-0",
+      "to": "cluster-3-post-1",
+      "type": "sibling",
+      "anchor": "the Cannabiz Elite build"
+    }
+  ]
+}

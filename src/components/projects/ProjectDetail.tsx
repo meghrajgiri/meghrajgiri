@@ -1,7 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
+import type { ImageSize } from "@/lib/image-size";
 
 interface Project {
   id: number;
@@ -23,7 +26,17 @@ interface Project {
   highlights: string[];
 }
 
-export function ProjectDetail({ project }: { project: Project }) {
+export function ProjectDetail({
+  project,
+  imageSizes = {},
+}: {
+  project: Project;
+  /**
+   * Intrinsic dimensions keyed by src, measured on the server. Absent entries fall
+   * back to a plain `<img>` rather than a guessed aspect ratio.
+   */
+  imageSizes?: Record<string, ImageSize>;
+}) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const allImages = [
@@ -115,11 +128,26 @@ export function ProjectDetail({ project }: { project: Project }) {
           className="mb-12 cursor-pointer overflow-hidden rounded-2xl bg-muted"
           onClick={() => setSelectedImage(project.image)}
         >
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
-          />
+          {imageSizes[project.image] ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={imageSizes[project.image].width}
+              height={imageSizes[project.image].height}
+              // The hero is the largest element above the fold on this page, so it is
+              // the LCP candidate and must not be lazy-loaded.
+              priority
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              className="h-auto w-full transition-transform duration-500 hover:scale-[1.02]"
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+            />
+          )}
         </div>
 
         {/* Technologies & Highlights */}
@@ -169,11 +197,16 @@ export function ProjectDetail({ project }: { project: Project }) {
                   className="hover-lift cursor-pointer overflow-hidden rounded-xl bg-muted"
                   onClick={() => setSelectedImage(src)}
                 >
-                  <img
+                  <Image
                     src={src}
                     alt={`${project.title} screenshot ${index + 1}`}
-                    className="aspect-video w-full object-cover transition-transform duration-300 hover:scale-105"
+                    width={imageSizes[src]?.width ?? 1920}
+                    height={imageSizes[src]?.height ?? 1080}
                     loading="lazy"
+                    // The grid already crops to 16:9, so the rendered box is fixed
+                    // regardless of the source aspect and there is no shift to avoid.
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="aspect-video w-full object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>
               ))}
@@ -196,6 +229,10 @@ export function ProjectDetail({ project }: { project: Project }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
+            {/* Deliberately not next/image: the lightbox exists to show the asset at
+                full resolution, which is the one case where a resized derivative is
+                the wrong thing to serve. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={selectedImage}
               alt={project.title}

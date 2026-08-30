@@ -3,7 +3,7 @@
 import { AdminAuth } from "@/components/admin/AdminAuth";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { supabase } from "@/lib/supabase";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface ConfigEditorProps {
   configKey: string;
@@ -29,11 +29,10 @@ export function ConfigEditor({
     text: string;
   } | null>(null);
 
-  useEffect(() => {
-    fetchConfig();
-  }, [configKey]);
-
-  const fetchConfig = async () => {
+  // Memoised so the effect below can depend on it honestly. Without useCallback the
+  // function is a new value every render, so either the effect loops or the dependency
+  // has to be suppressed.
+  const fetchConfig = useCallback(async () => {
     try {
       const {
         data: { session },
@@ -50,7 +49,11 @@ export function ConfigEditor({
     } finally {
       setLoading(false);
     }
-  };
+  }, [configKey]);
+
+  useEffect(() => {
+    fetchConfig();
+  }, [fetchConfig]);
 
   const handleSave = async () => {
     if (!config) return;

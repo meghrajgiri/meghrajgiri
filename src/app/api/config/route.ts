@@ -74,6 +74,11 @@ export async function PUT(request: NextRequest) {
     await saveConfig(key, value);
     revalidateTag("site-config");
     revalidatePath("/", "layout");
+    // Metadata routes don't participate in the layout revalidation above, so a
+    // project added from /cms would stay absent from the sitemap until the next
+    // deploy without this.
+    revalidatePath("/sitemap.xml");
+    revalidatePath("/robots.txt");
     return NextResponse.json({ success: true, key });
   } catch (error) {
     console.error("Error saving config:", error);

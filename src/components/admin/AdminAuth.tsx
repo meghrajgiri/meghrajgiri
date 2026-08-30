@@ -18,7 +18,7 @@ export function AdminAuth({ children }: { children: React.ReactNode }) {
       if (session) {
         setAuthenticated(true);
       } else {
-        router.replace("/admin/login");
+        router.replace("/cms");
       }
       setLoading(false);
     };
@@ -32,7 +32,7 @@ export function AdminAuth({ children }: { children: React.ReactNode }) {
         setAuthenticated(true);
       } else {
         setAuthenticated(false);
-        router.replace("/admin/login");
+        router.replace("/cms");
       }
     });
 

@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api/"],
+        disallow: ["/cms", "/api/"],
       },
     ],
-    sitemap: "https://www.meghrajgiri.com.np/sitemap.xml",
+    sitemap: "https://www.meghrajgiri.com/sitemap.xml",
   };
 }

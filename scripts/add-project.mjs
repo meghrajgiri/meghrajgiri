@@ -1,12 +1,43 @@
 #!/usr/bin/env node
 
+import { createClient } from "@supabase/supabase-js";
 import { createInterface } from "readline";
-import { readFileSync, writeFileSync, readdirSync, statSync } from "fs";
+import { readdirSync, statSync } from "fs";
 import { join, resolve } from "path";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const PROJECTS_FILE = join(ROOT, "src", "config", "projects.ts");
 const PUBLIC_PROJECTS = join(ROOT, "public", "projects");
+
+/**
+ * Projects live in the Supabase `site_config` table, not in a TS file.
+ *
+ * This script used to splice a formatted object into `src/config/projects.ts` with a
+ * regex. That file was deleted when the admin panel landed, which left the script
+ * writing to a path that no longer exists — it had been silently broken since.
+ */
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error(
+    "\x1b[31mMissing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY.\x1b[0m\n" +
+      "Run with: node --env-file=.env scripts/add-project.mjs",
+  );
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+/** Read the `projects` config row. */
+async function loadProjects() {
+  const { data, error } = await supabase
+    .from("site_config")
+    .select("value")
+    .eq("key", "projects")
+    .single();
+  if (error) throw new Error(`Could not read projects config: ${error.message}`);
+  return data.value;
+}
 
 const rl = createInterface({ input: process.stdin, output: process.stdout });
 
@@ -93,89 +124,26 @@ function getRootImages() {
   }
 }
 
-function getNextId() {
-  const content = readFileSync(PROJECTS_FILE, "utf-8");
-  const ids = [...content.matchAll(/id:\s*(\d+)/g)].map((m) =>
-    parseInt(m[1]),
-  );
+function getNextId(config) {
+  const ids = (config.projects ?? []).map((p) => Number(p.id) || 0);
   return ids.length ? Math.max(...ids) + 1 : 1;
 }
 
-function insertProject(project) {
-  let content = readFileSync(PROJECTS_FILE, "utf-8");
+/**
+ * Append the project and write the whole `projects` row back.
+ *
+ * Read-modify-write on a single JSONB row, which is safe here because this is an
+ * interactive single-operator script. It is not safe to run two copies at once.
+ */
+async function insertProject(config, project) {
+  const next = { ...config, projects: [...(config.projects ?? []), project] };
 
-  // Build the project object string
-  const indent = "    ";
-  const lines = [
-    `${indent}{`,
-    `${indent}  id: ${project.id},`,
-    `${indent}  title: ${JSON.stringify(project.title)},`,
-    `${indent}  description: ${JSON.stringify(project.description)},`,
-    `${indent}  longDescription: ${JSON.stringify(project.longDescription)},`,
-    `${indent}  image: ${JSON.stringify(project.image)},`,
-  ];
+  const { error } = await supabase
+    .from("site_config")
+    .update({ value: next, updated_at: new Date().toISOString() })
+    .eq("key", "projects");
 
-  if (project.screenshots.length) {
-    lines.push(
-      `${indent}  screenshots: ${JSON.stringify(project.screenshots)},`,
-    );
-  }
-
-  lines.push(
-    `${indent}  technologies: ${JSON.stringify(project.technologies)},`,
-  );
-  lines.push(`${indent}  category: ${JSON.stringify(project.category)},`);
-  lines.push(`${indent}  status: ${JSON.stringify(project.status)},`);
-  lines.push(`${indent}  year: ${JSON.stringify(project.year)},`);
-
-  // Links
-  const linkEntries = [];
-  if (project.links.demo) linkEntries.push(`demo: ${JSON.stringify(project.links.demo)}`);
-  if (project.links.github) linkEntries.push(`github: ${JSON.stringify(project.links.github)}`);
-  if (project.links.case_study) linkEntries.push(`case_study: ${JSON.stringify(project.links.case_study)}`);
-  if (linkEntries.length) {
-    lines.push(`${indent}  links: {`);
-    linkEntries.forEach((entry, i) => {
-      const comma = i < linkEntries.length - 1 ? "," : "";
-      lines.push(`${indent}    ${entry}${comma}`);
-    });
-    lines.push(`${indent}  },`);
-  } else {
-    lines.push(`${indent}  links: {},`);
-  }
-
-  // Highlights
-  lines.push(`${indent}  highlights: [`);
-  project.highlights.forEach((h, i) => {
-    const comma = i < project.highlights.length - 1 ? "," : "";
-    lines.push(`${indent}    ${JSON.stringify(h)}${comma}`);
-  });
-  lines.push(`${indent}  ]`);
-
-  lines.push(`${indent}}`);
-
-  const projectStr = lines.join("\n");
-
-  // Find the closing ] of the projects array and insert before it
-  const arrayEndRegex = /(\n\s*)\],\s*\n\s*\n?\s*callToAction/;
-  const match = content.match(arrayEndRegex);
-
-  if (match) {
-    content = content.replace(
-      arrayEndRegex,
-      `,\n${projectStr}${match[1]}],\n\n  callToAction`,
-    );
-  } else {
-    // Fallback: find last } before ]
-    const lastBracket = content.lastIndexOf("}");
-    const closingBracket = content.indexOf("]", lastBracket);
-    content =
-      content.slice(0, lastBracket + 1) +
-      `,\n${projectStr}` +
-      content.slice(closingBracket);
-  }
-
-  writeFileSync(PROJECTS_FILE, content, "utf-8");
+  if (error) throw new Error(`Could not save project: ${error.message}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -185,10 +153,13 @@ function insertProject(project) {
 async function main() {
   console.log("\n\x1b[1m\x1b[35m=== Add New Project ===\x1b[0m\n");
 
+  const config = await loadProjects();
+  console.log(`\x1b[90mLoaded ${config.projects?.length ?? 0} existing projects from Supabase.\x1b[0m`);
+
   const project = { links: {} };
 
   // 1. ID
-  project.id = getNextId();
+  project.id = getNextId(config);
   console.log(`\x1b[33mProject ID: ${project.id} (auto-assigned)\x1b[0m`);
 
   // 2. Name
@@ -331,9 +302,11 @@ async function main() {
   const confirm = await ask("Save this project? (y/n)");
 
   if (confirm.toLowerCase() === "y" || confirm.toLowerCase() === "yes") {
-    insertProject(project);
+    await insertProject(config, project);
+    console.log(`\n\x1b[32m  Project "${project.title}" saved to Supabase.\x1b[0m`);
     console.log(
-      `\n\x1b[32m  Project "${project.title}" added to projects.ts!\x1b[0m\n`,
+      "\x1b[33m  Next: run `yarn config:snapshot` and commit, so the outage fallback\n" +
+        "  matches what is live.\x1b[0m\n",
     );
   } else {
     console.log("\n\x1b[31m  Cancelled.\x1b[0m\n");
