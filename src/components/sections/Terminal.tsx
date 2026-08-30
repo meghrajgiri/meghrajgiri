@@ -115,7 +115,7 @@ export function Terminal() {
 
   return (
     <div
-      className="relative overflow-hidden rounded-xl border border-white/10 bg-[#0F0B12] shadow-2xl"
+      className="relative h-full overflow-hidden rounded-2xl border border-border bg-[#0F1114]"
       style={{ colorScheme: "dark" }}
     >
       {/*
@@ -151,7 +151,7 @@ export function Terminal() {
 
       <div
         ref={scrollRef}
-        className="relative h-[240px] overflow-y-auto px-4 py-4 font-mono text-[12px] leading-[1.8] sm:h-[268px] sm:px-5 sm:text-[13px]"
+        className="relative h-[236px] overflow-y-auto px-4 py-4 font-mono text-[12px] leading-[1.8] sm:h-[262px] sm:px-5 sm:text-[13px]"
         onClick={() => inputRef.current?.focus()}
       >
         <p className="text-white/90">

@@ -25,7 +25,7 @@ export function ProjectsSection() {
   if (!featured.length) return null;
 
   return (
-    <section id="featured-work" className="px-6 pb-16 pt-10 md:pb-24 md:pt-14">
+    <section id="featured-work" className="px-6 pb-14 pt-4 md:pb-20 md:pt-6">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -47,9 +47,9 @@ export function ProjectsSection() {
             <Link
               key={project.slug}
               href={`/projects/${project.slug}`}
-              className="group flex flex-col"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-brand/50"
             >
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm border border-border bg-muted">
+              <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border bg-muted">
                 {project.image && (
                   <Image
                     src={project.image}
@@ -61,7 +61,7 @@ export function ProjectsSection() {
                 )}
               </div>
 
-              <div className="mt-5 flex flex-1 flex-col">
+              <div className="flex flex-1 flex-col p-5">
                 <div className="flex flex-wrap items-center gap-2.5">
                   <span className="rounded-sm border border-brand bg-brand-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-brand">
                     {project.category}
@@ -87,7 +87,7 @@ export function ProjectsSection() {
 
                 {/* Pushed to the bottom so the stack lines up across cards of
                     different description lengths. */}
-                <p className="mt-auto pt-4 font-mono text-[12px] leading-relaxed text-muted-foreground">
+                <p className="mt-auto pt-5 font-mono text-[12px] leading-relaxed text-muted-foreground">
                   {project.technologies.slice(0, 4).join(" · ")}
                 </p>
               </div>

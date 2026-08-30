@@ -67,8 +67,9 @@ export function SkillsSection() {
   const { skills } = useSiteConfig();
 
   return (
-    <section id="skills" className="border-t border-border px-6 py-14 md:py-16">
+    <section id="skills" className="px-6 py-10 md:py-12">
       <div className="container mx-auto max-w-6xl">
+        <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
         <div className="grid gap-8 md:grid-cols-[200px_1fr] md:gap-16">
           <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-brand">
             {skills?.badge ?? "Stack"}
@@ -90,6 +91,7 @@ export function SkillsSection() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </section>
