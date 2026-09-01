@@ -40,7 +40,11 @@ requirements into clean, maintainable, and user-friendly applications.
 
 </div>
 
-![Development Philosophy: I believe great software is built with clarity, purpose and responsibility. I focus on writing code that is maintainable, scalable, reusable, clean, user-focused, well-structured and performance-driven.](assets/philosophy.svg)[![Let's Connect - Portfolio: meghrajgiri.com](assets/connect-0.svg)](https://meghrajgiri.com)[![LinkedIn: /in/meghrajgiri](assets/connect-1.svg)](https://linkedin.com/in/meghrajgiri)[![Email: meghrajgiri56@gmail.com](assets/connect-2.svg)](mailto:meghrajgiri56@gmail.com)
+![Development Philosophy: I believe great software is built with clarity, purpose and responsibility. I focus on writing code that is maintainable, scalable, reusable, clean, user-focused, well-structured and performance-driven.](assets/philosophy.svg)
+
+![Let's Connect: I'm open to collaborating on exciting projects and opportunities.](assets/connect.svg)
+
+[![Portfolio - meghrajgiri.com](assets/btn-portfolio.svg)](https://meghrajgiri.com)&nbsp;&nbsp;&nbsp;[![LinkedIn - /in/meghrajgiri](assets/btn-linkedin.svg)](https://linkedin.com/in/meghrajgiri)&nbsp;&nbsp;&nbsp;[![Email - meghrajgiri56@gmail.com](assets/btn-email.svg)](mailto:meghrajgiri56@gmail.com)
 
 <div align="center">
 
