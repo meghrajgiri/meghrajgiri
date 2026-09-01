@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="365" height="40" viewBox="0 0 365 40" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Noto Sans,Helvetica,Arial,sans-serif">
+<rect x="0.50" y="5.50" width="67.30" height="30.00" rx="9" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<text x="12.00" y="25.0" font-size="11">📍</text>
+<text x="30.00" y="25.0" font-size="10.5" fill="#0f172a">Nepal</text>
+<rect x="75.80" y="5.50" width="121.90" height="30.00" rx="9" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<text x="87.30" y="25.0" font-size="11">🌐</text>
+<text x="105.30" y="25.0" font-size="10.5" fill="#0f172a">meghrajgiri.com</text>
+<rect x="205.70" y="5.50" width="160.12" height="30.00" rx="9" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<text x="217.20" y="25.0" font-size="11">🛠️</text>
+<text x="235.20" y="25.0" font-size="10.5" fill="#0f172a">5+ Years of Experience</text>
+</svg>
