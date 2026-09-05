@@ -1,7 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type UploadedImage = {
   url: string;
@@ -59,6 +59,32 @@ function objectName(file: File) {
   return `${stem}-${Date.now().toString(36)}${ext}`;
 }
 
+/**
+ * Turn clipboard contents into files.
+ *
+ * A pasted screenshot arrives as an unnamed `image/png` blob, and `objectName` builds
+ * the storage path from the filename — so without a name here every paste would land
+ * on the same key. The timestamp is only for the filename; the upload path gets its
+ * own suffix downstream.
+ */
+function filesFromClipboard(data: DataTransfer | null): File[] {
+  if (!data) return [];
+  const out: File[] = [];
+  for (const item of Array.from(data.items)) {
+    if (item.kind !== "file" || !item.type.startsWith("image/")) continue;
+    const file = item.getAsFile();
+    if (!file) continue;
+    const named =
+      file.name && file.name !== "image.png"
+        ? file
+        : new File([file], `pasted-${Date.now()}.${file.type.split("/")[1] || "png"}`, {
+            type: file.type,
+          });
+    out.push(named);
+  }
+  return out;
+}
+
 export function ImageUploader({
   folder,
   multiple = false,
@@ -76,6 +102,17 @@ export function ImageUploader({
   const [progress, setProgress] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [dragging, setDragging] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  // Resolved after mount rather than during render: the server cannot know the
+  // visitor's platform, and guessing produces a hydration mismatch. Ctrl is the safer
+  // default because it is what a mismatch would show for the shorter moment.
+  const [pasteKey, setPasteKey] = useState("Ctrl+V");
+  useEffect(() => {
+    if (/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)) {
+      setPasteKey("⌘V");
+    }
+  }, []);
 
   const upload = async (files: FileList | File[]) => {
     const list = Array.from(files);
@@ -132,7 +169,20 @@ export function ImageUploader({
 
   return (
     <div className="space-y-2">
+      {/* Focusable so paste has an unambiguous target. A project page mounts several of
+          these — thumbnail, screenshots, one per gallery group — so a document-level
+          paste listener would have to guess which one the image was meant for. Clicking
+          a dropzone answers that. */}
       <div
+        tabIndex={0}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        onPaste={(e) => {
+          const files = filesFromClipboard(e.clipboardData);
+          if (files.length === 0) return;
+          e.preventDefault();
+          if (!busy) upload(multiple ? files : files.slice(0, 1));
+        }}
         onDragOver={(e) => {
           e.preventDefault();
           setDragging(true);
@@ -143,8 +193,8 @@ export function ImageUploader({
           setDragging(false);
           if (!busy) upload(e.dataTransfer.files);
         }}
-        className={`rounded-lg border border-dashed px-4 py-6 text-center transition-colors ${
-          dragging
+        className={`rounded-lg border border-dashed px-4 py-6 text-center outline-none transition-colors ${
+          dragging || focused
             ? "border-gray-900 bg-gray-50 dark:border-gray-100 dark:bg-gray-900"
             : "border-gray-300 dark:border-gray-700"
         }`}
@@ -158,8 +208,17 @@ export function ImageUploader({
           {busy ? "Uploading…" : label}
         </button>
         <p className="mt-2 text-xs text-gray-500">
-          or drop {multiple ? "images" : "an image"} here · PNG, JPEG, WebP, AVIF or
-          GIF · up to 10MB
+          drop {multiple ? "images" : "an image"} here, or{" "}
+          {focused ? (
+            <span className="font-medium text-gray-900 dark:text-gray-100">
+              press {pasteKey} to paste
+            </span>
+          ) : (
+            <>click this box and press {pasteKey} to paste</>
+          )}
+        </p>
+        <p className="mt-1 text-[11px] text-gray-400">
+          PNG, JPEG, WebP, AVIF or GIF · up to 10MB
         </p>
         <input
           ref={inputRef}
