@@ -175,6 +175,8 @@ export interface SiteConfig {
         demo?: string;
         github?: string;
         case_study?: string;
+        /** Registry listing — third-party proof a package is actually published. */
+        npm?: string;
         /** Store listings — third-party proof a mobile app actually shipped. */
         appStore?: string;
         playStore?: string;

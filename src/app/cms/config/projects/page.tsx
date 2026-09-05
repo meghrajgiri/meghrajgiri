@@ -32,6 +32,7 @@ interface Project {
     demo?: string;
     github?: string;
     case_study?: string;
+    npm?: string;
     appStore?: string;
     playStore?: string;
   };
@@ -250,6 +251,11 @@ function ProjectCard({
               label="GitHub URL"
               value={project.links?.github || ""}
               onChange={(v) => update("links.github", v)}
+            />
+            <TextField
+              label="npm URL"
+              value={project.links?.npm || ""}
+              onChange={(v) => update("links.npm", v)}
             />
             <TextField
               label="App Store URL"
