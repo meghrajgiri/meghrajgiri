@@ -9,7 +9,6 @@
     "lint": "next lint",
     "add-project": "node --env-file=.env scripts/add-project.mjs",
     "db:migrate": "node --env-file=.env supabase/migrate.mjs",
-    "db:migrate:latest": "node --env-file=.env supabase/migrate.mjs 002",
     "config:snapshot": "node --env-file=.env scripts/snapshot-config.mjs",
     "config:restore": "node --env-file=.env scripts/restore-config.mjs"
   },
@@ -26,9 +25,7 @@
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-fast-marquee": "^1.6.5",
     "resend": "^6.1.0",
-    "tailwind-merge": "^2.6.0",
     "tailwind-variants": "^0.3.0",
     "tiptap-markdown": "^0.9.0"
   },
