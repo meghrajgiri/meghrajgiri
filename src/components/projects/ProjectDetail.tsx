@@ -14,6 +14,7 @@ interface Project {
   longDescription: string;
   image: string;
   screenshots?: string[];
+  screenshotsHeading?: string;
   technologies: string[];
   category: string;
   status: string;
@@ -194,30 +195,65 @@ export function ProjectDetail({
           )}
         </div>
 
-        {/* Screenshots */}
+        {/* The gallery.
+ 
+            "Screenshots" names the file format rather than what the reader is about to
+            see, and it is the same word whether the images are three phone screens or
+            fourteen dashboards. The default says what they are looking at instead, and
+            any project can override it — a mobile app reads better as "In the app"
+            than a clinic dashboard does. */}
         {project.screenshots && project.screenshots.length > 0 && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold">Screenshots</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {project.screenshots.map((src, index) => (
-                <div
-                  key={src}
-                  className="hover-lift cursor-pointer overflow-hidden rounded-xl bg-muted"
-                  onClick={() => setSelectedImage(src)}
-                >
-                  <Image
-                    src={src}
-                    alt={`${project.title} screenshot ${index + 1}`}
-                    width={imageSizes[src]?.width ?? 1920}
-                    height={imageSizes[src]?.height ?? 1080}
-                    loading="lazy"
-                    // The grid already crops to 16:9, so the rendered box is fixed
-                    // regardless of the source aspect and there is no shift to avoid.
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="aspect-video w-full object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </div>
-              ))}
+            <h2 className="text-2xl font-bold">
+              {project.screenshotsHeading?.trim() || "A look inside"}
+            </h2>
+            {/* Masonry rather than a uniform grid.
+ 
+                These screenshots are not one shape: phone captures run about 1:2.2
+                portrait and dashboard captures about 16:9, and the previous
+                `aspect-video object-cover` forced every one of them into the same 16:9
+                box. On a landscape capture that trimmed the edges; on a portrait one it
+                threw away roughly two thirds of the image, which on a phone screenshot
+                is the part carrying the content.
+ 
+                CSS columns let each image keep its own height. Reading order becomes
+                top-to-bottom within a column rather than left-to-right, which is the
+                trade — acceptable for a gallery where the images are peers rather than
+                a sequence. */}
+            <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+              {project.screenshots.map((src, index) => {
+                const size = imageSizes[src];
+                return (
+                  <div
+                    key={src}
+                    className="mb-4 block cursor-pointer break-inside-avoid overflow-hidden rounded-xl bg-muted"
+                    onClick={() => setSelectedImage(src)}
+                  >
+                    {size ? (
+                      <Image
+                        src={src}
+                        alt={`${project.title} screenshot ${index + 1}`}
+                        width={size.width}
+                        height={size.height}
+                        loading="lazy"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="h-auto w-full transition-transform duration-300 hover:scale-105"
+                      />
+                    ) : (
+                      /* Without recorded dimensions `next/image` would reserve a box at
+                         a guessed ratio and jump once the real image loaded. A plain
+                         img reserves nothing and still shows the whole frame. */
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={src}
+                        alt={`${project.title} screenshot ${index + 1}`}
+                        loading="lazy"
+                        className="h-auto w-full transition-transform duration-300 hover:scale-105"
+                      />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
