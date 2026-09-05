@@ -71,10 +71,12 @@ export default async function ProjectPage({ params }: Props) {
   }
 
   const baseUrl = config.metadata.url;
-  const imageSizes = await getImageSizes([
-    project.image,
-    ...(project.screenshots ?? []),
-  ]);
+  // Sizes recorded at upload time win; `getImageSizes` still covers any image still
+  // sitting in public/, so a half-migrated project renders correctly either way.
+  const imageSizes = {
+    ...(await getImageSizes([project.image, ...(project.screenshots ?? [])])),
+    ...(project.imageSizes ?? {}),
+  };
 
   const trail = [
     { name: "Home", path: "/" },

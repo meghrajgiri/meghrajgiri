@@ -277,7 +277,7 @@
         "id": 1,
         "slug": "thriftverse",
         "year": "2026",
-        "image": "/projects/thriftverse/thumbnail.png",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thumbnail.png",
         "links": {
           "demo": "https://www.thriftverse.shop/"
         },
@@ -289,20 +289,74 @@
           "Seamless Checkout",
           "Track Order"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_1.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_2.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_3.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_4.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_5.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_6.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_7.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_8.png": {
+            "width": 1920,
+            "height": 959
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_9.png": {
+            "width": 1920,
+            "height": 958
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_10.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_11.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_12.png": {
+            "width": 1290,
+            "height": 2796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thumbnail.png": {
+            "width": 1920,
+            "height": 894
+          }
+        },
         "description": "Thriftverse is a thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products.",
         "screenshots": [
-          "/projects/thriftverse/thrift_1.PNG",
-          "/projects/thriftverse/thrift_10.PNG",
-          "/projects/thriftverse/thrift_11.PNG",
-          "/projects/thriftverse/thrift_12.PNG",
-          "/projects/thriftverse/thrift_2.PNG",
-          "/projects/thriftverse/thrift_3.PNG",
-          "/projects/thriftverse/thrift_4.PNG",
-          "/projects/thriftverse/thrift_5.PNG",
-          "/projects/thriftverse/thrift_6.PNG",
-          "/projects/thriftverse/thrift_7.PNG",
-          "/projects/thriftverse/thrift_8.png",
-          "/projects/thriftverse/thrift_9.png"
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_1.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_10.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_11.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_12.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_2.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_3.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_4.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_5.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_6.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_7.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_8.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thrift_9.png"
         ],
         "technologies": [
           "React Native",
@@ -320,7 +374,7 @@
         "id": 2,
         "slug": "cannabiz-elite",
         "year": "2026",
-        "image": "/projects/cannabiz-elite/thumbnail.png",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/thumbnail.png",
         "links": {},
         "title": "Clinic Management System - Cannabiz Elite (Australia)",
         "status": "In Progress",
@@ -341,22 +395,84 @@
           "Clerk Auth",
           "Product Management"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_1.png": {
+            "width": 3600,
+            "height": 2090
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_2.png": {
+            "width": 3600,
+            "height": 1494
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_3.png": {
+            "width": 3600,
+            "height": 1660
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_4.png": {
+            "width": 3554,
+            "height": 2104
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_5.png": {
+            "width": 3600,
+            "height": 2092
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_6.png": {
+            "width": 3596,
+            "height": 1852
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_7.png": {
+            "width": 3600,
+            "height": 1788
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_8.png": {
+            "width": 3600,
+            "height": 1796
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_9.png": {
+            "width": 3600,
+            "height": 1812
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_10.png": {
+            "width": 3600,
+            "height": 1680
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_11.png": {
+            "width": 3600,
+            "height": 1706
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_12.png": {
+            "width": 3600,
+            "height": 1772
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_13.png": {
+            "width": 3600,
+            "height": 2080
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_14.png": {
+            "width": 3600,
+            "height": 2080
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/thumbnail.png": {
+            "width": 1920,
+            "height": 946
+          }
+        },
         "description": "Cannabiz Elite is a clinic management system purpose-built for Australian cannabis and telehealth clinics",
         "screenshots": [
-          "/projects/cannabiz-elite/can_1.png",
-          "/projects/cannabiz-elite/can_10.png",
-          "/projects/cannabiz-elite/can_11.png",
-          "/projects/cannabiz-elite/can_12.png",
-          "/projects/cannabiz-elite/can_13.png",
-          "/projects/cannabiz-elite/can_14.png",
-          "/projects/cannabiz-elite/can_2.png",
-          "/projects/cannabiz-elite/can_3.png",
-          "/projects/cannabiz-elite/can_4.png",
-          "/projects/cannabiz-elite/can_5.png",
-          "/projects/cannabiz-elite/can_6.png",
-          "/projects/cannabiz-elite/can_7.png",
-          "/projects/cannabiz-elite/can_8.png",
-          "/projects/cannabiz-elite/can_9.png"
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_1.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_10.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_11.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_12.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_13.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_14.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_2.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_3.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_4.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_5.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_6.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_7.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_8.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/can_9.png"
         ],
         "technologies": [
           "React",
@@ -373,7 +489,7 @@
         "id": 3,
         "slug": "lyve",
         "year": "2025",
-        "image": "/projects/lyve/lyve.webp",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve.webp",
         "links": {},
         "title": "The LYVE app",
         "status": "Completed",
@@ -382,13 +498,39 @@
           "Real-time chat",
           "Costume Marketplace"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve.webp": {
+            "width": 3840,
+            "height": 2559
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_1.jpg": {
+            "width": 786,
+            "height": 1718
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_2.jpg": {
+            "width": 786,
+            "height": 1718
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_3.jpg": {
+            "width": 786,
+            "height": 2974
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_4.jpg": {
+            "width": 780,
+            "height": 2976
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_5.jpg": {
+            "width": 780,
+            "height": 1722
+          }
+        },
         "description": "The Lyve App is a next-generation marketplace focused on transforming how users buy and sell event tickets and resell costume reservations",
         "screenshots": [
-          "/projects/lyve/lyve_1.jpg",
-          "/projects/lyve/lyve_2.jpg",
-          "/projects/lyve/lyve_3.jpg",
-          "/projects/lyve/lyve_4.jpg",
-          "/projects/lyve/lyve_5.jpg"
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_1.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_2.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_3.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_4.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_5.jpg"
         ],
         "technologies": [
           "React Native",
@@ -404,7 +546,7 @@
         "id": 4,
         "slug": "khatapata",
         "year": "2023",
-        "image": "/projects/khatapata/khata_1.png",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_1.png",
         "links": {
           "demo": "https://digital.khatapata.store/"
         },
@@ -419,25 +561,99 @@
           "Live Dashboard",
           "Multi currency"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_1.png": {
+            "width": 1920,
+            "height": 951
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_2.png": {
+            "width": 1920,
+            "height": 735
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_3.png": {
+            "width": 1920,
+            "height": 946
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_4.png": {
+            "width": 2034,
+            "height": 1098
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_5.png": {
+            "width": 1928,
+            "height": 994
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_6.png": {
+            "width": 1937,
+            "height": 980
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_7.png": {
+            "width": 1925,
+            "height": 982
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_8.png": {
+            "width": 1919,
+            "height": 956
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_9.png": {
+            "width": 1920,
+            "height": 918
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_10.png": {
+            "width": 1920,
+            "height": 921
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_11.png": {
+            "width": 1926,
+            "height": 466
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_12.png": {
+            "width": 1920,
+            "height": 830
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_13.png": {
+            "width": 1920,
+            "height": 879
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_14.png": {
+            "width": 1920,
+            "height": 950
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_15.png": {
+            "width": 1920,
+            "height": 850
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_16.png": {
+            "width": 1920,
+            "height": 710
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_17.png": {
+            "width": 1920,
+            "height": 867
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_18.png": {
+            "width": 1920,
+            "height": 714
+          }
+        },
         "description": "Inventory Management System (PWA) for Small Businesses to manage their stocks, order and daily tasks",
         "screenshots": [
-          "/projects/khatapata/khata_10.png",
-          "/projects/khatapata/khata_11.png",
-          "/projects/khatapata/khata_12.png",
-          "/projects/khatapata/khata_13.png",
-          "/projects/khatapata/khata_14.png",
-          "/projects/khatapata/khata_15.png",
-          "/projects/khatapata/khata_16.png",
-          "/projects/khatapata/khata_17.png",
-          "/projects/khatapata/khata_18.png",
-          "/projects/khatapata/khata_2.png",
-          "/projects/khatapata/khata_3.png",
-          "/projects/khatapata/khata_4.png",
-          "/projects/khatapata/khata_5.png",
-          "/projects/khatapata/khata_6.png",
-          "/projects/khatapata/khata_7.png",
-          "/projects/khatapata/khata_8.png",
-          "/projects/khatapata/khata_9.png"
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_10.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_11.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_12.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_13.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_14.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_15.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_16.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_17.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_18.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_2.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_3.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_4.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_5.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_6.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_7.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_8.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_9.png"
         ],
         "technologies": [
           "Next.js",
@@ -451,7 +667,7 @@
         "id": 5,
         "slug": "college-cost-secrets",
         "year": "2024",
-        "image": "/projects/ccs/ccs.webp",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs.webp",
         "links": {
           "demo": "https://ccs.vercel.app/"
         },
@@ -459,15 +675,49 @@
         "status": "Completed",
         "category": "Ed-Tech",
         "highlights": [],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs.webp": {
+            "width": 606,
+            "height": 381
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_1.jpg": {
+            "width": 2880,
+            "height": 2048
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_2.jpg": {
+            "width": 2880,
+            "height": 1798
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_3.jpg": {
+            "width": 2880,
+            "height": 1960
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_4.jpg": {
+            "width": 2880,
+            "height": 2432
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_5.jpg": {
+            "width": 2880,
+            "height": 1798
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_6.jpg": {
+            "width": 2880,
+            "height": 2048
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_7.jpg": {
+            "width": 2880,
+            "height": 2048
+          }
+        },
         "description": "A bootstrapped financial planning service helping US families reduce college costs",
         "screenshots": [
-          "/projects/ccs/ccs_1.jpg",
-          "/projects/ccs/ccs_2.jpg",
-          "/projects/ccs/ccs_3.jpg",
-          "/projects/ccs/ccs_4.jpg",
-          "/projects/ccs/ccs_5.jpg",
-          "/projects/ccs/ccs_6.jpg",
-          "/projects/ccs/ccs_7.jpg"
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_1.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_2.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_3.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_4.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_5.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_6.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs_7.jpg"
         ],
         "technologies": [
           "Next.js",
@@ -482,7 +732,7 @@
         "id": 6,
         "slug": "bookvid",
         "year": "2024",
-        "image": "/projects/bookvid/bookvid.webp",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid.webp",
         "links": {},
         "title": "Bookvid - Live Video Booking Marketplace",
         "status": "Completed",
@@ -492,17 +742,59 @@
           "Session Booking",
           "Calendar Integration"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid.webp": {
+            "width": 1280,
+            "height": 853
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_1.jpg": {
+            "width": 1512,
+            "height": 3113
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_2.jpg": {
+            "width": 1280,
+            "height": 773
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_3.jpg": {
+            "width": 1280,
+            "height": 692
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_4.jpg": {
+            "width": 1280,
+            "height": 692
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_5.jpg": {
+            "width": 1280,
+            "height": 773
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_6.jpg": {
+            "width": 1280,
+            "height": 773
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_7.jpg": {
+            "width": 1512,
+            "height": 1627
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_8.jpg": {
+            "width": 1512,
+            "height": 2039
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_9.jpg": {
+            "width": 1512,
+            "height": 1871
+          }
+        },
         "description": "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions.",
         "screenshots": [
-          "/projects/bookvid/bookvid_1.jpg",
-          "/projects/bookvid/bookvid_2.jpg",
-          "/projects/bookvid/bookvid_3.jpg",
-          "/projects/bookvid/bookvid_4.jpg",
-          "/projects/bookvid/bookvid_5.jpg",
-          "/projects/bookvid/bookvid_6.jpg",
-          "/projects/bookvid/bookvid_7.jpg",
-          "/projects/bookvid/bookvid_8.jpg",
-          "/projects/bookvid/bookvid_9.jpg"
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_1.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_2.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_3.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_4.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_5.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_6.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_7.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_8.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_9.jpg"
         ],
         "technologies": [
           "Calendly",
@@ -516,7 +808,7 @@
         "id": 7,
         "slug": "yume",
         "year": "2024",
-        "image": "/projects/yume/thumbnail.png",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/thumbnail.png",
         "links": {},
         "title": "Gambling Recovery App - Yume",
         "status": "Completed",
@@ -526,14 +818,44 @@
           "Group Chat",
           "OAuth2"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_1.jpg": {
+            "width": 1179,
+            "height": 2578
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_2.jpg": {
+            "width": 1180,
+            "height": 3301
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_3.jpg": {
+            "width": 1170,
+            "height": 2484
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_4.jpg": {
+            "width": 1171,
+            "height": 2431
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_5.jpg": {
+            "width": 1171,
+            "height": 2533
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_6.jpg": {
+            "width": 1180,
+            "height": 2578
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/thumbnail.png": {
+            "width": 3600,
+            "height": 2078
+          }
+        },
         "description": "Yume is an app designed to help individuals overcome gambling addiction.",
         "screenshots": [
-          "/projects/yume/yume_1.jpg",
-          "/projects/yume/yume_2.jpg",
-          "/projects/yume/yume_3.jpg",
-          "/projects/yume/yume_4.jpg",
-          "/projects/yume/yume_5.jpg",
-          "/projects/yume/yume_6.jpg"
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_1.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_2.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_3.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_4.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_5.jpg",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/yume/yume_6.jpg"
         ],
         "technologies": [
           "React Native",

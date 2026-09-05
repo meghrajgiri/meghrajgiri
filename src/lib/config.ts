@@ -141,6 +141,17 @@ export interface SiteConfig {
       longDescription: string;
       image: string;
       screenshots?: string[];
+      /** Heading above the gallery. Defaults to "A look inside". */
+      screenshotsHeading?: string;
+      /**
+       * Intrinsic dimensions per image URL, recorded at upload time.
+       *
+       * `getImageSizes` reads headers off the filesystem, which stopped being possible
+       * when these moved to Supabase Storage — and without real width/height
+       * `next/image` cannot reserve space, so the page shifts as each screenshot
+       * loads. Written by `scripts/upload-project-images.mjs` and by the CMS uploader.
+       */
+      imageSizes?: Record<string, { width: number; height: number }>;
       technologies: string[];
       category: string;
       status: string;

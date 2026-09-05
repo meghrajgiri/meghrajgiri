@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 
+/** Hostname of the Supabase project serving `project-images`, e.g. `abc.supabase.co`. */
+const SUPABASE_HOST = process.env.NEXT_PUBLIC_SUPABASE_URL
+  ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
+  : undefined;
+
 const nextConfig: NextConfig = {
   webpack: (config) => {
     config.resolve.fallback = {
@@ -9,6 +14,24 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
+    /**
+     * Project screenshots live in Supabase Storage, so the optimiser has to be told
+     * the host is allowed — `next/image` refuses unlisted remote hosts rather than
+     * proxying anything a URL points at.
+     *
+     * Derived from the same env var the client uses instead of hardcoding the project
+     * ref, so pointing the site at a different Supabase project does not silently
+     * break every image.
+     */
+    remotePatterns: SUPABASE_HOST
+      ? [
+          {
+            protocol: "https" as const,
+            hostname: SUPABASE_HOST,
+            pathname: "/storage/v1/object/public/**",
+          },
+        ]
+      : [],
     // AVIF first, WebP second. The project screenshots are the heaviest assets on the
     // site — several are over a megabyte as PNG — and these formats typically cut that
     // by 60-80% at the sizes they are actually displayed.

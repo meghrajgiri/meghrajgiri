@@ -7,6 +7,7 @@ import {
   SectionLabel,
   ArrayField,
 } from "@/components/admin/ConfigEditor";
+import { ImageUploader, type UploadedImage } from "@/components/admin/ImageUploader";
 import { useState } from "react";
 
 interface Project {
@@ -17,6 +18,8 @@ interface Project {
   longDescription: string;
   image: string;
   screenshots?: string[];
+  screenshotsHeading?: string;
+  imageSizes?: Record<string, { width: number; height: number }>;
   technologies: string[];
   category: string;
   status: string;
@@ -41,6 +44,23 @@ function ProjectCard({
   isExpanded: boolean;
   onToggle: () => void;
 }) {
+  /**
+   * Record dimensions for newly uploaded images.
+   *
+   * Kept beside the URLs rather than derived at render time: the images are remote
+   * now, so the server cannot read their headers, and `next/image` needs real
+   * width/height or the page shifts as each one loads.
+   */
+  const withSizes = (images: UploadedImage[]) => {
+    const sizes = { ...(project.imageSizes ?? {}) };
+    for (const img of images) {
+      if (img.width && img.height) {
+        sizes[img.url] = { width: img.width, height: img.height };
+      }
+    }
+    return sizes;
+  };
+
   const update = (field: string, value: unknown) => {
     if (field.startsWith("links.")) {
       const linkKey = field.split(".")[1];
@@ -169,8 +189,30 @@ function ProjectCard({
             </button>
           </div>
 
+          <SectionLabel>Thumbnail</SectionLabel>
+          {project.image && (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={project.image}
+              alt=""
+              className="h-32 w-auto rounded-lg border border-gray-200 object-cover dark:border-gray-800"
+            />
+          )}
+          <ImageUploader
+            folder={project.slug}
+            label="Upload thumbnail"
+            onUploaded={(images) => {
+              const first = images[0];
+              if (!first) return;
+              onUpdate({
+                ...project,
+                image: first.url,
+                imageSizes: withSizes(images),
+              });
+            }}
+          />
           <TextField
-            label="Thumbnail Image"
+            label="Thumbnail URL"
             value={project.image}
             onChange={(v) => update("image", v)}
           />
@@ -201,7 +243,12 @@ function ProjectCard({
             />
           </div>
 
-          <SectionLabel>Screenshots</SectionLabel>
+          <SectionLabel>Gallery</SectionLabel>
+          <TextField
+            label='Gallery heading (blank uses "A look inside")'
+            value={project.screenshotsHeading || ""}
+            onChange={(v) => update("screenshotsHeading", v)}
+          />
           <div className="space-y-2">
             {(project.screenshots || []).map((src, i) => (
               <div key={i} className="flex items-center gap-2">
@@ -240,6 +287,21 @@ function ProjectCard({
                 </button>
               </div>
             ))}
+            <ImageUploader
+              folder={project.slug}
+              multiple
+              label="Upload screenshots"
+              onUploaded={(images) => {
+                onUpdate({
+                  ...project,
+                  screenshots: [
+                    ...(project.screenshots || []),
+                    ...images.map((i) => i.url),
+                  ],
+                  imageSizes: withSizes(images),
+                });
+              }}
+            />
             <button
               onClick={() => {
                 update("screenshots", [
@@ -249,7 +311,7 @@ function ProjectCard({
               }}
               className="text-xs font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
             >
-              + Add screenshot path
+              + Add screenshot URL manually
             </button>
           </div>
 
