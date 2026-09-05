@@ -53,6 +53,19 @@ export default async function SiteLayout({
   delete clientConfig.hire;
   delete clientConfig.blog;
 
+  // `published: false` decides what *renders*. It does not decide what travels: the
+  // whole projects array was reaching the client, so an unpublished draft — client
+  // name, case study and all — sat in the HTML source of every page, invisible to a
+  // reader and perfectly readable to anyone who viewed source or crawled it. Drafts
+  // are exactly the thing that must not leak, so they are removed here rather than
+  // merely skipped at render time.
+  if (clientConfig.projects?.projects) {
+    clientConfig.projects = {
+      ...clientConfig.projects,
+      projects: clientConfig.projects.projects.filter((p) => p.published !== false),
+    };
+  }
+
   return (
     <SiteConfigProvider config={clientConfig}>
       <Navigation />
