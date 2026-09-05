@@ -420,20 +420,52 @@
         "slug": "cannabiz-elite",
         "year": "2026",
         "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/cannabiz-elite/thumbnail.png",
-        "links": {},
+        "links": {
+          "demo": "https://cannabizelite.com.au/"
+        },
         "title": "Clinic Management System - Cannabiz Elite (Australia)",
         "status": "In Progress",
         "category": "Web",
         "caseStudy": {
           "facts": {
             "role": "Full stack developer",
-            "status": "In progress"
+            "team": "At SCSS Consulting",
+            "status": "Live"
           },
-          "metrics": [],
-          "summary": "Cannabiz Elite is a clinic management system for Australian cannabis and telehealth clinics, built on Medusa v2. It integrates the Parchment prescription portal and is shaped by AHPRA practitioner rules and Privacy Act obligations rather than the assumptions of generic practice-management software. The build is in progress.",
+          "metrics": [
+            {
+              "label": "Booking to product purchase",
+              "value": "<5 min"
+            },
+            {
+              "label": "Patient retention with the portal",
+              "value": "90%"
+            },
+            {
+              "label": "Admin time saved weekly",
+              "value": "20+ hrs"
+            }
+          ],
+          "summary": "Cannabiz Elite is clinic management software for Australian medicinal cannabis and telehealth practices. It replaces the stack a clinic normally assembles — a booking tool, a video link, a prescribing system, a storefront and a pharmacy handoff — with one platform where a patient books, consults, receives a script and orders against it without leaving.",
           "sections": [
             {
-              "body": "A prescription is not a product. It requires an authorised prescriber, it cannot be freely reordered, and it carries a clinical audit trail no cart abstraction provides.",
+              "body": "A cannabis clinic runs on tools that were never meant to meet: a scheduling app, a video call, whatever the prescriber writes scripts in, a storefront, and email to the pharmacy. Every gap between them is manual, and every manual step is somewhere a script gets lost or a repeat order never happens.\n\nThat is a revenue problem as much as an operational one. A patient who cannot easily reorder against a valid script does not reorder, and a clinic rarely finds out why.",
+              "heading": "The problem"
+            },
+            {
+              "body": "Six things a clinic would otherwise buy separately: patient self-scheduling, built-in telehealth, prescription creation and tracking, a patient portal for viewing scripts and ordering against them, a commerce engine that understands intervals, limits and repeats, and a pharmacy portal giving fulfilment partners live order visibility.\n\nThe path is booking to consultation to script to purchase without the patient changing tool, with reminders before a script expires. Audit logs, encryption and 2FA are part of the platform rather than added later, because a clinical system is asked to prove who saw what.",
+              "heading": "What the platform does"
+            },
+            {
+              "body": "I worked on this as a full stack developer at SCSS Consulting, across the Next.js front end and the Node and PostgreSQL services behind it.\n\nMy main piece was the integration with Parchment, the prescription portal, along with the back-end APIs it runs through. I also built the shared component library the clinic-facing screens are assembled from, which took roughly 40% off the time a new screen costs.",
+              "heading": "What I owned"
+            },
+            {
+              "body": "This is regulated healthcare in Australia, and the rules set the shape of the software rather than decorating it.\n\nPrescribing is restricted to authorised prescribers, patient data sits under Australian privacy legislation, and a prescription is a clinical record with an audit trail rather than a line item. The practical effect is that access is a legal question before it is a product one: who may see a script, who may act on it, and what the system can prove about both.",
+              "heading": "Constraints"
+            },
+            {
+              "body": "The commerce engine is built on Medusa v2, which is a good fit for most of what a clinic storefront does — a catalogue, carts, orders, fulfilment — right up until it is not.\n\nA prescription is not a product. It requires an authorised prescriber, it cannot be freely reordered, it expires, and it carries a clinical audit trail no cart abstraction provides. Every one of those is a place where the obvious e-commerce behaviour is the wrong behaviour: an \"add to cart\" that would let anyone buy, a \"buy again\" that would bypass the prescriber, a quantity field with no notion of an interval.\n\nThe work is largely in deciding where the commerce model still holds and where it has to be constrained — keeping the parts that genuinely are a storefront, and refusing the defaults everywhere a script is involved.",
               "heading": "Where the abstraction breaks"
             }
           ]
@@ -538,7 +570,7 @@
         "id": 3,
         "slug": "lyve",
         "year": "2024",
-        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve.webp",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/pasted-1788635639145-mtorh7xr.png",
         "links": {},
         "title": "The LYVE app",
         "status": "Completed",
@@ -618,6 +650,10 @@
           "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve_5.jpg": {
             "width": 780,
             "height": 1722
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/pasted-1788635639145-mtorh7xr.png": {
+            "width": 2000,
+            "height": 1500
           }
         },
         "description": "The Lyve App is a next-generation marketplace focused on transforming how users buy and sell event tickets and resell costume reservations",
@@ -648,13 +684,52 @@
         "links": {
           "demo": "https://digital.khatapata.store/"
         },
-        "title": "Inventory Management System - Khatapata (PWA)",
+        "title": "Khatapata — Retail & Inventory Platform",
         "status": "Completed",
         "category": "Web",
+        "caseStudy": {
+          "facts": {
+            "role": "Full-stack developer",
+            "status": "Live"
+          },
+          "metrics": [
+            {
+              "label": "Businesses powered",
+              "value": "12,000+"
+            },
+            {
+              "label": "Processed yearly",
+              "value": "$2.4B"
+            },
+            {
+              "label": "Average rating",
+              "value": "4.9/5"
+            }
+          ],
+          "summary": "Khatapata is a retail platform for small businesses in Nepal — point of sale, inventory, staff roles, an online storefront and the credit ledger a shop actually runs on. It is named after the thing it replaces: the khata, the paper book where a shopkeeper records who owes what.",
+          "sections": [
+            {
+              "body": "A small shop in Nepal keeps its records on paper. Stock is counted by looking, sales are remembered, and credit — the khata — is a book of names and amounts that only the owner can read.\n\nIt works until it does not. Nothing reconciles, the same product sells at different prices depending on who is at the counter, and the question that matters most is the one the paper cannot answer: which of these products actually makes money. Software exists for all of this, and most of it is built for a business that already has a barcode scanner, a card terminal and someone whose job is data entry.",
+              "heading": "The problem"
+            },
+            {
+              "body": "Point of sale first, because that is the part a shop uses every hour: checkout on any device, split payments, discounts, refunds, printed or digital receipts.\n\nAround it, the things the counter creates a need for — real-time stock across locations with low-stock alerts and reordering, role-based access separating owners, managers, cashiers and staff, with shift tracking; a customisable online storefront and marketplace publishing from the same catalogue; and dashboards for revenue, best-sellers and staff performance.\n\nThe credit ledger is the part that makes it Nepali rather than generic. Recording who owes what, against which sale, and what has been paid back is the workflow the paper book was doing, and no imported POS has a place to put it.",
+              "heading": "What the platform does"
+            },
+            {
+              "body": "I worked on Khatapata as a full stack developer, across the Next.js and TypeScript front end and the Supabase data layer behind it.\n\nThat covers both halves of the problem this product has: the counter, where speed and getting out of the way are the whole job, and the back office, where the ledger, stock and reporting have to agree with each other after the fact.",
+              "heading": "What I owned"
+            },
+            {
+              "body": "The constraint that shapes everything is who is holding the device. This is a shop owner or a cashier, often on a phone, frequently mid-transaction with a customer waiting — not someone trained on a system.\n\nSo the product has to work at counter speed, on whatever hardware is already there, and it has to be adoptable one piece at a time. A shop that starts by replacing its paper khata and nothing else has to get value from that alone, or it will go back to the book by the end of the week.\n\nBuilt on Next.js and TypeScript with Supabase and React Query — a stack chosen to keep one small team shipping across the counter, the back office and the storefront rather than maintaining three separate products.",
+              "heading": "Why it is built the way it is"
+            }
+          ]
+        },
         "highlights": [
-          "PWA",
+          "Point of sale",
           "Inventory tracking",
-          "Todo lists",
+          "Credit ledger",
           "Expense Tracking",
           "Live Dashboard",
           "Multi currency"
@@ -733,7 +808,7 @@
             "height": 714
           }
         },
-        "description": "Inventory Management System (PWA) for Small Businesses to manage their stocks, order and daily tasks",
+        "description": "Retail platform for small businesses in Nepal — point of sale, stock, staff roles, an online storefront and the credit ledger a shop runs on.",
         "screenshots": [
           "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_10.png",
           "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/khatapata/khata_11.png",
@@ -757,9 +832,10 @@
           "Next.js",
           "TypeScript",
           "Supabase",
-          "PWA"
+          "React Query",
+          "Tailwind CSS"
         ],
-        "longDescription": "Inventory Management System (PWA) for Small Businesses"
+        "longDescription": "Retail platform for small businesses — point of sale, inventory, staff roles and the credit ledger."
       },
       {
         "id": 5,
@@ -858,7 +934,7 @@
         "id": 6,
         "slug": "bookvid",
         "year": "2024",
-        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid.webp",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/pasted-1788636603702-mtos1w6z.png",
         "links": {
           "demo": "https://bookvid.com/"
         },
@@ -941,6 +1017,10 @@
           "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_9.jpg": {
             "width": 1512,
             "height": 1871
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/pasted-1788636603702-mtos1w6z.png": {
+            "width": 1080,
+            "height": 652
           }
         },
         "description": "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions.",
@@ -1086,15 +1166,70 @@
         "year": "2026",
         "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/default.png",
         "links": {
-          "demo": "https://www.npmjs.com/package/react-weekly-availability-calendar",
+          "npm": "https://www.npmjs.com/package/react-weekly-availability-calendar",
+          "demo": "https://ui.meghrajgiri.com/availability-calendar/",
           "github": "https://github.com/meghrajgiri/react-weekly-availability-calendar"
         },
         "title": "React Weekly Availability Calendar",
         "status": "Published",
         "category": "Open Source",
+        "caseStudy": {
+          "facts": {
+            "role": "Author and maintainer",
+            "team": "Solo, with one outside contributor",
+            "status": "Published on npm, v1.5.0",
+            "timeline": "Apr 2026 — ongoing"
+          },
+          "metrics": [
+            {
+              "label": "Runtime dependencies",
+              "value": "0"
+            },
+            {
+              "label": "Tests, 46 in a real browser",
+              "value": "151"
+            },
+            {
+              "label": "Gzipped bundle",
+              "value": "16 KB"
+            }
+          ],
+          "summary": "An MIT-licensed React component for picking weekly availability: drag empty space to create a slot, drag the slot to move it, drag its edges to resize. It has no runtime dependencies and ships in about 16 KB gzipped. Most of the work has not gone into features — it has gone into the two things a drag interaction quietly gets wrong: state that changes underneath a gesture, and an accessibility story a mouse never tests.",
+          "sections": [
+            {
+              "body": "Every product that asks *when are you available?* builds this grid again — booking tools, clinics, tutoring, shift rotas. The grid itself is easy. The gesture is not.\n\nA drag has to resolve a pixel to a day and a minute, snap to an increment, refuse to overlap what is already there, and keep doing that on every pointer move while the array underneath it is being rewritten. Built once under a deadline, it works for the mouse of the person who wrote it and is never touched again.\n\nThis is the small, boring, genuinely reusable part of that. Publishing it means the failure modes get found once rather than once per product.\n\n```bash\nnpm install react-weekly-availability-calendar\n```",
+              "heading": "The problem"
+            },
+            {
+              "body": "A controlled component: `slots` in, `onSlotsChange` out, and the consumer owns the state throughout.\n\nDrag to create, move and resize against a configurable snap increment. Blocked ranges as a striped, non-interactive overlay. One drag can lay the same range across several days. A visible-hours window, disabled days, and minimum and maximum slot lengths — where a gesture that breaks a limit is clamped to it rather than discarded, so an imprecise drag still produces a slot instead of nothing.\n\nStyling has three levels: a theme object of CSS variables, per-part class names, or render props for a slot's entire contents. Day names and times come from `Intl`, so a locale prop is the whole of localisation. Undo and redo are a separate hook wrapped around the controlled pair.\n\nNo runtime dependencies, styles injected on first render so there is no CSS file to import, `\"use client\"` in the published bundle, and safe to render on a server.",
+              "heading": "What it is"
+            },
+            {
+              "body": "Resizing a slot until it touched its neighbour froze the drag. No error, no warning — the slot simply stopped following the cursor.\n\nAdjacent slots merge: two touching ranges become one. That merge was running on every `pointermove`, and a merge keeps only the earliest slot's id. So at the instant the resize made contact, the id the gesture had been tracking stopped existing. Every subsequent `pointermove` looked up its subject, found nothing, and returned early — which looks exactly like a frozen drag and reads, in the source, like a function doing its job.\n\nThe fix is one line of scheduling: merge once, on `pointerup`. The reasoning sits in a comment above it, because the next person to tidy this file will reach for the same mid-drag merge.\n\nThe underlying shape is worth naming, because it recurred. A gesture holds a reference across frames while the state it points into is free to be rewritten. The same class of bug had three refs being assigned during render — one of them written mid-drag — where React is free to discard or replay a render, so a discarded render could clobber in-flight drag state with slots that were never committed. Those moved into effects.",
+              "heading": "Where it got hard"
+            },
+            {
+              "body": "Below the 768px breakpoint the day columns are pinned to a fixed width while the grid element still stretches to fill its parent. The function mapping a pointer's x-coordinate to a day divided the grid's width by seven. Below that breakpoint the two disagree, so the buckets stopped lining up with the real columns: a pointer over one day resolved to the day before it, drifting a full column by the fourth.\n\nNobody was going to find that by reading. jsdom would not find it either — it returns zeros from `getBoundingClientRect`, and every calculation in this component is built on that rectangle. Testing a drag against a DOM with no geometry tests nothing.\n\nSo the interaction tests moved into real Chromium under Vitest's browser mode, and their first run produced this bug. It had shipped in every release up to that point. The function now hit-tests the column elements directly, and 46 of the 151 tests drive an actual browser.",
+              "heading": "The bug that inspection could not find"
+            },
+            {
+              "body": "This went in three stages, and the middle one is the stage most projects skip.\n\n**First it claimed things it did not do.** The root declared `role=\"grid\"` with no `row` or `gridcell` descendants, and the resize handles declared `role=\"separator\"` while being unfocusable. Announcing a grid with nothing navigable inside it is worse than declaring no role at all. Removed.\n\n**Then it did them.** Full keyboard operation: Enter on a day column adds a slot at the earliest free time, arrows move it, Shift with arrows resizes from the end edge, Delete removes it. Every change is announced in a polite live region, and a move that would collide is refused *and announced* rather than silently dropped — a silent refusal is indistinguishable from a broken key.\n\n**Then the keyboard support turned out to have introduced three new violations.** Day columns were focusable buttons containing slot buttons, which were themselves buttons containing their own remove button — nested interactive controls, which confuse both screen readers and focus order. Read-only columns carried an `aria-label` with no role, which ARIA prohibits. The scrolling region was not reachable by keyboard, so content out of view could not be scrolled to. axe now runs against six configurations in CI, so the next regression is caught by a machine rather than by me happening to look.\n\nOne omission is deliberate: there is still no `role=\"grid\"`. That role wants row and gridcell descendants across the whole surface — over a thousand cells at a ten-minute snap — which would leave a screen-reader user traversing all of them to reach four slots. Slots and columns are exposed as labelled controls instead. The correct role is sometimes the one you decline to use.",
+              "heading": "Accessibility, in three passes"
+            },
+            {
+              "body": "**Zero runtime dependencies, styles injected at runtime.** The alternatives were a CSS file the consumer imports — which breaks differently in every bundler and framework people actually use — or a styling library, which is not a small component if it drags a peer dependency behind it. The cost is real and I would rather state it than hide it: theming goes through CSS variables rather than a class API, and one `<style>` tag is appended to the head on first render.\n\n**Controlled, always.** Slots live in the consumer's state and never in the component's. Undo and redo are a hook wrapped around that same pair, so history composes with the consumer's state rather than competing with a second copy inside the component.\n\n**Deprecate rather than break.** Two exported constants were named for a domain this package has nothing to do with — a name that outlived the product it came from. Renaming them was right; deleting them would have broken every existing import for the sake of my own tidiness. They remain as aliases carrying `@deprecated`, with removal scheduled for the next major.\n\n**Draw the gridlines once.** They were repeated inside all seven day columns and identical in each — 1,008 nodes for a full day at a ten-minute snap, now 144. Rendering is unchanged: the shared layer sits beneath the columns, so their borders still paint over it.",
+              "heading": "Key decisions"
+            },
+            {
+              "body": "**Browser tests from the first commit.** They arrived at 1.2.2 and immediately found a bug present in every release before it. For a component whose entire behaviour is geometry, jsdom was never going to be sufficient, and I knew that before writing the first test — I wrote it in jsdom anyway because that was the faster thing to set up.\n\n**Ship the accessibility with the interaction, not after it.** Removing the false ARIA roles and adding real keyboard support should have been one release rather than two. In between, the component was honest about what it could not do, which is better than lying about it, but it still could not do it.",
+              "heading": "What I'd do differently"
+            }
+          ]
+        },
         "highlights": [
           "Zero runtime dependencies",
           "MIT licensed, published on npm",
+          "Keyboard operable, axe-tested in CI",
           "SSR safe",
           "TypeScript first"
         ],
@@ -1128,6 +1263,8 @@
           "TypeScript",
           "tsup",
           "Vitest",
+          "Playwright",
+          "Storybook",
           "Vite"
         ],
         "longDescription": "react-weekly-availability-calendar is an MIT-licensed React component published on npm. It renders a weekly grid where a user drags to create an availability slot, then resizes or moves it, with a configurable snap increment of 10, 30 or 60 minutes. Blocked ranges render as a striped, non-interactive overlay. Appearance is controlled three ways — a theme object of CSS variables, per-part class names for Tailwind or plain CSS, or render props for full control of a slot's contents. It ships with no runtime dependencies at all; React and React-DOM are peer dependencies, and the styles are injected at runtime so there is no CSS file to import. It is written in TypeScript and safe to render on the server.",
@@ -1230,19 +1367,59 @@
           "Tailwind CSS"
         ],
         "longDescription": "Thrive Rx is an Australian telehealth platform for clinician-led health optimisation: members order or upload pathology, a dashboard tracks biomarkers over time, AHPRA-registered practitioners review the results and build a personalised protocol, and prescriptions are issued only where clinically appropriate and dispensed by cGMP-compliant partner pharmacies. I worked on it as a full-stack developer across the Next.js front end and the Express and Kysely back end.",
+        "screenshotGroups": [
+          {
+            "images": [
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637745601-mtosqdag.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637768635-mtosqv29.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637783383-mtosr6fy.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637804975-mtosrn3o.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637822951-mtoss0yz.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637856997-mtossr8q.png"
+            ],
+            "caption": "",
+            "heading": "Patient Portal"
+          },
+          {
+            "images": [
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637909249-mtostvk6.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637924369-mtosu784.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637943413-mtosulx6.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788637982010-mtosvfpc.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788638000660-mtosvu3e.png"
+            ],
+            "caption": "",
+            "heading": "Practitioner Portal"
+          },
+          {
+            "images": [
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788638048197-mtoswuru.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788638073499-mtosxeap.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788638092705-mtosxt46.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788638118264-mtosycu6.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788638134064-mtosyp13.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788638148134-mtosyzvw.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788638163607-mtoszbtr.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/pasted-1788638191920-mtoszxo4.png"
+            ],
+            "caption": "",
+            "heading": "Admin Portal"
+          }
+        ],
         "screenshotsHeading": "A look inside"
       },
       {
         "id": 11,
         "slug": "playlists",
         "year": "2025",
-        "image": "",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788636022522-mtorpfr3.png",
         "links": {},
         "title": "Playlists — Vibe Search",
         "status": "Live",
         "category": "App",
         "caseStudy": {
           "facts": {
+            "role": "React Native developer",
             "team": "Three to four engineers, at Inseed",
             "status": "Live",
             "timeline": "Mar 2025 — Jul 2025"
@@ -1272,6 +1449,10 @@
               "heading": "What was built"
             },
             {
+              "body": "I worked on Playlists as a React Native developer at Inseed, on a team of three to four engineers — two of us on mobile, one on the Python search service and one on the API.\n\nMy work was the app: the search surface where a typed phrase becomes results, the saved-collections library, and the personalised home feed. The embedding service behind it was the Python engineer's; the caching decision below was the team's.",
+              "heading": "What I owned"
+            },
+            {
               "body": "**Cache on the phrase, not the result.** Every vibe query costs an embedding call, and the phrases people type are not unique — a great many users search \"cozy café\". An application-level cache keyed on the phrase means the first person to ask pays for the embedding and everyone after them does not, which cut steady-state embedding cost by an order of magnitude.\n\nIt is worth noticing what makes that work: the cache key is the human phrase, before any personalisation. Location and recency are blended in afterwards, so two people searching the same words still get different results while sharing the expensive part.\n\n**A search service beside the API, not inside it.** The vector search runs as its own Python service rather than being folded into the existing Node backend. That kept the AI work isolated enough to iterate on quickly, with no third-party lock-in beyond the embedding API itself.",
               "heading": "Key decisions"
             },
@@ -1281,14 +1462,46 @@
             }
           ]
         },
-        "published": false,
+        "published": true,
         "highlights": [
           "Semantic vibe search",
           "Embedding cache",
           "Shipped in 3 weeks"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788636022522-mtorpfr3.png": {
+            "width": 2000,
+            "height": 1516
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637482208-mtoskq1y.png": {
+            "width": 1080,
+            "height": 2341
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637496527-mtosl13n.png": {
+            "width": 1080,
+            "height": 2338
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637501661-mtosl52b.png": {
+            "width": 1080,
+            "height": 2225
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637507917-mtosl9w2.png": {
+            "width": 1080,
+            "height": 2338
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637513313-mtosle1y.png": {
+            "width": 1080,
+            "height": 2132
+          }
+        },
         "description": "A location discovery app where you search the way you talk — \"cozy café\", \"quiet park to read in\" — matched by meaning rather than keywords.",
-        "screenshots": [],
+        "screenshots": [
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637482208-mtoskq1y.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637496527-mtosl13n.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637501661-mtosl52b.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637507917-mtosl9w2.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/playlists/pasted-1788637513313-mtosle1y.png"
+        ],
         "technologies": [
           "React Native",
           "Expo",
@@ -1299,26 +1512,91 @@
           "OpenAI",
           "AWS"
         ],
-        "longDescription": "Playlists is a consumer app for finding restaurants, cafés, bars and parks. Its differentiator is Vibe Search: a vector-embedding search that lets someone type a feeling rather than a filter, ranked by semantic similarity and blended with location and recency. Built in React Native and Expo against a Python search service on AWS using pgvector and OpenAI embeddings."
+        "longDescription": "Playlists is a consumer app for finding restaurants, cafés, bars and parks. Its differentiator is Vibe Search: a vector-embedding search that lets someone type a feeling rather than a filter, ranked by semantic similarity and blended with location and recency. Built in React Native and Expo against a Python search service on AWS using pgvector and OpenAI embeddings.",
+        "screenshotGroups": []
       },
       {
         "id": 12,
         "slug": "artizan",
         "year": "2025",
-        "image": "",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788636149074-mtors5ee.png",
         "links": {
           "appStore": "https://apps.apple.com/np/app/artizanai/id6451500125"
         },
         "title": "Artizan — AI Art Marketplace",
         "status": "Live",
         "category": "App",
-        "published": false,
+        "caseStudy": {
+          "facts": {
+            "role": "React Native developer",
+            "team": "At Inseed",
+            "status": "Live on the App Store"
+          },
+          "summary": "Artizan is an art marketplace that puts a price next to a work — valuations alongside auction results aggregated from more than 17 auction houses, with editorial coverage syndicated from a third-party publisher. I worked on the React Native app, where my share was the auction listing flow and most of the other data entry in the product.",
+          "sections": [
+            {
+              "body": "What a piece of art is worth is not a published number. It is inferred from what comparable work sold for, and those results are scattered across auction houses that each publish on their own site, in their own format, on their own schedule.\n\nSo the person who can price a work confidently is the person who already knows where to look. Everyone else is guessing, or asking someone who is not disinterested.",
+              "heading": "The problem"
+            },
+            {
+              "body": "It collects auction results from more than 17 houses into one searchable place, puts an AI-generated valuation next to a work, and carries an editorial feed pulled from a third-party art publication so the market context sits beside the numbers.\n\nOn the other side of it, sellers list work and run auctions from inside the app.",
+              "heading": "What the app does"
+            },
+            {
+              "body": "I worked on Artizan as a React Native developer at Inseed, on the client rather than the aggregation behind it.\n\nMy part was the entry side of the product: the add-auction flow and most of the app's other forms. This was not an architecturally complicated app, and it would be dishonest to dress it up as one — the aggregation and valuation were the hard engineering, and they were not mine.\n\nThe work that was mine had its own difficulty, and it is one that gets underrated. Listing a work for auction is a long form. A phone is a poor place to fill in a long form: there is no space to see what you have already answered, and abandoning halfway is easy and costs the marketplace a listing. Getting that flow to be finishable on a small screen was most of the job.",
+              "heading": "What I owned"
+            }
+          ]
+        },
+        "published": true,
         "highlights": [
           "AI price valuations",
           "17+ auction houses"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788636149074-mtors5ee.png": {
+            "width": 460,
+            "height": 997
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637274764-mtosg9zk.png": {
+            "width": 273,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637281944-mtosgfj0.png": {
+            "width": 275,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637288055-mtosgk8q.png": {
+            "width": 273,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637294373-mtosgp49.png": {
+            "width": 273,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637300558-mtosgtw1.png": {
+            "width": 275,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637320668-mtosh9eo.png": {
+            "width": 273,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637331022-mtoshhea.png": {
+            "width": 273,
+            "height": 592
+          }
+        },
         "description": "An AI-powered art marketplace with price valuations and auction data aggregated from more than 17 auction houses.",
-        "screenshots": [],
+        "screenshots": [
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637274764-mtosg9zk.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637281944-mtosgfj0.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637288055-mtosgk8q.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637294373-mtosgp49.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637300558-mtosgtw1.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637320668-mtosh9eo.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/artizan/pasted-1788637331022-mtoshhea.png"
+        ],
         "technologies": [
           "React Native",
           "TypeScript"
@@ -1329,26 +1607,97 @@
         "id": 13,
         "slug": "epiphra",
         "year": "2025",
-        "image": "",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636686521-mtos3o3m.png",
         "links": {
-          "appStore": "https://apps.apple.com/us/app/epiphra/id6759337582"
+          "demo": "https://www.epiphra.com/",
+          "appStore": "https://apps.apple.com/us/app/epiphra/id6759337582",
+          "playStore": "https://play.google.com/store/apps/details?id=com.epiphra.app"
         },
         "title": "Epiphra — AI Reflection App",
         "status": "Live",
         "category": "App",
-        "published": false,
+        "caseStudy": {
+          "facts": {
+            "role": "Lead developer",
+            "team": "At Inseed",
+            "status": "Live on iOS and Android"
+          },
+          "summary": "Epiphra is an AI reflection app you talk to rather than type at. It runs on Gemini's audio model for real-time voice, and keeps a long-term memory of past conversations in pgvector, so a session picks up from what you have said before instead of starting cold every time.",
+          "sections": [
+            {
+              "body": "A reflection app that forgets is not a reflection partner, it is a form. The value of talking something through repeatedly is that the other side remembers what you said last month and notices you are circling the same thing — and a chatbot with a fresh context every session cannot do that.\n\nTyping is also the wrong interface for it. People reflect out loud, in a way they do not when composing a message, and the pauses and the way something is said carry as much as the words.",
+              "heading": "The problem"
+            },
+            {
+              "body": "Voice runs through Gemini's audio capability directly rather than the usual chain of speech-to-text, then a text model, then text-to-speech.\n\nThat chain is the obvious way to build this and it costs on both axes. Every hop adds latency, and in a spoken conversation latency is not a performance metric — it is the difference between talking to something and waiting for something. The chain also throws away everything that is not words: pace, hesitation, where someone trails off. In a reflection app that is signal, not noise.",
+              "heading": "Voice through the model, not around it"
+            },
+            {
+              "body": "A model's context window is finite, and months of conversation do not fit in it. The naive fix — keep appending history until it stops working — fails twice over: it fails outright once the window is full, and long before that it degrades, because the current conversation is competing for attention with everything ever said.\n\nSo memory is retrieval instead. Conversations are embedded and stored in pgvector, and each turn retrieves the fragments actually relevant to what is being discussed now. What reaches the model is a selection, not an archive.\n\nThe interesting work is in the selection. Every turn spends a budget across system instructions, retrieved memories and recent dialogue, and the three compete. Retrieve too much and the model is reading old sessions while someone is mid-sentence; retrieve too little and it forgets the thing that mattered. Cost and latency scale with whatever wins that argument, and on a voice interface latency is felt immediately.",
+              "heading": "Memory as retrieval, not as a longer prompt"
+            }
+          ]
+        },
+        "published": true,
         "highlights": [
           "Real-time voice",
           "Long-term memory"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636201536-mtort9vn.png": {
+            "width": 460,
+            "height": 995
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636686521-mtos3o3m.png": {
+            "width": 3600,
+            "height": 2064
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636766139-mtos5dj3.png": {
+            "width": 333,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636772058-mtos5i3h.png": {
+            "width": 333,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636777888-mtos5mlf.png": {
+            "width": 333,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636783929-mtos5r99.png": {
+            "width": 333,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636791744-mtos5xab.png": {
+            "width": 333,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636810296-mtos6bln.png": {
+            "width": 333,
+            "height": 592
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636841675-mtos6zta.png": {
+            "width": 333,
+            "height": 592
+          }
+        },
         "description": "An AI reflection app and chatbot with real-time voice and memory that persists across conversations.",
-        "screenshots": [],
+        "screenshots": [
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636766139-mtos5dj3.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636772058-mtos5i3h.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636777888-mtos5mlf.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636783929-mtos5r99.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636791744-mtos5xab.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636810296-mtos6bln.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/epiphra/pasted-1788636841675-mtos6zta.png"
+        ],
         "technologies": [
           "React Native",
           "TypeScript",
           "Gemini",
           "PostgreSQL",
-          "pgvector"
+          "pgvector",
+          "RAG"
         ],
         "longDescription": "Epiphra is an AI reflection app: a chatbot with real-time voice and long-term memory, so it carries context between sessions rather than starting cold each time. Built on Google's Gemini with pgvector on PostgreSQL holding the memory."
       },
@@ -1356,7 +1705,7 @@
         "id": 14,
         "slug": "selfbet",
         "year": "2025",
-        "image": "",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636240968-mtoru4b2.png",
         "links": {
           "demo": "https://www.selfbet.org/"
         },
@@ -1364,6 +1713,11 @@
         "status": "Live",
         "category": "Web",
         "caseStudy": {
+          "facts": {
+            "role": "Frontend developer",
+            "team": "At Inseed",
+            "status": "Live"
+          },
           "summary": "Selfbet is a non-profit started by someone in recovery from gambling addiction, offering free therapy, financial recovery help, self-exclusion support and a community around it. The site is where a person in the middle of that finds those services and where donors fund them — so the whole job is being clear and unembarrassing to arrive at.",
           "sections": [
             {
@@ -1375,17 +1729,53 @@
               "heading": "What was built"
             },
             {
+              "body": "I built the site as a frontend developer at Inseed — the pages, the coach directory and the donation flow.",
+              "heading": "What I owned"
+            },
+            {
               "body": "Not much of this is technically difficult, and saying otherwise would be dressing it up. What it needed was restraint.\n\nThe donation flow is the one piece with real consequences, and it has to work first time on a phone without sending someone through an account or a funnel. Everything else is clarity: no hedging about what the services are, no requirement to identify yourself before you can read anything, and a tone that does not perform sympathy at people who are being asked to accept something difficult about themselves.",
               "heading": "What mattered here"
             }
           ]
         },
-        "published": false,
+        "published": true,
         "highlights": [
           "Stripe donations"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636240968-mtoru4b2.png": {
+            "width": 3600,
+            "height": 2090
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636274472-mtoruu5p.png": {
+            "width": 3600,
+            "height": 2090
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636292652-mtorv86n.png": {
+            "width": 3600,
+            "height": 2090
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636312597-mtorvnkq.png": {
+            "width": 3600,
+            "height": 2090
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636331265-mtorw1za.png": {
+            "width": 3600,
+            "height": 2092
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636349366-mtorwfy2.png": {
+            "width": 3600,
+            "height": 2090
+          }
+        },
         "description": "Marketing site for a non-profit offering free therapy, self-exclusion and community support for gambling addiction.",
-        "screenshots": [],
+        "screenshots": [
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636274472-mtoruu5p.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636292652-mtorv86n.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636312597-mtorvnkq.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636331265-mtorw1za.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/selfbet/pasted-1788636349366-mtorwfy2.png"
+        ],
         "technologies": [
           "Next.js",
           "TypeScript",
@@ -1397,12 +1787,16 @@
         "id": 15,
         "slug": "sunaulo-shopping",
         "year": "2023",
-        "image": "",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636470292-mtorz196.png",
         "links": {},
         "title": "Sunaulo Shopping — Nepal Marketplace",
         "status": "Live",
         "category": "App",
         "caseStudy": {
+          "facts": {
+            "role": "Full-stack developer",
+            "status": "Live"
+          },
           "summary": "Sunaulo Shopping is a Nepali marketplace that had to serve four different people from the same data: a shopper browsing, a seller listing and getting paid, a franchise network distributing and earning commission, and staff moderating it all. Built for Nepal's actual payment rails rather than international cards, and shipped over the air because waiting for users to update was not realistic.",
           "sections": [
             {
@@ -1414,6 +1808,10 @@
               "heading": "What was built"
             },
             {
+              "body": "I worked on Sunaulo Shopping as a full-stack developer, across the React Native shopping app, the Next.js admin and the GraphQL services between them.\n\nWorking across all three is what made the monorepo decision below feel obvious rather than clever: a change to the data contract is one change, in one place, that lands everywhere it needs to.",
+              "heading": "What I owned"
+            },
+            {
               "body": "**One monorepo, not four repositories.** Mobile, admin and backend live together, which means a change to the data contract lands in the app and the admin in the same pass. Four repositories would have meant four places for the same change and four opportunities for them to disagree — and the drift is never noticed on the day it happens, it is noticed weeks later when something breaks.\n\n**GraphQL as the spine.** Apollo with types generated by GraphQL codegen, so the contract between mobile, web and backend is one typed thing rather than three implementations of an idea. That is what makes the monorepo pay off instead of merely being convenient.\n\n**Over-the-air updates as a first-class release path.** CodePush with Fastlane release lanes, because in a market where users are slow to update, a fix that requires a store release is a fix that does not reach people. Shipping through the store is not the only way to ship.",
               "heading": "Key decisions"
             },
@@ -1423,15 +1821,57 @@
             }
           ]
         },
-        "published": false,
+        "published": true,
         "highlights": [
           "Four user types, one monorepo",
           "eSewa and Khalti",
           "Image search",
           "CodePush OTA"
         ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636470292-mtorz196.png": {
+            "width": 2094,
+            "height": 1712
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636498203-mtorzmsf.png": {
+            "width": 1080,
+            "height": 2016
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636512625-mtorzxx1.png": {
+            "width": 1080,
+            "height": 1605
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636520170-mtos03qm.png": {
+            "width": 1080,
+            "height": 1419
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636532559-mtos0dat.png": {
+            "width": 1080,
+            "height": 971
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636539758-mtos0ius.png": {
+            "width": 1080,
+            "height": 1920
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636546248-mtos0nv2.png": {
+            "width": 1080,
+            "height": 1920
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636555717-mtos0v61.png": {
+            "width": 1080,
+            "height": 1029
+          }
+        },
         "description": "A Nepal marketplace serving shoppers, sellers, a franchise network and internal staff from one codebase — with local payment rails and over-the-air updates.",
-        "screenshots": [],
+        "screenshots": [
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636498203-mtorzmsf.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636512625-mtorzxx1.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636520170-mtos03qm.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636532559-mtos0dat.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636539758-mtos0ius.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636546248-mtos0nv2.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/sunaulo-shopping/pasted-1788636555717-mtos0v61.png"
+        ],
         "technologies": [
           "React Native",
           "Next.js",
@@ -1777,7 +2217,7 @@
     "skills": {
       "qa": [
         {
-          "a": "Meghraj Giri builds primarily in the React ecosystem: React, Next.js and TypeScript on the web, React Native and Expo for mobile, and Node.js with PostgreSQL, Supabase or Firebase behind them. He has shipped production work on all of these across seven published case studies.",
+          "a": "Meghraj Giri builds primarily in the React ecosystem: React, Next.js and TypeScript on the web, React Native and Expo for mobile, and Node.js with PostgreSQL, Supabase or Firebase behind them. He has shipped production work on all of these across thirteen published case studies.",
           "q": "What tech stack does Meghraj Giri use?"
         },
         {
@@ -1810,8 +2250,8 @@
         },
         {
           "slug": "khatapata",
-          "tech": "Supabase + PWA",
-          "where": "Khatapata, an offline-capable inventory system installable from the browser"
+          "tech": "Supabase + React Query",
+          "where": "Khatapata, a retail platform for shops in Nepal — point of sale, stock and the credit ledger"
         },
         {
           "slug": "college-cost-secrets",
@@ -2007,7 +2447,7 @@
           },
           {
             "name": "Khatapata",
-            "note": "An inventory system built as an installable progressive web app on Next.js, TypeScript and Supabase, so it keeps working offline.",
+            "note": "A retail platform for small shops — point of sale, stock and the credit ledger — built on Next.js, TypeScript and Supabase.",
             "slug": "khatapata"
           }
         ],
@@ -2055,7 +2495,7 @@
         "description": "What actually determines the cost of hiring a freelance developer in Nepal: the difference between hourly and project pricing, what marketplace fees add, and the hidden costs that show up after the quote."
       },
       {
-        "body": "Nepal's software industry gets written about as though it were only Kathmandu. Most of it is. But the part of the job that requires being in Kathmandu has been shrinking for years, and I have spent five of them building software from **Butwal**, in Lumbini Province, about 250 km west of the capital.\n\n## Why this works now and did not before\n\nThree things changed. Fibre reached the mid-west, so a video call is no longer a negotiation with the connection. Payment rails — Wise, Payoneer, the marketplaces — made getting paid from abroad ordinary rather than an ordeal. And the industry stopped treating remote work as a concession.\n\nThe result is that the constraint on working from a smaller city is no longer infrastructure. It is proximity to other developers, which is a real cost and worth naming.\n\n## The timezone maths\n\nNepal runs on **UTC+5:45**, one of the very few 45-minute offsets in the world. Practically:\n\n- **Australia**: two to four hours ahead. A full overlapping working day. Most of my recent work has been for Australian clients, and this is why.\n- **India and Southeast Asia**: near-identical hours.\n- **Europe**: my afternoon is their morning. Comfortable for a daily sync.\n- **United States**: no natural overlap. It works on a scheduled window and asynchronous written updates, and it works badly if a team insists on doing everything in meetings.\n\nThat last point is the honest limitation. If your team runs on live conversation, a 10-to-12-hour offset is a real cost, and no amount of goodwill removes it.\n\n## What the work has looked like\n\nThe projects have not been small-town projects. A clinic management system for Australian cannabis and telehealth practices, built on Medusa v2 with a prescription portal integrated. A thrift marketplace shipped to iOS and Android with eSewa checkout and Nepal Can Move handling delivery. An inventory system built as an installable progressive web app so it keeps working when the connection does not — a requirement that comes from actually living somewhere the connection sometimes does not.\n\nThat last one is worth dwelling on. Building from Butwal makes you take offline-first, low-bandwidth and flaky-network cases seriously, because you experience them. Developers on reliable connections tend to treat those as edge cases. For a large share of the world's users they are the normal case.\n\n## On the local scene\n\nButwal has a growing number of developers and a handful of small agencies, and Tribhuvan University's affiliated colleges here produce a steady stream of CSIT graduates. What it does not have is the density of Kathmandu — fewer meetups, fewer people to ask, a smaller pool for hiring into a team.\n\nI have handled that the way most people outside a capital do: online communities, open source, and staying deliberately in touch with people I have worked with. It is a workable substitute. It is not the same thing, and pretending otherwise would be dishonest.\n\n## If you are hiring from here\n\nThe questions worth asking a developer outside Kathmandu are the same ones worth asking any remote developer: can I see the code, who has verified them, what does their overlap with my team actually look like, and what happened on a project that went wrong.\n\nMy answers are on [my background](/about) and in the [case studies](/projects), and you can [start a conversation here](/contact).",
+        "body": "Nepal's software industry gets written about as though it were only Kathmandu. Most of it is. But the part of the job that requires being in Kathmandu has been shrinking for years, and I have spent five of them building software from **Butwal**, in Lumbini Province, about 250 km west of the capital.\n\n## Why this works now and did not before\n\nThree things changed. Fibre reached the mid-west, so a video call is no longer a negotiation with the connection. Payment rails — Wise, Payoneer, the marketplaces — made getting paid from abroad ordinary rather than an ordeal. And the industry stopped treating remote work as a concession.\n\nThe result is that the constraint on working from a smaller city is no longer infrastructure. It is proximity to other developers, which is a real cost and worth naming.\n\n## The timezone maths\n\nNepal runs on **UTC+5:45**, one of the very few 45-minute offsets in the world. Practically:\n\n- **Australia**: two to four hours ahead. A full overlapping working day. Most of my recent work has been for Australian clients, and this is why.\n- **India and Southeast Asia**: near-identical hours.\n- **Europe**: my afternoon is their morning. Comfortable for a daily sync.\n- **United States**: no natural overlap. It works on a scheduled window and asynchronous written updates, and it works badly if a team insists on doing everything in meetings.\n\nThat last point is the honest limitation. If your team runs on live conversation, a 10-to-12-hour offset is a real cost, and no amount of goodwill removes it.\n\n## What the work has looked like\n\nThe projects have not been small-town projects. A clinic management system for Australian cannabis and telehealth practices, built on Medusa v2 with a prescription portal integrated. A thrift marketplace shipped to iOS and Android with eSewa checkout and Nepal Can Move handling delivery. A retail platform for shops in Nepal built around the paper credit ledger a small business actually runs on — a product shaped by the market it is in rather than imported from one that already has barcode scanners and card terminals.\n\nThat last one is worth dwelling on. Building from Butwal makes you take low-bandwidth and flaky-network cases seriously, because you experience them. Developers on reliable connections tend to treat those as edge cases. For a large share of the world's users they are the normal case.\n\n## On the local scene\n\nButwal has a growing number of developers and a handful of small agencies, and Tribhuvan University's affiliated colleges here produce a steady stream of CSIT graduates. What it does not have is the density of Kathmandu — fewer meetups, fewer people to ask, a smaller pool for hiring into a team.\n\nI have handled that the way most people outside a capital do: online communities, open source, and staying deliberately in touch with people I have worked with. It is a workable substitute. It is not the same thing, and pretending otherwise would be dishonest.\n\n## If you are hiring from here\n\nThe questions worth asking a developer outside Kathmandu are the same ones worth asking any remote developer: can I see the code, who has verified them, what does their overlap with my team actually look like, and what happened on a project that went wrong.\n\nMy answers are on [my background](/about) and in the [case studies](/projects), and you can [start a conversation here](/contact).",
         "slug": "full-stack-developer-in-butwal-nepal",
         "title": "Working as a full stack developer from Butwal",
         "excerpt": "Nepal's tech industry is written about as if it were only Kathmandu. It isn't, and remote work is why.",
