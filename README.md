@@ -31,7 +31,7 @@ requirements into clean, maintainable, and user-friendly applications.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/projects-dark.svg" />
-  <img src="assets/projects-light.svg" width="100%" alt="Clinic Management System - Cannabiz Elite, a clinic management system for Australian cannabis and telehealth clinics. React Native E-commerce App - Thriftverse, a thrift marketplace with unique storefront URLs. The LYVE App, a marketplace for event tickets and costume reservations. Inventory Management System - Khatapata, a PWA for small businesses." />
+  <img src="assets/projects-light.svg" width="100%" alt="Clinic Management System - Cannabiz Elite, a clinic management system for Australian cannabis and telehealth clinics. React Native E-commerce App - Thriftverse, a thrift marketplace with unique storefront URLs. The LYVE App, a marketplace for event tickets and costume reservations. Khatapata, a retail platform for small businesses in Nepal." />
 </picture>
 
 <div align="center">
