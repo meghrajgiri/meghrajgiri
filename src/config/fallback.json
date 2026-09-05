@@ -537,15 +537,62 @@
       {
         "id": 3,
         "slug": "lyve",
-        "year": "2025",
+        "year": "2024",
         "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve.webp",
         "links": {},
         "title": "The LYVE app",
         "status": "Completed",
         "category": "App",
+        "caseStudy": {
+          "facts": {
+            "role": "React Native developer",
+            "team": "Four to five, including design and QA",
+            "status": "Live on iOS and Android",
+            "timeline": "Apr 2024 — Apr 2025"
+          },
+          "metrics": [
+            {
+              "label": "Users in the first 3 months",
+              "value": "3,000+"
+            },
+            {
+              "label": "Costumes and tickets sold, first 3 months",
+              "value": "50–60"
+            },
+            {
+              "label": "Kickoff to App Store",
+              "value": "3–4 mo"
+            }
+          ],
+          "summary": "The LYVE App is a marketplace and community for Caribbean carnival — discovering events, following mas bands, and buying, selling and reselling costumes and tickets in one place instead of across five. Built at Inseed for both iOS and Android, it shipped to the stores three to four months from kickoff and passed three thousand users within its first three months.",
+          "sections": [
+            {
+              "body": "Caribbean carnival culture was spread across whatever tool happened to fit each part of it — Instagram for moments, WhatsApp groups for chatter, ticket sites for buying, Facebook events for discovery, and word of mouth for everything left over.\n\nNone of those know about each other. Someone following a mas band abroad, looking for a costume another reveller is reselling, and trying to work out which events are on had to hold the whole picture themselves. The brief was one place for all of it, on both platforms, before the next carnival season.",
+              "heading": "The problem"
+            },
+            {
+              "body": "A two-sided marketplace with the community around it: an event timeline and discovery feed, mas band profiles you can follow, costume and ticket listings with reseller flows, and group chat. Behind it sits an admin panel for managing carnivals and mas bands, alongside a public marketing site.\n\nPayments run through Stripe for marketplace transactions and RevenueCat for in-app purchases. Chat is real time over a WebSocket gateway.",
+              "heading": "What the platform does"
+            },
+            {
+              "body": "I worked on this as the React Native developer at Inseed, the agency engaged to build it, on a team of four to five that also covered backend, design and QA. My work was the mobile application — the iOS and Android app built with React Native and Expo, consuming the GraphQL API, through to store submission and release.\n\nThe backend migration described below was not my code, but I was part of the decision: the five surfaces that made the data fan-out obvious were mobile screens, so the cost of the REST shape showed up in the app before it showed up anywhere else.",
+              "heading": "What I owned"
+            },
+            {
+              "body": "**GraphQL after REST, deliberately rather than by preference.** The API was built as REST controllers first, and the problem that surfaced was fan-out: the same costume listing was needed across five different surfaces, each wanting a different slice of it. On mobile that meant either pulling down far more of a listing than a screen used, or asking for another endpoint every time a screen changed shape — over-fetching or endpoint sprawl, and in practice both.\n\nWe moved to GraphQL resolvers, at a measured cost of about a week of backend work, after which features landed faster. It is worth stating in that order: REST was not a mistake to be embarrassed about, it was the cheaper thing to start with, and the migration was worth paying for once the shape of the data demand was known rather than guessed. Making that call a year in, with the surfaces actually built, is a different and easier decision than making it on day one.",
+              "heading": "Key decisions"
+            },
+            {
+              "body": "Ship a smaller MVP four to six weeks sooner. The scope in the first release could have been cut without changing what the app was for, and the extra weeks bought less than they cost.\n\nStart the discovery feed simpler. It launched surfacing five content types at once, which was more than a new user could read, and it was simplified after launch. The cheaper version of that lesson was available before launch, in front of anyone who had not been staring at the feed for months — which by then included me.",
+              "heading": "What I'd do differently"
+            }
+          ]
+        },
         "highlights": [
+          "Two-sided marketplace",
           "Real-time chat",
-          "Costume Marketplace"
+          "Stripe + RevenueCat",
+          "iOS and Android"
         ],
         "imageSizes": {
           "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/lyve/lyve.webp": {
@@ -583,13 +630,15 @@
         ],
         "technologies": [
           "React Native",
-          "Expo.io",
-          "Firebase",
-          "Tailwind CSS",
-          "GraphQl",
-          "Node.js"
+          "Expo",
+          "TypeScript",
+          "NestJS",
+          "GraphQL",
+          "Supabase",
+          "Stripe",
+          "RevenueCat"
         ],
-        "longDescription": "The Lyve App is a next-generation marketplace focused on transforming how users buy and sell event tickets and resell costume reservations. Designed with simplicity and efficiency in mind, The Lyve App streamlines these transactions with a 100% guarantee on both purchases and sales. Whether you're an event planner, a costume reservations sell, or a customer, the app ensures a hassle-free experience."
+        "longDescription": "The LYVE App is a marketplace and social community for Caribbean carnival — discovering events, following mas bands, and buying, selling and reselling costumes and tickets in one place. Built for iOS and Android in React Native and Expo over a NestJS backend with GraphQL resolvers and Supabase, with Stripe for marketplace payments, RevenueCat for in-app purchases and real-time chat over a WebSocket gateway."
       },
       {
         "id": 4,
@@ -723,6 +772,31 @@
         "title": "College Cost Secrets",
         "status": "Completed",
         "category": "Web",
+        "caseStudy": {
+          "facts": {
+            "role": "Frontend developer",
+            "status": "Live"
+          },
+          "summary": "College Cost Secrets is a role-based financial planning platform for US families working out what college will actually cost them. It calculates a household's Federal Student Aid Index from real federal policy rather than an estimate, then lets families search and compare colleges against it — with separate portals for the agents and admissions professionals advising them.",
+          "sections": [
+            {
+              "body": "Families cannot easily find out what a given college will cost them, what aid they qualify for, or which schools give the most merit money. The published sticker price is not the answer, and the number that matters depends on a federal formula most people have never seen.\n\nThe professionals advising those families — agents and admissions counsellors — have a different problem with the same data underneath it. They need to manage a caseload, not plan a single household.",
+              "heading": "The problem"
+            },
+            {
+              "body": "Four user types over one set of financial data: families planning and searching, agents managing families, admissions professionals managing a caseload, and admins overseeing the system.\n\nA family works through a multi-step onboarding wizard, receives their calculated aid index, then searches colleges with filtering, favourites and saved searches, compares them side by side, and reads a per-college academic and financial report. Agents, professionals and admins each get a dashboard shaped around their own job.\n\nBuilt with Next.js and React in TypeScript, with Redux Toolkit for client state and React Query for server state, Firebase behind a next-auth layer, Formik and Yup for forms, Algolia for college search, Nivo and react-simple-maps for the reports, and Sentry and Google Analytics in production on Vercel.",
+              "heading": "What the platform does"
+            },
+            {
+              "body": "I worked on this as a frontend developer, on the React and Next.js side: the subscriber dashboard, the financial planning tools families work through, and the client portal.\n\nThe federal aid calculation itself lives behind the API rather than in the front end — the client's job is to collect exactly the inputs the formula needs and present what comes back, which is why the onboarding wizard is shaped the way it is.",
+              "heading": "What I owned"
+            },
+            {
+              "body": "**Implement the federal formula, not an approximation of it.** The product calculates a real Student Aid Index rather than offering a guide to roughly what a family might expect. That single choice shapes everything above it: the calculation becomes load-bearing, and the onboarding wizard exists to collect exactly the inputs the formula requires — no more, and none missing.\n\nThe easier product was an estimator. It would have been faster to build, harder to get wrong, and worth much less, because a family comparing colleges on an approximation is making the same decision with worse information.\n\n**A Next.js client over a REST API, built around the aid math.** The front end consumes an external REST service rather than owning the calculation, which keeps the money maths in one place instead of spread across four portals that each need it.",
+              "heading": "Key decisions"
+            }
+          ]
+        },
         "highlights": [],
         "imageSizes": {
           "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs.webp": {
@@ -772,8 +846,11 @@
           "Next.js",
           "React",
           "TypeScript",
-          "Tailwind CSS",
-          "Nest.js"
+          "Redux Toolkit",
+          "React Query",
+          "Firebase",
+          "Algolia",
+          "Tailwind CSS"
         ],
         "longDescription": "A bootstrapped financial planning service helping US families reduce college costs through SAI optimization and one-on-one consulting. Developed the subscriber dashboard, financial planning tools, and client portal using React and Next.js. The platform serves families that have collectively saved $100M in college expenses, with a Kevin Harrington endorsement and 15+ years of operation."
       },
@@ -782,10 +859,43 @@
         "slug": "bookvid",
         "year": "2024",
         "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid.webp",
-        "links": {},
+        "links": {
+          "demo": "https://bookvid.com/"
+        },
         "title": "Bookvid - Live Video Booking Marketplace",
         "status": "Completed",
         "category": "Web",
+        "caseStudy": {
+          "facts": {
+            "role": "Frontend developer",
+            "team": "Founder-led, at Inseed",
+            "status": "Live"
+          },
+          "metrics": [],
+          "summary": "Bookvid is a two-sided marketplace for booking one-to-one and recurring video sessions with experts. The hard part was never the video — it was scheduling: availability windows, recurring series, honest time zones and calendar conflicts, which is the part that quietly breaks marketplaces like this one.",
+          "sections": [
+            {
+              "body": "A marketplace for booked sessions lives or dies on whether the booking is right. Availability has to reflect a host's real calendar, a recurring series has to hold together across weeks, time zones have to be correct rather than approximately correct, and two people must never be sold the same slot.\n\nOff-the-shelf booking widgets handle the easy version of this and fall over on the rest.",
+              "heading": "The problem"
+            },
+            {
+              "body": "Both halves of the marketplace. Attendees discover experts and book single or recurring sessions; hosts get a dashboard for pricing, managing a series, and overseeing their events. Calendars, payments and the live call are joined into one flow rather than three tools a user has to reconcile.\n\nThe stack is Next.js for the marketplace and host dashboard, a Python backend, Cronofy for calendar access and availability, Stripe for payments, and a third-party video and recording tool with the session experience built around it.",
+              "heading": "What the platform does"
+            },
+            {
+              "body": "I worked on Bookvid as a frontend developer at Inseed, the agency engaged to build it.\n\nMy work was the Next.js side — the marketplace attendees browse and book through, and the dashboard hosts use to price sessions and manage a recurring series.",
+              "heading": "What I owned"
+            },
+            {
+              "body": "**Not buying the scheduling problem off the shelf.** The most consequential choice was to build the scheduler rather than adopt a booking widget. Cronofy supplies calendar access and availability; the logic for single and recurring sessions, keeping time zones honest, and slotting a booking into a host calendar without conflicts is custom.\n\nThat is a decision worth defending, because \"build your own scheduler\" is usually bad advice. It held here because scheduling is not adjacent to this product — it is the product, and the failure modes a widget accepts are the ones a booking marketplace cannot.\n\n**Building the session experience rather than deferring to a video SDK.** Booking, payment and the call had to feel continuous, so a good deal of the surrounding experience was built in-house instead of accepting whatever the SDK's own flow looked like.",
+              "heading": "Key decisions"
+            },
+            {
+              "body": "**Lock the video provider earlier.** Much of the session experience was built in-house, and settling that choice sooner would have cut the surrounding plumbing.\n\n**Treat the custom scheduler as a product, not a feature.** It carried the weight of the marketplace and deserved dedicated hardening and testing from the start rather than the attention a feature gets.\n\n**Write the backend and infrastructure decisions down while making them.** They were left as gaps in the record, which is cheap at the time and expensive later.",
+              "heading": "What the team would do differently"
+            }
+          ]
+        },
         "highlights": [
           "Event Booking",
           "Session Booking",
@@ -846,12 +956,14 @@
           "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/bookvid/bookvid_9.jpg"
         ],
         "technologies": [
-          "Calendly",
           "Next.js",
-          "Web Sockets",
+          "TypeScript",
+          "Python",
+          "Cronofy",
+          "Stripe",
           "Tailwind CSS"
         ],
-        "longDescription": "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions. It allows users to create booking pages, schedule sessions, and receive automatic payments through integrations with popular payment (e.g., PayPal, Venmo) and calendar apps. Clients can self-schedule, and users are notified of bookings and payments, simplifying managing and monetizing virtual meetings. The platform supports both individual and group sessions and ensures secure, encrypted communication"
+        "longDescription": "Bookvid is a two-sided marketplace for booking one-to-one and recurring video sessions with experts. Attendees discover hosts and book; hosts price sessions, manage recurring series and oversee their events from a dashboard. Calendar access runs through Cronofy with the scheduling logic built in-house, payments through Stripe, and the session experience built around a third-party video and recording tool. Front end in Next.js."
       },
       {
         "id": 7,
@@ -862,6 +974,54 @@
         "title": "Gambling Recovery App - Yume",
         "status": "Completed",
         "category": "App",
+        "caseStudy": {
+          "facts": {
+            "role": "React Native developer",
+            "team": "Four, at Inseed",
+            "status": "Live on the App Store"
+          },
+          "metrics": [
+            {
+              "label": "Downloads in six weeks",
+              "value": "5,000+"
+            },
+            {
+              "label": "Community posts in six weeks",
+              "value": "2,000+"
+            },
+            {
+              "label": "Coaches onboarded",
+              "value": "100+"
+            }
+          ],
+          "summary": "Yume is an anonymous, end-to-end encrypted mobile app for people recovering from gambling addiction. Stigma is the reason it exists: the users who most need a community and a coach are the least willing to attach their name to one, so the app is anonymous by default and every disclosure after that is the user's choice.",
+          "sections": [
+            {
+              "body": "People recovering from gambling addiction need community and clinical support, and the same stigma that makes recovery hard makes them unwilling to use anything that asks who they are. A service that requires identity filters out the people it exists for.\n\nSo the requirement was uncomfortable by design: give someone a real community and a real coach while keeping them anonymous by default and their content private from the server it travels through.",
+              "heading": "The problem"
+            },
+            {
+              "body": "A new user gets a randomly generated handle at onboarding — no identity required. From there, disclosure is progressive and theirs to control: they can reveal themselves to one person, to a group, or to the whole community, and not otherwise.\n\nAround that sits an encrypted community feed with posts, comments and reactions, real-time chat, in-app calling, and coach matching that works without exposing who anybody is. Subscriptions are monthly, yearly or lifetime.\n\nThe app is React Native and TypeScript with Redux and React Query, Firebase Auth for phone, Apple and Google sign-in, and a NestJS and PostgreSQL backend on AWS Elastic Beanstalk. Stream provides chat, feed and calls; Virgil Security provides the encryption; RevenueCat handles subscriptions.",
+              "heading": "What the platform does"
+            },
+            {
+              "body": "I worked on Yume as a React Native developer at Inseed, the agency engaged to build it, alongside a mobile lead, a backend engineer and a designer.\n\nMy work was the application itself — the React Native and TypeScript client, and the surfaces where the encryption is felt rather than configured: the feed, chat and calling. The encrypted-identity architecture and the NestJS backend were the team's and a separate backend engineer's respectively.",
+              "heading": "What I owned"
+            },
+            {
+              "body": "**Encrypt before the content reaches the service that carries it.** Posts are encrypted client-side with Virgil before they are handed to Stream, and decrypted again on each device. Stream still does what it is good at — delivering a real-time feed and threading comments — but against pseudonymous handles, and the server never holds plaintext or real identities.\n\nThe mapping from handle to person is itself encrypted, and unlocks only under the disclosure rules the user set. That is the difference between a product that promises anonymity and one that cannot break it even if it wanted to.",
+              "heading": "Key decisions"
+            },
+            {
+              "body": "Encryption moves work to the client, and the feed is where that shows.\n\n**Scrolling.** Decrypting many posts on device while keeping a feed smooth is real work that a plaintext feed never has to do.\n\n**Moderation.** When the server cannot read content, the usual moderation levers are simply unavailable — no server-side scanning, no keyword rules. Moderation has to happen on the client and in the community. For an audience this vulnerable that is not a detail to reach for later.\n\n**Threading.** Comments and reactions attach to pseudonymous handles rather than identities, so conversations thread correctly without any of them naming a person.",
+              "heading": "Where it got hard"
+            },
+            {
+              "body": "**Lock the identity model first.** It touched every feature — feed, chat, coach matching — so anything that changed it late rippled through all of them. Anonymous-by-default with progressive disclosure is a foundation, not a setting.\n\n**Budget for encrypted-feed performance from day one.** Keeping a decrypting feed smooth is planned work, not an optimisation pass bolted on afterwards.\n\n**Design moderation at the start.** When the server cannot read content, moderation has to be built rather than switched on, and that is worth knowing before the community arrives.",
+              "heading": "What the team would do differently"
+            }
+          ]
+        },
         "highlights": [
           "Real-time chat",
           "Group Chat",
@@ -908,12 +1068,17 @@
         ],
         "technologies": [
           "React Native",
-          "Expo.io",
-          "Firebase",
-          "Stream Chat",
-          "Tailwind CSS"
+          "TypeScript",
+          "Redux",
+          "React Query",
+          "Firebase Auth",
+          "NestJS",
+          "PostgreSQL",
+          "Stream",
+          "Virgil Security",
+          "RevenueCat"
         ],
-        "longDescription": "Yume is an app designed to help individuals overcome gambling addiction. Delivered 10K+ users and 25%+ paying conversion rate within 3 months of launch. The app was acquired by National Debt Relief within 6 months. Built for iOS using React Native, Expo, Firebase, and Redux with full App Store release."
+        "longDescription": "Yume is an anonymous, end-to-end encrypted mobile app for people recovering from gambling addiction. Users join under a randomly generated handle and choose what, if anything, to disclose from there. Built in React Native and TypeScript with Stream for real-time chat, feed and calls, Virgil Security for client-side encryption, Firebase Auth for sign-in and RevenueCat for subscriptions, over a NestJS and PostgreSQL backend. Shipped to the App Store in about three months."
       },
       {
         "id": 9,
@@ -1066,6 +1231,218 @@
         ],
         "longDescription": "Thrive Rx is an Australian telehealth platform for clinician-led health optimisation: members order or upload pathology, a dashboard tracks biomarkers over time, AHPRA-registered practitioners review the results and build a personalised protocol, and prescriptions are issued only where clinically appropriate and dispensed by cGMP-compliant partner pharmacies. I worked on it as a full-stack developer across the Next.js front end and the Express and Kysely back end.",
         "screenshotsHeading": "A look inside"
+      },
+      {
+        "id": 11,
+        "slug": "playlists",
+        "year": "2025",
+        "image": "",
+        "links": {},
+        "title": "Playlists — Vibe Search",
+        "status": "Live",
+        "category": "App",
+        "caseStudy": {
+          "facts": {
+            "team": "Three to four engineers, at Inseed",
+            "status": "Live",
+            "timeline": "Mar 2025 — Jul 2025"
+          },
+          "metrics": [
+            {
+              "label": "Kickoff to shipped",
+              "value": "3 weeks"
+            },
+            {
+              "label": "Increase in AI searches, first week",
+              "value": "~200%"
+            },
+            {
+              "label": "Reduction in steady-state embedding cost",
+              "value": "10x"
+            }
+          ],
+          "summary": "Playlists had good design and real depth, and people were not coming back. The brief was one feature that would change how the product was understood, shippable in weeks rather than months. That feature was Vibe Search: type \"boozy bar\" or \"quiet park to read in\" and get places ranked by what the words mean, not the words themselves. It shipped three weeks from kickoff, and AI-driven searches rose about 200% in the first week.",
+          "sections": [
+            {
+              "body": "The app worked. People found places, and then did not come back. That is a harder problem than a broken product, because nothing is obviously wrong to fix — the experience is fine and forgettable.\n\nWhat was missing was a reason to reach for this app rather than a map or a friend. The founder was clear about the shape of the answer: one feature that changed how people thought about the product, and it had to ship in weeks.",
+              "heading": "The problem"
+            },
+            {
+              "body": "Vibe Search. Instead of filtering by category and rating, you type the way you would describe it to someone — \"cozy café\", \"boozy bar\", \"quiet park to read in\", \"Gen-Z brunch spot\" — and results come back ranked by semantic similarity, blended with how close and how recent they are.\n\nUnderneath, place descriptions are embedded with OpenAI's text-embedding-3-small and stored in pgvector on PostgreSQL, queried by a Python service on AWS that sits beside the existing Node API rather than replacing it. A saved-collections library and personalised home recommendations followed.",
+              "heading": "What was built"
+            },
+            {
+              "body": "**Cache on the phrase, not the result.** Every vibe query costs an embedding call, and the phrases people type are not unique — a great many users search \"cozy café\". An application-level cache keyed on the phrase means the first person to ask pays for the embedding and everyone after them does not, which cut steady-state embedding cost by an order of magnitude.\n\nIt is worth noticing what makes that work: the cache key is the human phrase, before any personalisation. Location and recency are blended in afterwards, so two people searching the same words still get different results while sharing the expensive part.\n\n**A search service beside the API, not inside it.** The vector search runs as its own Python service rather than being folded into the existing Node backend. That kept the AI work isolated enough to iterate on quickly, with no third-party lock-in beyond the embedding API itself.",
+              "heading": "Key decisions"
+            },
+            {
+              "body": "**Push harder on positioning.** The build outpaced the go-to-market story. A feature that changes how a product is understood only does that if the way it is described changes too.\n\n**Ship a web companion.** Organising and sharing collections is desktop work, and staying mobile-only left value unclaimed.",
+              "heading": "What the team would do differently"
+            }
+          ]
+        },
+        "published": false,
+        "highlights": [
+          "Semantic vibe search",
+          "Embedding cache",
+          "Shipped in 3 weeks"
+        ],
+        "description": "A location discovery app where you search the way you talk — \"cozy café\", \"quiet park to read in\" — matched by meaning rather than keywords.",
+        "screenshots": [],
+        "technologies": [
+          "React Native",
+          "Expo",
+          "TypeScript",
+          "Python",
+          "PostgreSQL",
+          "pgvector",
+          "OpenAI",
+          "AWS"
+        ],
+        "longDescription": "Playlists is a consumer app for finding restaurants, cafés, bars and parks. Its differentiator is Vibe Search: a vector-embedding search that lets someone type a feeling rather than a filter, ranked by semantic similarity and blended with location and recency. Built in React Native and Expo against a Python search service on AWS using pgvector and OpenAI embeddings."
+      },
+      {
+        "id": 12,
+        "slug": "artizan",
+        "year": "2025",
+        "image": "",
+        "links": {
+          "appStore": "https://apps.apple.com/np/app/artizanai/id6451500125"
+        },
+        "title": "Artizan — AI Art Marketplace",
+        "status": "Live",
+        "category": "App",
+        "published": false,
+        "highlights": [
+          "AI price valuations",
+          "17+ auction houses"
+        ],
+        "description": "An AI-powered art marketplace with price valuations and auction data aggregated from more than 17 auction houses.",
+        "screenshots": [],
+        "technologies": [
+          "React Native",
+          "TypeScript"
+        ],
+        "longDescription": "Artizan is an AI-native art marketplace and market-intelligence app: price valuations for artwork, auction data aggregated from more than 17 houses, and inventory management. Inseed inherited the product at roughly half-built and took it through to shipping on the App Store."
+      },
+      {
+        "id": 13,
+        "slug": "epiphra",
+        "year": "2025",
+        "image": "",
+        "links": {
+          "appStore": "https://apps.apple.com/us/app/epiphra/id6759337582"
+        },
+        "title": "Epiphra — AI Reflection App",
+        "status": "Live",
+        "category": "App",
+        "published": false,
+        "highlights": [
+          "Real-time voice",
+          "Long-term memory"
+        ],
+        "description": "An AI reflection app and chatbot with real-time voice and memory that persists across conversations.",
+        "screenshots": [],
+        "technologies": [
+          "React Native",
+          "TypeScript",
+          "Gemini",
+          "PostgreSQL",
+          "pgvector"
+        ],
+        "longDescription": "Epiphra is an AI reflection app: a chatbot with real-time voice and long-term memory, so it carries context between sessions rather than starting cold each time. Built on Google's Gemini with pgvector on PostgreSQL holding the memory."
+      },
+      {
+        "id": 14,
+        "slug": "selfbet",
+        "year": "2025",
+        "image": "",
+        "links": {
+          "demo": "https://www.selfbet.org/"
+        },
+        "title": "Selfbet — Recovery Non-profit",
+        "status": "Live",
+        "category": "Web",
+        "caseStudy": {
+          "summary": "Selfbet is a non-profit started by someone in recovery from gambling addiction, offering free therapy, financial recovery help, self-exclusion support and a community around it. The site is where a person in the middle of that finds those services and where donors fund them — so the whole job is being clear and unembarrassing to arrive at.",
+          "sections": [
+            {
+              "body": "Someone reaching a gambling-support site is rarely browsing. They have usually arrived at a bad moment, possibly on a phone, possibly not intending to tell anyone they were here.\n\nThat sets the brief. The services have to be legible immediately — what is on offer, what it costs, what happens if you make contact — and nothing on the page should feel like a form of exposure. The founder's own story does a lot of that work, which is why it leads rather than sits on an About page.",
+              "heading": "The problem"
+            },
+            {
+              "body": "A marketing site covering the four services: therapy with gambling support coaches starting from an initial evaluation, financial recovery help from CPAs and financial experts for people carrying gambling debt, self-exclusion and practical removal of access, and the community and weekly check-ins around all of it.\n\nAlongside that: a directory of support coaches, open letters, contact routes, and donations through Stripe, since the services are free and the donations are what pay for them.",
+              "heading": "What was built"
+            },
+            {
+              "body": "Not much of this is technically difficult, and saying otherwise would be dressing it up. What it needed was restraint.\n\nThe donation flow is the one piece with real consequences, and it has to work first time on a phone without sending someone through an account or a funnel. Everything else is clarity: no hedging about what the services are, no requirement to identify yourself before you can read anything, and a tone that does not perform sympathy at people who are being asked to accept something difficult about themselves.",
+              "heading": "What mattered here"
+            }
+          ]
+        },
+        "published": false,
+        "highlights": [
+          "Stripe donations"
+        ],
+        "description": "Marketing site for a non-profit offering free therapy, self-exclusion and community support for gambling addiction.",
+        "screenshots": [],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "Stripe"
+        ],
+        "longDescription": "Selfbet is a non-profit providing free therapy, self-exclusion programmes and community support for people recovering from gambling addiction. The site presents those services and takes donations through Stripe."
+      },
+      {
+        "id": 15,
+        "slug": "sunaulo-shopping",
+        "year": "2023",
+        "image": "",
+        "links": {},
+        "title": "Sunaulo Shopping — Nepal Marketplace",
+        "status": "Live",
+        "category": "App",
+        "caseStudy": {
+          "summary": "Sunaulo Shopping is a Nepali marketplace that had to serve four different people from the same data: a shopper browsing, a seller listing and getting paid, a franchise network distributing and earning commission, and staff moderating it all. Built for Nepal's actual payment rails rather than international cards, and shipped over the air because waiting for users to update was not realistic.",
+          "sections": [
+            {
+              "body": "Four audiences, one set of data. A shopper wants to browse and buy. A seller wants to list, track stock and be paid. A franchise network needs distribution and its commission. Staff need moderation and operations. Build those as four products and they drift; build them as one and every change has to be right for all four.\n\nOn top of that, the market is Nepal, which rules out the defaults. International cards are not how people pay, and a meaningful share of users are slow to update an app.",
+              "heading": "The problem"
+            },
+            {
+              "body": "A React Native shopping app for iOS and Android, a Next.js admin dashboard, and a GraphQL backend, in one Lerna and Yarn Workspaces monorepo with shared internal packages for theme, utilities, Firebase, S3 and Algolia.\n\nProduct discovery works by text and by image through Algolia, with multi-level filtering on size, colour and category. There is a \"Sunaulo Coin\" loyalty layer, OTP sign-in through Sparrow SMS, push via Firebase, and seller stats, payouts and franchise earnings tracked through the admin. Payments are eSewa and Khalti with cash on delivery as the fallback. Media sits on S3 behind CloudFront with on-the-fly resizing; the services run on Docker and AWS ECS.",
+              "heading": "What was built"
+            },
+            {
+              "body": "**One monorepo, not four repositories.** Mobile, admin and backend live together, which means a change to the data contract lands in the app and the admin in the same pass. Four repositories would have meant four places for the same change and four opportunities for them to disagree — and the drift is never noticed on the day it happens, it is noticed weeks later when something breaks.\n\n**GraphQL as the spine.** Apollo with types generated by GraphQL codegen, so the contract between mobile, web and backend is one typed thing rather than three implementations of an idea. That is what makes the monorepo pay off instead of merely being convenient.\n\n**Over-the-air updates as a first-class release path.** CodePush with Fastlane release lanes, because in a market where users are slow to update, a fix that requires a store release is a fix that does not reach people. Shipping through the store is not the only way to ship.",
+              "heading": "Key decisions"
+            },
+            {
+              "body": "**Fewer foundations, and treat upgrading them as real work.** The monorepo carried a lot of choices, and every one of them had an upgrade path that had to be maintained. Choosing fewer, and planning their upgrades as a first-class concern, would have kept the whole thing easier to move as a unit.\n\n**Reach for managed services sooner on the parts that were not the product.** Docker, ECS, EC2, S3 and CloudFront were all run by hand. None of that was what made the marketplace good.\n\n**Thin end-to-end tests across the seams, early.** The risky parts were the joins — image search, two payment gateways, OTA delivery, multi-party payouts — and those were hardened feature by feature instead. Testing across the seams first would have surfaced the awkward cases before production did.",
+              "heading": "What I'd do differently"
+            }
+          ]
+        },
+        "published": false,
+        "highlights": [
+          "Four user types, one monorepo",
+          "eSewa and Khalti",
+          "Image search",
+          "CodePush OTA"
+        ],
+        "description": "A Nepal marketplace serving shoppers, sellers, a franchise network and internal staff from one codebase — with local payment rails and over-the-air updates.",
+        "screenshots": [],
+        "technologies": [
+          "React Native",
+          "Next.js",
+          "TypeScript",
+          "GraphQL",
+          "Apollo",
+          "MongoDB",
+          "Algolia",
+          "AWS"
+        ],
+        "longDescription": "Sunaulo Shopping is a two-sided marketplace built for Nepal: a React Native shopping app, a Next.js admin dashboard and a GraphQL backend, serving four audiences at once — shoppers, sellers, a franchise network earning commissions, and internal staff handling moderation and operations. Payments run on eSewa and Khalti with cash on delivery, search and image search through Algolia, OTP through Sparrow SMS, and releases ship over the air with CodePush."
       }
     ],
     "subtitle": "Seven case studies from 20+ products shipped — across e-commerce, healthcare and telehealth, fin-tech and ed-tech, on web and mobile.",
