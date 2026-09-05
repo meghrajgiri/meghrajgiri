@@ -3,7 +3,7 @@
 import type { getAllConfig } from "@/lib/config";
 import { createContext, useContext } from "react";
 
-export type SiteConfig = Awaited<ReturnType<typeof getAllConfig>>;
+type SiteConfig = Awaited<ReturnType<typeof getAllConfig>>;
 
 const SiteConfigContext = createContext<SiteConfig | null>(null);
 

@@ -1,0 +1,362 @@
+[
+  {
+    "key": "expertise",
+    "value": {
+      "badge": "What I Do",
+      "title": "Your Product's Technical Foundation",
+      "services": [
+        {
+          "id": 1,
+          "icon": "code",
+          "title": "Web Application Development",
+          "description": "Building fast, responsive web applications that scale with your business. React, TypeScript, Next.js, and modern tooling for production-ready apps.",
+          "deliverables": [
+            "Responsive React/Next.js applications",
+            "TypeScript for type safety",
+            "Performance optimization (95+ Lighthouse)",
+            "Modern design system implementation"
+          ]
+        },
+        {
+          "id": 2,
+          "icon": "smartphone",
+          "title": "Mobile App Development",
+          "description": "Native-feeling mobile apps for iOS and Android. React Native and Expo for rapid development and cross-platform deployment.",
+          "deliverables": [
+            "React Native + Expo applications",
+            "iOS & Android deployment",
+            "Performance & UX optimization",
+            "Offline-first architecture"
+          ]
+        },
+        {
+          "id": 3,
+          "icon": "zap",
+          "title": "MVP Development & Validation",
+          "description": "Turn your idea into a working prototype in weeks, not months. Validate assumptions with real users before scaling.",
+          "deliverables": [
+            "Rapid prototyping",
+            "User feedback loops",
+            "Core feature prioritization",
+            "Launch-ready code"
+          ]
+        },
+        {
+          "id": 4,
+          "icon": "layout",
+          "title": "Frontend Architecture & Scaling",
+          "description": "Building scalable frontend systems that grow with your product. Component libraries, design systems, and performance at scale.",
+          "deliverables": [
+            "Design system architecture",
+            "Component libraries",
+            "Performance optimization",
+            "Scalable project structure"
+          ]
+        },
+        {
+          "id": 5,
+          "icon": "layers",
+          "title": "Full-Stack Product Development",
+          "description": "End-to-end product development: from database to user interface. Built multiple products from 0\u21921.",
+          "deliverables": [
+            "Database design (PostgreSQL, Supabase)",
+            "API architecture (GraphQL, REST)",
+            "Full-stack TypeScript",
+            "Deployment & DevOps"
+          ]
+        },
+        {
+          "id": 6,
+          "icon": "gauge",
+          "title": "Performance Optimization",
+          "description": "Making slow apps fast. Web Core Vitals optimization, bundle size reduction, and infrastructure tuning.",
+          "deliverables": [
+            "Web Core Vitals optimization",
+            "Bundle size reduction",
+            "Server-side rendering strategies",
+            "CDN & caching optimization"
+          ]
+        }
+      ],
+      "subtitle": "From MVP to Scale",
+      "description": "I specialize in building the technical infrastructure that makes products successful. Here's what I bring to the table:"
+    }
+  },
+  {
+    "key": "featured_work",
+    "value": {
+      "badge": "Featured Work",
+      "title": "Products I'm Proud Of",
+      "projects": [
+        {
+          "id": 1,
+          "slug": "arenanp",
+          "image": "/projects/arenanp.jpg",
+          "links": {
+            "demo": "https://arena.np",
+            "github": "https://github.com/meghraj",
+            "case_study": "/case-studies/arenanp"
+          },
+          "title": "Arena.np \u2014 SaaS Event Platform",
+          "outcome": "Platform handles 10,000+ events and 1M+ tickets annually.",
+          "problem": "Event organizers in Nepal lacked a unified platform to manage events, tickets, and attendees.",
+          "category": "SaaS",
+          "solution": "Built a comprehensive SaaS platform with event management, ticketing, and analytics. React frontend with real-time updates and TypeScript backend.",
+          "highlights": [
+            "Real-time event dashboard",
+            "Integrated payment processing",
+            "Analytics and reporting",
+            "Mobile-responsive design"
+          ],
+          "screenshots": [
+            "/projects/arenanp-1.jpg",
+            "/projects/arenanp-2.jpg"
+          ],
+          "technologies": [
+            "React",
+            "Next.js",
+            "TypeScript",
+            "Node.js",
+            "PostgreSQL",
+            "GraphQL"
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "mobile-app",
+          "image": "/projects/mobile.jpg",
+          "links": {
+            "demo": "https://apps.apple.com/app/example",
+            "github": "https://github.com/meghraj",
+            "case_study": "/case-studies/mobile"
+          },
+          "title": "Mobile-First Product Platform",
+          "outcome": "4.8\u2605 rating, 50K+ downloads, 95+ Lighthouse performance.",
+          "problem": "Users needed seamless product discovery on mobile with offline capabilities.",
+          "category": "Mobile",
+          "solution": "Built React Native app with offline-first architecture and modern UX patterns.",
+          "highlights": [
+            "Offline-first sync",
+            "Native performance",
+            "Deep linking",
+            "Push notifications"
+          ],
+          "screenshots": [
+            "/projects/mobile-1.jpg",
+            "/projects/mobile-2.jpg"
+          ],
+          "technologies": [
+            "React Native",
+            "Expo",
+            "TypeScript",
+            "GraphQL",
+            "Redux"
+          ]
+        },
+        {
+          "id": 3,
+          "slug": "design-system",
+          "image": "/projects/design-system.jpg",
+          "links": {
+            "demo": "https://design-system.example.com",
+            "github": "https://github.com/meghraj",
+            "case_study": "/case-studies/design-system"
+          },
+          "title": "Enterprise Design System",
+          "outcome": "80% faster development, 95% design consistency, 200+ components shipped.",
+          "problem": "Enterprise client needed consistent UI across 20+ products and 50+ engineers.",
+          "category": "Design System",
+          "solution": "Architected and built a complete design system with component library, design tokens, and documentation.",
+          "highlights": [
+            "200+ reusable components",
+            "Figma integration",
+            "Accessibility first (WCAG AAA)",
+            "Complete documentation"
+          ],
+          "screenshots": [
+            "/projects/ds-1.jpg",
+            "/projects/ds-2.jpg"
+          ],
+          "technologies": [
+            "React",
+            "TypeScript",
+            "Storybook",
+            "Figma",
+            "CSS-in-JS"
+          ]
+        }
+      ],
+      "subtitle": "Case studies showing problem, solution, and impact"
+    }
+  },
+  {
+    "key": "journey",
+    "value": {
+      "badge": "Professional Journey",
+      "title": "My Path to Product Engineering",
+      "subtitle": "5+ years building products that matter",
+      "education": [
+        {
+          "degree": "BSc Computer Science & Information Technology",
+          "period": "2015 \u2014 2019",
+          "skills": [
+            "Data Structures",
+            "Algorithms",
+            "System Design",
+            "Web Development"
+          ],
+          "description": "Foundation in CS fundamentals, data structures, algorithms, and software engineering principles.",
+          "institution": "Nepal"
+        }
+      ],
+      "experiences": [
+        {
+          "type": "current",
+          "year": "2024",
+          "title": "Full Stack Developer",
+          "period": "2024 \u2014 Present",
+          "company": "Arena.np",
+          "description": "Building a SaaS event platform from 0\u21921. Full-stack product development including MVP validation, scaling infrastructure, and team coordination.",
+          "achievements": [
+            "Built and shipped MVP in 4 weeks",
+            "Scaled platform to 10K+ events",
+            "Achieved 95+ Lighthouse score",
+            "Implemented real-time features with WebSockets"
+          ],
+          "technologies": [
+            "React",
+            "TypeScript",
+            "Node.js",
+            "PostgreSQL",
+            "GraphQL"
+          ]
+        },
+        {
+          "type": "past",
+          "year": "2022",
+          "title": "Senior Frontend Developer",
+          "period": "2022 \u2014 2024",
+          "company": "Previous Company",
+          "description": "Led frontend architecture for enterprise SaaS platform. Built and maintained design system used across 20+ products.",
+          "achievements": [
+            "Architected design system with 200+ components",
+            "Reduced bundle size by 40%",
+            "Improved Core Web Vitals score by 35%",
+            "Mentored 5 junior developers"
+          ],
+          "technologies": [
+            "React",
+            "TypeScript",
+            "GraphQL",
+            "Tailwind CSS"
+          ]
+        },
+        {
+          "type": "past",
+          "year": "2020",
+          "title": "Full Stack Developer",
+          "period": "2020 \u2014 2022",
+          "company": "Startup (Co-founder)",
+          "description": "Co-founded and built a mobile-first platform. Managed full product lifecycle from ideation to 50K+ users.",
+          "achievements": [
+            "Built MVP in 6 weeks",
+            "Acquired 50K+ users organically",
+            "Achieved 4.8\u2605 app store rating",
+            "Raised seed funding"
+          ],
+          "technologies": [
+            "React Native",
+            "Expo",
+            "Node.js",
+            "Firebase"
+          ]
+        },
+        {
+          "type": "past",
+          "year": "2019",
+          "title": "Junior Full Stack Developer",
+          "period": "2019 \u2014 2020",
+          "company": "First Tech Job",
+          "description": "Started my tech career building features for web and mobile applications. Learned best practices and production-ready code.",
+          "achievements": [
+            "Built 5 production features",
+            "Learned React and JavaScript deeply",
+            "Improved code review process",
+            "Established testing culture"
+          ],
+          "technologies": [
+            "React",
+            "JavaScript",
+            "Node.js",
+            "MongoDB"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "key": "process",
+    "value": {
+      "badge": "How I Work",
+      "steps": [
+        {
+          "title": "Discovery & Planning",
+          "number": "01",
+          "activities": [
+            "Problem definition workshop",
+            "User research & personas",
+            "Competitive analysis",
+            "Technical feasibility assessment"
+          ],
+          "description": "We start by understanding your problem, target users, and business goals. I ask tough questions to ensure we're building the right thing."
+        },
+        {
+          "title": "Design & Architecture",
+          "number": "02",
+          "activities": [
+            "Wireframes & prototypes",
+            "System architecture design",
+            "Database schema planning",
+            "API design & documentation"
+          ],
+          "description": "I design the product experience and technical architecture together. Good design informs good code, and vice versa."
+        },
+        {
+          "title": "MVP Development",
+          "number": "03",
+          "activities": [
+            "Agile sprint development",
+            "Continuous deployment",
+            "Regular demos & feedback",
+            "Rapid iteration cycles"
+          ],
+          "description": "We build the core features first, focusing on user value over perfection. Speed to validated learning matters."
+        },
+        {
+          "title": "Testing & Polish",
+          "number": "04",
+          "activities": [
+            "User acceptance testing",
+            "Performance optimization",
+            "Security audit",
+            "Accessibility compliance"
+          ],
+          "description": "Once core features are validated, we test thoroughly and polish the experience. Performance and reliability matter."
+        },
+        {
+          "title": "Launch & Scale",
+          "number": "05",
+          "activities": [
+            "Production deployment",
+            "Analytics & monitoring setup",
+            "User feedback collection",
+            "Iterative improvements"
+          ],
+          "description": "We ship to real users, monitor what matters, and scale what works. The work doesn't stop at launch."
+        }
+      ],
+      "title": "My Development Process",
+      "subtitle": "A proven approach to building successful products"
+    }
+  }
+]

@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 /**
  * A macOS-window title bar, used as the card language across the site.
  *
@@ -31,25 +29,6 @@ export function WindowBar({ path, tone = "light" }: { path: string; tone?: "ligh
       >
         {path}
       </span>
-    </div>
-  );
-}
-
-export function Window({
-  path,
-  tone = "light",
-  className = "",
-  children,
-}: {
-  path: string;
-  tone?: "light" | "dark";
-  className?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className={`nb flex flex-col overflow-hidden bg-card ${className}`}>
-      <WindowBar path={path} tone={tone} />
-      {children}
     </div>
   );
 }

@@ -13,7 +13,7 @@ export function personId(url: string) {
   return `${url}/#person`;
 }
 
-export function websiteId(url: string) {
+function websiteId(url: string) {
   return `${url}/#website`;
 }
 
