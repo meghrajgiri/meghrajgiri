@@ -1,0 +1,837 @@
+{
+  "personal": {
+    "name": "Meghraj Giri",
+    "role": "Full Stack Developer — Product-Focused",
+    "email": "meghrajgiri56@gmail.com",
+    "tagline": "Building products people love to use",
+    "initials": "MG",
+    "location": "Butwal, Nepal"
+  },
+  "hero": {
+    "stats": [
+      {
+        "delay": "0s",
+        "label": "Professional Experience",
+        "value": "5+"
+      },
+      {
+        "delay": "0.2s",
+        "label": "Products Shipped",
+        "value": "20+"
+      }
+    ],
+    "buttons": {
+      "primary": {
+        "href": "#featured-work",
+        "text": "See Featured Work"
+      },
+      "secondary": {
+        "href": "#contact",
+        "text": "Let's Talk"
+      }
+    },
+    "mainTitle": {
+      "line1": "Building products",
+      "line2": "people love to use"
+    },
+    "description": "I help startups and product teams turn ideas into fast, scalable web and mobile applications. From MVP validation to production growth, I focus on what matters: user experience, performance, and business outcomes.",
+    "floatingSkills": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "React Native"
+    ],
+    "highlightedTerms": {
+      "term1": "startups",
+      "term2": "product teams"
+    }
+  },
+  "about": {
+    "badge": "About",
+    "stats": [
+      {
+        "label": "Years in tech",
+        "value": "5+"
+      },
+      {
+        "label": "Nepal",
+        "value": "BSc CSIT"
+      },
+      {
+        "label": "Products shipped",
+        "value": "20+"
+      }
+    ],
+    "title": "I build products, not just code",
+    "subtitle": "A product mindset combined with technical excellence",
+    "description": [
+      "I started as a traditional developer obsessed with clean code and best practices. But I quickly realized that beautiful architecture without user impact is just technical debt. That shift changed everything.",
+      "Now, I approach every project with a product mindset. I work directly with founders and product teams to understand the core problem, validate solutions, and scale what works. Every decision—architecture, design, features—is made in service of user outcomes.",
+      "I specialize in building MVPs that validate ideas quickly, then scaling them for growth. Whether it's React web apps, React Native mobile, or GraphQL APIs, I build with performance and scalability in mind.",
+      "I'm particularly excited about products at the intersection of great design and solid engineering. That's where real magic happens—and where I love to work."
+    ],
+    "callToAction": {
+      "title": "Let's build something meaningful",
+      "buttonText": "Start a conversation",
+      "description": "Whether you're validating an MVP or scaling a product, I'd love to hear about it."
+    }
+  },
+  "skills": {
+    "badge": "Tech Stack",
+    "title": "Technologies I Work With",
+    "subtitle": "Clean, modern tools for building scalable products",
+    "categories": [
+      {
+        "icon": "code",
+        "title": "Frontend",
+        "skills": [
+          {
+            "name": "React",
+            "color": "61dafb",
+            "level": 95
+          },
+          {
+            "name": "TypeScript",
+            "color": "3178c6",
+            "level": 95
+          },
+          {
+            "name": "Next.js",
+            "color": "000000",
+            "level": 90
+          },
+          {
+            "name": "Tailwind CSS",
+            "color": "06b6d4",
+            "level": 95
+          },
+          {
+            "name": "Framer Motion",
+            "color": "0055ff",
+            "level": 85
+          },
+          {
+            "name": "React Query",
+            "color": "ef4444",
+            "level": 90
+          }
+        ]
+      },
+      {
+        "icon": "server",
+        "title": "Backend",
+        "skills": [
+          {
+            "name": "Node.js",
+            "color": "68a063",
+            "level": 90
+          },
+          {
+            "name": "GraphQL",
+            "color": "e10098",
+            "level": 85
+          },
+          {
+            "name": "REST APIs",
+            "color": "000000",
+            "level": 95
+          },
+          {
+            "name": "PostgreSQL",
+            "color": "336791",
+            "level": 85
+          },
+          {
+            "name": "Express",
+            "color": "000000",
+            "level": 85
+          },
+          {
+            "name": "Supabase",
+            "color": "3ecf8e",
+            "level": 90
+          }
+        ]
+      },
+      {
+        "icon": "smartphone",
+        "title": "Mobile",
+        "skills": [
+          {
+            "name": "React Native",
+            "color": "61dafb",
+            "level": 90
+          },
+          {
+            "name": "Expo",
+            "color": "000000",
+            "level": 90
+          },
+          {
+            "name": "Native APIs",
+            "color": "000000",
+            "level": 80
+          },
+          {
+            "name": "iOS Development",
+            "color": "555555",
+            "level": 75
+          },
+          {
+            "name": "Android Development",
+            "color": "3ddc84",
+            "level": 75
+          }
+        ]
+      },
+      {
+        "icon": "cloud",
+        "title": "DevOps & Cloud",
+        "skills": [
+          {
+            "name": "Docker",
+            "color": "2496ed",
+            "level": 80
+          },
+          {
+            "name": "GitHub Actions",
+            "color": "2088f0",
+            "level": 85
+          },
+          {
+            "name": "Vercel",
+            "color": "000000",
+            "level": 90
+          },
+          {
+            "name": "AWS",
+            "color": "ff9900",
+            "level": 75
+          },
+          {
+            "name": "Firebase",
+            "color": "ffb13d",
+            "level": 80
+          }
+        ]
+      },
+      {
+        "icon": "tool",
+        "title": "Tools & Processes",
+        "skills": [
+          {
+            "name": "Git & GitHub",
+            "color": "f1502f",
+            "level": 95
+          },
+          {
+            "name": "Testing (Jest)",
+            "color": "15c213",
+            "level": 85
+          },
+          {
+            "name": "Figma",
+            "color": "f24e1e",
+            "level": 80
+          },
+          {
+            "name": "CI/CD",
+            "color": "000000",
+            "level": 90
+          },
+          {
+            "name": "Agile/Scrum",
+            "color": "0052cc",
+            "level": 90
+          }
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "badge": "My Work",
+    "title": "Featured Projects",
+    "projects": [
+      {
+        "id": 1,
+        "slug": "thriftverse",
+        "year": "2026",
+        "image": "/projects/thriftverse/thumbnail.png",
+        "links": {
+          "demo": "https://www.thriftverse.shop/"
+        },
+        "title": "React Native E-commerce App - Thriftverse",
+        "status": "Completed",
+        "category": "E-Commerce",
+        "highlights": [
+          "Unique Storefront",
+          "Seamless Checkout",
+          "Track Order"
+        ],
+        "description": "Thriftverse is a thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products.",
+        "screenshots": [
+          "/projects/thriftverse/thrift_1.PNG",
+          "/projects/thriftverse/thrift_10.PNG",
+          "/projects/thriftverse/thrift_11.PNG",
+          "/projects/thriftverse/thrift_12.PNG",
+          "/projects/thriftverse/thrift_2.PNG",
+          "/projects/thriftverse/thrift_3.PNG",
+          "/projects/thriftverse/thrift_4.PNG",
+          "/projects/thriftverse/thrift_5.PNG",
+          "/projects/thriftverse/thrift_6.PNG",
+          "/projects/thriftverse/thrift_7.PNG",
+          "/projects/thriftverse/thrift_8.png",
+          "/projects/thriftverse/thrift_9.png"
+        ],
+        "technologies": [
+          "React Native",
+          "React",
+          "Next.js",
+          "Node.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "Supabase",
+          "Resend"
+        ],
+        "longDescription": "Thriftverse is a modern thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products. The platform includes a buyer-facing web app with secure eSewa checkout, and a store-owner mobile app where influencers or sellers can sign up, manage their store, and share their custom subdomain. Thriftverse also handles logistics through Nepal Can Move (NCM), including order tracking, shipping coordination, and automated email notifications for both buyers and store owners."
+      },
+      {
+        "id": 2,
+        "slug": "cannabiz-elite",
+        "year": "2026",
+        "image": "/projects/cannabiz-elite/thumbnail.png",
+        "links": {},
+        "title": "Clinic Management System - Cannabiz Elite (Australia)",
+        "status": "In Progress",
+        "category": "Healthcare",
+        "caseStudy": {
+          "metrics": [
+            {
+              "label": "Weeks to launch",
+              "value": "[N]"
+            },
+            {
+              "label": "Clinics onboarded",
+              "value": "[N]"
+            },
+            {
+              "label": "Consults processed",
+              "value": "[N]"
+            }
+          ],
+          "summary": "Cannabiz Elite is a clinic management system for Australian cannabis and telehealth clinics, built on Medusa v2 and shipped in [N weeks]. The hardest part was not the application — it was [specific constraint], which required [specific solution].",
+          "sections": [
+            {
+              "body": "[Australian telehealth is not a normal build. Describe what AHPRA, the Privacy Act and national prescribing infrastructure actually demanded of this system.]",
+              "heading": "The constraint"
+            },
+            {
+              "body": "[State it concretely, in the clinic's terms rather than technical ones.]",
+              "heading": "The problem"
+            },
+            {
+              "body": "[Why Medusa v2. Why the data model looks the way it does. What was deliberately excluded from v1.]",
+              "heading": "Approach and key decisions"
+            },
+            {
+              "body": "A prescription is not a product. It requires an authorised prescriber, it cannot be freely reordered, and it carries a clinical audit trail no cart abstraction provides.\n\n[The workflow that broke the mapping first was X — and fixing it meant Y.]",
+              "heading": "Where the abstraction breaks"
+            },
+            {
+              "body": "[Named, with what each one demanded in practice. Pending clearance.]",
+              "heading": "Integrations"
+            },
+            {
+              "body": "[Measurable outcomes. If commercial metrics are not publishable, use delivery facts — shipped in N weeks, N clinics, N consults.]",
+              "heading": "Results"
+            },
+            {
+              "body": "[The retrospective. This section does more for credibility than any other on the page.]",
+              "heading": "What I would do differently"
+            }
+          ]
+        },
+        "highlights": [
+          "Parchment",
+          "Privacy Act & AHPRA",
+          "Clerk Auth",
+          "Product Management"
+        ],
+        "description": "Cannabiz Elite is a clinic management system purpose-built for Australian cannabis and telehealth clinics",
+        "screenshots": [
+          "/projects/cannabiz-elite/can_1.png",
+          "/projects/cannabiz-elite/can_10.png",
+          "/projects/cannabiz-elite/can_11.png",
+          "/projects/cannabiz-elite/can_12.png",
+          "/projects/cannabiz-elite/can_13.png",
+          "/projects/cannabiz-elite/can_14.png",
+          "/projects/cannabiz-elite/can_2.png",
+          "/projects/cannabiz-elite/can_3.png",
+          "/projects/cannabiz-elite/can_4.png",
+          "/projects/cannabiz-elite/can_5.png",
+          "/projects/cannabiz-elite/can_6.png",
+          "/projects/cannabiz-elite/can_7.png",
+          "/projects/cannabiz-elite/can_8.png",
+          "/projects/cannabiz-elite/can_9.png"
+        ],
+        "technologies": [
+          "React",
+          "Next.JS",
+          "MedusaJS",
+          "Node.js",
+          "PostgreSQL",
+          "Resend",
+          "Twilio"
+        ],
+        "longDescription": "Cannabiz Elite is a clinic management system purpose-built for Australian cannabis and telehealth clinics. Unlike generic practice management software designed for GPs or specialists, the platform understands the unique operational needs of medicinal cannabis providers. From scheduling and telehealth through to prescription management and dispensary coordination, every feature is tailored to cannabis clinic workflows. This isn't a generic system retrofitted for cannabis — it's cannabis clinic management from the ground up."
+      },
+      {
+        "id": 3,
+        "slug": "lyve",
+        "year": "2025",
+        "image": "/projects/lyve/lyve.webp",
+        "links": {},
+        "title": "The LYVE app",
+        "status": "Completed",
+        "category": "E-Commerce",
+        "highlights": [
+          "Real-time chat",
+          "Costume Marketplace"
+        ],
+        "description": "The Lyve App is a next-generation marketplace focused on transforming how users buy and sell event tickets and resell costume reservations",
+        "screenshots": [
+          "/projects/lyve/lyve_1.jpg",
+          "/projects/lyve/lyve_2.jpg",
+          "/projects/lyve/lyve_3.jpg",
+          "/projects/lyve/lyve_4.jpg",
+          "/projects/lyve/lyve_5.jpg"
+        ],
+        "technologies": [
+          "React Native",
+          "Expo.io",
+          "Firebase",
+          "Tailwind CSS",
+          "GraphQl",
+          "Node.js"
+        ],
+        "longDescription": "The Lyve App is a next-generation marketplace focused on transforming how users buy and sell event tickets and resell costume reservations. Designed with simplicity and efficiency in mind, The Lyve App streamlines these transactions with a 100% guarantee on both purchases and sales. Whether you're an event planner, a costume reservations sell, or a customer, the app ensures a hassle-free experience."
+      },
+      {
+        "id": 4,
+        "slug": "khatapata",
+        "year": "2023",
+        "image": "/projects/khatapata/khata_1.png",
+        "links": {
+          "demo": "https://digital.khatapata.store/"
+        },
+        "title": "Inventory Management System - Khatapata (PWA)",
+        "status": "Completed",
+        "category": "Fin-Tech",
+        "highlights": [
+          "PWA",
+          "Inventory tracking",
+          "Todo lists",
+          "Expense Tracking",
+          "Live Dashboard",
+          "Multi currency"
+        ],
+        "description": "Inventory Management System (PWA) for Small Businesses to manage their stocks, order and daily tasks",
+        "screenshots": [
+          "/projects/khatapata/khata_10.png",
+          "/projects/khatapata/khata_11.png",
+          "/projects/khatapata/khata_12.png",
+          "/projects/khatapata/khata_13.png",
+          "/projects/khatapata/khata_14.png",
+          "/projects/khatapata/khata_15.png",
+          "/projects/khatapata/khata_16.png",
+          "/projects/khatapata/khata_17.png",
+          "/projects/khatapata/khata_18.png",
+          "/projects/khatapata/khata_2.png",
+          "/projects/khatapata/khata_3.png",
+          "/projects/khatapata/khata_4.png",
+          "/projects/khatapata/khata_5.png",
+          "/projects/khatapata/khata_6.png",
+          "/projects/khatapata/khata_7.png",
+          "/projects/khatapata/khata_8.png",
+          "/projects/khatapata/khata_9.png"
+        ],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "Supabase",
+          "PWA"
+        ],
+        "longDescription": "Inventory Management System (PWA) for Small Businesses"
+      },
+      {
+        "id": 5,
+        "slug": "college-cost-secrets",
+        "year": "2024",
+        "image": "/projects/ccs/ccs.webp",
+        "links": {
+          "demo": "https://ccs.vercel.app/"
+        },
+        "title": "College Cost Secrets",
+        "status": "Completed",
+        "category": "Ed-Tech",
+        "highlights": [],
+        "description": "A bootstrapped financial planning service helping US families reduce college costs",
+        "screenshots": [
+          "/projects/ccs/ccs_1.jpg",
+          "/projects/ccs/ccs_2.jpg",
+          "/projects/ccs/ccs_3.jpg",
+          "/projects/ccs/ccs_4.jpg",
+          "/projects/ccs/ccs_5.jpg",
+          "/projects/ccs/ccs_6.jpg",
+          "/projects/ccs/ccs_7.jpg"
+        ],
+        "technologies": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "Tailwind CSS",
+          "Nest.js"
+        ],
+        "longDescription": "A bootstrapped financial planning service helping US families reduce college costs through SAI optimization and one-on-one consulting. Developed the subscriber dashboard, financial planning tools, and client portal using React and Next.js. The platform serves families that have collectively saved $100M in college expenses, with a Kevin Harrington endorsement and 15+ years of operation."
+      },
+      {
+        "id": 6,
+        "slug": "bookvid",
+        "year": "2024",
+        "image": "/projects/bookvid/bookvid.webp",
+        "links": {},
+        "title": "Bookvid - Live Video Booking Marketplace",
+        "status": "Completed",
+        "category": "Other",
+        "highlights": [
+          "Event Booking",
+          "Session Booking",
+          "Calendar Integration"
+        ],
+        "description": "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions.",
+        "screenshots": [
+          "/projects/bookvid/bookvid_1.jpg",
+          "/projects/bookvid/bookvid_2.jpg",
+          "/projects/bookvid/bookvid_3.jpg",
+          "/projects/bookvid/bookvid_4.jpg",
+          "/projects/bookvid/bookvid_5.jpg",
+          "/projects/bookvid/bookvid_6.jpg",
+          "/projects/bookvid/bookvid_7.jpg",
+          "/projects/bookvid/bookvid_8.jpg",
+          "/projects/bookvid/bookvid_9.jpg"
+        ],
+        "technologies": [
+          "Calendly",
+          "Next.js",
+          "Web Sockets",
+          "Tailwind CSS"
+        ],
+        "longDescription": "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions. It allows users to create booking pages, schedule sessions, and receive automatic payments through integrations with popular payment (e.g., PayPal, Venmo) and calendar apps. Clients can self-schedule, and users are notified of bookings and payments, simplifying managing and monetizing virtual meetings. The platform supports both individual and group sessions and ensures secure, encrypted communication"
+      },
+      {
+        "id": 7,
+        "slug": "yume",
+        "year": "2024",
+        "image": "/projects/yume/thumbnail.png",
+        "links": {},
+        "title": "Gambling Recovery App - Yume",
+        "status": "Completed",
+        "category": "Other",
+        "highlights": [
+          "Real-time chat",
+          "Group Chat",
+          "OAuth2"
+        ],
+        "description": "Yume is an app designed to help individuals overcome gambling addiction.",
+        "screenshots": [
+          "/projects/yume/yume_1.jpg",
+          "/projects/yume/yume_2.jpg",
+          "/projects/yume/yume_3.jpg",
+          "/projects/yume/yume_4.jpg",
+          "/projects/yume/yume_5.jpg",
+          "/projects/yume/yume_6.jpg"
+        ],
+        "technologies": [
+          "React Native",
+          "Expo.io",
+          "Firebase",
+          "Stream Chat",
+          "Tailwind CSS"
+        ],
+        "longDescription": "Yume is an app designed to help individuals overcome gambling addiction. Delivered 10K+ users and 25%+ paying conversion rate within 3 months of launch. The app was acquired by National Debt Relief within 6 months. Built for iOS using React Native, Expo, Firebase, and Redux with full App Store release."
+      },
+      {
+        "id": 8,
+        "slug": "hamro-motors",
+        "year": "2025",
+        "image": "",
+        "links": {
+          "demo": "https://hamromotorsnp.com/"
+        },
+        "title": "Hamro Motors",
+        "status": "Completed",
+        "category": "Other",
+        "published": false,
+        "highlights": [
+          "Carfeatures"
+        ],
+        "description": "Nepal's premier platform for car and bike reviews. We deliver expert insights, easy-to-understand specs, and performance details tailored for Nepal.",
+        "screenshots": [],
+        "technologies": [
+          "React"
+        ],
+        "longDescription": "Nepal's premier platform for car and bike reviews. We deliver expert insights, easy-to-understand specs, and performance details tailored for Nepal."
+      }
+    ],
+    "subtitle": "Innovative solutions across Fin-Tech, Ed-Tech, E-Commerce, and Web3 industries",
+    "callToAction": {
+      "title": "Interested in working together?",
+      "buttonText": "Get In Touch",
+      "description": "I'm always open to discussing new opportunities and interesting projects."
+    }
+  },
+  "contact": {
+    "form": {
+      "fields": {
+        "name": {
+          "label": "Your name",
+          "placeholder": "John Doe"
+        },
+        "email": {
+          "type": "email",
+          "label": "Email address",
+          "placeholder": "john@example.com"
+        },
+        "company": {
+          "label": "Company (optional)",
+          "placeholder": "Your company"
+        },
+        "message": {
+          "label": "Tell me about your project",
+          "placeholder": "What are you building?"
+        }
+      },
+      "errorMessage": "Something went wrong. Please try again.",
+      "submitButton": "Send Message",
+      "successMessage": "Thanks for reaching out! I'll get back to you within 24 hours."
+    },
+    "title": "Let's build something meaningful",
+    "subtitle": "Whether you're validating an MVP or scaling a product, I'd love to chat.",
+    "contactInfo": {
+      "email": "meghrajgiri56@gmail.com",
+      "phone": "+977-9804410241",
+      "location": "Nepal (Remote)"
+    },
+    "socialLinks": [
+      {
+        "url": "https://www.linkedin.com/in/meghrajgiri/",
+        "icon": "linkedin",
+        "name": "LinkedIn",
+        "label": "Connect on LinkedIn",
+        "platform": "linkedin"
+      },
+      {
+        "url": "https://github.com/meghrajgiri",
+        "icon": "github",
+        "name": "GitHub",
+        "label": "View GitHub profile",
+        "platform": "github"
+      },
+      {
+        "url": "mailto:meghrajgiri56@gmail.com",
+        "icon": "mail",
+        "name": "Email",
+        "label": "Send me an email",
+        "platform": "email"
+      }
+    ],
+    "availability": {
+      "status": "Available for new projects",
+      "responseTime": "Usually within 24 hours",
+      "workingHours": "9 AM — 6 PM (UTC +5:45)"
+    }
+  },
+  "education": {
+    "badge": "Education",
+    "title": "Academic Journey",
+    "subtitle": "Building strong foundations in computer science and technology",
+    "education": [
+      {
+        "id": 1,
+        "logo": "🏛️",
+        "type": "Bachelor's Degree",
+        "field": "Computer Science",
+        "degree": "BSc CSIT",
+        "period": "Aug 2019 - Aug 2023",
+        "skills": [
+          "Figma (Software)",
+          "SASS",
+          "Web Development",
+          "Data Structures",
+          "Algorithms",
+          "Database Management"
+        ],
+        "status": "completed",
+        "duration": "4 years",
+        "description": "Comprehensive computer science program covering software engineering, web technologies, and system design principles",
+        "institution": "Institute of Science and Technology (IOST), Tribhuvan University"
+      },
+      {
+        "id": 2,
+        "logo": "🏫",
+        "type": "Secondary Education",
+        "field": "Computer Engineering",
+        "degree": "High School Diploma",
+        "period": "Apr 2017 - May 2019",
+        "skills": [
+          "jQuery",
+          "C Programming",
+          "Basic Web Development",
+          "Computer Fundamentals"
+        ],
+        "status": "completed",
+        "duration": "2 years",
+        "description": "Foundation in computer engineering with focus on programming fundamentals and web technologies",
+        "institution": "Kalika Manavgyan Secondary School"
+      }
+    ],
+    "highlights": [
+      {
+        "label": "University Education",
+        "value": "4 Years"
+      },
+      {
+        "label": "Computer Science Degree",
+        "value": "BSc CSIT"
+      },
+      {
+        "label": "Graduation Year",
+        "value": "2023"
+      }
+    ]
+  },
+  "experience": {
+    "experiences": [
+      {
+        "type": "Full-time • Remote",
+        "year": "2025",
+        "title": "Full Stack Developer",
+        "period": "Present",
+        "status": "current",
+        "company": "SCSS Consulting",
+        "description": "Built health management systems for Australian clinics, aligned to the Privacy Act and AHPRA practitioner requirements, and integrated the Parchment prescription portal.",
+        "technologies": [
+          "React",
+          "PostgreSQL",
+          "Next.js",
+          "Medusa.js"
+        ]
+      },
+      {
+        "type": "Full-time • Hybrid",
+        "year": "2024",
+        "title": "React Native Developer",
+        "period": "2026",
+        "status": "completed",
+        "company": "Inseed",
+        "description": "Building cross-platform mobile applications with modern React Native architecture",
+        "technologies": [
+          "React Native",
+          "TypeScript",
+          "Mobile Dev"
+        ]
+      },
+      {
+        "type": "Full-time • 1 yr 1 mo",
+        "year": "2023",
+        "title": "Software Engineer",
+        "period": "2024",
+        "status": "completed",
+        "company": "Gurzu Inc.",
+        "description": "Developed software solutions with focus on problem solving and comprehensive code review",
+        "technologies": [
+          "Problem Solving",
+          "Code Review",
+          "Software Architecture"
+        ]
+      },
+      {
+        "type": "Full-time • 1 yr 7 mos",
+        "year": "2022",
+        "title": "React Developer",
+        "period": "2023",
+        "status": "completed",
+        "company": "Prabidhi Labs",
+        "description": "Built modern web applications using React.js ecosystem and advanced JavaScript patterns",
+        "technologies": [
+          "React.js",
+          "HTML5",
+          "JavaScript",
+          "Web Apps"
+        ]
+      },
+      {
+        "type": "Remote • 1 yr 3 mos",
+        "year": "2020",
+        "title": "React Developer",
+        "period": "2021",
+        "status": "completed",
+        "company": "Lightweb Group",
+        "description": "Started professional journey developing responsive web applications with JavaScript libraries",
+        "technologies": [
+          "JavaScript",
+          "Responsive Design",
+          "Web Libraries"
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "url": "https://www.meghrajgiri.com",
+    "type": "website",
+    "title": "Meghraj Giri — Full Stack Developer in Nepal | React & Next.js",
+    "author": "Meghraj Giri",
+    "locale": "en_US",
+    "keywords": [
+      "Full Stack Developer Nepal",
+      "Frontend Developer Nepal",
+      "React Developer Nepal",
+      "Next.js Developer Nepal",
+      "React Native Developer Nepal",
+      "Hire developer Nepal",
+      "Developer in Butwal",
+      "Meghraj Giri",
+      "TypeScript",
+      "Web Development Nepal"
+    ],
+    "siteName": "Meghraj Giri",
+    "description": "Meghraj Giri is a full stack and frontend developer in Butwal, Nepal, building fast, scalable web and mobile products with React, Next.js, TypeScript and React Native. Toptal-verified. Available for new projects."
+  },
+  "navigation": {
+    "items": [
+      {
+        "href": "/projects",
+        "label": "Work"
+      },
+      {
+        "href": "/about",
+        "label": "About"
+      },
+      {
+        "href": "/experience",
+        "label": "Experience"
+      },
+      {
+        "href": "/skills",
+        "label": "Skills"
+      },
+      {
+        "href": "/contact",
+        "label": "Contact"
+      }
+    ],
+    "mobileMenu": {
+      "footer": "Meghraj Giri — Building with React, TypeScript & love."
+    }
+  }
+}

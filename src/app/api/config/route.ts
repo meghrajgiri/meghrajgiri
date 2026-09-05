@@ -1,20 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import sections from "@/config/sections.json";
 import { getConfig, saveConfig } from "@/lib/config";
 
-const VALID_KEYS = [
-  "personal",
-  "hero",
-  "about",
-  "skills",
-  "projects",
-  "contact",
-  "education",
-  "experience",
-  "metadata",
-  "navigation",
-];
+/**
+ * Shared with `getAllConfig` and the snapshot script — see `src/config/sections.json`.
+ * This list used to be maintained here by hand, which meant a new section could ship
+ * with a working page and a CMS editor that failed with "Invalid config key".
+ */
+const VALID_KEYS = sections.editable;
 
 // Verify the request has a valid Supabase auth session
 async function verifyAuth(request: NextRequest) {

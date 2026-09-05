@@ -13,7 +13,7 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import { writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 
 const OUT = resolve(import.meta.dirname, "..", "src", "config", "fallback.json");
@@ -27,22 +27,25 @@ if (!url || !key) {
 }
 
 /**
- * Only the sections the site actually renders. The table also holds rows from an
- * earlier iteration (testimonials, process, featured_work, expertise) that nothing
- * reads; snapshotting those would just commit dead weight.
+ * Only the sections the site actually renders. Shared with `getAllConfig` and the
+ * `/api/config` allowlist via `src/config/sections.json`, so a new section cannot be
+ * added to the site and forgotten here — which would leave the committed fallback
+ * silently missing it.
  */
-const KEYS = [
-  "personal",
-  "hero",
-  "about",
-  "skills",
-  "projects",
-  "contact",
-  "education",
-  "experience",
-  "metadata",
-  "navigation",
-];
+const SECTIONS = JSON.parse(
+  readFileSync(resolve(import.meta.dirname, "../src/config/sections.json"), "utf-8"),
+);
+const KEYS = SECTIONS.rendered;
+
+// A section the CMS can save but the site never reads would accept edits that quietly
+// go nowhere. Cheap to check here, where the lists are already loaded.
+const orphaned = SECTIONS.editable.filter((key) => !KEYS.includes(key));
+if (orphaned.length > 0) {
+  console.error(
+    `\x1b[31msections.json: ${orphaned.join(", ")} listed as editable but not rendered\x1b[0m`,
+  );
+  process.exit(1);
+}
 
 const supabase = createClient(url, key);
 const { data, error } = await supabase

@@ -8,6 +8,14 @@ import type { SiteConfig } from "@/lib/config";
  * imported anywhere. Stacked on a phone, three columns from `sm` up — the columns are
  * the enhancement, the stack is the base.
  */
+/** Pages that earn a link but not a slot in the header. */
+const SECONDARY = [
+  { href: "/experience", label: "Experience" },
+  { href: "/skills", label: "Tech stack" },
+  { href: "/hire/react-native-developer-nepal", label: "Hire: React Native" },
+  { href: "/hire/nextjs-developer-nepal", label: "Hire: Next.js" },
+];
+
 export function SiteFooter({ config }: { config: SiteConfig }) {
   const { personal, contact, navigation, metadata } = config;
   const socials = (contact?.socialLinks ?? []).filter((l) => l.url?.startsWith("http"));
@@ -53,14 +61,29 @@ export function SiteFooter({ config }: { config: SiteConfig }) {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/projects"
-                  className="focus-ring flex min-h-[40px] items-center text-[15px] text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  All projects
-                </Link>
-              </li>
+            </ul>
+          </div>
+
+          {/* The header can only carry five items before it stops being scannable, so
+              `/experience` and `/skills` are linked from here instead. Without this
+              they would be reachable only from the sitemap and a single link inside
+              the About copy, which is thin footing for pages that carry the
+              `worksFor` and `alumniOf` evidence. */}
+          <div>
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+              More
+            </h2>
+            <ul className="mt-4 flex flex-col gap-1">
+              {SECONDARY.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="focus-ring flex min-h-[40px] items-center text-[15px] text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

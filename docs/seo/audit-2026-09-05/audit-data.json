@@ -1,0 +1,316 @@
+{
+  "summary": {
+    "health_score": 51,
+    "business_type": "Solo developer / independent consultancy (personal brand, service-intent)",
+    "top_findings": [
+      "/projects/cannabiz-elite ships 8 unfilled template placeholders live, including inside production JSON-LD CreativeWork.abstract",
+      "www.meghrajgiri.com.np serves duplicate content with no 301; a live brand search surfaces the stale .com.np URL instead of the canonical .com",
+      "Entity does not resolve \u2014 brand SERP is dominated by six unrelated Giri/Meghraj Wikipedia entities; no knowledge panel",
+      "Fully-written experience (5 roles) and education (BSc CSIT, Tribhuvan University) config renders nowhere on the site",
+      "Toptal 'Verified Expert' credential is absent from body copy, sameAs, and every link on the site"
+    ],
+    "quick_wins": [
+      "Add the Toptal resume URL to Person.sameAs and to visible body copy",
+      "Fix Person.address.addressLocality from 'Nepal' (a country) to 'Butwal'",
+      "Render the existing experience/education config \u2014 content already written, zero new copy needed",
+      "Fix the wasted LCP preload in layout.tsx (preloads /Meghraj.jpg, page requests /_next/image?url=...)",
+      "Remove or resolve the dead #expertise and #journey nav anchors"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 62,
+      "what_works": [
+        "Sitemap and robots.txt correct and on the right host",
+        "Homepage statically prerendered and edge-cached",
+        "is_spa false \u2014 all primary copy server-rendered",
+        "All AI crawlers (GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended, Bingbot) receive 200",
+        "HSTS set"
+      ],
+      "findings": [
+        {
+          "title": "Duplicate domain served without a 301",
+          "severity": "Critical",
+          "description": "www.meghrajgiri.com.np returns HTTP 200 with full duplicate content and only a cross-domain canonical. A live search for '\"Meghraj Giri\" developer Nepal' returns the .com.np URL with a stale title and description.",
+          "recommendation": "Set a permanent redirect to www.meghrajgiri.com at the Vercel domain level, then run Change of Address in Search Console. Weigh first: every ranking Nepali competitor uses a .com.np ccTLD."
+        },
+        {
+          "title": "Security headers missing",
+          "severity": "Medium",
+          "description": "No X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Content-Security-Policy or Permissions-Policy. x-powered-by: Next.js exposed.",
+          "recommendation": "Add headers in next.config.ts; disable poweredByHeader."
+        },
+        {
+          "title": "No indexable About or Contact URL",
+          "severity": "Medium",
+          "description": "About and Contact exist only as same-page anchors, so neither can rank or be cited independently.",
+          "recommendation": "Create /about as the entity anchor page."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 34,
+      "what_works": [
+        "Genuinely descriptive image alt text",
+        "First-person voice used consistently",
+        "Two project pages carry real metrics (Yume acquisition, College Cost Secrets)"
+      ],
+      "findings": [
+        {
+          "title": "Live unfilled template placeholders on a project page",
+          "severity": "Critical",
+          "description": "/projects/cannabiz-elite renders 8 placeholder blocks including '[N] Clinics onboarded', '[specific constraint]', '[The retrospective...]' and 'Pending clearance'. Also present in production JSON-LD CreativeWork.abstract. Only page affected of 9 checked.",
+          "recommendation": "Finish the case study with real figures or unpublish the page. Add a build guard rejecting [bracket] patterns."
+        },
+        {
+          "title": "Experience and education content never renders",
+          "severity": "High",
+          "description": "config.experience (5 named employers with dates) and config.education (BSc CSIT, IOST/Tribhuvan University) are fully populated with working CMS editors, but no public component consumes them. Only consumer is AboutSection.tsx:20 reading .length to print '5'.",
+          "recommendation": "Build the Journey and Education sections. Highest return per hour in the audit \u2014 the copy already exists."
+        },
+        {
+          "title": "Thin content across all pages",
+          "severity": "High",
+          "description": "Homepage 502 words (headless render: 2,565 chars extracted). Project pages 109-377 words. SEO-STRATEGY.md's '~2,500 words' figure counted script payload and is wrong.",
+          "recommendation": "Convert project pages into metric-bearing case studies using the resume figures."
+        },
+        {
+          "title": "Unsupported numeric claims",
+          "severity": "Medium",
+          "description": "'20+ Products Shipped' against 7 displayed projects; '5 roles \u00b7 2 qualifications' with neither shown.",
+          "recommendation": "Show the evidence or reconcile the numbers."
+        },
+        {
+          "title": "Incorrect regulatory framework cited",
+          "severity": "High",
+          "description": "SCSS Consulting entry claims 'HIPAA compliance and Australian health policies'; Cannabiz Elite tags 'HIPAA compliance'. HIPAA is US law and does not apply to Australian clinics.",
+          "recommendation": "Replace with Privacy Act and AHPRA."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 48,
+      "what_works": [
+        "Exactly one H1 per page",
+        "Descriptive, differentiated project titles",
+        "Canonical tags present and correct"
+      ],
+      "findings": [
+        {
+          "title": "Dead navigation anchors",
+          "severity": "High",
+          "description": "Nav links 'Services' (#expertise) and 'Journey' (#journey) target IDs absent from the DOM. Two of five nav items broken site-wide.",
+          "recommendation": "Ship the sections or remove the links."
+        },
+        {
+          "title": "No location signal in title, description or H1",
+          "severity": "High",
+          "description": "H1 is 'Building products people love to use'. Neither title nor meta description mentions Nepal or Butwal.",
+          "recommendation": "Add Nepal to the title and description; rewrite the H1 to carry role and location."
+        },
+        {
+          "title": "Testimonials render nothing",
+          "severity": "Medium",
+          "description": "TestimonialsSection is mounted in the RSC tree but outputs no testimonial text.",
+          "recommendation": "Populate or remove."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 55,
+      "what_works": [
+        "JSON-LD, single @graph per page, stable @id references \u2014 a good pattern worth keeping",
+        "BreadcrumbList present on project pages"
+      ],
+      "findings": [
+        {
+          "title": "Placeholder text emitted in production JSON-LD",
+          "severity": "Critical",
+          "description": "CreativeWork.abstract on /projects/cannabiz-elite carries the unfilled template text verbatim.",
+          "recommendation": "Fix the source content and guard the builder."
+        },
+        {
+          "title": "addressLocality holds a country",
+          "severity": "Critical",
+          "description": "Person.address.addressLocality is 'Nepal'. Nepal is a country, not a locality, and this discards Butwal \u2014 the one fact that disambiguates him.",
+          "recommendation": "Set addressLocality to Butwal with addressRegion Lumbini Province and addressCountry NP."
+        },
+        {
+          "title": "Person node missing every disambiguating property",
+          "severity": "Medium",
+          "description": "No image, description, alumniOf, worksFor, hasCredential, hasOccupation, nationality, homeLocation or knowsLanguage. sameAs omits the Toptal profile. knowsAbout lists 27 skills, beyond what shipped work evidences.",
+          "recommendation": "Rebuild per findings/schema.md; trim knowsAbout to ~14."
+        },
+        {
+          "title": "/projects drops the Person node",
+          "severity": "Medium",
+          "description": "Emits BreadcrumbList and ItemList but no Person reference, breaking the entity graph on that page.",
+          "recommendation": "Add the Person reference; wrap ItemList in CollectionPage."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 70,
+      "what_works": [
+        "Statically prerendered and served from Vercel edge cache",
+        "next/image with correct sizes attributes",
+        "Brotli compression",
+        "Self-hosted fonts via next/font/local with preload"
+      ],
+      "findings": [
+        {
+          "title": "LCP preload targets the wrong URL",
+          "severity": "High",
+          "description": "layout.tsx preloads /Meghraj.jpg (149KB raw) but the rendered img requests /_next/image?url=%2FMeghraj.jpg&w=... The preload downloads a file the browser never uses and fails to preload the real LCP resource.",
+          "recommendation": "Preload the optimised _next/image URL, or drop the preload and set priority on the Image component."
+        },
+        {
+          "title": "Unoptimised logo",
+          "severity": "Low",
+          "description": "/logo.png is a 211KB PNG.",
+          "recommendation": "Compress and convert to WebP."
+        },
+        {
+          "title": "No field data available",
+          "severity": "Info",
+          "description": "Keyless PageSpeed Insights quota exhausted; CrUX needs an API key. All performance commentary is structural, not measured.",
+          "recommendation": "Add a Google API key."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 38,
+      "what_works": [
+        "Every AI crawler tested returns 200",
+        "Content is server-rendered, so no JS-execution barrier for crawlers",
+        "OG image present"
+      ],
+      "findings": [
+        {
+          "title": "Entity unresolvable",
+          "severity": "Critical",
+          "description": "Brand search returns six unrelated Giri/Meghraj Wikipedia entities plus an unrelated Behance profile. No knowledge panel. Toptal profile does not surface. An AI Overview will not name a person it cannot disambiguate.",
+          "recommendation": "Execute the Phase 3 entity work, then Phase 4 barnacle placement."
+        },
+        {
+          "title": "Absent from the corpora AI answers are built from",
+          "severity": "High",
+          "description": "'Top developers in Nepal' answers are synthesised from Clutch, GoodFirms, TechBehemoths, Twine, Upwork, Truelancer and Nepali listicles. He appears on none of them.",
+          "recommendation": "Work the Phase 4 barnacle list."
+        },
+        {
+          "title": "Low passage citability",
+          "severity": "High",
+          "description": "Marketing copy such as 'Building products people love to use' and 'that's where real magic happens' is unquotable \u2014 no entity, attribute or evidence.",
+          "recommendation": "Rewrite key passages as self-contained claims carrying name, location, credential and a number."
+        },
+        {
+          "title": "llms.txt absent",
+          "severity": "Info",
+          "description": "/llms.txt returns 404.",
+          "recommendation": "Not recommended. Google Search ignores it; the real bottleneck is content that never renders."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 75,
+      "what_works": [
+        "Descriptive alt text throughout",
+        "next/image with responsive srcSet and correct sizes",
+        "Lazy loading below the fold",
+        "OG image works"
+      ],
+      "findings": [
+        {
+          "title": "Oversized source assets",
+          "severity": "Low",
+          "description": "/logo.png 211KB, /Meghraj.jpg 149KB raw.",
+          "recommendation": "Compress; serve WebP/AVIF."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical Fixes",
+        "timeframe": "Week 1",
+        "items": [
+          "Finish or unpublish /projects/cannabiz-elite",
+          "Remove the 'Pending clearance' line",
+          "Decide and execute the .com.np redirect",
+          "Fix the HIPAA / Privacy Act + AHPRA error",
+          "Verify .com in Search Console"
+        ]
+      },
+      {
+        "name": "Phase 2: Render existing content",
+        "timeframe": "Weeks 1-2",
+        "items": [
+          "Build the Journey section from config.experience",
+          "Build the Education block from config.education",
+          "Ship or remove the Services section behind #expertise",
+          "Fix or remove TestimonialsSection",
+          "Link the Toptal credential in body copy",
+          "Fix the LCP preload; compress logo.png",
+          "Update the stale 2024 copyright"
+        ]
+      },
+      {
+        "name": "Phase 3: Entity resolution",
+        "timeframe": "Weeks 2-3",
+        "items": [
+          "Rebuild the Person node per findings/schema.md",
+          "Add Person to /projects; add ProfilePage and CollectionPage",
+          "Guard JSON-LD against placeholder text",
+          "Align name, location and role across Toptal, LinkedIn, GitHub",
+          "Add reciprocal links back to the site"
+        ]
+      },
+      {
+        "name": "Phase 4: Barnacle placement",
+        "timeframe": "Weeks 3-6",
+        "items": [
+          "Twine Butwal pages",
+          "TechBehemoths",
+          "Truelancer",
+          "Freelancer.com",
+          "Clutch freelancer listing plus 2-3 client reviews",
+          "Arc.dev application",
+          "Upwork profile optimisation",
+          "GoodFirms after registering a sole proprietorship",
+          "Editorial outreach to Nepali listicle publishers"
+        ]
+      },
+      {
+        "name": "Phase 5: Long-tail content",
+        "timeframe": "Month 2+",
+        "items": [
+          "/about",
+          "/hire plus two stack spokes",
+          "/blog with three Nepal-intent posts"
+        ]
+      },
+      {
+        "name": "Phase 6: Measurement",
+        "timeframe": "Ongoing",
+        "items": [
+          "Add a Google API key for CrUX and PageSpeed",
+          "Capture an SEO drift baseline",
+          "Track brand SERP, knowledge panel and AI Overview presence"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

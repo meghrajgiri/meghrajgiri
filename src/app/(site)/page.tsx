@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { getAllConfig } from "@/lib/config";
-import { buildPerson, buildWebSite, graph } from "@/lib/schema";
+import { buildPerson, buildProfilePage, buildWebSite, graph } from "@/lib/schema";
 
 const SkillsSection = dynamic(() => import("@/components/sections/SkillsSection").then((m) => ({ default: m.SkillsSection })), { ssr: true });
 const AboutSection = dynamic(() => import("@/components/sections/AboutSection").then((m) => ({ default: m.AboutSection })), { ssr: true });
@@ -12,7 +12,14 @@ const ContactSection = dynamic(() => import("@/components/sections/ContactSectio
 export default async function Home() {
   const config = await getAllConfig();
 
-  const jsonLd = graph([buildPerson(config), buildWebSite(config)]);
+  // `ProfilePage` is what marks this URL as being *about* the person rather than
+  // merely mentioning them — the distinction a search engine needs before it will
+  // attribute a claim to a specific Meghraj.
+  const jsonLd = graph([
+    buildPerson(config),
+    buildWebSite(config),
+    buildProfilePage(config),
+  ]);
 
   return (
     <>

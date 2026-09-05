@@ -38,8 +38,12 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.meghrajgiri.com"),
-  title: "Meghraj Giri - Full Stack Developer",
-  description: "Full Stack Developer specializing in modern web technologies.",
+  // Only a fallback: every public route is inside `(site)`, whose layout generates
+  // metadata from the CMS. This is what /cms and anything outside that group inherits,
+  // and it was left describing the site as it read a year ago.
+  title: "Meghraj Giri — Full Stack Developer in Nepal",
+  description:
+    "Full stack and frontend developer in Butwal, Nepal, building web and mobile products with React, Next.js and React Native.",
   robots: {
     index: true,
     follow: true,
@@ -64,15 +68,14 @@ export default function RootLayout({
       className={`${body.variable} ${display.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <link
-          rel="preload"
-          as="image"
-          href="/Meghraj.jpg"
-          fetchPriority="high"
-        />
-      </head>
-      <body className="font-sans antialiased">
+      {/* Grammarly and similar extensions write attributes onto <body>
+          (`data-gr-ext-installed`, `data-new-gr-c-s-loaded`) before React hydrates,
+          which React reports as a hydration mismatch on every page load for anyone who
+          has one installed. `suppressHydrationWarning` applies one level deep only —
+          it silences attribute differences on this element and nothing below it, so a
+          real mismatch inside the app is still reported. The <html> element already
+          carries it for the same reason, via next-themes. */}
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <Analytics />
         <SpeedInsights />
         <ThemeProvider

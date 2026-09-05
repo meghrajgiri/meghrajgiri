@@ -39,7 +39,11 @@ export function ProjectsSection() {
             href="/projects"
             className="nb nb-sm nb-press focus-ring inline-flex min-h-[44px] items-center bg-brand px-4 text-[15px] font-bold text-[var(--brand-ink)]"
           >
-            All {published.length} projects &rarr;
+            {/* Not "All N projects". The site states 20+ products shipped, and seven
+                case studies are published — so claiming these are *all* of them
+                contradicted the headline stat and made both numbers look invented.
+                They are the selected ones. */}
+            {published.length} case studies &rarr;
           </Link>
         </div>
 

@@ -57,7 +57,67 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    // `/about` sits above the rest of these deliberately: it is the page that answers
+    // "which Meghraj?", and every other entity signal on the site points back at it.
+    {
+      url: `${baseUrl}/about`,
+      lastModified: siteModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/experience`,
+      lastModified: siteModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: siteModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/hire`,
+      lastModified: siteModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: siteModified,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/skills`,
+      lastModified: siteModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
   ];
+
+  // Derived from the same CMS rows the pages render from, so publishing an article or
+  // adding a hire page cannot leave it out of the sitemap. Drafts are excluded for the
+  // same reason they are excluded from the index: an unfinished post that a crawler
+  // finds is worse than one it never sees.
+  const hirePages: MetadataRoute.Sitemap = (config.hire?.pages ?? []).map(
+    (page) => ({
+      url: `${baseUrl}/hire/${page.slug}`,
+      lastModified: siteModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }),
+  );
+
+  const posts: MetadataRoute.Sitemap = (config.blog?.posts ?? [])
+    .filter((post) => !post.draft)
+    .map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: new Date(post.updated ?? post.published),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
 
   const projects =
     config.projects?.projects
@@ -69,5 +129,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
       })) || [];
 
-  return [...staticPages, ...projects];
+  return [...staticPages, ...hirePages, ...posts, ...projects];
 }

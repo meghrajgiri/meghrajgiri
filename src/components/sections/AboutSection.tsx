@@ -11,8 +11,20 @@ import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
  * to a ~60-character measure and putting the numbers in a rail beside it lets someone
  * skim the facts or read the paragraphs, without forcing either.
  */
-export function AboutSection() {
+/**
+ * @param title Overrides the CMS heading. The home page wants the short editorial line
+ *   ("I build products, not just code"); `/about` is the page that has to answer "which
+ *   Meghraj?", so it states the name, the role and the city instead.
+ */
+export function AboutSection({
+  heading = "h2",
+  title,
+}: {
+  heading?: "h1" | "h2";
+  title?: string;
+}) {
   const { about, experience, education } = useSiteConfig();
+  const Heading = heading;
   if (!about) return null;
 
   const paragraphs = Array.isArray(about.description) ? about.description : [];
@@ -29,7 +41,7 @@ export function AboutSection() {
 
         <div className="mt-4 grid gap-10 lg:grid-cols-[1fr_minmax(0,300px)] lg:gap-20">
           <div>
-            <h2 className="max-w-[18ch] text-[2rem] md:text-5xl">{about.title}</h2>
+            <Heading className="max-w-[18ch] text-[2rem] md:text-5xl">{title ?? about.title}</Heading>
             {about.subtitle && (
               <p className="mt-5 max-w-[56ch] text-lg leading-relaxed text-muted-foreground md:mt-6 md:text-xl">
                 {about.subtitle}
@@ -57,11 +69,23 @@ export function AboutSection() {
               </dl>
             )}
 
+            {/* This line used to be a dead claim: it counted five roles and two
+                qualifications that appeared nowhere on the site, which made the
+                numbers beside it look equally unsupported. Now it links to the pages
+                that show the evidence. */}
             {(years > 0 || schools > 0) && (
               <p className="mt-6 font-mono text-[11px] uppercase leading-relaxed tracking-[0.12em] text-muted-foreground">
-                {years > 0 && `${years} roles`}
+                {years > 0 && (
+                  <Link href="/experience" className="focus-ring underline underline-offset-4 hover:text-foreground">
+                    {years} roles
+                  </Link>
+                )}
                 {years > 0 && schools > 0 && " · "}
-                {schools > 0 && `${schools} qualifications`}
+                {schools > 0 && (
+                  <Link href="/about#education" className="focus-ring underline underline-offset-4 hover:text-foreground">
+                    {schools} qualifications
+                  </Link>
+                )}
               </p>
             )}
           </aside>
@@ -77,7 +101,7 @@ export function AboutSection() {
                 </p>
               </div>
               <Link
-                href="/#contact"
+                href="/contact"
                 className="nb nb-press focus-ring inline-flex min-h-[48px] items-center self-start bg-brand px-7 font-bold text-[var(--brand-ink)] lg:self-auto"
               >
                 {about.callToAction.buttonText}
