@@ -34,9 +34,6 @@ interface Project {
   highlights: string[];
 }
 
-/** How many screenshots appear inline before the rest move behind "+N". */
-const PREVIEW_COUNT = 5;
-
 /**
  * The image grid, shared by the grouped and ungrouped galleries.
  *
@@ -113,7 +110,6 @@ export function ProjectDetail({
   imageSizes?: Record<string, ImageSize>;
 }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [galleryOpen, setGalleryOpen] = useState(false);
 
   // Escape closes the topmost layer, and the page behind an overlay must not scroll —
   // neither was handled before, so the lightbox trapped you into clicking the backdrop
@@ -122,19 +118,18 @@ export function ProjectDetail({
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
       if (selectedImage) setSelectedImage(null);
-      else if (galleryOpen) setGalleryOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [selectedImage, galleryOpen]);
+  }, [selectedImage]);
 
   useEffect(() => {
-    const locked = selectedImage !== null || galleryOpen;
+    const locked = selectedImage !== null;
     document.body.style.overflow = locked ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [selectedImage, galleryOpen]);
+  }, [selectedImage]);
 
   const groups = (project.screenshotGroups ?? []).filter(
     (g) => g.images?.length > 0,
@@ -350,155 +345,49 @@ export function ProjectDetail({
           )}
         </div>
 
-        {/* The gallery, as a preview rather than the whole set.
+        {/* The gallery, inline and at each image's own aspect ratio.
 
-            A project carries four to seventeen screenshots, and rendering all of them
-            inline made the images the longest part of the page — the case study is
-            what a reader came for, and it was ending up below a wall of screenshots.
-            Five are shown; the rest live one click away, still grouped. */}
+            A "+N" tile behind a modal kept the page short, but it put the work one
+            click away and cropped the thumbnails square to do it. These screenshots
+            are the evidence behind the case study — they should be readable while
+            reading it, not filed behind an overlay.
+
+            Groups are optional. With none, the flat list renders as one run. */}
         {galleryImages.length > 0 && (
           <div className="space-y-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <h2 className="text-2xl font-bold">
-                {project.screenshotsHeading?.trim() || "A look inside"}
-              </h2>
-              {galleryImages.length > PREVIEW_COUNT && (
-                <button
-                  type="button"
-                  onClick={() => setGalleryOpen(true)}
-                  className="focus-ring text-sm font-semibold underline underline-offset-4 hover:text-foreground"
-                >
-                  View all {galleryImages.length}
-                </button>
-              )}
-            </div>
+            <h2 className="text-2xl font-bold">
+              {project.screenshotsHeading?.trim() || "A look inside"}
+            </h2>
 
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-              {galleryImages.slice(0, PREVIEW_COUNT).map((src, index) => {
-                const isLast = index === PREVIEW_COUNT - 1;
-                const remaining = galleryImages.length - PREVIEW_COUNT;
-                const showOverflow = isLast && remaining > 0;
-
-                return (
-                  <button
-                    key={src}
-                    type="button"
-                    onClick={() =>
-                      showOverflow
-                        ? setGalleryOpen(true)
-                        : setSelectedImage(src)
-                    }
-                    className="focus-ring group relative aspect-square overflow-hidden rounded-xl bg-muted"
-                    aria-label={
-                      showOverflow
-                        ? `View all ${galleryImages.length} images`
-                        : `Open image ${index + 1}`
-                    }
-                  >
-                    {/* Square thumbnails crop on purpose — this is an index, not the
-                        gallery. Nothing is cropped once opened. */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={src}
-                      alt={`${project.title} screenshot ${index + 1}`}
-                      loading="lazy"
-                      className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+            {groups.length > 0 ? (
+              <div className="space-y-12">
+                {groups.map((group) => (
+                  <section key={group.heading} className="space-y-4">
+                    <div>
+                      <h3 className="text-lg font-semibold">{group.heading}</h3>
+                      {group.caption?.trim() && (
+                        <p className="mt-1 max-w-[62ch] text-[15px] text-muted-foreground">
+                          {group.caption}
+                        </p>
+                      )}
+                    </div>
+                    <Masonry
+                      images={group.images}
+                      project={project}
+                      imageSizes={imageSizes}
+                      onSelect={setSelectedImage}
                     />
-                    {showOverflow && (
-                      <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-lg font-bold text-white">
-                        +{remaining}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* All images, grouped, in an overlay. Keeps the organisation without giving
-            the screenshots the whole page. */}
-        {galleryOpen && (
-          <div
-            /* Opaque, not translucent. A blurred backdrop left the article's headings
-               legible behind the images, which read as a rendering fault rather than a
-               layer — the gallery needs to be somewhere, not floating over something. */
-            className="fixed inset-0 z-40 flex flex-col bg-background"
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${project.title} images`}
-          >
-            {/* Sticky header so the title and the way out stay reachable however far
-                down seventeen screenshots you are. */}
-            <header className="sticky top-0 z-10 border-b-2 border-border bg-background">
-              <div className="container mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
-                <div className="min-w-0">
-                  <h2 className="truncate text-lg font-bold md:text-xl">
-                    {project.screenshotsHeading?.trim() || "A look inside"}
-                  </h2>
-                  <p className="mt-0.5 truncate font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-                    {galleryImages.length} images · {project.title}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setGalleryOpen(false)}
-                  className="nb nb-sm nb-press focus-ring inline-flex h-11 shrink-0 items-center gap-2 bg-card px-4 font-bold"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    viewBox="0 0 24 24"
-                    aria-hidden
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                  Close
-                </button>
+                  </section>
+                ))}
               </div>
-            </header>
-
-            <div className="flex-1 overflow-y-auto">
-              <div className="container mx-auto max-w-6xl px-6 py-10">
-                {groups.length > 0 ? (
-                  <div className="space-y-12">
-                    {groups.map((group) => (
-                      <section key={group.heading} className="space-y-4">
-                        <div>
-                          <h3 className="text-lg font-semibold">
-                            {group.heading}
-                          </h3>
-                          {group.caption?.trim() && (
-                            <p className="mt-1 max-w-[62ch] text-[15px] text-muted-foreground">
-                              {group.caption}
-                            </p>
-                          )}
-                        </div>
-                        <Masonry
-                          images={group.images}
-                          project={project}
-                          imageSizes={imageSizes}
-                          onSelect={setSelectedImage}
-                        />
-                      </section>
-                    ))}
-                  </div>
-                ) : (
-                  <Masonry
-                    images={galleryImages}
-                    project={project}
-                    imageSizes={imageSizes}
-                    onSelect={setSelectedImage}
-                  />
-                )}
-              </div>
-            </div>
+            ) : (
+              <Masonry
+                images={galleryImages}
+                project={project}
+                imageSizes={imageSizes}
+                onSelect={setSelectedImage}
+              />
+            )}
           </div>
         )}
 
