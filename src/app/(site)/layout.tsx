@@ -43,8 +43,18 @@ export default async function SiteLayout({
 }) {
   const config = await getAllConfig();
 
+  // `SiteConfigProvider` is a client component, so whatever it is handed is serialised
+  // into the RSC payload of every page under this layout. `pages`, `hire` and `blog`
+  // are read only by server components — and `blog` carries the full Markdown of every
+  // article, so passing the whole object shipped all three posts on every route,
+  // roughly 28KB of HTML that nothing on the page could use.
+  const clientConfig = { ...config };
+  delete clientConfig.pages;
+  delete clientConfig.hire;
+  delete clientConfig.blog;
+
   return (
-    <SiteConfigProvider config={config}>
+    <SiteConfigProvider config={clientConfig}>
       <Navigation />
       <div className="relative min-h-screen bg-background">
           {/* Background effects */}
