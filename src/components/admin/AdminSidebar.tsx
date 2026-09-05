@@ -35,6 +35,9 @@ const configItems = [
   { href: "/cms/config/experience", label: "Experience" },
   { href: "/cms/config/education", label: "Education" },
   { href: "/cms/config/contact", label: "Contact" },
+  { href: "/cms/config/hire", label: "Hire Pages" },
+  { href: "/cms/config/blog", label: "Articles" },
+  { href: "/cms/config/pages", label: "Page Copy / SEO" },
   { href: "/cms/config/metadata", label: "Metadata / SEO" },
   { href: "/cms/config/navigation", label: "Navigation" },
 ];

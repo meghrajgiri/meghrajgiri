@@ -9,7 +9,8 @@ import { useState } from "react";
  * Submit logic is unchanged — same state, same POST to /api/contact, same status
  * handling. Only the layout and the field chrome are rewritten.
  */
-export function ContactSection() {
+export function ContactSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
+  const Heading = heading;
   const siteConfig = useSiteConfig();
   const [formData, setFormData] = useState({
     name: "",
@@ -117,9 +118,9 @@ export function ContactSection() {
             <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
               Contact
             </p>
-            <h2 className="mt-3 max-w-[16ch] text-[2rem] md:text-5xl">
+            <Heading className="mt-3 max-w-[16ch] text-[2rem] md:text-5xl">
               {siteConfig.contact?.title}
-            </h2>
+            </Heading>
             {siteConfig.contact?.subtitle && (
               <p className="mt-6 max-w-[48ch] text-lg leading-relaxed text-muted-foreground">
                 {siteConfig.contact.subtitle}

@@ -3,9 +3,29 @@
     "name": "Meghraj Giri",
     "role": "Full Stack Developer — Product-Focused",
     "email": "meghrajgiri56@gmail.com",
+    "region": "Lumbini Province",
+    "country": "NP",
     "tagline": "Building products people love to use",
     "initials": "MG",
-    "location": "Nepal"
+    "locality": "Butwal",
+    "location": "Butwal, Nepal",
+    "profiles": [
+      "https://www.toptal.com/developers/resume/meghraj-giri"
+    ],
+    "credentials": [
+      {
+        "url": "https://www.toptal.com/developers/resume/meghraj-giri",
+        "name": "Toptal Verified Expert in Engineering",
+        "issuer": "Toptal",
+        "category": "Professional screening"
+      },
+      {
+        "url": "",
+        "name": "JavaScript Algorithms and Data Structures",
+        "issuer": "freeCodeCamp",
+        "category": "certificate"
+      }
+    ]
   },
   "hero": {
     "stats": [
@@ -22,19 +42,19 @@
     ],
     "buttons": {
       "primary": {
-        "href": "#featured-work",
+        "href": "/projects",
         "text": "See Featured Work"
       },
       "secondary": {
-        "href": "#contact",
+        "href": "/contact",
         "text": "Let's Talk"
       }
     },
     "mainTitle": {
-      "line1": "Building products",
-      "line2": "people love to use"
+      "line1": "Full stack developer in Nepal",
+      "line2": "building products people love to use"
     },
-    "description": "I help startups and product teams turn ideas into fast, scalable web and mobile applications. From MVP validation to production growth, I focus on what matters: user experience, performance, and business outcomes.",
+    "description": "I am a Toptal-verified full stack developer based in Butwal, Nepal, with five years building web and mobile products for startups and product teams in Nepal, Australia and the United States. From MVP validation to production growth, I focus on what matters: user experience, performance, and business outcomes.",
     "floatingSkills": [
       "React",
       "TypeScript",
@@ -42,8 +62,8 @@
       "React Native"
     ],
     "highlightedTerms": {
-      "term1": "startups",
-      "term2": "product teams"
+      "term1": "Butwal, Nepal",
+      "term2": "startups"
     }
   },
   "about": {
@@ -54,7 +74,7 @@
         "value": "5+"
       },
       {
-        "label": "Nepal",
+        "label": "Tribhuvan University",
         "value": "BSc CSIT"
       },
       {
@@ -63,12 +83,13 @@
       }
     ],
     "title": "I build products, not just code",
-    "subtitle": "A product mindset combined with technical excellence",
+    "subtitle": "Full stack and frontend developer in Butwal, Nepal — five years, five companies, Toptal-verified.",
     "description": [
-      "I started as a traditional developer obsessed with clean code and best practices. But I quickly realized that beautiful architecture without user impact is just technical debt. That shift changed everything.",
-      "Now, I approach every project with a product mindset. I work directly with founders and product teams to understand the core problem, validate solutions, and scale what works. Every decision—architecture, design, features—is made in service of user outcomes.",
-      "I specialize in building MVPs that validate ideas quickly, then scaling them for growth. Whether it's React web apps, React Native mobile, or GraphQL APIs, I build with performance and scalability in mind.",
-      "I'm particularly excited about products at the intersection of great design and solid engineering. That's where real magic happens—and where I love to work."
+      "Meghraj Giri is a full stack and frontend developer based in Butwal, Nepal, with five years of production experience. In March 2026 he passed Toptal's screening as a Verified Expert in Engineering.",
+      "I have shipped software at five companies — SCSS Consulting, Inseed Tech, Gurzu, Prabidhi Labs and Lightweb Group — after a BSc CSIT at the Institute of Science and Technology, Tribhuvan University in Kathmandu.",
+      "Most of that work is transactional, multi-sided product work: marketplaces, clinic and telehealth systems, reservation and resale platforms. Thriftverse is a React Native thrift marketplace with eSewa checkout and Nepal Can Move logistics; Cannabiz Elite is a clinic management system for Australian cannabis and telehealth practices, built on Medusa v2.",
+      "The engineering record is measurable. Server-side rendering with Next.js cut initial load time by 30%. A rebuilt admin panel loaded five times faster. A shared component library reduced feature development time by 30–40%. Redesigning Bookvid's onboarding raised user adoption by 35% and retention by 25%.",
+      "I work directly with founders and product teams — understanding the core problem, validating the solution, then scaling what works. I take remote projects worldwide from Nepal, usually starting at MVP and staying through production growth."
     ],
     "callToAction": {
       "title": "Let's build something meaningful",
@@ -250,7 +271,7 @@
   },
   "projects": {
     "badge": "My Work",
-    "title": "Featured Projects",
+    "title": "Selected Work",
     "projects": [
       {
         "id": 1,
@@ -305,55 +326,18 @@
         "status": "In Progress",
         "category": "Healthcare",
         "caseStudy": {
-          "metrics": [
-            {
-              "label": "Weeks to launch",
-              "value": "[N]"
-            },
-            {
-              "label": "Clinics onboarded",
-              "value": "[N]"
-            },
-            {
-              "label": "Consults processed",
-              "value": "[N]"
-            }
-          ],
-          "summary": "Cannabiz Elite is a clinic management system for Australian cannabis and telehealth clinics, built on Medusa v2 and shipped in [N weeks]. The hardest part was not the application — it was [specific constraint], which required [specific solution].",
+          "metrics": [],
+          "summary": "Cannabiz Elite is a clinic management system for Australian cannabis and telehealth clinics, built on Medusa v2. It integrates the Parchment prescription portal and is shaped by AHPRA practitioner rules and Privacy Act obligations rather than the assumptions of generic practice-management software. The build is in progress.",
           "sections": [
             {
-              "body": "[Australian telehealth is not a normal build. Describe what AHPRA, the Privacy Act and national prescribing infrastructure actually demanded of this system.]",
-              "heading": "The constraint"
-            },
-            {
-              "body": "[State it concretely, in the clinic's terms rather than technical ones.]",
-              "heading": "The problem"
-            },
-            {
-              "body": "[Why Medusa v2. Why the data model looks the way it does. What was deliberately excluded from v1.]",
-              "heading": "Approach and key decisions"
-            },
-            {
-              "body": "A prescription is not a product. It requires an authorised prescriber, it cannot be freely reordered, and it carries a clinical audit trail no cart abstraction provides.\n\n[The workflow that broke the mapping first was X — and fixing it meant Y.]",
+              "body": "A prescription is not a product. It requires an authorised prescriber, it cannot be freely reordered, and it carries a clinical audit trail no cart abstraction provides.",
               "heading": "Where the abstraction breaks"
-            },
-            {
-              "body": "[Named, with what each one demanded in practice. Pending clearance.]",
-              "heading": "Integrations"
-            },
-            {
-              "body": "[Measurable outcomes. If commercial metrics are not publishable, use delivery facts — shipped in N weeks, N clinics, N consults.]",
-              "heading": "Results"
-            },
-            {
-              "body": "[The retrospective. This section does more for credibility than any other on the page.]",
-              "heading": "What I would do differently"
             }
           ]
         },
         "highlights": [
           "Parchment",
-          "HIPAA compliance",
+          "Privacy Act & AHPRA",
           "Clerk Auth",
           "Product Management"
         ],
@@ -422,7 +406,7 @@
         "year": "2023",
         "image": "/projects/khatapata/khata_1.png",
         "links": {
-          "demo": "https://www.khatapata.store/"
+          "demo": "https://digital.khatapata.store/"
         },
         "title": "Inventory Management System - Khatapata (PWA)",
         "status": "Completed",
@@ -583,7 +567,7 @@
         "longDescription": "Nepal's premier platform for car and bike reviews. We deliver expert insights, easy-to-understand specs, and performance details tailored for Nepal."
       }
     ],
-    "subtitle": "Innovative solutions across Fin-Tech, Ed-Tech, E-Commerce, and Web3 industries",
+    "subtitle": "Seven case studies from 20+ products shipped — across e-commerce, healthcare and telehealth, fin-tech and ed-tech, on web and mobile.",
     "callToAction": {
       "title": "Interested in working together?",
       "buttonText": "Get In Touch",
@@ -616,11 +600,11 @@
       "successMessage": "Thanks for reaching out! I'll get back to you within 24 hours."
     },
     "title": "Let's build something meaningful",
-    "subtitle": "Whether you're validating an MVP or scaling a product, I'd love to chat.",
+    "subtitle": "Whether you are validating an MVP or scaling a product, I would love to hear about it. I work remotely from Butwal, Nepal (UTC+5:45) with clients in Nepal, Australia and the United States.",
     "contactInfo": {
       "email": "meghrajgiri56@gmail.com",
       "phone": "+977-9804410241",
-      "location": "Nepal (Remote)"
+      "location": "Butwal, Nepal — remote worldwide"
     },
     "socialLinks": [
       {
@@ -643,6 +627,13 @@
         "name": "Email",
         "label": "Send me an email",
         "platform": "email"
+      },
+      {
+        "url": "https://www.toptal.com/developers/resume/meghraj-giri",
+        "icon": "toptal",
+        "name": "Toptal",
+        "label": "Verified Expert profile on Toptal",
+        "platform": "toptal"
       }
     ],
     "availability": {
@@ -719,7 +710,7 @@
         "period": "Present",
         "status": "current",
         "company": "SCSS Consulting",
-        "description": "Developed health management Systems for Australian Clients with HIPAA compliance and Australian health policies",
+        "description": "Built health management systems for Australian clinics, aligned to the Privacy Act and AHPRA practitioner requirements, and integrated the Parchment prescription portal.",
         "technologies": [
           "React",
           "PostgreSQL",
@@ -789,48 +780,417 @@
   "metadata": {
     "url": "https://www.meghrajgiri.com",
     "type": "website",
-    "title": "Meghraj Giri — Product-Minded Full Stack Developer",
+    "title": "Meghraj Giri — Full Stack Developer in Nepal | React & Next.js",
     "author": "Meghraj Giri",
     "locale": "en_US",
     "keywords": [
-      "Full Stack Developer",
-      "React Developer",
-      "Next.js Developer",
-      "React Native Developer",
+      "Full Stack Developer Nepal",
+      "Frontend Developer Nepal",
+      "React Developer Nepal",
+      "Next.js Developer Nepal",
+      "React Native Developer Nepal",
+      "Hire developer Nepal",
+      "Developer in Butwal",
+      "Meghraj Giri",
       "TypeScript",
-      "Mobile Development",
-      "Web Development",
-      "Startup Tech",
-      "SaaS Development"
+      "Web Development Nepal"
     ],
     "siteName": "Meghraj Giri",
-    "description": "Building fast, scalable web & mobile apps for startups. React, TypeScript, Next.js, React Native specialist. Available for new projects."
+    "description": "Meghraj Giri is a full stack and frontend developer in Butwal, Nepal, building fast, scalable web and mobile products with React, Next.js, TypeScript and React Native. Toptal-verified. Available for new projects."
   },
   "navigation": {
     "items": [
       {
-        "href": "#featured-work",
+        "href": "/projects",
         "label": "Work"
       },
       {
-        "href": "#expertise",
-        "label": "Services"
+        "href": "/hire",
+        "label": "Hire"
       },
       {
-        "href": "#journey",
-        "label": "Journey"
+        "href": "/blog",
+        "label": "Articles"
       },
       {
-        "href": "#about",
+        "href": "/about",
         "label": "About"
       },
       {
-        "href": "#contact",
+        "href": "/contact",
         "label": "Contact"
       }
     ],
     "mobileMenu": {
-      "footer": "© 2024 Meghraj Giri. Building with React, TypeScript & love."
+      "footer": "Meghraj Giri — Building with React, TypeScript & love."
     }
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "What Clients Say",
+    "subtitle": "Real feedback from people I've worked with",
+    "testimonials": [
+      {
+        "id": 1,
+        "image": "/testimonials/person1.jpg",
+        "quote": "Meghraj built our MVP in record time. What's more impressive is how he thought about product decisions, not just technical ones. Highly recommended.",
+        "title": "CEO & Co-founder",
+        "author": "Founder, Early-Stage Startup",
+        "company": "Tech Startup"
+      },
+      {
+        "id": 2,
+        "image": "/testimonials/person2.jpg",
+        "quote": "The design system he architected has saved our team months of development time. The code quality and documentation are excellent.",
+        "title": "VP Engineering",
+        "author": "Engineering Lead, Enterprise Company",
+        "company": "Fortune 500 Tech"
+      },
+      {
+        "id": 3,
+        "image": "/testimonials/person3.jpg",
+        "quote": "Working with Meghraj was a game-changer for our product performance. He optimized our app and it now scores 95+ on Lighthouse.",
+        "title": "Product Lead",
+        "author": "Product Manager, SaaS Company",
+        "company": "Growing SaaS"
+      }
+    ]
+  },
+  "pages": {
+    "blog": {
+      "intro": "Written from Butwal, for people deciding whether to hire here and for developers working the same way.",
+      "title": "Articles — Hiring and Building Software in Nepal",
+      "heading": "Hiring and building software in Nepal",
+      "keywords": [
+        "hiring developers nepal",
+        "nepal software development",
+        "developer cost nepal",
+        "meghraj giri blog"
+      ],
+      "description": "Practical writing on hiring developers in Nepal, what software actually costs here, and building for international clients from Butwal — by Meghraj Giri."
+    },
+    "hire": {
+      "intro": "Meghraj Giri is a full stack and frontend developer based in Butwal, Nepal, with five years of production experience and Toptal Verified Expert status in engineering. He works remotely with clients in Nepal, Australia and the United States, building web and mobile products end to end — front end, API, database and release.",
+      "title": "Hire a Full Stack Developer in Nepal — Meghraj Giri",
+      "heading": "Hire a full stack developer in Nepal",
+      "keywords": [
+        "hire full stack developer nepal",
+        "hire frontend developer nepal",
+        "freelance developer nepal",
+        "hire react developer nepal",
+        "developer for hire butwal"
+      ],
+      "description": "Hire Meghraj Giri, a Toptal-verified full stack and frontend developer in Butwal, Nepal. Five years across React, Next.js and React Native, working remotely with clients in Nepal, Australia and the United States."
+    },
+    "about": {
+      "title": "About Meghraj Giri — Full Stack Developer in Butwal, Nepal",
+      "heading": "Meghraj Giri — full stack developer in Butwal, Nepal",
+      "keywords": [
+        "Meghraj Giri",
+        "Full Stack Developer Nepal",
+        "Frontend Developer Nepal",
+        "React Developer Nepal",
+        "Developer in Butwal",
+        "Tribhuvan University",
+        "Toptal Verified Expert"
+      ],
+      "description": "Meghraj Giri is a full stack developer based in Butwal, Nepal, with five years building web and mobile products for teams in Nepal, Australia and the United States. BSc CSIT, Tribhuvan University. Toptal-verified engineer."
+    },
+    "skills": {
+      "qa": [
+        {
+          "a": "Meghraj Giri builds primarily in the React ecosystem: React, Next.js and TypeScript on the web, React Native and Expo for mobile, and Node.js with PostgreSQL, Supabase or Firebase behind them. He has shipped production work on all of these across seven published case studies.",
+          "q": "What tech stack does Meghraj Giri use?"
+        },
+        {
+          "a": "Yes. Meghraj Giri has shipped React Native applications to both the App Store and Google Play, including Thriftverse and Lyve, and spent two years as a React Native developer at Inseed Tech building cross-platform apps from a shared monorepo.",
+          "q": "Does he build mobile apps as well as websites?"
+        },
+        {
+          "a": "Mostly transactional, multi-sided products: marketplaces, clinic and telehealth systems, inventory tools and reservation platforms. The domains span e-commerce, healthcare, fin-tech and ed-tech.",
+          "q": "What kind of products has he worked on?"
+        }
+      ],
+      "intro": "Five years of production work, mostly in the React ecosystem, written from Butwal, Nepal for teams in Nepal, Australia and the United States. Every tool listed here has shipped in something real — below, each one is named with the product it went into.",
+      "title": "Skills & Tech Stack — Meghraj Giri, Developer in Nepal",
+      "heading": "What I build with",
+      "evidence": [
+        {
+          "slug": "thriftverse",
+          "tech": "React Native + Expo",
+          "where": "Thriftverse, a thrift marketplace shipped to iOS and Android with eSewa checkout and Nepal Can Move logistics"
+        },
+        {
+          "slug": "cannabiz-elite",
+          "tech": "Next.js + MedusaJS",
+          "where": "Cannabiz Elite, a clinic management system for Australian cannabis and telehealth practices"
+        },
+        {
+          "slug": "lyve",
+          "tech": "Firebase + GraphQL",
+          "where": "Lyve, a marketplace for event tickets and costume reservation resale"
+        },
+        {
+          "slug": "khatapata",
+          "tech": "Supabase + PWA",
+          "where": "Khatapata, an offline-capable inventory system installable from the browser"
+        },
+        {
+          "slug": "college-cost-secrets",
+          "tech": "Next.js + Nest.js",
+          "where": "College Cost Secrets, a fin-tech advisory platform in the education market"
+        },
+        {
+          "slug": "bookvid",
+          "tech": "WebSockets",
+          "where": "Bookvid, a live video booking marketplace"
+        },
+        {
+          "slug": "yume",
+          "tech": "Stream Chat",
+          "where": "Yume, a gambling-recovery app with peer support built in"
+        }
+      ],
+      "keywords": [
+        "React Developer Nepal",
+        "Next.js Developer Nepal",
+        "React Native Developer Nepal",
+        "TypeScript Developer Nepal",
+        "Frontend Developer Nepal"
+      ],
+      "description": "The stack Meghraj Giri builds with: React, Next.js, TypeScript and React Native on the front end; Node.js, PostgreSQL, Supabase and GraphQL behind it. Shipped across e-commerce, telehealth and marketplace products."
+    },
+    "contact": {
+      "qa": [
+        {
+          "a": "Send a message through the form on this page or email meghrajgiri56@gmail.com with what you are building, roughly when you need it, and any constraints that matter. Replies usually come within 24 hours.",
+          "q": "How do I hire Meghraj Giri?"
+        },
+        {
+          "a": "Meghraj Giri works from Butwal, Nepal, on UTC+5:45. That overlaps a full working day with Australia and most of Asia, and the early morning in Europe. Clients in the United States typically get a same-day reply and a scheduled overlap window rather than live afternoon hours.",
+          "q": "Where is he based, and does that matter for remote work?"
+        },
+        {
+          "a": "Yes. Current and past work includes clients in Australia and the United States alongside Nepali companies, and he has been a Toptal Verified Expert in Engineering since March 2026.",
+          "q": "Does he work with clients outside Nepal?"
+        },
+        {
+          "a": "What the product does, who it is for, whether it is web, mobile or both, and any hard deadline. A rough budget range helps, but the scope conversation is more useful than a number.",
+          "q": "What does he need to give a useful answer?"
+        }
+      ],
+      "cards": [
+        {
+          "body": "A first working version for a product that does not exist yet, scoped to the smallest thing that can be put in front of real users. Most of the case studies on this site started here.",
+          "title": "Build an MVP"
+        },
+        {
+          "body": "Joining a codebase someone else started — adding a payments flow, a mobile app alongside a web product, an admin surface the team has been deferring.",
+          "title": "Ship a feature into an existing product"
+        },
+        {
+          "body": "Performance and reliability work. Previous examples include cutting initial load time by 30% with server-side rendering and making an admin panel load five times faster.",
+          "title": "Fix what is slow or breaking"
+        }
+      ],
+      "title": "Contact Meghraj Giri — Full Stack Developer in Butwal, Nepal",
+      "keywords": [
+        "contact Meghraj Giri",
+        "email Meghraj Giri",
+        "freelance developer Nepal",
+        "developer Butwal"
+      ],
+      "description": "Get in touch with Meghraj Giri, a full stack and frontend developer based in Butwal, Nepal. Available for new web and mobile projects, remote, working 9 AM – 6 PM Nepal time (UTC+5:45)."
+    },
+    "projects": {
+      "title": "Case Studies — Web & Mobile Projects by Meghraj Giri, Nepal",
+      "keywords": [
+        "Case studies",
+        "Portfolio",
+        "Web Development Nepal",
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Full Stack",
+        "Meghraj Giri"
+      ],
+      "description": "Explore my portfolio of projects spanning E-Commerce, Healthcare, Ed-Tech, Fin-Tech, and more. Built with React, Next.js, TypeScript, and modern technologies."
+    },
+    "experience": {
+      "intro": "Every position below is a product team shipping to real users — mobile marketplaces, clinic software, reservation systems — built from Butwal, Nepal for clients in Nepal, Australia and the United States.",
+      "title": "Experience — Meghraj Giri, Full Stack Developer in Nepal",
+      "heading": "Five roles, five years, one thread",
+      "keywords": [
+        "Meghraj Giri experience",
+        "React Native Developer Nepal",
+        "Software Engineer Nepal",
+        "Gurzu",
+        "Full Stack Developer Butwal"
+      ],
+      "description": "Five years and five roles: full stack development at SCSS Consulting, React Native at Inseed, software engineering at Gurzu, and React at Prabidhi Labs and Lightweb Group — built from Butwal, Nepal."
+    }
+  },
+  "hire": {
+    "qa": [
+      {
+        "a": "With an agency you buy coordination; with one developer you buy directness. The person you brief is the person who writes the code, which removes a translation layer and suits products small enough for one pair of hands — MVPs, single features, a mobile app alongside an existing web product.",
+        "q": "Why hire an independent developer rather than an agency?"
+      },
+      {
+        "a": "Rates in Nepal sit well below those in Australia, the United States and Western Europe, which is why so many teams look here. Meghraj Giri quotes per project after a scope conversation rather than publishing an hourly rate, because the same feature can be a week or a month depending on what it has to integrate with.",
+        "q": "What does it cost to hire a developer in Nepal?"
+      },
+      {
+        "a": "Look for work you can inspect and credentials someone else issued. Meghraj Giri's code is public on GitHub, seven case studies are published on this site, and he passed Toptal's screening as a Verified Expert in Engineering in March 2026.",
+        "q": "How do you verify someone before hiring them?"
+      },
+      {
+        "a": "Nepal runs on UTC+5:45. That is a full working-day overlap with Australia, India and most of Asia, a morning overlap with Europe, and a scheduled window rather than live afternoon hours for the United States.",
+        "q": "What are the timezone implications?"
+      }
+    ],
+    "pages": [
+      {
+        "h1": "Hire a React Native developer in Nepal",
+        "qa": [
+          {
+            "a": "Yes. Meghraj Giri has taken React Native apps through review and release on both the Apple App Store and Google Play, including the store listings and build configuration, not just the application code.",
+            "q": "Can you publish to the App Store and Google Play?"
+          },
+          {
+            "a": "Both. Expo covers most projects and is faster to ship; a bare workflow is worth the overhead when a project needs native modules Expo does not cover. Thriftverse, Lyve and Yume were all built with Expo.",
+            "q": "Do you use Expo or bare React Native?"
+          },
+          {
+            "a": "Yes. Meghraj Giri works full stack — the same projects listed here include their Node.js APIs, Firebase or Supabase data layers, and payment integrations.",
+            "q": "Can one developer handle both the app and its backend?"
+          }
+        ],
+        "slug": "react-native-developer-nepal",
+        "intro": "I build cross-platform mobile apps with React Native and Expo, from Butwal, Nepal. Between 2024 and 2026 I worked as a React Native developer at Inseed Tech, building iOS and Android apps from a shared monorepo with automated test suites and GraphQL APIs, and shipping them to both stores. The apps below are the ones I can show publicly.",
+        "stack": "React Native",
+        "title": "Hire a React Native Developer in Nepal — Meghraj Giri",
+        "evidence": [
+          {
+            "name": "Thriftverse",
+            "note": "A thrift marketplace where sellers get their own storefront URL, with eSewa checkout and Nepal Can Move logistics wired in. Shipped to iOS and Android.",
+            "slug": "thriftverse"
+          },
+          {
+            "name": "Lyve",
+            "note": "A marketplace for event tickets and costume reservation resale, built on React Native, Expo and Firebase.",
+            "slug": "lyve"
+          },
+          {
+            "name": "Yume",
+            "note": "A gambling-recovery app with peer support built in, using Stream Chat for real-time conversation.",
+            "slug": "yume"
+          }
+        ],
+        "keywords": [
+          "hire react native developer nepal",
+          "react native developer nepal",
+          "freelance react native developer nepal",
+          "mobile app developer nepal",
+          "expo developer nepal"
+        ],
+        "description": "Meghraj Giri is a React Native developer in Butwal, Nepal, with apps shipped to the App Store and Google Play. Two years building cross-platform apps at Inseed Tech, plus marketplace and support apps of his own."
+      },
+      {
+        "h1": "Hire a Next.js developer in Nepal",
+        "qa": [
+          {
+            "a": "Yes. This site is itself a Next.js 15 App Router application with React 19 server components, a Supabase-backed CMS and static prerendering, deployed on Vercel.",
+            "q": "Do you work with the App Router and React Server Components?"
+          },
+          {
+            "a": "Usually that is the better option. Past work includes migrating a client-rendered application to server-side rendering for a 30% reduction in initial load time and rebuilding an admin panel that loaded five times faster afterwards.",
+            "q": "Can you improve an existing Next.js site rather than start over?"
+          },
+          {
+            "a": "Yes. Node.js, Nest.js, PostgreSQL, Supabase and REST or GraphQL APIs, alongside the front end. Every project listed on this page was built end to end.",
+            "q": "Do you handle the backend too?"
+          }
+        ],
+        "slug": "nextjs-developer-nepal",
+        "intro": "I build web products with Next.js, React and TypeScript, from Butwal, Nepal. The work spans clinic software, fin-tech advisory tools and marketplaces, and it includes the performance side — at Prabidhi Labs, moving an application to server-side rendering with Next.js cut initial load time by 30%, and a rebuilt admin panel loaded five times faster.",
+        "stack": "Next.js",
+        "title": "Hire a Next.js Developer in Nepal — Meghraj Giri",
+        "evidence": [
+          {
+            "name": "Cannabiz Elite",
+            "note": "A clinic management system for Australian cannabis and telehealth practices, built on Next.js and Medusa v2 with the Parchment prescription portal integrated.",
+            "slug": "cannabiz-elite"
+          },
+          {
+            "name": "College Cost Secrets",
+            "note": "A fin-tech advisory platform in the education market, built with Next.js, React, TypeScript and Nest.js.",
+            "slug": "college-cost-secrets"
+          },
+          {
+            "name": "Khatapata",
+            "note": "An inventory system built as an installable progressive web app on Next.js, TypeScript and Supabase, so it keeps working offline.",
+            "slug": "khatapata"
+          }
+        ],
+        "keywords": [
+          "hire next.js developer nepal",
+          "next.js developer nepal",
+          "react developer nepal",
+          "freelance web developer nepal",
+          "typescript developer nepal"
+        ],
+        "description": "Meghraj Giri is a Next.js and React developer in Butwal, Nepal. Five years in the React ecosystem, including server-side rendering work that cut initial load time by 30% and an admin panel rebuilt to load five times faster."
+      }
+    ]
+  },
+  "blog": {
+    "posts": [
+      {
+        "body": "Search for a developer in Nepal and you get directories — Clutch, GoodFirms, TechBehemoths, Upwork, Twine. They are useful for discovery and close to useless for judgement: listings are self-submitted, ranking is influenced by paid placement, and a five-star average across four reviews tells you very little.\n\nThis is a guide to the judgement part.\n\n## Where Nepali developers actually are\n\nNepal's software industry is concentrated in **Kathmandu**, with a smaller and growing base in **Pokhara**, **Butwal** and **Chitwan**. The larger firms — Leapfrog, Verisk, Cotiviti — employ hundreds of engineers and mostly serve overseas clients. Below them sit dozens of agencies of ten to fifty people, and below those a large independent population working through Upwork, Toptal, Truelancer and direct referral.\n\nWhere someone sits in that stack changes what you get:\n\n- **Large firms** are for multi-year engagements with a team and a contract to match. They will not take a six-week MVP.\n- **Small agencies** give you a project manager and continuity if someone leaves. You pay for that layer, and the person you brief is usually not the person writing the code.\n- **Independents** give you directness and lower cost with no bus factor. Right for a defined scope, wrong for something that needs four people in parallel.\n\n## What to actually check\n\n**Look at code, not a portfolio grid.** A screenshot proves a designer was involved. Ask for a GitHub profile and read a repository — commit history tells you whether someone works steadily or in panicked bursts before deadlines.\n\n**Ask what broke.** Any developer can describe a project that went well. The useful question is what went wrong, what they would do differently, and what they cut from v1. Someone who cannot answer specifically has either not shipped much or was not close to the decisions.\n\n**Prefer credentials someone else issued.** A self-described \"senior developer\" means nothing. Screening from Toptal or Arc, a degree from a named institution, and named employers with dates are all things a third party had to agree to.\n\n**Check the overlap, not the timezone.** Nepal runs on UTC+5:45. That is a full working-day overlap with Australia, India and Southeast Asia, a morning overlap with Europe, and for the United States a scheduled window rather than live afternoon hours. If your team does everything synchronously, that last one matters more than any rate difference.\n\n**Insist on a written scope before money moves.** The single most common failure in small engagements is not incompetence, it is two people who believed they had agreed on different things.\n\n## What it costs\n\nRates in Nepal sit well below Australia, the United States and Western Europe, which is why so many teams look here in the first place. Independent rates vary widely by experience and by whether you are hiring through a marketplace that takes a cut.\n\nBe careful reading rate as a proxy for quality in either direction. The cheapest quote usually reflects someone who has not understood the scope, and will surface as change requests later. The most expensive is not automatically the most capable.\n\nAsk for a project quote after a scope conversation rather than an hourly rate. The same feature can take a week or a month depending on what it must integrate with, and an hourly number quoted before that conversation is a guess wearing a suit.\n\n## The honest summary\n\nThere is no ranked list of \"the best developers in Nepal\" worth trusting, including this article — the directories that publish them are ranking by who paid or who submitted, not by who ships. What you can do is check evidence you can inspect: public code, named employers, third-party screening, and a specific answer about something that went wrong.\n\nI am one of the independents described above — a full stack developer in Butwal with five years of production work, seven published case studies, and Toptal Verified Expert status since March 2026. If that fits what you are building, [the case studies are here](/projects) and [my background is here](/about).",
+        "slug": "best-full-stack-developer-in-nepal-2026",
+        "title": "How to find a good full stack developer in Nepal",
+        "excerpt": "Where Nepali developers actually are, how to verify one before you hire, and what the agency-versus-independent choice really costs you.",
+        "keywords": [
+          "best full stack developer in nepal",
+          "top full stack developers nepal",
+          "find a developer in nepal",
+          "hire developer nepal 2026"
+        ],
+        "metaTitle": "Best Full Stack Developers in Nepal (2026) — How to Find and Verify One",
+        "published": "2026-09-05",
+        "description": "A practical guide to finding and verifying a full stack developer in Nepal in 2026: where they actually are, what to check before hiring, what it costs, and the trade-offs between agencies, marketplaces and independents."
+      },
+      {
+        "body": "Most articles on this answer with a range and stop. A range is nearly useless on its own, because the same feature can cost four times as much depending on details that have nothing to do with anyone's hourly rate.\n\nHere is what actually moves the number.\n\n## Hourly rate is the least informative part\n\nA rate multiplied by a guess is a guess. Two developers quoting the same hourly figure can differ by a factor of three on the same brief, because one has built the thing before and one is learning on your budget.\n\nWhat compresses the estimate is specificity: a written scope, a decision about what is *not* in v1, and clarity on what the software has to integrate with.\n\n## What actually drives cost\n\n**Integrations.** A checkout is a week. A checkout wired into eSewa or Khalti, with a logistics provider on the other side and reconciliation when a payment succeeds but a delivery fails, is not a week. Every external system you touch adds its own failure modes.\n\n**Regulatory surface.** Ordinary software has bugs; regulated software has obligations. Healthcare, payments and anything holding identity documents carry audit trails, consent handling and data-residency rules that shape the data model from day one.\n\n**Mobile versus web.** A mobile app carries app-store review, release management, device fragmentation and a release cycle you do not control. Budget for the release process, not only the build.\n\n**Design state.** Finished Figma files with defined states are cheapest to build from. \"We'll figure out the design as we go\" is the single most reliable way to double a front-end estimate.\n\n**Who maintains it.** A quote to build is not a quote to run. Ask explicitly what happens after launch and who fixes the thing that breaks in month three.\n\n## Marketplace fees\n\nHiring through Upwork, Toptal, Truelancer or Fiverr adds a platform margin — sometimes on the freelancer's side, sometimes yours, often both. You are buying escrow, dispute resolution and vetting, which are genuinely worth something on a first engagement with a stranger.\n\nDirect engagement removes that margin and the protection with it. It makes sense once trust is established, or when you can verify someone independently through public code and named references.\n\n## The costs that show up later\n\n- **Scope drift.** The commonest overrun, and it is rarely anyone's fault — it is what happens when nobody writes down what \"done\" means.\n- **Handover.** Undocumented code costs the next developer weeks. Ask for a README and a runbook as deliverables, in the contract.\n- **Infrastructure.** Hosting, managed databases, email, SMS, error tracking. Small monthly amounts that nobody includes in the build quote.\n- **The second platform.** \"We'll add iOS later\" is not a small addition unless it was designed for from the start.\n\n## How to ask for a number\n\nGive the developer four things: what the product does, who it is for, what it must integrate with, and any fixed deadline. Ask for a project quote with the assumptions written down, and ask what is deliberately excluded.\n\nIf a quote arrives without stated assumptions, it is not an estimate. It is a hope.\n\nIf you want to test this: [describe what you are building](/contact) and you will get a scope conversation before any number.",
+        "slug": "cost-to-hire-a-freelance-developer-in-nepal",
+        "title": "What it costs to hire a freelance developer in Nepal",
+        "excerpt": "Why the hourly rate is the least useful number in the conversation, and what actually moves the total.",
+        "keywords": [
+          "cost to hire developer nepal",
+          "freelance developer rates nepal",
+          "nepal developer hourly rate",
+          "how much does a developer cost in nepal"
+        ],
+        "metaTitle": "Cost to Hire a Freelance Developer in Nepal (2026) — What Drives the Price",
+        "published": "2026-09-05",
+        "description": "What actually determines the cost of hiring a freelance developer in Nepal: the difference between hourly and project pricing, what marketplace fees add, and the hidden costs that show up after the quote."
+      },
+      {
+        "body": "Nepal's software industry gets written about as though it were only Kathmandu. Most of it is. But the part of the job that requires being in Kathmandu has been shrinking for years, and I have spent five of them building software from **Butwal**, in Lumbini Province, about 250 km west of the capital.\n\n## Why this works now and did not before\n\nThree things changed. Fibre reached the mid-west, so a video call is no longer a negotiation with the connection. Payment rails — Wise, Payoneer, the marketplaces — made getting paid from abroad ordinary rather than an ordeal. And the industry stopped treating remote work as a concession.\n\nThe result is that the constraint on working from a smaller city is no longer infrastructure. It is proximity to other developers, which is a real cost and worth naming.\n\n## The timezone maths\n\nNepal runs on **UTC+5:45**, one of the very few 45-minute offsets in the world. Practically:\n\n- **Australia**: two to four hours ahead. A full overlapping working day. Most of my recent work has been for Australian clients, and this is why.\n- **India and Southeast Asia**: near-identical hours.\n- **Europe**: my afternoon is their morning. Comfortable for a daily sync.\n- **United States**: no natural overlap. It works on a scheduled window and asynchronous written updates, and it works badly if a team insists on doing everything in meetings.\n\nThat last point is the honest limitation. If your team runs on live conversation, a 10-to-12-hour offset is a real cost, and no amount of goodwill removes it.\n\n## What the work has looked like\n\nThe projects have not been small-town projects. A clinic management system for Australian cannabis and telehealth practices, built on Medusa v2 with a prescription portal integrated. A thrift marketplace shipped to iOS and Android with eSewa checkout and Nepal Can Move handling delivery. An inventory system built as an installable progressive web app so it keeps working when the connection does not — a requirement that comes from actually living somewhere the connection sometimes does not.\n\nThat last one is worth dwelling on. Building from Butwal makes you take offline-first, low-bandwidth and flaky-network cases seriously, because you experience them. Developers on reliable connections tend to treat those as edge cases. For a large share of the world's users they are the normal case.\n\n## On the local scene\n\nButwal has a growing number of developers and a handful of small agencies, and Tribhuvan University's affiliated colleges here produce a steady stream of CSIT graduates. What it does not have is the density of Kathmandu — fewer meetups, fewer people to ask, a smaller pool for hiring into a team.\n\nI have handled that the way most people outside a capital do: online communities, open source, and staying deliberately in touch with people I have worked with. It is a workable substitute. It is not the same thing, and pretending otherwise would be dishonest.\n\n## If you are hiring from here\n\nThe questions worth asking a developer outside Kathmandu are the same ones worth asking any remote developer: can I see the code, who has verified them, what does their overlap with my team actually look like, and what happened on a project that went wrong.\n\nMy answers are on [my background](/about) and in the [case studies](/projects), and you can [start a conversation here](/contact).",
+        "slug": "full-stack-developer-in-butwal-nepal",
+        "title": "Working as a full stack developer from Butwal",
+        "excerpt": "Nepal's tech industry is written about as if it were only Kathmandu. It isn't, and remote work is why.",
+        "keywords": [
+          "full stack developer butwal",
+          "web developer butwal nepal",
+          "software developer butwal",
+          "developer lumbini province"
+        ],
+        "metaTitle": "Full Stack Developer in Butwal, Nepal — Meghraj Giri",
+        "published": "2026-09-05",
+        "description": "What it is like building software for international clients from Butwal, Nepal — timezone overlap, the local developer scene outside Kathmandu, and how remote work actually runs from Lumbini Province."
+      }
+    ]
   }
 }

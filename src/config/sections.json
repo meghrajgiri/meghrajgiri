@@ -1,0 +1,36 @@
+{
+  "_comment": "The single source of truth for site_config section names. Three places used to keep their own copy — getAllConfig, the /api/config allowlist and the snapshot script — and adding a section meant remembering all three. Missing one silently broke its CMS editor with 'Invalid config key' while the public page rendered fine. Edit here only.",
+  "_rendered": "Sections getAllConfig fetches and the snapshot commits. The table also holds rows from an earlier version of the site (featured_work, journey, expertise, process) that nothing reads; leaving them out keeps them from being serialised into every page's payload.",
+  "rendered": [
+    "personal",
+    "hero",
+    "about",
+    "skills",
+    "projects",
+    "contact",
+    "education",
+    "experience",
+    "metadata",
+    "navigation",
+    "testimonials",
+    "pages",
+    "hire",
+    "blog"
+  ],
+  "_editable": "Sections with a CMS editor, and the allowlist /api/config enforces. Must be a subset of `rendered` — a key that is editable but not rendered would save changes that never reach the site. `testimonials` is rendered but has no editor yet.",
+  "editable": [
+    "personal",
+    "hero",
+    "about",
+    "skills",
+    "projects",
+    "contact",
+    "education",
+    "experience",
+    "metadata",
+    "navigation",
+    "pages",
+    "hire",
+    "blog"
+  ]
+}

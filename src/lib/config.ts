@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import fallbackConfig from "@/config/fallback.json";
+import sections from "@/config/sections.json";
 import { createAdminClient } from "./supabase-admin";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -26,12 +27,27 @@ export async function getConfig<T = any>(key: string): Promise<T> {
 /**
  * Fetch all config sections from Supabase (cached for 60s).
  */
+/**
+ * The sections the site actually renders — see `src/config/sections.json`, which is
+ * shared with the `/api/config` allowlist and the snapshot script so that adding a
+ * section is one edit rather than three.
+ *
+ * The table also holds rows from an earlier iteration of the site (`featured_work`,
+ * `journey`, `expertise`, `process`) that no component reads. They were being fetched
+ * and spread into the returned object, so every page serialised them into its RSC
+ * payload — dead JSON on every request, including placeholder URLs like
+ * `https://design-system.example.com`. Filtering here rather than deleting the rows
+ * keeps the old content recoverable from the CMS while getting it out of the HTML.
+ */
+const RENDERED_SECTIONS = sections.rendered;
+
 export const getAllConfig = unstable_cache(
   async () => {
     const supabase = createAdminClient();
     const { data, error } = await supabase
       .from("site_config")
       .select("key, value")
+      .in("key", RENDERED_SECTIONS)
       .returns<{ key: string; value: any }[]>();
 
     if (error || !data) {
@@ -66,6 +82,23 @@ export interface SiteConfig {
     email: string;
     location: string;
     tagline: string;
+    /**
+     * Entity facts. These previously lived as constants in `src/lib/schema.ts`, which
+     * split the description of one person across two sources of truth — the reason the
+     * site shipped `addressLocality: "Nepal"` for months while the CMS said something
+     * else. They belong next to the person they describe.
+     */
+    locality?: string;
+    region?: string;
+    country?: string;
+    /** Profile URLs that are not "social links" — e.g. the Toptal resume. */
+    profiles?: string[];
+    credentials?: Array<{
+      name: string;
+      category?: string;
+      issuer?: string;
+      url?: string;
+    }>;
   };
   hero: {
     mainTitle: { line1: string; line2: string };
@@ -189,6 +222,53 @@ export interface SiteConfig {
       description: string;
       technologies: string[];
       status: string;
+    }>;
+  };
+  /** Per-page title, description and lead copy. Editable at /cms/config/pages. */
+  pages?: Record<
+    string,
+    {
+      title?: string;
+      description?: string;
+      heading?: string;
+      intro?: string;
+      keywords?: string[];
+      /** "What I take on"-style cards. */
+      cards?: Array<{ title: string; body: string }>;
+      /** Which shipped project used which part of the stack. */
+      evidence?: Array<{ tech: string; where: string; slug: string }>;
+      /** Self-contained answers, written to be quotable by an AI answer. */
+      qa?: Array<{ q: string; a: string }>;
+    }
+  >;
+  hire?: {
+    pages: Array<{
+      slug: string;
+      stack: string;
+      title: string;
+      description: string;
+      h1: string;
+      intro: string;
+      keywords: string[];
+      evidence: Array<{ slug: string; name: string; note: string }>;
+      qa: Array<{ q: string; a: string }>;
+    }>;
+    /** Questions on the /hire hub itself. */
+    qa?: Array<{ q: string; a: string }>;
+  };
+  blog?: {
+    posts: Array<{
+      slug: string;
+      title: string;
+      metaTitle: string;
+      description: string;
+      published: string;
+      updated?: string;
+      keywords: string[];
+      excerpt: string;
+      /** Markdown, produced by the rich-text editor at /cms/config/blog. */
+      body: string;
+      draft?: boolean;
     }>;
   };
   metadata: {

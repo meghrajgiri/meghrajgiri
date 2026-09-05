@@ -1,3 +1,4 @@
+import { Breadcrumbs } from "@/components/Layout/Breadcrumbs";
 import { getAllConfig } from "@/lib/config";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -75,13 +76,15 @@ export default async function ProjectPage({ params }: Props) {
     ...(project.screenshots ?? []),
   ]);
 
+  const trail = [
+    { name: "Home", path: "/" },
+    { name: "Case Studies", path: "/projects" },
+    { name: project.title, path: `/projects/${project.slug}` },
+  ];
+
   const jsonLd = graph([
     buildPerson(config),
-    buildBreadcrumbs(baseUrl, [
-      { name: "Home", path: "/" },
-      { name: "Projects", path: "/projects" },
-      { name: project.title, path: `/projects/${project.slug}` },
-    ]),
+    buildBreadcrumbs(baseUrl, trail),
     {
       "@type": "CreativeWork",
       "@id": `${baseUrl}/projects/${project.slug}#work`,
@@ -107,6 +110,7 @@ export default async function ProjectPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <Breadcrumbs trail={trail} />
       <ProjectDetail
         project={project}
         imageSizes={imageSizes}
