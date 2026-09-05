@@ -78,7 +78,7 @@ export function ProjectDetail({
         {/* Header */}
         <div className="mb-12 space-y-6">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="bg-gradient rounded-md px-3 py-1 text-sm font-semibold text-primary-foreground">
+            <span className="bg-brand rounded-md px-3 py-1 text-sm font-semibold text-[var(--brand-ink)]">
               {project.category}
             </span>
             <span className={`rounded-md px-3 py-1 text-sm font-medium ${
@@ -106,7 +106,7 @@ export function ProjectDetail({
                 href={project.links.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gradient focus-ring hover-lift inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-primary-foreground"
+                className="bg-brand focus-ring hover-lift inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-[var(--brand-ink)]"
               >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

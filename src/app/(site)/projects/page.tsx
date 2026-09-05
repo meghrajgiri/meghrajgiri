@@ -101,7 +101,7 @@ export default async function ProjectsPage() {
             <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 backdrop-blur-sm dark:border-primary/10 dark:bg-primary/5">
               <span className="text-sm font-medium text-primary">{badge}</span>
             </div>
-            <h1 className="text-gradient text-4xl font-bold md:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-bold md:text-5xl lg:text-6xl">
               {title}
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
@@ -119,7 +119,7 @@ export default async function ProjectsPage() {
             </p>
             <Link
               href="/#contact"
-              className="bg-gradient focus-ring hover-lift inline-block rounded-lg px-8 py-4 font-semibold text-primary-foreground"
+              className="bg-brand focus-ring hover-lift inline-block rounded-lg px-8 py-4 font-semibold text-[var(--brand-ink)]"
             >
               {callToAction.buttonText}
             </Link>

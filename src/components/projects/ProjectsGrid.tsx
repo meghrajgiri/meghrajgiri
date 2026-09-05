@@ -42,7 +42,7 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
             onClick={() => setSelectedCategory(category.id)}
             className={`focus-ring rounded-lg px-6 py-3 font-medium transition-all duration-200 ${
               selectedCategory === category.id
-                ? "bg-gradient text-primary-foreground"
+                ? "bg-brand text-[var(--brand-ink)]"
                 : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
           >
@@ -80,7 +80,7 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
                 <h3 className="text-xl font-semibold transition-colors duration-200 group-hover:text-primary">
                   {project.title}
                 </h3>
-                <span className="bg-gradient shrink-0 rounded-md px-2 py-1 text-xs font-semibold text-primary-foreground">
+                <span className="bg-brand shrink-0 rounded-md px-2 py-1 text-xs font-semibold text-[var(--brand-ink)]">
                   {project.category}
                 </span>
               </div>
