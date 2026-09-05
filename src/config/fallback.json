@@ -279,11 +279,51 @@
         "year": "2026",
         "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thumbnail.png",
         "links": {
-          "demo": "https://www.thriftverse.shop/"
+          "demo": "https://www.thriftverse.shop/",
+          "appStore": "https://apps.apple.com/us/app/thriftverse/id6758267809",
+          "playStore": "https://play.google.com/store/apps/details?id=com.thriftverse.app"
         },
         "title": "React Native E-commerce App - Thriftverse",
         "status": "Completed",
         "category": "App",
+        "caseStudy": {
+          "facts": {
+            "role": "React Native developer",
+            "team": "Three developers",
+            "status": "Live on iOS and Android"
+          },
+          "summary": "Thriftverse is a peer-to-peer marketplace for preloved fashion in Nepal, where any seller gets a free storefront on their own subdomain. It was built for a market Stripe does not serve and where no courier ships a mature API, so checkout runs on eSewa and cash on delivery, and every order is handed to Nepal Can Move for nationwide delivery. It ships as an iOS and Android app alongside the web storefronts.",
+          "sections": [
+            {
+              "body": "Selling secondhand clothes in Nepal happens on Instagram. A seller posts a photo, buyers reply in DMs, price and delivery get agreed in a thread, and nothing about it is a record. There is no storefront to send someone to, no stock that decrements when an item sells, and no order that exists anywhere after the conversation scrolls away.\n\nThe platform had to give a seller the things a shop has — an address, a catalogue, orders that move through states — without asking them to pay for it up front or learn a retail tool.",
+              "heading": "The problem"
+            },
+            {
+              "body": "A seller downloads the app, creates a store, and gets a personalised storefront URL to share. Listing a product is photos, a description and a price; drafts can be written offline and published once there is a connection. When something sells the seller gets a real-time notification, and buyers and sellers message inside the app.\n\nBuyers browse on the web across eight categories and eleven cities, or take a four-question quiz that narrows the catalogue for them. Checkout is eSewa or cash on delivery. Every order goes to Nepal Can Move, which returns a tracking code that reaches the buyer by email — one to two days inside the Kathmandu Valley, two to four days elsewhere.\n\nThere are no listing or monthly fees. The platform earns only when an item sells.",
+              "heading": "What the platform does"
+            },
+            {
+              "body": "I worked on this as one of three developers, on the React Native side — the iOS and Android app sellers use to run their store. Both apps are live: [App Store](https://apps.apple.com/us/app/thriftverse/id6758267809), [Google Play](https://play.google.com/store/apps/details?id=com.thriftverse.app). The architecture decisions below were the team's rather than mine alone.",
+              "heading": "What I owned"
+            },
+            {
+              "body": "Three constraints shaped the build, and none of them are the application.\n\n**Payments.** Stripe does not operate in Nepal. Checkout runs on eSewa, and cash on delivery is not a fallback here — it is what a large share of buyers actually choose, which means an order can be created, shipped and delivered before any money moves.\n\n**Delivery.** Nepal Can Move is the courier, and an order is not finished when the app says it is — it is finished when NCM says it is. Tracking codes come back asynchronously and have to reach the buyer.\n\n**Connectivity.** Sellers photograph and list stock wherever they are. Drafting has to work with no connection and publish when one appears, which makes the local draft, not the server, the source of truth until it syncs.",
+              "heading": "Constraints"
+            },
+            {
+              "body": "**Tenant isolation in the database, not the application.** Every seller has their own storefront over one shared marketplace, so a bug that leaks one seller's orders into another's store is the worst thing the platform can do. Isolation is enforced by Supabase row-level security at the database layer rather than by middleware in the application. Middleware is easier to write and one missed query away from a leak; a row-level policy holds regardless of which code path reaches the table.\n\nThe corollary is that this is not a decision you can defer. Retrofitting row-level security onto a schema already carrying data means auditing every existing query against policies that did not exist when they were written.\n\n**One deployment, dynamic routes — not a deployment per seller.** Branded storefronts are served by dynamic route segments in Next.js rather than by provisioning a site per seller. Per-seller deployments would give slightly more freedom per store and turn every platform change into an N-way rollout, with onboarding gated on a build. A single deployment resolving the tenant per request keeps store creation instant, which matters because seller onboarding drops off sharply once setup runs past about five minutes.",
+              "heading": "Key decisions"
+            },
+            {
+              "body": "The hardest part of shipping was not the application. It was App Store review.\n\nA thrift marketplace is close to the middle of everything review scrutinises: the listings are created by users, the photos are user-supplied, and money settles outside the app when a buyer pays cash on delivery. Review turnaround is measured in days, so a rejection does not cost an afternoon — it costs the better part of a week, and the changes asked for are rarely ones you can make quickly.\n\nThe app is live on both stores now, but review, not the build, is what set the ship date.",
+              "heading": "Where it got hard"
+            },
+            {
+              "body": "Work the App Store requirements from the first week rather than the last.\n\nThey were treated as a submission step — something to deal with once the app was finished — when they are really a constraint on what gets built, in the same way eSewa and NCM were. Reading the relevant guidelines against the feature list at the start would have moved the same work earlier, where changing it is cheap, instead of into a review cycle where each round trip is days.",
+              "heading": "What I'd do differently"
+            }
+          ]
+        },
         "highlights": [
           "Unique Storefront",
           "Seamless Checkout",
@@ -385,6 +425,10 @@
         "status": "In Progress",
         "category": "Web",
         "caseStudy": {
+          "facts": {
+            "role": "Full stack developer",
+            "status": "In progress"
+          },
           "metrics": [],
           "summary": "Cannabiz Elite is a clinic management system for Australian cannabis and telehealth clinics, built on Medusa v2. It integrates the Parchment prescription portal and is shaped by AHPRA practitioner rules and Privacy Act obligations rather than the assumptions of generic practice-management software. The build is in progress.",
           "sections": [
@@ -872,28 +916,6 @@
         "longDescription": "Yume is an app designed to help individuals overcome gambling addiction. Delivered 10K+ users and 25%+ paying conversion rate within 3 months of launch. The app was acquired by National Debt Relief within 6 months. Built for iOS using React Native, Expo, Firebase, and Redux with full App Store release."
       },
       {
-        "id": 8,
-        "slug": "hamro-motors",
-        "year": "2025",
-        "image": "",
-        "links": {
-          "demo": "https://hamromotorsnp.com/"
-        },
-        "title": "Hamro Motors",
-        "status": "Completed",
-        "category": "Web",
-        "published": false,
-        "highlights": [
-          "Carfeatures"
-        ],
-        "description": "Nepal's premier platform for car and bike reviews. We deliver expert insights, easy-to-understand specs, and performance details tailored for Nepal.",
-        "screenshots": [],
-        "technologies": [
-          "React"
-        ],
-        "longDescription": "Nepal's premier platform for car and bike reviews. We deliver expert insights, easy-to-understand specs, and performance details tailored for Nepal."
-      },
-      {
         "id": 9,
         "slug": "react-weekly-availability-calendar",
         "year": "2026",
@@ -944,7 +966,106 @@
           "Vite"
         ],
         "longDescription": "react-weekly-availability-calendar is an MIT-licensed React component published on npm. It renders a weekly grid where a user drags to create an availability slot, then resizes or moves it, with a configurable snap increment of 10, 30 or 60 minutes. Blocked ranges render as a striped, non-interactive overlay. Appearance is controlled three ways — a theme object of CSS variables, per-part class names for Tailwind or plain CSS, or render props for full control of a slot's contents. It ships with no runtime dependencies at all; React and React-DOM are peer dependencies, and the styles are injected at runtime so there is no CSS file to import. It is written in TypeScript and safe to render on the server.",
+        "screenshotGroups": [
+          {
+            "images": [
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/default.png"
+            ],
+            "caption": "Default theme, 12-hour labels and blocked ranges shown as a striped overlay.",
+            "heading": "Out of the box"
+          },
+          {
+            "images": [
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/customized.png",
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/class-names.png"
+            ],
+            "caption": "The same component with a theme object, per-part class names and a render prop for slot contents.",
+            "heading": "Customised"
+          },
+          {
+            "images": [
+              "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/on-slot-click.png"
+            ],
+            "caption": "onSlotClick fires when a slot is clicked without dragging, and still fires in read-only mode.",
+            "heading": "Interaction"
+          }
+        ],
         "screenshotsHeading": "The component"
+      },
+      {
+        "id": 10,
+        "slug": "thrive-rx",
+        "year": "2026",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/thumbnail.png",
+        "links": {
+          "demo": "https://www.thriverx.com.au/"
+        },
+        "title": "Thrive Rx — Telehealth Platform (Australia)",
+        "status": "Live",
+        "category": "Web",
+        "caseStudy": {
+          "facts": {
+            "role": "Full-stack developer",
+            "team": "Four developers and a designer",
+            "status": "Live"
+          },
+          "summary": "Thrive Rx is an Australian telehealth platform where members track biomarkers from blood panels and AHPRA-registered practitioners turn those results into a personalised protocol. I worked across the stack on three areas: a custom forms platform clinicians use to build and send patient questionnaires, the prescription lifecycle integration with the Parchment portal, and the voice and SMS notification layer.",
+          "sections": [
+            {
+              "body": "Most healthcare is reactive: you go when something is wrong. Thrive Rx sells the opposite — comprehensive blood panels, biomarkers tracked over time, and a practitioner who reads them and adjusts a protocol before anything has gone wrong.\n\nThat is a long chain to hold together in software. A member orders or uploads pathology; results land and have to be made legible; an AHPRA-registered practitioner reviews them and writes a protocol; a prescription may or may not follow, at their discretion; a partner pharmacy dispenses it. Every step has a different actor, and most of them are regulated.",
+              "heading": "The problem"
+            },
+            {
+              "body": "I joined as a full-stack developer, one of four developers and a designer, and worked across the Next.js front end and the Express and Kysely back end — 113 commits to the front end and 109 to the back end. Three areas were mine end to end:\n\n**A custom forms platform.** Practitioners build their own questionnaires — steps, conditional visibility, date bounds, answer validation — send them to an audience, and read responses back against the version of the form each patient actually filled in.\n\n**Prescription lifecycle integration.** Prescriptions live in the Parchment portal, and their state changes arrive as webhooks. I built the webhook handling, the manual resync for when the two sides drift apart, and the prescriber attribution that keeps a resynced prescription credited to the practitioner who wrote it.\n\n**Voice and SMS.** Twilio Verify on signup, Twilio voice, and SMS templating through Courier with the template variables generated as types rather than hand-written.",
+              "heading": "What I owned"
+            },
+            {
+              "body": "This is regulated healthcare in Australia, and the rules are not decoration around the software — they are its shape.\n\nPractitioners are AHPRA-registered and independently verifiable. The platform operates under Australian privacy legislation, which makes access scoping a requirement rather than a feature: who may see a patient record, a form submission, or a prescription is a legal question before it is a product one. Prescriptions are issued only where clinically appropriate, at practitioner discretion — so the software can present the option and must never imply the outcome.\n\nThe practical consequence is that \"mostly correct\" is not a state the system is allowed to be in.",
+              "heading": "Constraints"
+            },
+            {
+              "body": "**Webhooks over polling for prescriptions.** Prescription state lives in the Parchment portal, not in our database, so the platform has to learn about every change from outside. Polling was the obvious alternative and the wrong one: it is a choice between checking often enough to be current — which means a constant load of requests that almost always report nothing — and checking rarely enough to be cheap, which means the platform shows a stale prescription state to a clinician. Webhooks put the update on the event instead of the clock.\n\nThe cost is that webhooks are not a guarantee. A delivery can be missed, arrive out of order, or arrive twice, so the handler has to be idempotent and there has to be a way back to the truth. That is what the manual resync is for — not a workaround, but the deliberate second half of choosing webhooks.\n\n**Courier over templating notifications in-house.** Voice, SMS and email all needed templated content, and message templates are the kind of thing that looks like a morning of work and becomes a small product: versioning, per-channel variants, and a non-developer wanting to change wording without a deploy. Courier owns that, and template variables are generated as types, so a template expecting a field the code does not send fails at compile time rather than in someone's inbox.",
+              "heading": "Key decisions"
+            },
+            {
+              "body": "A form looks like one thing to the person building it and is many rows to the database — the form, its steps, its fields, the conditions that show or hide them, and the audience it was sent to. Saving one is therefore several writes, and the first version treated them as if they were one.\n\nThey are not. A write could fail halfway, which left a form that was partly saved and — worse — could still publish. Retrying made it worse rather than better: the retry created a second copy of what had already succeeded, because the client was generating the ids and had no way to know which of its writes had landed.\n\nFixing it meant changing who owns identity. The server issues the field ids now, so a failed edit can be retried against the same rows instead of duplicating them. A save that cannot complete fails loudly and publishes nothing rather than leaving a half-built questionnaire in front of patients, and conditions that point at fields which no longer exist are pruned instead of dangling.",
+              "heading": "Where it got hard"
+            },
+            {
+              "body": "Start with compliance rather than arriving at it.\n\nAustralian rules around personal health information are strict, and on this project they were mostly met as they came up — a question about who may see what, answered when a feature needed the answer. Writing those data-access rules down at the outset, as rules the system enforces rather than intentions each feature honours, would have moved that thinking to where it is cheap. In a regulated domain that is not process overhead; it is the specification.",
+              "heading": "What I'd do differently"
+            }
+          ]
+        },
+        "published": true,
+        "highlights": [
+          "Custom forms platform",
+          "Prescription lifecycle webhooks",
+          "Voice and SMS notifications",
+          "AHPRA / TGA context"
+        ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thrive-rx/thumbnail.png": {
+            "width": 3840,
+            "height": 2622
+          }
+        },
+        "description": "An Australian telehealth platform for clinician-led health optimisation — blood panels, biomarker tracking and practitioner-issued protocols.",
+        "screenshots": [],
+        "technologies": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "Express",
+          "Kysely",
+          "PostgreSQL",
+          "Zod",
+          "Stripe",
+          "Twilio",
+          "Tailwind CSS"
+        ],
+        "longDescription": "Thrive Rx is an Australian telehealth platform for clinician-led health optimisation: members order or upload pathology, a dashboard tracks biomarkers over time, AHPRA-registered practitioners review the results and build a personalised protocol, and prescriptions are issued only where clinically appropriate and dispensed by cGMP-compliant partner pharmacies. I worked on it as a full-stack developer across the Next.js front end and the Express and Kysely back end.",
+        "screenshotsHeading": "A look inside"
       }
     ],
     "subtitle": "Seven case studies from 20+ products shipped — across e-commerce, healthcare and telehealth, fin-tech and ed-tech, on web and mobile.",

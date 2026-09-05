@@ -11,13 +11,42 @@ type Project = SiteConfig["projects"]["projects"][number];
  * stays a client component only because of the lightbox.
  */
 export function CaseStudy({ caseStudy }: { caseStudy: NonNullable<Project["caseStudy"]> }) {
-  const { summary, metrics, sections } = caseStudy;
-  if (!summary && !metrics?.length && !sections?.length) return null;
+  const { summary, facts, metrics, sections } = caseStudy;
+
+  // Only the facts that were actually filled in. A strip reading "Role: —" is worse
+  // than no strip.
+  const factRows: Array<[string, string]> = (
+    [
+      ["Role", facts?.role],
+      ["Timeline", facts?.timeline],
+      ["Team", facts?.team],
+      ["Status", facts?.status],
+    ] as Array<[string, string | undefined]>
+  )
+    .filter(([, value]) => !!value?.trim())
+    .map(([label, value]) => [label, value as string]);
+
+  if (!summary && !factRows.length && !metrics?.length && !sections?.length) {
+    return null;
+  }
 
   return (
     <div className="mt-16 border-t border-border/50 pt-12">
       {summary && (
         <p className="text-xl leading-relaxed md:text-2xl">{summary}</p>
+      )}
+
+      {factRows.length > 0 && (
+        <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+          {factRows.map(([label, value]) => (
+            <div key={label}>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                {label}
+              </dt>
+              <dd className="mt-1 text-[15px] font-semibold">{value}</dd>
+            </div>
+          ))}
+        </dl>
       )}
 
       {metrics && metrics.length > 0 && (

@@ -144,6 +144,21 @@ export interface SiteConfig {
       /** Heading above the gallery. Defaults to "A look inside". */
       screenshotsHeading?: string;
       /**
+       * Named groups within the gallery.
+       *
+       * A project carries anywhere from four to seventeen screenshots, and shown as one
+       * undifferentiated run they ask the reader to work out what each is. Grouping them
+       * — "Seller app", "Checkout", "Admin" — turns the gallery into something readable.
+       *
+       * Optional: with no groups the flat `screenshots` list renders exactly as before,
+       * so a project is never obliged to organise its images before it can show them.
+       */
+      screenshotGroups?: Array<{
+        heading: string;
+        caption?: string;
+        images: string[];
+      }>;
+      /**
        * Intrinsic dimensions per image URL, recorded at upload time.
        *
        * `getImageSizes` reads headers off the filesystem, which stopped being possible
@@ -156,7 +171,14 @@ export interface SiteConfig {
       category: string;
       status: string;
       year: string;
-      links: { demo?: string; github?: string; case_study?: string };
+      links: {
+        demo?: string;
+        github?: string;
+        case_study?: string;
+        /** Store listings — third-party proof a mobile app actually shipped. */
+        appStore?: string;
+        playStore?: string;
+      };
       highlights: string[];
       published?: boolean;
       /**
@@ -173,6 +195,20 @@ export interface SiteConfig {
       caseStudy?: {
         /** One paragraph, outcome first. The passage AI search engines quote. */
         summary?: string;
+        /**
+         * Role, timeline, team and status.
+         *
+         * Answers "what did you actually do here" in three seconds, which the research
+         * behind docs/case-studies/STRUCTURE.md identifies as the thing readers need
+         * first on any project involving other people. Every field is optional; blanks
+         * are dropped rather than rendered as empty labels.
+         */
+        facts?: {
+          role?: string;
+          timeline?: string;
+          team?: string;
+          status?: string;
+        };
         /** Headline numbers. Omit rather than invent — an empty row beats a fake one. */
         metrics?: Array<{ value: string; label: string }>;
         /** Ordered prose sections; `body` is Markdown. */

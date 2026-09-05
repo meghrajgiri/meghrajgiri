@@ -7,7 +7,9 @@ import {
   SectionLabel,
   ArrayField,
 } from "@/components/admin/ConfigEditor";
+import { CaseStudyEditor, type CaseStudy } from "@/components/admin/CaseStudyEditor";
 import { ImageUploader, type UploadedImage } from "@/components/admin/ImageUploader";
+import { ScreenshotGroups, type ScreenshotGroup } from "@/components/admin/ScreenshotGroups";
 import { useState } from "react";
 
 interface Project {
@@ -19,12 +21,20 @@ interface Project {
   image: string;
   screenshots?: string[];
   screenshotsHeading?: string;
+  screenshotGroups?: ScreenshotGroup[];
   imageSizes?: Record<string, { width: number; height: number }>;
+  caseStudy?: CaseStudy;
   technologies: string[];
   category: string;
   status: string;
   year: string;
-  links: { demo?: string; github?: string; case_study?: string };
+  links: {
+    demo?: string;
+    github?: string;
+    case_study?: string;
+    appStore?: string;
+    playStore?: string;
+  };
   highlights: string[];
   published?: boolean;
 }
@@ -241,6 +251,16 @@ function ProjectCard({
               value={project.links?.github || ""}
               onChange={(v) => update("links.github", v)}
             />
+            <TextField
+              label="App Store URL"
+              value={project.links?.appStore || ""}
+              onChange={(v) => update("links.appStore", v)}
+            />
+            <TextField
+              label="Google Play URL"
+              value={project.links?.playStore || ""}
+              onChange={(v) => update("links.playStore", v)}
+            />
           </div>
 
           <SectionLabel>Gallery</SectionLabel>
@@ -314,6 +334,35 @@ function ProjectCard({
               + Add screenshot URL manually
             </button>
           </div>
+
+          <ScreenshotGroups
+            slug={project.slug}
+            groups={project.screenshotGroups ?? []}
+            ungrouped={(project.screenshots ?? []).filter(
+              (src) =>
+                !(project.screenshotGroups ?? []).some((g) =>
+                  g.images?.includes(src),
+                ),
+            )}
+            onChange={(groups) => update("screenshotGroups", groups)}
+            onSizes={(images) => {
+              // Uploads made inside a group still need their dimensions recorded, and
+              // the URLs added to `screenshots` so the flat list stays the full set.
+              onUpdate({
+                ...project,
+                imageSizes: withSizes(images),
+                screenshots: [
+                  ...(project.screenshots ?? []),
+                  ...images.map((i) => i.url),
+                ],
+              });
+            }}
+          />
+
+          <CaseStudyEditor
+            caseStudy={project.caseStudy ?? {}}
+            onChange={(cs) => update("caseStudy", cs)}
+          />
 
           <div className="flex justify-end pt-2">
             <button
