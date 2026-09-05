@@ -6,6 +6,20 @@ const SUPABASE_HOST = process.env.NEXT_PUBLIC_SUPABASE_URL
   : undefined;
 
 const nextConfig: NextConfig = {
+  /**
+   * Build output directory, overridable per invocation.
+   *
+   * `next dev --turbopack` and `next build` both write to `.next`, and running a build
+   * while the dev server is up leaves Turbopack chunks in a Webpack build — every route
+   * then 500s with "Expected to use Webpack bindings ... referencing the Turbopack
+   * bindings". It has cost real time on this repo more than once, and it looks like a
+   * code failure rather than a collision.
+   *
+   *   NEXT_DIST_DIR=.next-verify yarn build && NEXT_DIST_DIR=.next-verify yarn start
+   *
+   * builds and serves without touching a running dev server.
+   */
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
