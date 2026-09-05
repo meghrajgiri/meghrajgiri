@@ -283,7 +283,7 @@
         },
         "title": "React Native E-commerce App - Thriftverse",
         "status": "Completed",
-        "category": "E-Commerce",
+        "category": "App",
         "highlights": [
           "Unique Storefront",
           "Seamless Checkout",
@@ -341,6 +341,10 @@
           "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/thumbnail.png": {
             "width": 1920,
             "height": 894
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/thriftverse/img-2313-mtofdnml.jpg": {
+            "width": 3024,
+            "height": 4032
           }
         },
         "description": "Thriftverse is a thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products.",
@@ -368,7 +372,8 @@
           "Supabase",
           "Resend"
         ],
-        "longDescription": "Thriftverse is a modern thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products. The platform includes a buyer-facing web app with secure eSewa checkout, and a store-owner mobile app where influencers or sellers can sign up, manage their store, and share their custom subdomain. Thriftverse also handles logistics through Nepal Can Move (NCM), including order tracking, shipping coordination, and automated email notifications for both buyers and store owners."
+        "longDescription": "Thriftverse is a modern thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products. The platform includes a buyer-facing web app with secure eSewa checkout, and a store-owner mobile app where influencers or sellers can sign up, manage their store, and share their custom subdomain. Thriftverse also handles logistics through Nepal Can Move (NCM), including order tracking, shipping coordination, and automated email notifications for both buyers and store owners.",
+        "screenshotsHeading": ""
       },
       {
         "id": 2,
@@ -378,7 +383,7 @@
         "links": {},
         "title": "Clinic Management System - Cannabiz Elite (Australia)",
         "status": "In Progress",
-        "category": "Healthcare",
+        "category": "Web",
         "caseStudy": {
           "metrics": [],
           "summary": "Cannabiz Elite is a clinic management system for Australian cannabis and telehealth clinics, built on Medusa v2. It integrates the Parchment prescription portal and is shaped by AHPRA practitioner rules and Privacy Act obligations rather than the assumptions of generic practice-management software. The build is in progress.",
@@ -493,7 +498,7 @@
         "links": {},
         "title": "The LYVE app",
         "status": "Completed",
-        "category": "E-Commerce",
+        "category": "App",
         "highlights": [
           "Real-time chat",
           "Costume Marketplace"
@@ -552,7 +557,7 @@
         },
         "title": "Inventory Management System - Khatapata (PWA)",
         "status": "Completed",
-        "category": "Fin-Tech",
+        "category": "Web",
         "highlights": [
           "PWA",
           "Inventory tracking",
@@ -673,7 +678,7 @@
         },
         "title": "College Cost Secrets",
         "status": "Completed",
-        "category": "Ed-Tech",
+        "category": "Web",
         "highlights": [],
         "imageSizes": {
           "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/ccs/ccs.webp": {
@@ -736,7 +741,7 @@
         "links": {},
         "title": "Bookvid - Live Video Booking Marketplace",
         "status": "Completed",
-        "category": "Other",
+        "category": "Web",
         "highlights": [
           "Event Booking",
           "Session Booking",
@@ -812,7 +817,7 @@
         "links": {},
         "title": "Gambling Recovery App - Yume",
         "status": "Completed",
-        "category": "Other",
+        "category": "App",
         "highlights": [
           "Real-time chat",
           "Group Chat",
@@ -876,7 +881,7 @@
         },
         "title": "Hamro Motors",
         "status": "Completed",
-        "category": "Other",
+        "category": "Web",
         "published": false,
         "highlights": [
           "Carfeatures"
@@ -887,6 +892,59 @@
           "React"
         ],
         "longDescription": "Nepal's premier platform for car and bike reviews. We deliver expert insights, easy-to-understand specs, and performance details tailored for Nepal."
+      },
+      {
+        "id": 9,
+        "slug": "react-weekly-availability-calendar",
+        "year": "2026",
+        "image": "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/default.png",
+        "links": {
+          "demo": "https://www.npmjs.com/package/react-weekly-availability-calendar",
+          "github": "https://github.com/meghrajgiri/react-weekly-availability-calendar"
+        },
+        "title": "React Weekly Availability Calendar",
+        "status": "Published",
+        "category": "Open Source",
+        "highlights": [
+          "Zero runtime dependencies",
+          "MIT licensed, published on npm",
+          "SSR safe",
+          "TypeScript first"
+        ],
+        "imageSizes": {
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/default.png": {
+            "width": 1920,
+            "height": 1140
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/customized.png": {
+            "width": 1920,
+            "height": 1140
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/class-names.png": {
+            "width": 1920,
+            "height": 1140
+          },
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/on-slot-click.png": {
+            "width": 1920,
+            "height": 1140
+          }
+        },
+        "description": "An open-source React component for picking weekly availability — drag to create a slot, then resize or move it.",
+        "screenshots": [
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/default.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/customized.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/on-slot-click.png",
+          "https://zkiboulnenrnlvxdzmrv.supabase.co/storage/v1/object/public/project-images/react-weekly-availability-calendar/class-names.png"
+        ],
+        "technologies": [
+          "React",
+          "TypeScript",
+          "tsup",
+          "Vitest",
+          "Vite"
+        ],
+        "longDescription": "react-weekly-availability-calendar is an MIT-licensed React component published on npm. It renders a weekly grid where a user drags to create an availability slot, then resizes or moves it, with a configurable snap increment of 10, 30 or 60 minutes. Blocked ranges render as a striped, non-interactive overlay. Appearance is controlled three ways — a theme object of CSS variables, per-part class names for Tailwind or plain CSS, or render props for full control of a slot's contents. It ships with no runtime dependencies at all; React and React-DOM are peer dependencies, and the styles are injected at runtime so there is no CSS file to import. It is written in TypeScript and safe to render on the server.",
+        "screenshotsHeading": "The component"
       }
     ],
     "subtitle": "Seven case studies from 20+ products shipped — across e-commerce, healthcare and telehealth, fin-tech and ed-tech, on web and mobile.",
