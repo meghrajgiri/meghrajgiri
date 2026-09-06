@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
-import { TENURE_LABEL, yearsSince } from "@/lib/duration";
+import { yearsSince } from "@/lib/duration";
 
 /**
  * Hero: identity on the left, three verifiable numbers down the right.
@@ -14,7 +14,7 @@ import { TENURE_LABEL, yearsSince } from "@/lib/duration";
  * nothing had to be invented to fill the gap.
  */
 export function HeroSection() {
-  const { hero, personal, contact, projects } = useSiteConfig();
+  const { hero, personal, projects } = useSiteConfig();
 
   const careerStart = personal?.careerStart;
 
@@ -42,24 +42,21 @@ export function HeroSection() {
   ).length;
 
   /**
-   * Tenure leads when a start date is configured, because it is the one figure here
-   * that is derived rather than typed in and left to go stale. The configured "5+" is
-   * dropped in that case rather than shown beside it — two answers to the same
-   * question is worse than either alone. With no `careerStart` nothing changes: the
-   * CMS stat stays and this is a no-op.
+   * Tenure is derived, never authored.
    *
-   * Whole years, computed at build. An earlier pass rendered years, months and days,
-   * which changed daily while the page is statically prerendered — so it needed a
-   * clock in the browser and a suppressed hydration mismatch to stay truthful. A
-   * year-granular figure is stable between deploys and needs neither.
+   * An earlier version kept a hand-typed "5+" in `hero.stats` and hid it when a
+   * `careerStart` was set, by testing the stat's label against a regex. That broke
+   * the moment someone edited the label in the CMS — trimming "Professional
+   * Experience" to "Professional" stopped the match, and the stale card reappeared
+   * beside the computed one. Behaviour keyed off hand-typed prose is behaviour that
+   * breaks when the prose is edited.
+   *
+   * So the row is gone from the config instead, and this is the only place tenure
+   * comes from. With no `careerStart` the card simply does not render, which is
+   * correct: without a start date there is no tenure to state, and a typed figure
+   * that silently goes stale is the thing being removed.
    */
   const years = careerStart ? yearsSince(careerStart) : null;
-  const configured = (hero.stats ?? []).filter(
-    (st) =>
-      st.value?.trim() &&
-      st.label?.trim() &&
-      !(years !== null && TENURE_LABEL.test(st.label)),
-  );
 
   const stats = [
     // "+" because a whole-year count is a floor: five years and eight months reads as
@@ -67,14 +64,12 @@ export function HeroSection() {
     ...(years !== null
       ? [{ value: `${years}+`, label: "Professional experience" }]
       : []),
-    ...configured,
+    ...(hero.stats ?? []).filter((st) => st.value?.trim() && st.label?.trim()),
     { value: String(published.length), label: "Case studies" },
     { value: String(live), label: "Live in production" },
   ].slice(0, 3);
 
-  const github = contact?.socialLinks?.find(
-    (l) => l.platform === "github",
-  )?.url;
+  const secondary = hero.buttons?.secondary;
 
   const lede = () => {
     const terms = [highlightedTerms?.term1, highlightedTerms?.term2].filter(
@@ -123,6 +118,13 @@ export function HeroSection() {
               </p>
             </div>
 
+            {/* Primary and secondary both come from `hero.buttons`.
+                
+                The second slot used to be a hardcoded GitHub link pulled out of
+                `contact.socialLinks`, which meant the CMS's "Secondary Button" fields
+                were editable and rendered nowhere — and the hero's only other action
+                could not be changed without a deploy. GitHub is still one click away
+                in the header and again in the footer's Connect column. */}
             <div className="mt-10 flex flex-wrap items-center gap-3">
               {buttons?.primary && (
                 <Link
@@ -132,16 +134,13 @@ export function HeroSection() {
                   {buttons.primary.text}
                 </Link>
               )}
-              {github && (
-                <a
-                  href={github}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {secondary?.text && secondary?.href && (
+                <Link
+                  href={secondary.href}
                   className="cta-ghost focus-ring inline-flex min-h-[48px] items-center px-6 text-[15px]"
                 >
-                  GitHub
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
+                  {secondary.text}
+                </Link>
               )}
             </div>
           </div>

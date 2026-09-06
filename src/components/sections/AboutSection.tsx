@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
-import { TENURE_LABEL, yearsSince } from "@/lib/duration";
+import { yearsSince } from "@/lib/duration";
 
 /**
  * About as a two-column editorial spread: a narrow metadata rail against a measured
@@ -31,23 +31,22 @@ export function AboutSection({
   const paragraphs = Array.isArray(about.description) ? about.description : [];
 
   /**
-   * The rail's tenure figure comes from `personal.careerStart`, the same source the
-   * hero uses, so the two cannot disagree. It is substituted in place rather than
-   * prepended: the rail reads tenure, qualification, output, and reordering it to put
-   * a derived value first would break that for no gain.
-   *
-   * With no `careerStart` configured the authored value is left exactly as typed.
+   * The rail's tenure figure is derived from the same `personal.careerStart` the hero
+   * uses, and is prepended rather than substituted over an authored row. Matching the
+   * authored row by its label was brittle — editing the label in the CMS silently
+   * brought the stale value back — so the authored row is gone from the config and
+   * this is the only source.
    */
   const tenureYears = personal?.careerStart
     ? yearsSince(personal.careerStart)
     : null;
-  const stats = (about.stats ?? [])
-    .filter((s) => s.value?.trim() && s.label?.trim())
-    .map((s) =>
-      tenureYears !== null && TENURE_LABEL.test(s.label)
-        ? { ...s, value: `${tenureYears}+` }
-        : s,
-    );
+  const stats = [
+    ...(tenureYears !== null
+      ? [{ value: `${tenureYears}+`, label: "Years in tech" }]
+      : []),
+    ...(about.stats ?? []).filter((s) => s.value?.trim() && s.label?.trim()),
+  ];
+
   const years = experience?.experiences?.length ?? 0;
   const schools = education?.education?.length ?? 0;
 
