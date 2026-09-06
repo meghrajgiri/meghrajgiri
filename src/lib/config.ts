@@ -1,12 +1,16 @@
 import { unstable_cache } from "next/cache";
-import fallbackConfig from "@/config/fallback.json";
 import sections from "@/config/sections.json";
 import { createAdminClient } from "./supabase-admin";
+import { projectsForSite, projectsLastModified } from "./projects";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
  * Fetch a single config section from Supabase.
+ *
+ * Throws rather than returning an empty object. This feeds the CMS editor, and an editor
+ * that loads blank on a failed read is an editor whose next Save writes that blank over
+ * good content. A 500 is recoverable; a successful save of nothing is not.
  */
 export async function getConfig<T = any>(key: string): Promise<T> {
   const supabase = createAdminClient();
@@ -17,8 +21,7 @@ export async function getConfig<T = any>(key: string): Promise<T> {
     .single();
 
   if (error || !data?.value) {
-    console.error(`Config "${key}" not found:`, error?.message);
-    return {} as T;
+    throw new Error(`Config "${key}" could not be read: ${error?.message ?? "no value"}`);
   }
 
   return data.value as T;
@@ -50,12 +53,17 @@ export const getAllConfig = unstable_cache(
       .in("key", RENDERED_SECTIONS)
       .returns<{ key: string; value: any }[]>();
 
+    // Supabase is the only source of content. There is no committed snapshot to fall
+    // back to any more, which makes this the one place that decides what a failed read
+    // means — and the answer is that it is not renderable.
+    //
+    // Throwing fails the build, and on Vercel a failed build leaves the previous
+    // deployment serving. At runtime the pages are already prerendered, so a failed
+    // revalidation keeps serving the last good copy. Both are better than rendering a
+    // portfolio with no work in it, which is what returning a partial object would do —
+    // and would do silently, looking entirely deliberate.
     if (error || !data) {
-      console.error(
-        "Failed to fetch site config, serving committed snapshot:",
-        error?.message,
-      );
-      return fallbackConfig as unknown as SiteConfig;
+      throw new Error(`Failed to fetch site config: ${error?.message ?? "no rows"}`);
     }
 
     const config: Record<string, any> = {};
@@ -63,12 +71,22 @@ export const getAllConfig = unstable_cache(
       config[row.key] = row.value;
     }
 
-    // Spread over the snapshot rather than returning `config` directly. Callers read
-    // `config.metadata.author` and `config.projects.projects` without optional
-    // chaining, so a section missing from the response — a partial read, a row
-    // deleted by accident — would throw and 500 the whole public site. Merging means
-    // the worst case is one stale section, not an outage.
-    return { ...fallbackConfig, ...config } as unknown as SiteConfig;
+    // Callers read `config.metadata.author` and `config.projects.projects` without
+    // optional chaining. A section missing from the response used to be papered over by
+    // the snapshot; now it has to be caught here, by name, rather than surfacing later as
+    // a TypeError inside a component.
+    const missing = RENDERED_SECTIONS.filter((key) => !(key in config));
+    if (missing.length > 0) {
+      throw new Error(`Config sections missing from Supabase: ${missing.join(", ")}`);
+    }
+
+    // Projects live in their own table, one row each. The section row in `site_config`
+    // keeps the badge, title, subtitle and call to action; the array is composed here so
+    // every consumer still reads `config.projects.projects` and none of them had to
+    // learn where it came from.
+    config.projects = { ...config.projects, projects: await projectsForSite() };
+
+    return config as unknown as SiteConfig;
   },
   ["site-config"],
   { revalidate: 60, tags: ["site-config"] },
@@ -381,15 +399,20 @@ export const getConfigTimestamps = unstable_cache(
       .select("key, updated_at")
       .returns<{ key: string; updated_at: string }[]>();
 
-    if (error || !data?.length) return { site: null, projects: null };
+    // The project pages' lastmod comes from the projects table, not from the
+    // `site_config` row that used to hold them — that row now changes only when the
+    // section heading does, which would report every project as untouched since.
+    const projects = await projectsLastModified();
+
+    // Null rather than a throw: an absent lastmod is a smaller problem than a sitemap
+    // that fails to render, and `getAllConfig` has already established the site is
+    // readable by the time anything asks for this.
+    if (error || !data?.length) return { site: null, projects };
 
     const times = data.map((r) => new Date(r.updated_at).getTime());
-    const projectsRow = data.find((r) => r.key === "projects");
+    if (projects) times.push(projects.getTime());
 
-    return {
-      site: new Date(Math.max(...times)),
-      projects: projectsRow ? new Date(projectsRow.updated_at) : null,
-    };
+    return { site: new Date(Math.max(...times)), projects };
   },
   ["site-config-timestamps"],
   { revalidate: 60, tags: ["site-config"] },

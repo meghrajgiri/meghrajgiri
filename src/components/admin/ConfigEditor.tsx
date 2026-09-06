@@ -1,7 +1,10 @@
 "use client";
 
-import { AdminAuth } from "@/components/admin/AdminAuth";
-import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import {
+  AdminSaveButton,
+  AdminShell,
+  type AdminMessage,
+} from "@/components/admin/AdminShell";
 import { supabase } from "@/lib/supabase";
 import { useCallback, useEffect, useState } from "react";
 
@@ -24,10 +27,7 @@ export function ConfigEditor({
   const [config, setConfig] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{
-    type: "success" | "error";
-    text: string;
-  } | null>(null);
+  const [message, setMessage] = useState<AdminMessage>(null);
 
   // Memoised so the effect below can depend on it honestly. Without useCallback the
   // function is a new value every render, so either the effect loops or the dependency
@@ -102,58 +102,19 @@ export function ConfigEditor({
   };
 
   return (
-    <AdminAuth>
-      <div className="flex h-screen bg-gray-50 dark:bg-gray-950">
-        <AdminSidebar />
-        <div className="flex-1 overflow-auto">
-          {/* Top bar */}
-          <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-gray-200 bg-white/80 px-8 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/80">
-            <div>
-              <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                {title}
-              </h1>
-              <p className="text-xs text-gray-500">{description}</p>
-            </div>
-            <button
-              onClick={handleSave}
-              disabled={saving || loading}
-              className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800 disabled:opacity-50 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
-            >
-              {saving ? "Saving..." : "Save Changes"}
-            </button>
-          </div>
-
-          <div className="mx-auto max-w-2xl p-8">
-            {message && (
-              <div
-                className={`mb-6 rounded-lg px-4 py-3 text-sm ${
-                  message.type === "success"
-                    ? "bg-green-50 text-green-700 dark:bg-green-950/30 dark:text-green-400"
-                    : "bg-red-50 text-red-600 dark:bg-red-950/30 dark:text-red-400"
-                }`}
-              >
-                {message.text}
-              </div>
-            )}
-
-            {loading ? (
-              <div className="space-y-6">
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="space-y-2">
-                    <div className="h-4 w-24 animate-pulse rounded bg-gray-200 dark:bg-gray-800" />
-                    <div className="h-10 animate-pulse rounded-lg bg-gray-100 dark:bg-gray-900" />
-                  </div>
-                ))}
-              </div>
-            ) : config ? (
-              children({ config, updateField })
-            ) : (
-              <p className="text-gray-500">Failed to load config.</p>
-            )}
-          </div>
-        </div>
-      </div>
-    </AdminAuth>
+    <AdminShell
+      title={title}
+      description={description}
+      message={message}
+      loading={loading}
+      actions={<AdminSaveButton onClick={handleSave} saving={saving} disabled={loading} />}
+    >
+      {config ? (
+        children({ config, updateField })
+      ) : (
+        <p className="text-gray-500">Failed to load config.</p>
+      )}
+    </AdminShell>
   );
 }
 
@@ -163,11 +124,16 @@ export function TextField({
   value,
   onChange,
   type = "text",
+  disabled,
+  hint,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   type?: string;
+  disabled?: boolean;
+  /** Shown under the field. Say why a disabled field is disabled. */
+  hint?: string;
 }) {
   return (
     <div className="space-y-1.5">
@@ -178,8 +144,10 @@ export function TextField({
         type={type}
         value={value || ""}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition-colors focus:border-gray-900 focus:ring-1 focus:ring-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-100 dark:focus:ring-gray-100"
+        disabled={disabled}
+        className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition-colors focus:border-gray-900 focus:ring-1 focus:ring-gray-900 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-100 dark:focus:ring-gray-100 dark:disabled:bg-gray-800 dark:disabled:text-gray-400"
       />
+      {hint && <p className="text-xs text-gray-500">{hint}</p>}
     </div>
   );
 }

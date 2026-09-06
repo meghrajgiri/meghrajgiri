@@ -9,8 +9,6 @@
     "lint": "next lint",
     "add-project": "node --env-file=.env scripts/add-project.mjs",
     "db:migrate": "node --env-file=.env supabase/migrate.mjs",
-    "config:snapshot": "node --env-file=.env scripts/snapshot-config.mjs",
-    "config:restore": "node --env-file=.env scripts/restore-config.mjs",
     "images:upload": "node --env-file=.env scripts/upload-project-images.mjs"
   },
   "dependencies": {

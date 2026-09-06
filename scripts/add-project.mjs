@@ -28,15 +28,19 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-/** Read the `projects` config row. */
+/**
+ * Read the existing projects.
+ *
+ * One row each, in the `projects` table — they used to be one JSONB array inside
+ * `site_config`, and this script used to rewrite the whole array to append one.
+ */
 async function loadProjects() {
   const { data, error } = await supabase
-    .from("site_config")
-    .select("value")
-    .eq("key", "projects")
-    .single();
-  if (error) throw new Error(`Could not read projects config: ${error.message}`);
-  return data.value;
+    .from("projects")
+    .select("position, data")
+    .order("position", { ascending: true });
+  if (error) throw new Error(`Could not read projects: ${error.message}`);
+  return { projects: data.map((r) => r.data), lastPosition: data.length - 1 };
 }
 
 const rl = createInterface({ input: process.stdin, output: process.stdout });
@@ -130,20 +134,24 @@ function getNextId(config) {
 }
 
 /**
- * Append the project and write the whole `projects` row back.
+ * Insert the project as its own row.
  *
- * Read-modify-write on a single JSONB row, which is safe here because this is an
- * interactive single-operator script. It is not safe to run two copies at once.
+ * This used to read the whole array, append to it and write it all back, which meant
+ * running the script against a stale read discarded anything saved in between. One
+ * INSERT cannot do that, and a duplicate slug is refused by the database rather than
+ * quietly producing two projects on one URL.
  */
 async function insertProject(config, project) {
-  const next = { ...config, projects: [...(config.projects ?? []), project] };
-
   const { error } = await supabase
-    .from("site_config")
-    .update({ value: next, updated_at: new Date().toISOString() })
-    .eq("key", "projects");
+    .from("projects")
+    .insert({ position: config.lastPosition + 1, data: project });
 
-  if (error) throw new Error(`Could not save project: ${error.message}`);
+  if (error) {
+    if (error.code === "23505") {
+      throw new Error(`A project with the slug "${project.slug}" already exists.`);
+    }
+    throw new Error(`Could not save project: ${error.message}`);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -304,10 +312,6 @@ async function main() {
   if (confirm.toLowerCase() === "y" || confirm.toLowerCase() === "yes") {
     await insertProject(config, project);
     console.log(`\n\x1b[32m  Project "${project.title}" saved to Supabase.\x1b[0m`);
-    console.log(
-      "\x1b[33m  Next: run `yarn config:snapshot` and commit, so the outage fallback\n" +
-        "  matches what is live.\x1b[0m\n",
-    );
   } else {
     console.log("\n\x1b[31m  Cancelled.\x1b[0m\n");
   }
