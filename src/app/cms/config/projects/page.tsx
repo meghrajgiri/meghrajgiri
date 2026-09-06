@@ -2,442 +2,356 @@
 
 import {
   ConfigEditor,
-  TextField,
-  TextAreaField,
   SectionLabel,
-  ArrayField,
+  TextAreaField,
+  TextField,
 } from "@/components/admin/ConfigEditor";
-import { CaseStudyEditor, type CaseStudy } from "@/components/admin/CaseStudyEditor";
-import { ImageUploader, type UploadedImage } from "@/components/admin/ImageUploader";
-import { ScreenshotGroups, type ScreenshotGroup } from "@/components/admin/ScreenshotGroups";
-import { useState } from "react";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
+import { emptyProject } from "@/components/admin/ProjectForm";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
-interface Project {
-  id: number;
+type ProjectRow = {
   slug: string;
-  title: string;
-  description: string;
-  longDescription: string;
-  image: string;
-  screenshots?: string[];
-  screenshotsHeading?: string;
-  screenshotGroups?: ScreenshotGroup[];
-  imageSizes?: Record<string, { width: number; height: number }>;
-  caseStudy?: CaseStudy;
-  technologies: string[];
-  category: string;
-  status: string;
-  year: string;
-  links: {
-    demo?: string;
-    github?: string;
-    case_study?: string;
-    npm?: string;
-    appStore?: string;
-    playStore?: string;
-  };
-  highlights: string[];
-  published?: boolean;
-}
+  published: boolean;
+  archived_at: string | null;
+  updated_at: string;
+  data: { title: string; category: string; year: string; status: string };
+};
 
-function ProjectCard({
-  project,
-  index,
-  onUpdate,
-  onRemove,
-  isExpanded,
-  onToggle,
-}: {
-  project: Project;
-  index: number;
-  onUpdate: (updated: Project) => void;
-  onRemove: () => void;
-  isExpanded: boolean;
-  onToggle: () => void;
-}) {
+/**
+ * The projects list.
+ *
+ * The heading fields around it still belong to the `projects` section in `site_config`
+ * and are written by `ConfigEditor`'s Save button. The list does not: add, delete and
+ * reorder each write immediately, to their own rows, through `/api/projects`. A
+ * project's own content is edited on its own page.
+ *
+ * That split is the point. This page used to hold all fourteen projects in React state
+ * and post the whole array back, so any save overwrote every project with whatever this
+ * tab had loaded — which is how a rewritten case study was silently reverted to an
+ * older copy by an unrelated image upload.
+ */
+function ProjectList() {
+  const router = useRouter();
+  const [rows, setRows] = useState<ProjectRow[] | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   /**
-   * Record dimensions for newly uploaded images.
+   * The row the archive dialog is asking about, or null when it is closed.
    *
-   * Kept beside the URLs rather than derived at render time: the images are remote
-   * now, so the server cannot read their headers, and `next/image` needs real
-   * width/height or the page shifts as each one loads.
+   * Only published projects get asked. Archiving is reversible, so a confirmation on a
+   * draft is friction with nothing behind it — but archiving something published takes a
+   * live URL off the site, and that is worth a sentence before it happens.
    */
-  const withSizes = (images: UploadedImage[]) => {
-    const sizes = { ...(project.imageSizes ?? {}) };
-    for (const img of images) {
-      if (img.width && img.height) {
-        sizes[img.url] = { width: img.width, height: img.height };
-      }
-    }
-    return sizes;
+  const [pendingArchive, setPendingArchive] = useState<ProjectRow | null>(null);
+
+  const authed = async (path: string, init?: RequestInit) => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    return fetch(path, {
+      ...init,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.access_token}`,
+        ...(init?.headers ?? {}),
+      },
+    });
   };
 
-  const update = (field: string, value: unknown) => {
-    if (field.startsWith("links.")) {
-      const linkKey = field.split(".")[1];
-      onUpdate({
-        ...project,
-        links: { ...project.links, [linkKey]: value },
+  const load = useCallback(async () => {
+    try {
+      const res = await authed("/api/projects");
+      const body = await res.json();
+      if (!res.ok) throw new Error(body.error ?? "Failed to load projects");
+      setRows(body.projects);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load projects");
+      setRows([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  /**
+   * Create an empty draft and go straight to it.
+   *
+   * Nothing is asked for here. Naming a project is the first thing you do on its own
+   * page, where the field is in front of you and the slug it produces is visible — not
+   * in a dialog that blocks the page to collect one value before the thing it names
+   * exists.
+   */
+  const add = async () => {
+    setBusy(true);
+    setError(null);
+    try {
+      const res = await authed("/api/projects", {
+        method: "POST",
+        body: JSON.stringify({ project: emptyProject() }),
       });
-    } else {
-      onUpdate({ ...project, [field]: value });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body.error ?? "Failed to add project");
+      router.push(`/cms/config/projects/${body.project.slug}`);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to add project");
+      setBusy(false);
     }
   };
+
+  /**
+   * Archive or restore, in place of deleting.
+   *
+   * Nothing is removed: the row, its case study and its uploaded images all stay. The
+   * project simply stops being part of the site, and comes back the same way it left.
+   */
+  const setArchived = async (row: ProjectRow, archived: boolean) => {
+    setBusy(true);
+    setError(null);
+    try {
+      const res = await authed(`/api/projects/${row.slug}`, {
+        method: "PATCH",
+        body: JSON.stringify({ archived }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(
+          body.error ?? `Failed to ${archived ? "archive" : "restore"} project`,
+        );
+      }
+      setPendingArchive(null);
+      await load();
+    } catch (e) {
+      // The dialog stays open on failure. Closing it would leave the row still listed
+      // with an error above it, and no obvious way to work out which one failed.
+      setError(
+        e instanceof Error
+          ? e.message
+          : `Failed to ${archived ? "archive" : "restore"} project`,
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  /** Published projects are asked about; drafts archive on the spot. */
+  const archive = (row: ProjectRow) =>
+    row.published ? setPendingArchive(row) : setArchived(row, true);
+
+  const move = async (index: number, delta: number) => {
+    if (!rows) return;
+    const next = [...rows];
+    const j = index + delta;
+    if (j < 0 || j >= next.length) return;
+    [next[index], next[j]] = [next[j], next[index]];
+
+    // Shown before the write returns, and put back from the server if it fails. The
+    // reorder sends only positions, so it cannot carry project content with it.
+    setRows(next);
+    setBusy(true);
+    setError(null);
+    try {
+      const res = await authed("/api/projects", {
+        method: "PATCH",
+        body: JSON.stringify({ slugs: next.map((r) => r.slug) }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error ?? "Failed to reorder");
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to reorder");
+      await load();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  if (!rows) {
+    return (
+      <div className="space-y-2">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <div
+            key={i}
+            className="h-14 animate-pulse rounded-lg bg-gray-100 dark:bg-gray-900"
+          />
+        ))}
+      </div>
+    );
+  }
+
+  const active = rows.filter((row) => !row.archived_at);
+  const archived = rows.filter((row) => row.archived_at);
 
   return (
-    <div className="rounded-lg border border-gray-200 dark:border-gray-800">
-      {/* Collapsed header */}
-      <button
-        onClick={onToggle}
-        className="flex w-full items-center justify-between px-4 py-3 text-left"
-      >
-        <div className="flex items-center gap-3">
-          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-gray-100 text-xs font-medium text-gray-500 dark:bg-gray-800">
-            {index + 1}
-          </span>
-          <div>
-            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-              {project.title || "Untitled Project"}
-            </p>
-            <p className="text-xs text-gray-500">
-              {project.category} &middot; {project.year} &middot;{" "}
-              {project.status}
-            </p>
-          </div>
-          <span
-            className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-              project.published !== false
-                ? "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-400"
-                : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
-            }`}
-          >
-            {project.published !== false ? "Published" : "Draft"}
-          </span>
-        </div>
-        <svg
-          className={`h-4 w-4 text-gray-400 transition-transform ${isExpanded ? "rotate-180" : ""}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <SectionLabel>Projects ({active.length})</SectionLabel>
+        <button
+          onClick={add}
+          disabled={busy}
+          className="rounded-lg border border-dashed border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:border-gray-900 hover:text-gray-900 disabled:opacity-50 dark:border-gray-700 dark:text-gray-400 dark:hover:border-gray-100 dark:hover:text-gray-100"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
-      </button>
+          + Add project
+        </button>
+      </div>
 
-      {/* Expanded form */}
-      {isExpanded && (
-        <div className="space-y-4 border-t border-gray-200 p-4 dark:border-gray-800">
-          <div className="grid grid-cols-2 gap-4">
-            <TextField
-              label="Title"
-              value={project.title}
-              onChange={(v) => update("title", v)}
-            />
-            <TextField
-              label="Slug"
-              value={project.slug}
-              onChange={(v) => update("slug", v)}
-            />
-          </div>
+      <p className="text-xs text-gray-500">
+        Add, archive and reorder save immediately. Everything else about a project is
+        edited on its own page, and saves only that project.
+      </p>
 
-          <TextAreaField
-            label="Short Description"
-            value={project.description}
-            onChange={(v) => update("description", v)}
-            rows={2}
-          />
+      {error && (
+        <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
+          {error}
+        </p>
+      )}
 
-          <TextAreaField
-            label="Long Description"
-            value={project.longDescription}
-            onChange={(v) => update("longDescription", v)}
-            rows={4}
-          />
-
-          <div className="grid grid-cols-3 gap-4">
-            <TextField
-              label="Category"
-              value={project.category}
-              onChange={(v) => update("category", v)}
-            />
-            <TextField
-              label="Year"
-              value={project.year}
-              onChange={(v) => update("year", v)}
-            />
-            <TextField
-              label="Status"
-              value={project.status}
-              onChange={(v) => update("status", v)}
-            />
-          </div>
-
-          {/* Published toggle */}
-          <div className="flex items-center justify-between rounded-lg border border-gray-200 px-4 py-3 dark:border-gray-700">
-            <div>
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Published</p>
-              <p className="text-xs text-gray-500">Only published projects are visible on the site</p>
+      <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 dark:divide-gray-800 dark:border-gray-800">
+        {active.map((row, i) => (
+          <div
+            key={row.slug}
+            className="flex items-center gap-3 bg-white px-4 py-3 dark:bg-gray-950"
+          >
+            <div className="flex flex-col">
+              <button
+                onClick={() => move(i, -1)}
+                disabled={busy || i === 0}
+                aria-label={`Move ${row.data.title || row.slug} up`}
+                className="px-1 text-xs leading-none text-gray-400 hover:text-gray-900 disabled:opacity-25 dark:hover:text-gray-100"
+              >
+                ↑
+              </button>
+              <button
+                onClick={() => move(i, 1)}
+                disabled={busy || i === active.length - 1}
+                aria-label={`Move ${row.data.title || row.slug} down`}
+                className="px-1 text-xs leading-none text-gray-400 hover:text-gray-900 disabled:opacity-25 dark:hover:text-gray-100"
+              >
+                ↓
+              </button>
             </div>
+
             <button
-              type="button"
-              onClick={() => update("published", project.published === false ? true : false)}
-              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ${
-                project.published !== false
-                  ? "bg-green-500"
-                  : "bg-gray-300 dark:bg-gray-600"
+              onClick={() => router.push(`/cms/config/projects/${row.slug}`)}
+              className="min-w-0 flex-1 text-left"
+            >
+              <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+                {row.data.title || row.slug}
+              </p>
+              <p className="truncate text-xs text-gray-500">
+                /{row.slug}
+                {row.data.category ? ` · ${row.data.category}` : ""}
+                {row.data.year ? ` · ${row.data.year}` : ""}
+              </p>
+            </button>
+
+            <span
+              className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
+                row.published
+                  ? "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-400"
+                  : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
               }`}
             >
-              <span
-                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition-transform duration-200 ${
-                  project.published !== false ? "translate-x-5" : "translate-x-0"
-                }`}
-              />
+              {row.published ? "Published" : "Draft"}
+            </span>
+
+            <button
+              onClick={() => router.push(`/cms/config/projects/${row.slug}`)}
+              className="shrink-0 rounded-md px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => archive(row)}
+              disabled={busy}
+              className="shrink-0 rounded-md px-3 py-1.5 text-xs font-medium text-amber-700 transition-colors hover:bg-amber-50 disabled:opacity-50 dark:text-amber-500 dark:hover:bg-amber-950/30"
+            >
+              Archive
             </button>
           </div>
+        ))}
+      </div>
 
-          <SectionLabel>Thumbnail</SectionLabel>
-          {project.image && (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={project.image}
-              alt=""
-              className="h-32 w-auto rounded-lg border border-gray-200 object-cover dark:border-gray-800"
-            />
-          )}
-          <ImageUploader
-            folder={project.slug}
-            label="Upload thumbnail"
-            onUploaded={(images) => {
-              const first = images[0];
-              if (!first) return;
-              onUpdate({
-                ...project,
-                image: first.url,
-                imageSizes: withSizes(images),
-              });
-            }}
-          />
-          <TextField
-            label="Thumbnail URL"
-            value={project.image}
-            onChange={(v) => update("image", v)}
-          />
-
-          <ArrayField
-            label="Technologies"
-            value={project.technologies}
-            onChange={(v) => update("technologies", v)}
-          />
-
-          <ArrayField
-            label="Highlights"
-            value={project.highlights}
-            onChange={(v) => update("highlights", v)}
-          />
-
-          <SectionLabel>Links</SectionLabel>
-          <div className="grid grid-cols-2 gap-4">
-            <TextField
-              label="Live Demo URL"
-              value={project.links?.demo || ""}
-              onChange={(v) => update("links.demo", v)}
-            />
-            <TextField
-              label="GitHub URL"
-              value={project.links?.github || ""}
-              onChange={(v) => update("links.github", v)}
-            />
-            <TextField
-              label="npm URL"
-              value={project.links?.npm || ""}
-              onChange={(v) => update("links.npm", v)}
-            />
-            <TextField
-              label="App Store URL"
-              value={project.links?.appStore || ""}
-              onChange={(v) => update("links.appStore", v)}
-            />
-            <TextField
-              label="Google Play URL"
-              value={project.links?.playStore || ""}
-              onChange={(v) => update("links.playStore", v)}
-            />
-          </div>
-
-          <SectionLabel>Gallery</SectionLabel>
-          <TextField
-            label='Gallery heading (blank uses "A look inside")'
-            value={project.screenshotsHeading || ""}
-            onChange={(v) => update("screenshotsHeading", v)}
-          />
-          <div className="space-y-2">
-            {(project.screenshots || []).map((src, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={src}
-                  onChange={(e) => {
-                    const s = [...(project.screenshots || [])];
-                    s[i] = e.target.value;
-                    update("screenshots", s);
-                  }}
-                  className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-100 dark:focus:ring-gray-100"
-                />
+      {archived.length > 0 && (
+        <div className="pt-4">
+          <SectionLabel>Archived ({archived.length})</SectionLabel>
+          <p className="mb-3 mt-1 text-xs text-gray-500">
+            Off the site and out of the sitemap. Everything is kept — the case study and
+            the uploaded images included — and Restore puts it back where it was.
+          </p>
+          <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-dashed border-gray-300 dark:divide-gray-800 dark:border-gray-700">
+            {archived.map((row) => (
+              <div
+                key={row.slug}
+                className="flex items-center gap-3 bg-gray-50 px-4 py-3 dark:bg-gray-900/40"
+              >
                 <button
-                  onClick={() => {
-                    const s = (project.screenshots || []).filter(
-                      (_, j) => j !== i,
-                    );
-                    update("screenshots", s);
-                  }}
-                  className="rounded px-2 py-2 text-xs text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
+                  onClick={() => router.push(`/cms/config/projects/${row.slug}`)}
+                  className="min-w-0 flex-1 text-left"
                 >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <p className="truncate text-sm font-medium text-gray-500 dark:text-gray-400">
+                    {row.data.title || row.slug}
+                  </p>
+                  <p className="truncate text-xs text-gray-400 dark:text-gray-500">
+                    /{row.slug} · archived{" "}
+                    {new Date(row.archived_at!).toLocaleDateString(undefined, {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </p>
+                </button>
+                <button
+                  onClick={() => setArchived(row, false)}
+                  disabled={busy}
+                  className="shrink-0 rounded-md px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:opacity-50 dark:text-gray-300 dark:hover:bg-gray-800"
+                >
+                  Restore
                 </button>
               </div>
             ))}
-            <ImageUploader
-              folder={project.slug}
-              multiple
-              label="Upload screenshots"
-              onUploaded={(images) => {
-                onUpdate({
-                  ...project,
-                  screenshots: [
-                    ...(project.screenshots || []),
-                    ...images.map((i) => i.url),
-                  ],
-                  imageSizes: withSizes(images),
-                });
-              }}
-            />
-            <button
-              onClick={() => {
-                update("screenshots", [
-                  ...(project.screenshots || []),
-                  "",
-                ]);
-              }}
-              className="text-xs font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
-            >
-              + Add screenshot URL manually
-            </button>
-          </div>
-
-          <ScreenshotGroups
-            slug={project.slug}
-            groups={project.screenshotGroups ?? []}
-            ungrouped={(project.screenshots ?? []).filter(
-              (src) =>
-                !(project.screenshotGroups ?? []).some((g) =>
-                  g.images?.includes(src),
-                ),
-            )}
-            onChange={(groups) => update("screenshotGroups", groups)}
-            onSizes={(images) => {
-              // Uploads made inside a group still need their dimensions recorded, and
-              // the URLs added to `screenshots` so the flat list stays the full set.
-              onUpdate({
-                ...project,
-                imageSizes: withSizes(images),
-                screenshots: [
-                  ...(project.screenshots ?? []),
-                  ...images.map((i) => i.url),
-                ],
-              });
-            }}
-          />
-
-          <CaseStudyEditor
-            caseStudy={project.caseStudy ?? {}}
-            onChange={(cs) => update("caseStudy", cs)}
-          />
-
-          <div className="flex justify-end pt-2">
-            <button
-              onClick={onRemove}
-              className="rounded-md px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
-            >
-              Remove Project
-            </button>
           </div>
         </div>
       )}
+
+      <ConfirmDialog
+        open={!!pendingArchive}
+        title={`Archive "${pendingArchive?.data.title || pendingArchive?.slug}"?`}
+        confirmLabel="Archive"
+        body={
+          <>
+            <p>
+              It comes off the site and out of the sitemap.{" "}
+              <span className="font-medium">Nothing is deleted</span> — the case study and
+              the uploaded images are kept, and you can restore it from the archived list.
+            </p>
+            <p className="mt-2">
+              It is published, so /projects/{pendingArchive?.slug} will start returning
+              404 until it is restored.
+            </p>
+          </>
+        }
+        busy={busy}
+        onConfirm={() => pendingArchive && setArchived(pendingArchive, true)}
+        onCancel={() => setPendingArchive(null)}
+      />
     </div>
   );
 }
 
 export default function ProjectsConfigPage() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
   return (
     <ConfigEditor
       configKey="projects"
       title="Projects"
-      description="Manage all projects, their details, images, and links"
+      description="The section heading, and the list of projects"
     >
       {({ config, updateField }) => {
-        const projects = (config.projects as Project[]) || [];
         const cta = config.callToAction as Record<string, string>;
-
-        const addProject = () => {
-          const newId =
-            projects.length > 0
-              ? Math.max(...projects.map((p) => p.id)) + 1
-              : 1;
-          const updated = [
-            ...projects,
-            {
-              id: newId,
-              slug: "",
-              title: "",
-              description: "",
-              longDescription: "",
-              image: "",
-              screenshots: [],
-              technologies: [],
-              category: "",
-              status: "Completed",
-              year: new Date().getFullYear().toString(),
-              links: {},
-              highlights: [],
-              published: false,
-            },
-          ];
-          updateField("projects", updated);
-          setExpandedIndex(updated.length - 1);
-        };
-
-        const updateProject = (index: number, updated: Project) => {
-          const p = [...projects];
-          p[index] = updated;
-          updateField("projects", p);
-        };
-
-        const removeProject = (index: number) => {
-          updateField(
-            "projects",
-            projects.filter((_, i) => i !== index),
-          );
-          setExpandedIndex(null);
-        };
 
         return (
           <div className="space-y-6">
@@ -457,45 +371,7 @@ export default function ProjectsConfigPage() {
               onChange={(v) => updateField("subtitle", v)}
             />
 
-            <SectionLabel>
-              Projects ({projects.length})
-            </SectionLabel>
-
-            <button
-              onClick={addProject}
-              className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 px-4 py-3 text-sm font-medium text-gray-600 transition-colors hover:border-gray-900 hover:text-gray-900 dark:border-gray-700 dark:text-gray-400 dark:hover:border-gray-100 dark:hover:text-gray-100"
-            >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-              Add New Project
-            </button>
-
-            <div className="space-y-3">
-              {projects.map((project, i) => (
-                <ProjectCard
-                  key={project.id || i}
-                  project={project}
-                  index={i}
-                  onUpdate={(updated) => updateProject(i, updated)}
-                  onRemove={() => removeProject(i)}
-                  isExpanded={expandedIndex === i}
-                  onToggle={() =>
-                    setExpandedIndex(expandedIndex === i ? null : i)
-                  }
-                />
-              ))}
-            </div>
+            <ProjectList />
 
             <SectionLabel>Call to Action</SectionLabel>
             <TextField

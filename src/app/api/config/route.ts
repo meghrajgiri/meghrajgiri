@@ -1,39 +1,19 @@
-import { createClient } from "@supabase/supabase-js";
-import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import sections from "@/config/sections.json";
+import { verifyAdmin } from "@/lib/admin-auth";
+import { revalidateSite } from "@/lib/revalidate-site";
 import { getConfig, saveConfig } from "@/lib/config";
 
 /**
- * Shared with `getAllConfig` and the snapshot script — see `src/config/sections.json`.
+ * Shared with `getAllConfig` — see `src/config/sections.json`.
  * This list used to be maintained here by hand, which meant a new section could ship
  * with a working page and a CMS editor that failed with "Invalid config key".
  */
 const VALID_KEYS = sections.editable;
 
-// Verify the request has a valid Supabase auth session
-async function verifyAuth(request: NextRequest) {
-  const authHeader = request.headers.get("authorization");
-  if (!authHeader?.startsWith("Bearer ")) return false;
-
-  const token = authHeader.slice(7);
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
-
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser(token);
-
-  return !error && !!user;
-}
-
 // GET /api/config?key=personal
 export async function GET(request: NextRequest) {
-  const isAuthed = await verifyAuth(request);
-  if (!isAuthed) {
+  if (!(await verifyAdmin(request))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -43,14 +23,23 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Invalid config key" }, { status: 400 });
   }
 
-  const value = await getConfig(key);
-  return NextResponse.json({ key, value });
+  try {
+    return NextResponse.json({ key, value: await getConfig(key) });
+  } catch (error) {
+    // `getConfig` throws on a failed read rather than returning an empty object, so the
+    // editor reports an error instead of rendering a blank form that its next Save would
+    // write over the top of the real content.
+    console.error(`Error reading config "${key}":`, error);
+    return NextResponse.json(
+      { error: `Could not read "${key}" from Supabase` },
+      { status: 500 },
+    );
+  }
 }
 
 // PUT /api/config
 export async function PUT(request: NextRequest) {
-  const isAuthed = await verifyAuth(request);
-  if (!isAuthed) {
+  if (!(await verifyAdmin(request))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -65,15 +54,23 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: "Invalid config value" }, { status: 400 });
   }
 
+  // Projects are rows in their own table and are written one at a time through
+  // `/api/projects`. Accepting an array here would restore exactly the failure that
+  // splitting them up removed: a whole-collection write built from whatever the
+  // editing tab happened to be holding.
+  if (key === "projects" && "projects" in value) {
+    return NextResponse.json(
+      {
+        error:
+          "Projects are edited individually — use /api/projects. This endpoint saves the section's heading and call to action only.",
+      },
+      { status: 400 },
+    );
+  }
+
   try {
     await saveConfig(key, value);
-    revalidateTag("site-config");
-    revalidatePath("/", "layout");
-    // Metadata routes don't participate in the layout revalidation above, so a
-    // project added from /cms would stay absent from the sitemap until the next
-    // deploy without this.
-    revalidatePath("/sitemap.xml");
-    revalidatePath("/robots.txt");
+    revalidateSite();
     return NextResponse.json({ success: true, key });
   } catch (error) {
     console.error("Error saving config:", error);

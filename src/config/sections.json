@@ -1,6 +1,6 @@
 {
-  "_comment": "The single source of truth for site_config section names. Three places used to keep their own copy — getAllConfig, the /api/config allowlist and the snapshot script — and adding a section meant remembering all three. Missing one silently broke its CMS editor with 'Invalid config key' while the public page rendered fine. Edit here only.",
-  "_rendered": "Sections getAllConfig fetches and the snapshot commits. The table also holds rows from an earlier version of the site (featured_work, journey, expertise, process) that nothing reads; leaving them out keeps them from being serialised into every page's payload.",
+  "_comment": "The single source of truth for site_config section names. Several places used to keep their own copy — getAllConfig and the /api/config allowlist among them — and adding a section meant remembering all of them. Missing one silently broke its CMS editor with 'Invalid config key' while the public page rendered fine. Edit here only.",
+  "_rendered": "Sections getAllConfig fetches, and the ones a missing row will fail the build over. The table also holds rows from an earlier version of the site (featured_work, journey, expertise, process) that nothing reads; leaving them out keeps them from being serialised into every page's payload.",
   "rendered": [
     "personal",
     "hero",

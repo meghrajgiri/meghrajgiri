@@ -38,8 +38,8 @@ Effort estimates assume one person working part-time on this alongside client wo
 |---|---|---|---|
 | 4.1 | Remove `force-dynamic` from the three public routes | `(site)/layout.tsx`, `projects/page.tsx`, `projects/[slug]/page.tsx` | ✅ `/` and `/projects` now Static, `/projects/[slug]` now SSG |
 | 4.2 | `generateStaticParams` actually pre-renders | project route | ✅ verified in build output |
-| 4.3 | **Committed config snapshot as an outage fallback** | [src/config/fallback.json](../../src/config/fallback.json), [src/lib/config.ts](../../src/lib/config.ts) | ✅ verified: full site builds and serves 200s with Supabase unreachable |
-| 4.4 | `yarn config:snapshot` to refresh the snapshot | [scripts/snapshot-config.mjs](../../scripts/snapshot-config.mjs) | ✅ **run this after content edits and commit the result** |
+| 4.3 | ~~Committed config snapshot as an outage fallback~~ | [src/lib/config.ts](../../src/lib/config.ts) | ↩️ **removed 2026-09-06.** It worked — a full site built and served 200s with Supabase unreachable — but it only did so while the committed copy was refreshed by hand after every content edit, and a stale one fails silently in the incident it exists for. `getAllConfig` now throws instead, so a build during an outage fails and Vercel keeps the last deployment serving. |
+| 4.4 | ~~`yarn config:snapshot` after content edits~~ | — | ↩️ **removed with 4.3.** Content lives only in Supabase; nothing to refresh or commit. |
 | 4.5 | Revalidate `/sitemap.xml` and `/robots.txt` on admin save | [src/app/api/config/route.ts](../../src/app/api/config/route.ts) | ✅ new projects now reach the sitemap without a deploy |
 | 4.6 | Site-wide OG card | [src/app/opengraph-image.tsx](../../src/app/opengraph-image.tsx) | ✅ `og:image` + `twitter:image` now exist; both were absent |
 | 4.7 | Per-project OG cards | [projects/[slug]/opengraph-image.tsx](../../src/app/(site)/projects/[slug]/opengraph-image.tsx) | ✅ replaces raw screenshots that platforms cropped |

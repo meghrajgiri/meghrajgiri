@@ -1,6 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase";
+import { PROJECT_IMAGES_BUCKET } from "@/lib/storage";
 import { useEffect, useRef, useState } from "react";
 
 export type UploadedImage = {
@@ -8,8 +9,6 @@ export type UploadedImage = {
   width?: number;
   height?: number;
 };
-
-const BUCKET = "project-images";
 
 /** Mirrors the bucket's `allowed_mime_types` so a rejection is explained here first. */
 const ACCEPTED = ["image/png", "image/jpeg", "image/webp", "image/avif", "image/gif"];
@@ -138,7 +137,7 @@ export function ImageUploader({
         const path = `${folder || "misc"}/${objectName(file)}`;
 
         const { error: uploadError } = await supabase.storage
-          .from(BUCKET)
+          .from(PROJECT_IMAGES_BUCKET)
           .upload(path, file, {
             contentType: file.type,
             cacheControl: "31536000",
@@ -147,7 +146,7 @@ export function ImageUploader({
 
         if (uploadError) throw new Error(`${file.name}: ${uploadError.message}`);
 
-        const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+        const { data } = supabase.storage.from(PROJECT_IMAGES_BUCKET).getPublicUrl(path);
         done.push({ url: data.publicUrl, ...(size ?? {}) });
       }
 

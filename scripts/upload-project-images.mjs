@@ -204,7 +204,7 @@ async function repointConfig(mapping) {
   }
 
   console.log(
-    `\n  \x1b[32mDone.\x1b[0m Run \x1b[36myarn config:snapshot\x1b[0m to update the committed fallback.\n`,
+    `\n  \x1b[32mDone.\x1b[0m\n`,
   );
 }
 
