@@ -31,14 +31,3 @@ export function yearsSince(
 
   return Math.max(years, 0);
 }
-
-/**
- * Which configured stat a derived tenure figure should take over.
- *
- * The hero calls it "Professional experience" and `/about` calls it "Years in tech",
- * and both are typed into the CMS by hand — so the rule for recognising them lives
- * here rather than as two regexes that can drift apart. Anything matching is replaced
- * by the computed value when `personal.careerStart` is set, and left exactly as
- * authored when it is not.
- */
-export const TENURE_LABEL = /professional\s+experience|years?\s+in\s+tech/i;
