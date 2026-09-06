@@ -26,37 +26,27 @@ export function HeroSection() {
   );
 
   /**
-   * Three stat cards. Configured values from the CMS come first; any remaining slots
-   * fill from counts derived off the project list, so the row is always three and the
-   * derived ones cannot drift out of date the way a typed-in figure does.
+   * Three stat cards: two derived, one authored.
    *
-   * Both derived stats used to be wrong in a way that cost credibility rather than
-   * gaining it. "Industries" counted `category`, and the only categories in the data
-   * are App, Web and Open Source — so it advertised "3 industries" for work spanning
-   * telehealth, retail, ticketing, recovery and art. "Projects completed" counted
-   * `status === "completed"` and therefore excluded everything marked Live, reporting
-   * 6 while 14 case studies sat published on the site.
-   */
-  const live = published.filter(
-    (p) => (p.status ?? "").toLowerCase() === "live",
-  ).length;
-
-  /**
-   * Tenure is derived, never authored.
+   * The row is composed explicitly rather than assembled from a longer list and
+   * truncated. The previous version concatenated every configured stat ahead of the
+   * derived counts and then took the first three, so adding a second stat in the CMS
+   * would silently push the case-study count out of the row — a figure that is always
+   * true and always current, displaced by one that someone typed.
    *
-   * An earlier version kept a hand-typed "5+" in `hero.stats` and hid it when a
-   * `careerStart` was set, by testing the stat's label against a regex. That broke
-   * the moment someone edited the label in the CMS — trimming "Professional
-   * Experience" to "Professional" stopped the match, and the stale card reappeared
-   * beside the computed one. Behaviour keyed off hand-typed prose is behaviour that
-   * breaks when the prose is edited.
+   * Slot 1 and slot 3 are computed and cannot go stale. Slot 2 is the one editable
+   * card; `.slice(0, 1)` enforces that rather than trusting the config's length, so a
+   * second row added to `hero.stats` is ignored instead of costing the case-study
+   * count its place.
    *
-   * So the row is gone from the config instead, and this is the only place tenure
-   * comes from. With no `careerStart` the card simply does not render, which is
-   * correct: without a start date there is no tenure to state, and a typed figure
-   * that silently goes stale is the thing being removed.
+   * An earlier pass also derived "Live in production" as a fourth candidate. With
+   * tenure and one authored stat present it was never reachable, so it is gone rather
+   * than sitting in the array looking like it does something.
    */
   const years = careerStart ? yearsSince(careerStart) : null;
+  const authored = (hero.stats ?? [])
+    .filter((st) => st.value?.trim() && st.label?.trim())
+    .slice(0, 1);
 
   const stats = [
     // "+" because a whole-year count is a floor: five years and eight months reads as
@@ -64,10 +54,9 @@ export function HeroSection() {
     ...(years !== null
       ? [{ value: `${years}+`, label: "Professional experience" }]
       : []),
-    ...(hero.stats ?? []).filter((st) => st.value?.trim() && st.label?.trim()),
+    ...authored,
     { value: String(published.length), label: "Case studies" },
-    { value: String(live), label: "Live in production" },
-  ].slice(0, 3);
+  ];
 
   const secondary = hero.buttons?.secondary;
 

@@ -80,32 +80,60 @@ export default function HeroConfigPage() {
             />
 
             <SectionLabel>Stats</SectionLabel>
-            {stats?.map((stat, i) => (
-              <div key={i} className="flex gap-4">
-                <div className="flex-1">
-                  <TextField
-                    label={`Stat ${i + 1} Value`}
-                    value={stat.value}
-                    onChange={(v) => {
-                      const s = [...stats];
-                      s[i] = { ...s[i], value: v };
-                      updateField("stats", s);
-                    }}
-                  />
+            {/* The hero shows three stat cards and only this one is editable.
+                Card 1 is professional experience, computed from Personal ->
+                Career start date. Card 3 is the published case-study count,
+                computed from Projects. Neither can be typed here, because a
+                hand-entered figure goes stale silently and these two do not. */}
+            <p className="text-sm text-muted-foreground">
+              The hero shows three stats. The first (professional experience)
+              and the third (case studies) are calculated automatically — from{" "}
+              <strong className="font-medium text-foreground">
+                Personal &rarr; Career start date
+              </strong>{" "}
+              and from the number of published projects. This is the one you set
+              yourself.
+            </p>
+
+            {stats?.length ? (
+              stats.slice(0, 1).map((stat, i) => (
+                <div key={i} className="flex gap-4">
+                  <div className="flex-1">
+                    <TextField
+                      label="Value"
+                      value={stat.value}
+                      onChange={(v) => {
+                        const s = [...stats];
+                        s[i] = { ...s[i], value: v };
+                        updateField("stats", s);
+                      }}
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <TextField
+                      label="Label"
+                      value={stat.label}
+                      onChange={(v) => {
+                        const s = [...stats];
+                        s[i] = { ...s[i], label: v };
+                        updateField("stats", s);
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <TextField
-                    label={`Stat ${i + 1} Label`}
-                    value={stat.label}
-                    onChange={(v) => {
-                      const s = [...stats];
-                      s[i] = { ...s[i], label: v };
-                      updateField("stats", s);
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              /* Without this the editor is a dead end: the fields are rendered by
+                 mapping the array, so once it is empty there is no control left to
+                 add one back and the middle card can never return. */
+              <button
+                type="button"
+                onClick={() => updateField("stats", [{ value: "", label: "" }])}
+                className="flex w-full items-center justify-center gap-2 rounded-[6px] border border-dashed border-border px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+              >
+                Add the manual stat
+              </button>
+            )}
           </div>
         );
       }}
