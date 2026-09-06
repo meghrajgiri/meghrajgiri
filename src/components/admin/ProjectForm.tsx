@@ -6,9 +6,18 @@ import {
   TextAreaField,
   TextField,
 } from "@/components/admin/ConfigEditor";
-import { CaseStudyEditor, type CaseStudy } from "@/components/admin/CaseStudyEditor";
-import { ImageUploader, type UploadedImage } from "@/components/admin/ImageUploader";
-import { ScreenshotGroups, type ScreenshotGroup } from "@/components/admin/ScreenshotGroups";
+import {
+  CaseStudyEditor,
+  type CaseStudy,
+} from "@/components/admin/CaseStudyEditor";
+import {
+  ImageUploader,
+  type UploadedImage,
+} from "@/components/admin/ImageUploader";
+import {
+  ScreenshotGroups,
+  type ScreenshotGroup,
+} from "@/components/admin/ScreenshotGroups";
 import { slugify } from "@/lib/slug";
 
 export interface Project {
@@ -190,22 +199,24 @@ export function ProjectForm({
       </div>
 
       {/* Published toggle */}
-      <div className="flex items-center justify-between rounded-lg border border-gray-200 px-4 py-3 dark:border-gray-700">
+      <div className="flex items-center justify-between rounded-[6px] border border-border px-4 py-3">
         <div>
-          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Published</p>
-          <p className="text-xs text-gray-500">Only published projects are visible on the site</p>
+          <p className="text-sm font-medium text-foreground">Published</p>
+          <p className="text-xs text-muted-foreground">
+            Only published projects are visible on the site
+          </p>
         </div>
         <button
           type="button"
-          onClick={() => update("published", project.published === false ? true : false)}
-          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ${
-            project.published !== false
-              ? "bg-green-500"
-              : "bg-gray-300 dark:bg-gray-600"
+          onClick={() =>
+            update("published", project.published === false ? true : false)
+          }
+          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ${
+            project.published !== false ? "bg-green-500" : "bg-border-strong"
           }`}
         >
           <span
-            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition-transform duration-200 ${
+            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-card shadow ring-0 transition-transform duration-200 ${
               project.published !== false ? "translate-x-5" : "translate-x-0"
             }`}
           />
@@ -218,7 +229,7 @@ export function ProjectForm({
         <img
           src={project.image}
           alt=""
-          className="h-32 w-auto rounded-lg border border-gray-200 object-cover dark:border-gray-800"
+          className="h-32 w-auto rounded-[6px] border border-border object-cover"
         />
       )}
       <ImageUploader
@@ -283,7 +294,7 @@ export function ProjectForm({
 
       <SectionLabel>Gallery</SectionLabel>
       <TextField
-        label='Gallery heading (blank uses "A look inside")'
+        label='Gallery heading (blank uses"A look inside")'
         value={project.screenshotsHeading || ""}
         onChange={(v) => update("screenshotsHeading", v)}
       />
@@ -298,13 +309,11 @@ export function ProjectForm({
                 s[i] = e.target.value;
                 update("screenshots", s);
               }}
-              className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-100 dark:focus:ring-gray-100"
+              className="flex-1 rounded-[6px] border border-input bg-card px-3 py-2 text-sm text-foreground outline-none focus:border-foreground focus:ring-1 focus:ring-ring"
             />
             <button
               onClick={() => {
-                const s = (project.screenshots || []).filter(
-                  (_, j) => j !== i,
-                );
+                const s = (project.screenshots || []).filter((_, j) => j !== i);
                 update("screenshots", s);
               }}
               className="rounded px-2 py-2 text-xs text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
@@ -342,12 +351,9 @@ export function ProjectForm({
         />
         <button
           onClick={() => {
-            update("screenshots", [
-              ...(project.screenshots || []),
-              "",
-            ]);
+            update("screenshots", [...(project.screenshots || []), ""]);
           }}
-          className="text-xs font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+          className="text-xs font-medium text-muted-foreground hover:text-foreground"
         >
           + Add screenshot URL manually
         </button>

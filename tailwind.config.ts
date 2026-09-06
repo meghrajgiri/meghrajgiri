@@ -29,7 +29,12 @@ module.exports = withTV({
           DEFAULT: "var(--accent)",
           foreground: "var(--accent-foreground)",
         },
-        border: "var(--border)",
+        border: {
+          DEFAULT: "var(--border)",
+          strong: "var(--border-strong)",
+        },
+        elevated: "var(--elevated)",
+        faint: "var(--faint)",
         brand: {
           DEFAULT: "var(--brand)",
           soft: "var(--brand-soft)",

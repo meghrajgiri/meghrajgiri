@@ -68,7 +68,7 @@ export default async function ContactPage() {
           </h2>
           <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-3">
             {cards.map((item) => (
-              <article key={item.title} className="nb bg-card p-6 md:p-8">
+              <article key={item.title} className="panel bg-card p-6 md:p-8">
                 <h3 className="text-xl">{item.title}</h3>
                 <p className="mt-3 text-[17px] leading-[1.75] text-muted-foreground">
                   {item.body}
@@ -103,7 +103,7 @@ export default async function ContactPage() {
           </h2>
           <div className="mt-10 flex max-w-[68ch] flex-col gap-8 md:mt-14">
             {qa.map((item) => (
-              <div key={item.q} className="border-t-2 border-border pt-5">
+              <div key={item.q} className="border-t border-border pt-5">
                 <h3 className="text-xl">{item.q}</h3>
                 <p className="mt-3 text-[17px] leading-[1.75] text-muted-foreground">
                   {item.a}

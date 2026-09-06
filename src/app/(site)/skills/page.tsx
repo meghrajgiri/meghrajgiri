@@ -70,7 +70,7 @@ export default async function SkillsPage() {
           page supplies the h1 and the framing. */}
       <section className="px-6 pb-4 pt-14 md:pt-20">
         <div className="container mx-auto max-w-6xl">
-          <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+          <p className="label">
             Stack
           </p>
           <h1 className="mt-4 max-w-[20ch] text-[2rem] md:text-5xl">
@@ -99,7 +99,7 @@ export default async function SkillsPage() {
               {evidence.map((row) => (
                 <div
                   key={row.slug}
-                  className="grid gap-2 border-t-2 border-foreground py-5 md:grid-cols-[220px_1fr] md:gap-10"
+                  className="grid gap-2 border-t border-foreground py-5 md:grid-cols-[220px_1fr] md:gap-10"
                 >
                   <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-foreground">
                     {row.tech}
@@ -128,7 +128,7 @@ export default async function SkillsPage() {
             </h2>
             <div className="mt-10 flex max-w-[68ch] flex-col gap-8 md:mt-14">
               {qa.map((item) => (
-                <div key={item.q} className="border-t-2 border-border pt-5">
+                <div key={item.q} className="border-t border-border pt-5">
                   <h3 className="text-xl">{item.q}</h3>
                   <p className="mt-3 text-[17px] leading-[1.75] text-muted-foreground">
                     {item.a}

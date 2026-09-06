@@ -16,27 +16,34 @@ export function ContactSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
   });
 
   const getFieldConfig = (fieldName: string) => {
     const field = siteConfig.contact.form.fields?.[fieldName];
-    return field || { label: fieldName.charAt(0).toUpperCase() + fieldName.slice(1), placeholder: `Enter ${fieldName}` };
+    return (
+      field || {
+        label: fieldName.charAt(0).toUpperCase() + fieldName.slice(1),
+        placeholder: `Enter ${fieldName}`,
+      }
+    );
   };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('idle');
-    
+    setSubmitStatus("idle");
+
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -46,24 +53,26 @@ export function ContactSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
       if (response.ok) {
         // Reset form on success
         setFormData({ name: "", email: "", subject: "", message: "" });
-        setSubmitStatus('success');
-        setTimeout(() => setSubmitStatus('idle'), 5000); // Hide success message after 5 seconds
+        setSubmitStatus("success");
+        setTimeout(() => setSubmitStatus("idle"), 5000); // Hide success message after 5 seconds
       } else {
-        setSubmitStatus('error');
-        console.error('Form submission error:', result.error);
+        setSubmitStatus("error");
+        console.error("Form submission error:", result.error);
       }
     } catch (error) {
-      setSubmitStatus('error');
-      console.error('Form submission error:', error);
+      setSubmitStatus("error");
+      console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -74,13 +83,10 @@ export function ContactSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
   const field = (name: "name" | "email" | "subject" | "message") => {
     const cfg = getFieldConfig(name);
     const shared =
-      "w-full border-2 border-border bg-card px-4 py-3 text-[15px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand";
+      "w-full rounded-[6px] border border-input bg-card px-4 py-3 text-[15px] text-foreground transition-colors placeholder:text-faint hover:border-muted-foreground focus:border-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring";
     return (
       <div key={name}>
-        <label
-          htmlFor={`contact-${name}`}
-          className="mb-2 block font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground"
-        >
+        <label htmlFor={`contact-${name}`} className="label mb-2 block">
           {cfg.label}
         </label>
         {name === "message" ? (
@@ -115,9 +121,7 @@ export function ContactSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
       <div className="container mx-auto max-w-6xl">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
-              Contact
-            </p>
+            <p className="label">Contact</p>
             <Heading className="mt-3 max-w-[16ch] text-[2rem] md:text-5xl">
               {siteConfig.contact?.title}
             </Heading>
@@ -148,7 +152,9 @@ export function ContactSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
                   <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                     Phone
                   </dt>
-                  <dd className="mt-1.5 font-mono text-[15px] text-muted-foreground">{info.phone}</dd>
+                  <dd className="mt-1.5 font-mono text-[15px] text-muted-foreground">
+                    {info.phone}
+                  </dd>
                 </div>
               )}
               {info?.location && (
@@ -156,7 +162,9 @@ export function ContactSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
                   <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                     Based
                   </dt>
-                  <dd className="mt-1.5 text-[15px] text-muted-foreground">{info.location}</dd>
+                  <dd className="mt-1.5 text-[15px] text-muted-foreground">
+                    {info.location}
+                  </dd>
                 </div>
               )}
               {availability && (
@@ -166,11 +174,16 @@ export function ContactSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
                   </dt>
                   <dd className="mt-1.5 text-[15px] text-muted-foreground">
                     <span className="inline-flex items-center gap-2.5 text-foreground">
-                      <span className="h-3 w-3 border-2 border-border bg-brand" aria-hidden />
+                      <span
+                        className="h-2 w-2 shrink-0 rounded-full bg-foreground"
+                        aria-hidden
+                      />
                       {availability.status}
                     </span>
                     {availability.responseTime && (
-                      <span className="mt-1 block">{availability.responseTime}</span>
+                      <span className="mt-1 block">
+                        {availability.responseTime}
+                      </span>
                     )}
                     {availability.workingHours && (
                       <span className="block">{availability.workingHours}</span>
@@ -193,19 +206,28 @@ export function ContactSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="nb nb-press focus-ring inline-flex min-h-[48px] items-center bg-brand px-7 font-bold text-[var(--brand-ink)] disabled:opacity-60"
+                className="cta focus-ring inline-flex min-h-[48px] items-center px-7 disabled:opacity-60"
               >
-                {isSubmitting ? "Sending…" : (form?.submitButton ?? "Send message")}
+                {isSubmitting
+                  ? "Sending…"
+                  : (form?.submitButton ?? "Send message")}
               </button>
 
               {submitStatus === "success" && (
-                <p role="status" className="text-sm text-brand">
+                <p
+                  role="status"
+                  className="text-sm font-semibold text-foreground"
+                >
                   {form?.successMessage ?? "Thanks — I'll be in touch."}
                 </p>
               )}
               {submitStatus === "error" && (
-                <p role="alert" className="text-sm text-red-600 dark:text-red-400">
-                  {form?.errorMessage ?? "Something went wrong. Please try again."}
+                <p
+                  role="alert"
+                  className="text-sm text-red-600 dark:text-red-400"
+                >
+                  {form?.errorMessage ??
+                    "Something went wrong. Please try again."}
                 </p>
               )}
             </div>

@@ -74,7 +74,7 @@ export function ConfirmDialog({
 
     document.addEventListener("keydown", onKey);
 
-    // Restored rather than set to "auto": the value here may not have been the default.
+    // Restored rather than set to"auto": the value here may not have been the default.
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     cancelRef.current?.focus();
@@ -89,7 +89,7 @@ export function ConfirmDialog({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4"
+      className="bg-card/50 fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={() => !busy && onCancel()}
     >
       <div
@@ -98,16 +98,16 @@ export function ConfirmDialog({
         aria-labelledby="confirm-dialog-title"
         // The backdrop closes on click; the panel must not pass its own clicks up to it.
         onClick={(event) => event.stopPropagation()}
-        className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl dark:bg-gray-900"
+        className="w-full max-w-md rounded-[6px] bg-card p-6 shadow-xl"
       >
         <h2
           id="confirm-dialog-title"
-          className="text-base font-semibold text-gray-900 dark:text-gray-100"
+          className="text-base font-semibold text-foreground"
         >
           {title}
         </h2>
 
-        <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">{body}</div>
+        <div className="mt-2 text-sm text-muted-foreground">{body}</div>
 
         <div className="mt-6 flex justify-end gap-3">
           <button
@@ -115,7 +115,7 @@ export function ConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={busy}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 disabled:opacity-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+            className="rounded-[6px] border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted disabled:opacity-50"
           >
             Cancel
           </button>
@@ -124,10 +124,10 @@ export function ConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={busy}
-            className={`rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors disabled:opacity-50 ${
+            className={`rounded-[6px] px-4 py-2 text-sm font-medium text-primary-foreground transition-colors disabled:opacity-50 ${
               tone === "danger"
                 ? "bg-red-600 hover:bg-red-700"
-                : "bg-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white"
+                : "bg-primary text-primary-foreground hover:opacity-90"
             }`}
           >
             {busy ? `${confirmLabel}…` : confirmLabel}

@@ -66,7 +66,7 @@ export default function HireConfigPage() {
             {hubQa.map((item, i) => (
               <div
                 key={i}
-                className="space-y-4 rounded-lg border border-gray-200 p-4 dark:border-gray-800"
+                className="space-y-4 rounded-[6px] border border-border p-4"
               >
                 <TextField
                   label="Question"
@@ -104,7 +104,7 @@ export default function HireConfigPage() {
             <button
               type="button"
               onClick={() => updateField("qa", [...hubQa, { q: "", a: "" }])}
-              className="rounded-lg border border-dashed border-gray-300 px-4 py-2 text-sm text-gray-600 hover:border-gray-400 dark:border-gray-700 dark:text-gray-400"
+              className="rounded-[6px] border border-dashed border-border px-4 py-2 text-sm text-muted-foreground hover:border-border-strong"
             >
               + Add question
             </button>
@@ -112,15 +112,15 @@ export default function HireConfigPage() {
             {pages.map((page, i) => (
               <div key={i} className="space-y-4">
                 <SectionLabel>{page.stack || `Page ${i + 1}`}</SectionLabel>
-                <div className="space-y-4 rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+                <div className="space-y-4 rounded-[6px] border border-border p-4">
                   <TextField
                     label="Slug (URL: /hire/…)"
                     value={page.slug}
                     onChange={(v) => setPage(i, { slug: v })}
                   />
                   <p className="-mt-3 text-xs text-amber-600 dark:text-amber-500">
-                    Changing the slug changes the URL. The old address will 404 — only
-                    change it if the page has no traffic or links yet.
+                    Changing the slug changes the URL. The old address will 404
+                    — only change it if the page has no traffic or links yet.
                   </p>
                   <TextField
                     label="Stack name (badge and headings)"
@@ -158,7 +158,7 @@ export default function HireConfigPage() {
                   {(page.evidence ?? []).map((item, j) => (
                     <div
                       key={j}
-                      className="space-y-3 rounded-lg border border-gray-200 p-3 dark:border-gray-800"
+                      className="space-y-3 rounded-[6px] border border-border p-3"
                     >
                       <TextField
                         label="Project slug (must match a case study)"
@@ -210,7 +210,7 @@ export default function HireConfigPage() {
                         ],
                       })
                     }
-                    className="rounded-lg border border-dashed border-gray-300 px-4 py-2 text-sm text-gray-600 hover:border-gray-400 dark:border-gray-700 dark:text-gray-400"
+                    className="rounded-[6px] border border-dashed border-border px-4 py-2 text-sm text-muted-foreground hover:border-border-strong"
                   >
                     + Add evidence
                   </button>
@@ -219,7 +219,7 @@ export default function HireConfigPage() {
                   {(page.qa ?? []).map((item, j) => (
                     <div
                       key={j}
-                      className="space-y-3 rounded-lg border border-gray-200 p-3 dark:border-gray-800"
+                      className="space-y-3 rounded-[6px] border border-border p-3"
                     >
                       <TextField
                         label="Question"
@@ -256,7 +256,7 @@ export default function HireConfigPage() {
                     onClick={() =>
                       setPage(i, { qa: [...(page.qa ?? []), { q: "", a: "" }] })
                     }
-                    className="rounded-lg border border-dashed border-gray-300 px-4 py-2 text-sm text-gray-600 hover:border-gray-400 dark:border-gray-700 dark:text-gray-400"
+                    className="rounded-[6px] border border-dashed border-border px-4 py-2 text-sm text-muted-foreground hover:border-border-strong"
                   >
                     + Add question
                   </button>
@@ -267,7 +267,7 @@ export default function HireConfigPage() {
             <button
               type="button"
               onClick={() => updateField("pages", [...pages, { ...BLANK }])}
-              className="w-full rounded-lg border border-dashed border-gray-300 px-4 py-3 text-sm text-gray-600 hover:border-gray-400 dark:border-gray-700 dark:text-gray-400"
+              className="w-full rounded-[6px] border border-dashed border-border px-4 py-3 text-sm text-muted-foreground hover:border-border-strong"
             >
               + Add hire page
             </button>

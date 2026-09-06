@@ -174,10 +174,7 @@ function ProjectList() {
     return (
       <div className="space-y-2">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div
-            key={i}
-            className="h-14 animate-pulse rounded-lg bg-gray-100 dark:bg-gray-900"
-          />
+          <div key={i} className="h-14 animate-pulse rounded-[6px] bg-muted" />
         ))}
       </div>
     );
@@ -193,35 +190,35 @@ function ProjectList() {
         <button
           onClick={add}
           disabled={busy}
-          className="rounded-lg border border-dashed border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:border-gray-900 hover:text-gray-900 disabled:opacity-50 dark:border-gray-700 dark:text-gray-400 dark:hover:border-gray-100 dark:hover:text-gray-100"
+          className="rounded-[6px] border border-dashed border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground disabled:opacity-50"
         >
           + Add project
         </button>
       </div>
 
-      <p className="text-xs text-gray-500">
-        Add, archive and reorder save immediately. Everything else about a project is
-        edited on its own page, and saves only that project.
+      <p className="text-xs text-muted-foreground">
+        Add, archive and reorder save immediately. Everything else about a
+        project is edited on its own page, and saves only that project.
       </p>
 
       {error && (
-        <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
+        <p className="rounded-[6px] bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">
           {error}
         </p>
       )}
 
-      <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 dark:divide-gray-800 dark:border-gray-800">
+      <div className="divide-y divide-border overflow-hidden rounded-[6px] border border-border">
         {active.map((row, i) => (
           <div
             key={row.slug}
-            className="flex items-center gap-3 bg-white px-4 py-3 dark:bg-gray-950"
+            className="flex items-center gap-3 bg-card px-4 py-3"
           >
             <div className="flex flex-col">
               <button
                 onClick={() => move(i, -1)}
                 disabled={busy || i === 0}
                 aria-label={`Move ${row.data.title || row.slug} up`}
-                className="px-1 text-xs leading-none text-gray-400 hover:text-gray-900 disabled:opacity-25 dark:hover:text-gray-100"
+                className="px-1 text-xs leading-none text-faint hover:text-foreground disabled:opacity-25"
               >
                 ↑
               </button>
@@ -229,7 +226,7 @@ function ProjectList() {
                 onClick={() => move(i, 1)}
                 disabled={busy || i === active.length - 1}
                 aria-label={`Move ${row.data.title || row.slug} down`}
-                className="px-1 text-xs leading-none text-gray-400 hover:text-gray-900 disabled:opacity-25 dark:hover:text-gray-100"
+                className="px-1 text-xs leading-none text-faint hover:text-foreground disabled:opacity-25"
               >
                 ↓
               </button>
@@ -239,10 +236,10 @@ function ProjectList() {
               onClick={() => router.push(`/cms/config/projects/${row.slug}`)}
               className="min-w-0 flex-1 text-left"
             >
-              <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+              <p className="truncate text-sm font-medium text-foreground">
                 {row.data.title || row.slug}
               </p>
-              <p className="truncate text-xs text-gray-500">
+              <p className="truncate text-xs text-muted-foreground">
                 /{row.slug}
                 {row.data.category ? ` · ${row.data.category}` : ""}
                 {row.data.year ? ` · ${row.data.year}` : ""}
@@ -253,7 +250,7 @@ function ProjectList() {
               className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
                 row.published
                   ? "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-400"
-                  : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
+                  : "bg-muted text-muted-foreground"
               }`}
             >
               {row.published ? "Published" : "Draft"}
@@ -261,7 +258,7 @@ function ProjectList() {
 
             <button
               onClick={() => router.push(`/cms/config/projects/${row.slug}`)}
-              className="shrink-0 rounded-md px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+              className="shrink-0 rounded-md px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted"
             >
               Edit
             </button>
@@ -279,25 +276,28 @@ function ProjectList() {
       {archived.length > 0 && (
         <div className="pt-4">
           <SectionLabel>Archived ({archived.length})</SectionLabel>
-          <p className="mb-3 mt-1 text-xs text-gray-500">
-            Off the site and out of the sitemap. Everything is kept — the case study and
-            the uploaded images included — and Restore puts it back where it was.
+          <p className="mb-3 mt-1 text-xs text-muted-foreground">
+            Off the site and out of the sitemap. Everything is kept — the case
+            study and the uploaded images included — and Restore puts it back
+            where it was.
           </p>
-          <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-dashed border-gray-300 dark:divide-gray-800 dark:border-gray-700">
+          <div className="divide-y divide-border overflow-hidden rounded-[6px] border border-dashed border-border">
             {archived.map((row) => (
               <div
                 key={row.slug}
-                className="flex items-center gap-3 bg-gray-50 px-4 py-3 dark:bg-gray-900/40"
+                className="/40 flex items-center gap-3 bg-elevated px-4 py-3"
               >
                 <button
-                  onClick={() => router.push(`/cms/config/projects/${row.slug}`)}
+                  onClick={() =>
+                    router.push(`/cms/config/projects/${row.slug}`)
+                  }
                   className="min-w-0 flex-1 text-left"
                 >
-                  <p className="truncate text-sm font-medium text-gray-500 dark:text-gray-400">
+                  <p className="truncate text-sm font-medium text-muted-foreground">
                     {row.data.title || row.slug}
                   </p>
-                  <p className="truncate text-xs text-gray-400 dark:text-gray-500">
-                    /{row.slug} · archived{" "}
+                  <p className="truncate text-xs text-faint">
+                    /{row.slug} · archived{""}
                     {new Date(row.archived_at!).toLocaleDateString(undefined, {
                       day: "numeric",
                       month: "short",
@@ -308,7 +308,7 @@ function ProjectList() {
                 <button
                   onClick={() => setArchived(row, false)}
                   disabled={busy}
-                  className="shrink-0 rounded-md px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:opacity-50 dark:text-gray-300 dark:hover:bg-gray-800"
+                  className="shrink-0 rounded-md px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted disabled:opacity-50"
                 >
                   Restore
                 </button>
@@ -320,18 +320,19 @@ function ProjectList() {
 
       <ConfirmDialog
         open={!!pendingArchive}
-        title={`Archive "${pendingArchive?.data.title || pendingArchive?.slug}"?`}
+        title={`Archive"${pendingArchive?.data.title || pendingArchive?.slug}"?`}
         confirmLabel="Archive"
         body={
           <>
             <p>
-              It comes off the site and out of the sitemap.{" "}
-              <span className="font-medium">Nothing is deleted</span> — the case study and
-              the uploaded images are kept, and you can restore it from the archived list.
+              It comes off the site and out of the sitemap.{""}
+              <span className="font-medium">Nothing is deleted</span> — the case
+              study and the uploaded images are kept, and you can restore it
+              from the archived list.
             </p>
             <p className="mt-2">
-              It is published, so /projects/{pendingArchive?.slug} will start returning
-              404 until it is restored.
+              It is published, so /projects/{pendingArchive?.slug} will start
+              returning 404 until it is restored.
             </p>
           </>
         }

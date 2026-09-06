@@ -69,31 +69,18 @@ export default async function SiteLayout({
   return (
     <SiteConfigProvider config={clientConfig}>
       <Navigation />
+      {/* The ambient background is gone, and its absence is the design.
+          
+          It was three stacked layers: a gradient that resolved to background-to-
+          background, a blurred circle running `animate-pulse-subtle` forever, and a
+          grid overlay at 2% opacity. On an OLED ground every one of those is lit
+          pixels over what is meant to be an unlit field, and the pulse in particular
+          was an unguarded infinite animation that ignored `prefers-reduced-motion`.
+          Flat black is both the cheaper render and the actual style. */}
       <div className="relative min-h-screen bg-background">
-          {/* Background effects */}
-          <div className="fixed inset-0 -z-10">
-            <div className="via-muted/5 absolute inset-0 bg-gradient-to-br from-background to-background" />
-            <div
-              className="bg-accent/2 dark:bg-accent/1 absolute bottom-1/4 right-1/4 h-96 w-96 animate-pulse-subtle rounded-full blur-3xl"
-              style={{ animationDelay: "1s" }}
-            />
-            <div
-              className="absolute inset-0 opacity-[0.02] dark:opacity-[0.016]"
-              style={{
-                backgroundImage: `
-                  linear-gradient(var(--border) 1px, transparent 1px),
-                  linear-gradient(90deg, var(--border) 1px, transparent 1px)
-                `,
-                backgroundSize: "40px 40px",
-              }}
-            />
-          </div>
-
-          <div className="relative">
-            <main className="min-h-screen">{children}</main>
-            <SiteFooter config={config} />
-          </div>
-        </div>
+        <main>{children}</main>
+        <SiteFooter config={config} />
+      </div>
     </SiteConfigProvider>
   );
 }

@@ -79,18 +79,15 @@ export default function BlogConfigPage() {
             {posts.map((post, i) => {
               const expanded = open === i;
               return (
-                <div
-                  key={i}
-                  className="rounded-lg border border-gray-200 dark:border-gray-800"
-                >
+                <div key={i} className="rounded-[6px] border border-border">
                   <div className="flex items-center justify-between gap-3 px-4 py-3">
                     <button
                       type="button"
                       onClick={() => setOpen(expanded ? null : i)}
                       className="flex flex-1 items-center gap-3 text-left"
                     >
-                      <span className="text-gray-400">{expanded ? "▾" : "▸"}</span>
-                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                      <span className="text-faint">{expanded ? "▾" : "▸"}</span>
+                      <span className="text-sm font-medium text-foreground">
                         {post.title || "Untitled article"}
                       </span>
                       {post.draft && (
@@ -99,21 +96,24 @@ export default function BlogConfigPage() {
                         </span>
                       )}
                     </button>
-                    <span className="font-mono text-xs text-gray-400">
+                    <span className="font-mono text-xs text-faint">
                       {post.published}
                     </span>
                   </div>
 
                   {expanded && (
-                    <div className="space-y-4 border-t border-gray-200 p-4 dark:border-gray-800">
-                      <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                    <div className="space-y-4 border-t border-border p-4">
+                      <label className="flex items-center gap-2 text-sm text-muted-foreground">
                         <input
                           type="checkbox"
                           checked={post.draft ?? false}
-                          onChange={(e) => setPost(i, { draft: e.target.checked })}
-                          className="h-4 w-4 rounded border-gray-300"
+                          onChange={(e) =>
+                            setPost(i, { draft: e.target.checked })
+                          }
+                          className="h-4 w-4 rounded border-border"
                         />
-                        Draft — hidden from the site, the sitemap and search engines
+                        Draft — hidden from the site, the sitemap and search
+                        engines
                       </label>
 
                       <TextField
@@ -122,7 +122,8 @@ export default function BlogConfigPage() {
                         onChange={(v) => setPost(i, { slug: v })}
                       />
                       <p className="-mt-3 text-xs text-amber-600 dark:text-amber-500">
-                        Changing the slug changes the URL and the old one will 404.
+                        Changing the slug changes the URL and the old one will
+                        404.
                       </p>
 
                       <TextField
@@ -170,7 +171,7 @@ export default function BlogConfigPage() {
                       />
 
                       <div className="space-y-1.5">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label className="block text-sm font-medium text-muted-foreground">
                           Body
                         </label>
                         <RichTextEditor
@@ -178,10 +179,10 @@ export default function BlogConfigPage() {
                           onChange={(md) => setPost(i, { body: md })}
                           minHeight={420}
                         />
-                        <p className="text-xs text-gray-500">
-                          Internal links like <code>/about</code> or{" "}
-                          <code>/projects</code> keep readers on the site and help
-                          search engines connect the pages.
+                        <p className="text-xs text-muted-foreground">
+                          Internal links like <code>/about</code> or{""}
+                          <code>/projects</code> keep readers on the site and
+                          help search engines connect the pages.
                         </p>
                       </div>
 
@@ -211,7 +212,7 @@ export default function BlogConfigPage() {
                 updateField("posts", [blankPost(), ...posts]);
                 setOpen(0);
               }}
-              className="w-full rounded-lg border border-dashed border-gray-300 px-4 py-3 text-sm text-gray-600 hover:border-gray-400 dark:border-gray-700 dark:text-gray-400"
+              className="w-full rounded-[6px] border border-dashed border-border px-4 py-3 text-sm text-muted-foreground hover:border-border-strong"
             >
               + New article (starts as a draft)
             </button>

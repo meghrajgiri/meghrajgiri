@@ -58,10 +58,10 @@ export function CaseStudyEditor({
   return (
     <div className="space-y-6">
       <SectionLabel>Case study</SectionLabel>
-      <p className="-mt-2 text-xs text-gray-500">
-        Structure and guidance: docs/case-studies/STRUCTURE.md. Leave a block empty
-        rather than filling it with a placeholder — an unfilled bracket once shipped to
-        production for weeks.
+      <p className="-mt-2 text-xs text-muted-foreground">
+        Structure and guidance: docs/case-studies/STRUCTURE.md. Leave a block
+        empty rather than filling it with a placeholder — an unfilled bracket
+        once shipped to production for weeks.
       </p>
 
       <TextAreaField
@@ -96,10 +96,10 @@ export function CaseStudyEditor({
       </div>
 
       <SectionLabel>Metrics</SectionLabel>
-      <p className="-mt-2 text-xs text-gray-500">
-        Up to three. If the commercial numbers are not yours to publish, use delivery or
-        performance facts instead — and if there are none, leave this empty. The row does
-        not render when there is nothing in it.
+      <p className="-mt-2 text-xs text-muted-foreground">
+        Up to three. If the commercial numbers are not yours to publish, use
+        delivery or performance facts instead — and if there are none, leave
+        this empty. The row does not render when there is nothing in it.
       </p>
       {metrics.map((m, i) => (
         <div key={i} className="flex items-end gap-3">
@@ -137,8 +137,10 @@ export function CaseStudyEditor({
       {metrics.length < 3 && (
         <button
           type="button"
-          onClick={() => set({ metrics: [...metrics, { value: "", label: "" }] })}
-          className="rounded-lg border border-dashed border-gray-300 px-4 py-2 text-sm text-gray-600 hover:border-gray-400 dark:border-gray-700 dark:text-gray-400"
+          onClick={() =>
+            set({ metrics: [...metrics, { value: "", label: "" }] })
+          }
+          className="rounded-[6px] border border-dashed border-border px-4 py-2 text-sm text-muted-foreground hover:border-border-strong"
         >
           + Add metric
         </button>
@@ -148,7 +150,7 @@ export function CaseStudyEditor({
       {sections.map((section, i) => (
         <div
           key={i}
-          className="space-y-3 rounded-lg border border-gray-200 p-4 dark:border-gray-800"
+          className="space-y-3 rounded-[6px] border border-border p-4"
         >
           <div className="flex items-center gap-2">
             <div className="flex-1">
@@ -171,7 +173,7 @@ export function CaseStudyEditor({
                   [next[i - 1], next[i]] = [next[i], next[i - 1]];
                   set({ sections: next });
                 }}
-                className="rounded px-2 py-2 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 dark:hover:bg-gray-800"
+                className="rounded px-2 py-2 text-xs text-muted-foreground hover:bg-muted disabled:opacity-30"
                 aria-label="Move section up"
               >
                 ↑
@@ -184,7 +186,7 @@ export function CaseStudyEditor({
                   [next[i], next[i + 1]] = [next[i + 1], next[i]];
                   set({ sections: next });
                 }}
-                className="rounded px-2 py-2 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 dark:hover:bg-gray-800"
+                className="rounded px-2 py-2 text-xs text-muted-foreground hover:bg-muted disabled:opacity-30"
                 aria-label="Move section down"
               >
                 ↓
@@ -202,7 +204,9 @@ export function CaseStudyEditor({
           />
           <button
             type="button"
-            onClick={() => set({ sections: sections.filter((_, j) => j !== i) })}
+            onClick={() =>
+              set({ sections: sections.filter((_, j) => j !== i) })
+            }
             className="text-xs text-red-600 hover:underline dark:text-red-400"
           >
             Remove section
@@ -221,10 +225,10 @@ export function CaseStudyEditor({
                 ? "Core — worth having on every project"
                 : "Depth — for the two or three flagship projects"
             }
-            className={`rounded-lg border border-dashed px-3 py-2 text-sm hover:border-gray-400 dark:hover:border-gray-500 ${
+            className={`rounded-[6px] border border-dashed px-3 py-2 text-sm hover:border-border-strong ${
               s.tier === "core"
-                ? "border-gray-400 text-gray-700 dark:border-gray-600 dark:text-gray-300"
-                : "border-gray-300 text-gray-500 dark:border-gray-700 dark:text-gray-400"
+                ? "border-border-strong text-muted-foreground"
+                : "border-border text-muted-foreground"
             }`}
           >
             + {s.heading}
@@ -233,7 +237,7 @@ export function CaseStudyEditor({
         <button
           type="button"
           onClick={() => addSection("")}
-          className="rounded-lg border border-dashed border-gray-300 px-3 py-2 text-sm text-gray-500 hover:border-gray-400 dark:border-gray-700 dark:text-gray-400"
+          className="rounded-[6px] border border-dashed border-border px-3 py-2 text-sm text-muted-foreground hover:border-border-strong"
         >
           + Custom section
         </button>

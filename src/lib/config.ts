@@ -111,6 +111,16 @@ export interface SiteConfig {
     country?: string;
     /** Profile URLs that are not "social links" — e.g. the Toptal resume. */
     profiles?: string[];
+    /**
+     * The day professional work started, as `YYYY-MM-DD`.
+     *
+     * The experience entries only carry years (`year: "2020"`, `period: "2021"`),
+     * which is enough to render a timeline and not enough to count months or days —
+     * so the hero's tenure figure cannot be derived from them. Optional on purpose:
+     * with no value the hero falls back to the configured stat rather than inventing
+     * a date and publishing a number that looks precise and is not.
+     */
+    careerStart?: string;
     credentials?: Array<{
       name: string;
       category?: string;

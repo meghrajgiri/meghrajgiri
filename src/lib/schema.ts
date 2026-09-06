@@ -91,9 +91,20 @@ export function buildPerson(config: SiteConfig) {
     p?.startsWith("http"),
   );
 
+  /**
+   * `sameAs` is for URLs that *identify the same person* — the profiles a search
+   * engine reconciles an entity against. A booking or scheduling page is a service
+   * this person offers, not another profile of them, so those platforms are excluded
+   * even though they belong in the footer's Connect column beside the rest.
+   */
+  const NOT_IDENTITY = new Set(["calendly", "cal", "calcom", "savvycal"]);
   const socials =
     config.contact?.socialLinks
-      ?.filter((link) => link.url?.startsWith("http"))
+      ?.filter(
+        (link) =>
+          link.url?.startsWith("http") &&
+          !NOT_IDENTITY.has((link.platform ?? "").toLowerCase()),
+      )
       .map((link) => link.url) ?? [];
 
   return {

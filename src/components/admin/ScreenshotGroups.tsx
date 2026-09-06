@@ -1,7 +1,10 @@
 "use client";
 
 import { SectionLabel, TextField } from "@/components/admin/ConfigEditor";
-import { ImageUploader, type UploadedImage } from "@/components/admin/ImageUploader";
+import {
+  ImageUploader,
+  type UploadedImage,
+} from "@/components/admin/ImageUploader";
 
 export type ScreenshotGroup = {
   heading: string;
@@ -51,15 +54,15 @@ export function ScreenshotGroups({
   return (
     <div className="space-y-4">
       <SectionLabel>Gallery groups</SectionLabel>
-      <p className="-mt-2 text-xs text-gray-500">
-        Optional. With no groups the gallery shows every screenshot in one run, exactly
-        as before. Images not in any group are listed at the bottom.
+      <p className="-mt-2 text-xs text-muted-foreground">
+        Optional. With no groups the gallery shows every screenshot in one run,
+        exactly as before. Images not in any group are listed at the bottom.
       </p>
 
       {groups.map((group, i) => (
         <div
           key={i}
-          className="space-y-4 rounded-lg border border-gray-200 p-4 dark:border-gray-800"
+          className="space-y-4 rounded-[6px] border border-border p-4"
         >
           <div className="flex items-start gap-2">
             <div className="flex-1 space-y-4">
@@ -79,7 +82,7 @@ export function ScreenshotGroups({
                 type="button"
                 disabled={i === 0}
                 onClick={() => move(i, -1)}
-                className="rounded px-2 py-2 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 dark:hover:bg-gray-800"
+                className="rounded px-2 py-2 text-xs text-muted-foreground hover:bg-muted disabled:opacity-30"
                 aria-label="Move group up"
               >
                 ↑
@@ -88,7 +91,7 @@ export function ScreenshotGroups({
                 type="button"
                 disabled={i === groups.length - 1}
                 onClick={() => move(i, 1)}
-                className="rounded px-2 py-2 text-xs text-gray-500 hover:bg-gray-100 disabled:opacity-30 dark:hover:bg-gray-800"
+                className="rounded px-2 py-2 text-xs text-muted-foreground hover:bg-muted disabled:opacity-30"
                 aria-label="Move group down"
               >
                 ↓
@@ -104,7 +107,7 @@ export function ScreenshotGroups({
                   <img
                     src={src}
                     alt=""
-                    className="h-20 w-20 rounded border border-gray-200 object-cover dark:border-gray-800"
+                    className="h-20 w-20 rounded border border-border object-cover"
                   />
                   <button
                     type="button"
@@ -112,7 +115,7 @@ export function ScreenshotGroups({
                       set(i, { images: group.images.filter((_, k) => k !== j) })
                     }
                     title="Remove from this group"
-                    className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-gray-900 text-xs text-white dark:bg-white dark:text-gray-900"
+                    className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-card text-xs text-primary-foreground"
                   >
                     ×
                   </button>
@@ -123,7 +126,7 @@ export function ScreenshotGroups({
 
           {ungrouped.length > 0 && (
             <div className="space-y-1.5">
-              <label className="block text-xs font-medium text-gray-600 dark:text-gray-400">
+              <label className="block text-xs font-medium text-muted-foreground">
                 Add an existing screenshot
               </label>
               <div className="flex flex-wrap gap-2">
@@ -139,7 +142,7 @@ export function ScreenshotGroups({
                     <img
                       src={src}
                       alt=""
-                      className="h-14 w-14 rounded border border-dashed border-gray-300 object-cover dark:border-gray-700"
+                      className="h-14 w-14 rounded border border-dashed border-border object-cover"
                     />
                   </button>
                 ))}
@@ -153,7 +156,9 @@ export function ScreenshotGroups({
             label="Upload into this group"
             onUploaded={(images) => {
               onSizes(images);
-              set(i, { images: [...group.images, ...images.map((x) => x.url)] });
+              set(i, {
+                images: [...group.images, ...images.map((x) => x.url)],
+              });
             }}
           />
 
@@ -169,17 +174,19 @@ export function ScreenshotGroups({
 
       <button
         type="button"
-        onClick={() => onChange([...groups, { heading: "", caption: "", images: [] }])}
-        className="w-full rounded-lg border border-dashed border-gray-300 px-4 py-3 text-sm text-gray-600 hover:border-gray-400 dark:border-gray-700 dark:text-gray-400"
+        onClick={() =>
+          onChange([...groups, { heading: "", caption: "", images: [] }])
+        }
+        className="w-full rounded-[6px] border border-dashed border-border px-4 py-3 text-sm text-muted-foreground hover:border-border-strong"
       >
         + Add group
       </button>
 
       {groups.length > 0 && ungrouped.length > 0 && (
         <p className="text-xs text-amber-600 dark:text-amber-500">
-          {ungrouped.length} screenshot{ungrouped.length === 1 ? "" : "s"} not in any
-          group. Once a project has groups, only grouped images are shown — add these to
-          a group or remove them from the project.
+          {ungrouped.length} screenshot{ungrouped.length === 1 ? "" : "s"} not
+          in any group. Once a project has groups, only grouped images are shown
+          — add these to a group or remove them from the project.
         </p>
       )}
     </div>

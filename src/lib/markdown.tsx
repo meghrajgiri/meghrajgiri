@@ -95,7 +95,7 @@ export function Markdown({ source }: { source: string }) {
       blocks.push(
         <pre
           key={`c${i}`}
-          className="my-6 overflow-x-auto rounded-lg border border-border/50 bg-muted p-5 font-mono text-sm leading-relaxed"
+          className="my-6 overflow-x-auto rounded-[6px] border border-border bg-muted p-5 font-mono text-sm leading-relaxed"
         >
           <code>{body.join("\n")}</code>
         </pre>,
@@ -126,7 +126,7 @@ export function Markdown({ source }: { source: string }) {
       blocks.push(
         <blockquote
           key={`q${i}`}
-          className="my-6 border-l-2 border-primary pl-6 text-lg italic leading-relaxed"
+          className="my-6 border-l border-primary pl-6 text-lg italic leading-relaxed"
         >
           {renderInline(body.join(" "), `q${i}`)}
         </blockquote>,

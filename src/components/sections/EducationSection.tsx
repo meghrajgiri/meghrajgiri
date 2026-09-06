@@ -22,7 +22,7 @@ export function EducationSection({ heading = "h2" }: { heading?: "h1" | "h2" }) 
   return (
     <section id="education" className="border-t border-border px-6 py-16 md:py-24">
       <div className="container mx-auto max-w-6xl">
-        <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+        <p className="label">
           Education
         </p>
         <Heading className="mt-4 max-w-[20ch] text-[2rem] md:text-5xl">
@@ -36,7 +36,7 @@ export function EducationSection({ heading = "h2" }: { heading?: "h1" | "h2" }) 
 
         <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2">
           {entries.map((entry) => (
-            <article key={entry.id} className="nb bg-card p-6 md:p-8">
+            <article key={entry.id} className="panel bg-card p-6 md:p-8">
               <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                 {entry.period} · {entry.type}
               </p>

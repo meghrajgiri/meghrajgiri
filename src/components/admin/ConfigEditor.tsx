@@ -107,12 +107,18 @@ export function ConfigEditor({
       description={description}
       message={message}
       loading={loading}
-      actions={<AdminSaveButton onClick={handleSave} saving={saving} disabled={loading} />}
+      actions={
+        <AdminSaveButton
+          onClick={handleSave}
+          saving={saving}
+          disabled={loading}
+        />
+      }
     >
       {config ? (
         children({ config, updateField })
       ) : (
-        <p className="text-gray-500">Failed to load config.</p>
+        <p className="text-muted-foreground">Failed to load config.</p>
       )}
     </AdminShell>
   );
@@ -137,7 +143,7 @@ export function TextField({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+      <label className="block text-sm font-medium text-muted-foreground">
         {label}
       </label>
       <input
@@ -145,9 +151,9 @@ export function TextField({
         value={value || ""}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
-        className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition-colors focus:border-gray-900 focus:ring-1 focus:ring-gray-900 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-100 dark:focus:ring-gray-100 dark:disabled:bg-gray-800 dark:disabled:text-gray-400"
+        className="w-full rounded-[6px] border border-input bg-card px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-foreground focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:bg-muted disabled:text-faint"
       />
-      {hint && <p className="text-xs text-gray-500">{hint}</p>}
+      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
     </div>
   );
 }
@@ -165,14 +171,14 @@ export function TextAreaField({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+      <label className="block text-sm font-medium text-muted-foreground">
         {label}
       </label>
       <textarea
         value={value || ""}
         onChange={(e) => onChange(e.target.value)}
         rows={rows}
-        className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition-colors focus:border-gray-900 focus:ring-1 focus:ring-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-100 dark:focus:ring-gray-100"
+        className="w-full rounded-[6px] border border-input bg-card px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-foreground focus:ring-1 focus:ring-ring"
       />
     </div>
   );
@@ -189,12 +195,12 @@ export function ArrayField({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+      <label className="block text-sm font-medium text-muted-foreground">
         {label}
       </label>
       <input
         type="text"
-        value={(value || []).join(", ")}
+        value={(value || []).join(",")}
         onChange={(e) =>
           onChange(
             e.target.value
@@ -203,7 +209,7 @@ export function ArrayField({
               .filter(Boolean),
           )
         }
-        className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition-colors focus:border-gray-900 focus:ring-1 focus:ring-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-100 dark:focus:ring-gray-100"
+        className="w-full rounded-[6px] border border-input bg-card px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-foreground focus:ring-1 focus:ring-ring"
         placeholder="Comma-separated values"
       />
     </div>
@@ -212,7 +218,7 @@ export function ArrayField({
 
 export function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="border-b border-gray-200 pb-2 pt-4 text-sm font-semibold uppercase tracking-wider text-gray-400 dark:border-gray-800 dark:text-gray-500">
+    <h3 className="border-b border-border pb-2 pt-4 text-sm font-semibold uppercase tracking-wider text-faint">
       {children}
     </h3>
   );
