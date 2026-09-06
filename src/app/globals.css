@@ -2,110 +2,159 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   Palette: the original warm near-black grounds, still monochrome.
+
+   The grounds come from the earlier design — #1D1D1C is a warm off-black and
+   #242423 sits a step above it, so surfaces separate by tone as well as by an edge,
+   and cream type on top reads softer than #FAFAFA on #000000 did. What does *not*
+   come back is the tuscan-sun accent: there is no hue anywhere in these tokens, and
+   the only colour on the site is still the work in the project thumbnails.
+
+   `--brand` therefore stays monochrome, as it has been since the restyle — cream on
+   the dark theme, near-black on the light one — so every `bg-brand` / `text-brand-ink`
+   pair across the site renders as a straight inversion of the ground rather than a
+   coloured block. The token keeps its name only because ~28 call sites use it.
+
+   Dark stays on :root as well as .dark: next-themes sets its class inside <body>,
+   after first paint, so defaulting here is what prevents a flash of the light theme.
+   ──────────────────────────────────────────────────────────────────────────── */
 :root {
-  /* Dark is the default, so it lives on :root rather than behind a class.
-     next-themes mounts inside <body>, which means its class-setting script runs after
-     first paint — with the light palette on :root the page rendered light and snapped
-     to dark. Defaulting here removes that flash entirely. */
   color-scheme: dark;
-  /* Dark — same construction, inverted. Black shadows vanish on a dark ground, so
-     the offset takes the border colour instead. */
-  --background: #1D1D1C;
-  --foreground: #E8EDDF;
+
+  /* The ground drops toward black while the panels keep the warm grey, so a card
+     reads as a surface sitting on something rather than as a slightly different
+     shade of the same field. At #1D1D1C the ground-to-card step measured 1.086:1 —
+     present in the tokens, invisible on screen. #0D0D0C makes it 1.25:1, and every
+     text contrast improves as a side effect. */
+  --background: #0d0d0c;
+  --foreground: #e8eddf;
+
   --card: #242423;
-  --card-foreground: #E8EDDF;
-  --primary: #F5CB5C;
+  --card-foreground: #e8eddf;
+  --elevated: #2b2d2b;
+
+  --primary: #e8eddf;
   --primary-foreground: #242423;
-  --secondary: #2B2D2B;
-  --secondary-foreground: #E8EDDF;
-  --muted: #2B2D2B;
-  --muted-foreground: #A0B7AB;
-  --accent: #2B2D2B;
-  --accent-foreground: #E8EDDF;
-  --border: #E8EDDF;
-  --input: #E8EDDF;
-  --ring: #F5CB5C;
+  --secondary: #2b2d2b;
+  --secondary-foreground: #e8eddf;
+  --muted: #2b2d2b;
+  /* 7.3:1 on the card — AAA for body copy. */
+  --muted-foreground: #a0b7ab;
+  /* 4.6:1 on the card. Mono metadata and eyebrows only; never body copy. */
+  --faint: #828f86;
+  --accent: #2b2d2b;
+  --accent-foreground: #e8eddf;
 
-  --brand: #F5CB5C;
-  --brand-soft: #3F2F04;
+  /* Decorative hairlines: a warm step above the card rather than the full cream of
+     the old 2px treatment, which at 1px on every panel reads as wireframe. */
+  --border: #3a3c36;
+  --border-strong: #565950;
+  /* Form fields are the one edge WCAG 1.4.11 requires 3:1 for — a border that tells
+     you where an input begins is a control boundary, not decoration. 3.3:1. */
+  --input: #72756a;
+  --ring: #e8eddf;
+
+  --brand: #e8eddf;
+  --brand-soft: #2b2d2b;
   --brand-ink: #242423;
-  --brand-text: #F5CB5C;
+  --brand-text: #e8eddf;
 
-  --shadow-hard: 4px 4px 0 0 #E8EDDF;
-  --shadow-hard-sm: 2px 2px 0 0 #E8EDDF;
-  --border-hard: 2px;
+  /* Warm-neutral: a pure white glow over this ground reads faintly blue. */
+  --glow: 0 0 24px rgba(232, 237, 223, 0.13);
+  --glow-soft: 0 0 16px rgba(232, 237, 223, 0.07);
 
+  --radius: 6px;
 }
 
 .light {
   color-scheme: light;
-  /* Light — neubrutalism on the supplied palette.
-     Colour is used as blocks rather than as text: tuscan_sun is a fill with carbon
-     on top (10.05:1 inverted), which sidesteps the fact that #f5cb5c measures
-     1.49:1 as text on white and could never be used for type. */
-  /* Ground lifted off soft_linen DEFAULT. At #E8EDDF the page sat almost on top of
-     the tiles, which flattened the offsets that carry this style. soft_linen.800
-     gives the tiles somewhere to sit, and the original tone becomes the secondary
-     surface so nothing is lost from the palette. */
-  --background: #F6F8F2;
+
+  /* Lifted off the palette's soft linen. At #E8EDDF the page sat almost on top of
+     the cards; #F6F8F2 gives them somewhere to sit and keeps the original tone as
+     the secondary surface. */
+  /* Same relationship inverted: the linen ground deepens so white cards lift off
+     it. #F2F5EC is as far as it can go — one step further and `--faint` falls under
+     4.5:1 against the ground, which is the binding constraint here rather than the
+     card. */
+  --background: #f2f5ec;
   --foreground: #242423;
-  --card: #FFFFFF;
+
+  --card: #ffffff;
   --card-foreground: #242423;
+  /* Pulled down and away from the new ground, which it used to sit almost on top
+     of — it is the chip and hover surface, so it has to read as distinct from both
+     the page and the card. */
+  --elevated: #e9ede2;
+
   --primary: #242423;
-  --primary-foreground: #FAFBF8;
-  --secondary: #E8EDDF;
+  --primary-foreground: #fafbf8;
+  --secondary: #e8eddf;
   --secondary-foreground: #242423;
-  --muted: #E8EDDF;
-  --muted-foreground: #4A544C;
-  --accent: #F1F4EB;
+  --muted: #e8eddf;
+  /* 7.9:1 on the card. */
+  --muted-foreground: #4a544c;
+  /* 5.1:1 on the card. */
+  --faint: #677168;
+  --accent: #f1f4eb;
   --accent-foreground: #242423;
-  --border: #242423;
-  --input: #242423;
+
+  --border: #dde2d6;
+  --border-strong: #b8bfb1;
+  /* 3.3:1 on white. */
+  --input: #8a8f88;
   --ring: #242423;
 
-  /* The pop. A fill, never type. `--brand-ink` is what sits on top of it. */
-  --brand: #F5CB5C;
-  --brand-soft: #FDF5DE;
-  --brand-ink: #242423;
-  /* Accent text, for the rare place a block will not do. */
-  --brand-text: #7F5F08;
+  --brand: #242423;
+  --brand-soft: #e8eddf;
+  --brand-ink: #fafbf8;
+  --brand-text: #242423;
 
-  /* Hard offset, zero blur — the whole point of the style. */
-  --shadow-hard: 4px 4px 0 0 #242423;
-  --shadow-hard-sm: 2px 2px 0 0 #242423;
-  --border-hard: 2px;
+  --glow: 0 2px 14px rgba(36, 36, 35, 0.13);
+  --glow-soft: 0 1px 6px rgba(36, 36, 35, 0.07);
 
+  --radius: 6px;
 }
 
 .dark {
   color-scheme: dark;
-  /* Dark — same construction, inverted. Black shadows vanish on a dark ground, so
-     the offset takes the border colour instead. */
-  --background: #1D1D1C;
-  --foreground: #E8EDDF;
+
+  /* The ground drops toward black while the panels keep the warm grey, so a card
+     reads as a surface sitting on something rather than as a slightly different
+     shade of the same field. At #1D1D1C the ground-to-card step measured 1.086:1 —
+     present in the tokens, invisible on screen. #0D0D0C makes it 1.25:1, and every
+     text contrast improves as a side effect. */
+  --background: #0d0d0c;
+  --foreground: #e8eddf;
+
   --card: #242423;
-  --card-foreground: #E8EDDF;
-  --primary: #F5CB5C;
+  --card-foreground: #e8eddf;
+  --elevated: #2b2d2b;
+
+  --primary: #e8eddf;
   --primary-foreground: #242423;
-  --secondary: #2B2D2B;
-  --secondary-foreground: #E8EDDF;
-  --muted: #2B2D2B;
-  --muted-foreground: #A0B7AB;
-  --accent: #2B2D2B;
-  --accent-foreground: #E8EDDF;
-  --border: #E8EDDF;
-  --input: #E8EDDF;
-  --ring: #F5CB5C;
+  --secondary: #2b2d2b;
+  --secondary-foreground: #e8eddf;
+  --muted: #2b2d2b;
+  --muted-foreground: #a0b7ab;
+  --faint: #828f86;
+  --accent: #2b2d2b;
+  --accent-foreground: #e8eddf;
 
-  --brand: #F5CB5C;
-  --brand-soft: #3F2F04;
+  --border: #3a3c36;
+  --border-strong: #565950;
+  --input: #72756a;
+  --ring: #e8eddf;
+
+  --brand: #e8eddf;
+  --brand-soft: #2b2d2b;
   --brand-ink: #242423;
-  --brand-text: #F5CB5C;
+  --brand-text: #e8eddf;
 
-  --shadow-hard: 4px 4px 0 0 #E8EDDF;
-  --shadow-hard-sm: 2px 2px 0 0 #E8EDDF;
-  --border-hard: 2px;
+  --glow: 0 0 24px rgba(232, 237, 223, 0.13);
+  --glow-soft: 0 0 16px rgba(232, 237, 223, 0.07);
 
+  --radius: 6px;
 }
 
 * {
@@ -119,101 +168,91 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", sans-serif;
+    var(--font-body),
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
   line-height: 1.6;
   color: var(--foreground);
   background: var(--background);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 }
 
 body {
   min-height: 100vh;
 }
 
-/* Custom scrollbar */
+/* Scrollbar, restrained to the palette. The thumb was the brand yellow, which
+   was the one place the accent appeared without being a deliberate block. */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--muted);
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 3px;
+  background: var(--border-strong);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-foreground);
+  background: var(--faint);
 }
 
-/* Enhanced animations */
+/* ── Motion ────────────────────────────────────────────────────────────────
+   Every animation below is guarded. Previously only `.nb-press` was, so a
+   visitor with reduced-motion set still got the entrance blur, the section
+   fade and an infinitely looping background pulse. */
 @keyframes heroFadeIn {
   from {
     opacity: 0;
-    filter: blur(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    filter: blur(0px);
+    transform: translateY(0);
   }
 }
 
 .animate-heroFadeIn {
-  animation: heroFadeIn 1s ease-out forwards;
+  animation: heroFadeIn 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.95);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes pulse-subtle {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.05);
+    transform: translateY(0);
   }
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.8s ease-out forwards;
+  animation: fadeIn 640ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.animate-pulse-subtle {
-  animation: pulse-subtle 3s ease-in-out infinite;
+@media (prefers-reduced-motion: reduce) {
+  .animate-heroFadeIn,
+  .animate-fadeIn {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-/* Utility classes */
-/* Hover effects */
-.hover-lift {
-  transition: all 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-.dark .hover-lift:hover {
-  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
-}
-
-/* Focus styles */
+/* ── Focus ─────────────────────────────────────────────────────────────────
+   Monochrome removes the coloured ring, so focus is carried by a high-contrast
+   outline plus an offset gap that keeps it legible on any surface. */
 .focus-ring {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -221,18 +260,36 @@ body {
 
 .focus-ring:focus-visible {
   outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
-/* Typography improvements */
+/* Anything focusable that has not opted in still gets a visible ring. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ── Typography ────────────────────────────────────────────────────────────
+   Cabinet Grotesk at 700 rather than 800: on a true-black ground a heavy
+   grotesque blooms optically, so the weight that read as correct on the old
+   cream ground reads a step too heavy here. */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+  color: var(--foreground);
 }
 
 p {
@@ -240,7 +297,6 @@ p {
   color: var(--muted-foreground);
 }
 
-/* Button reset */
 button {
   cursor: pointer;
   border: none;
@@ -248,48 +304,134 @@ button {
   font-family: inherit;
 }
 
-/* Link styles */
 a {
   color: inherit;
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 
-/* Selection styles */
 ::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* ── Primitives ────────────────────────────────────────────────────────────
+   These replace `.nb` / `.nb-sm` / `.nb-press`. The neubrutalist offset was a
+   hard black shadow at 4px with a 2px border — the whole point of that style
+   and precisely wrong for this one, where separation comes from luminance and
+   a hairline, and interaction is a change in emission rather than displacement. */
+.panel {
+  /* Sets no background, for the same reason the old `.nb` didn't: this rule
+     lives after @tailwind utilities, so a `background` here would beat every
+     `bg-*` utility on the same element. Each usage brings its own. */
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* Interactive panel: the border lifts and the surface emits. No transform, so
+   a hovered card never nudges its neighbours or shifts what you are aiming at. */
+.panel-i {
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.panel-i:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--glow-soft);
+}
+
+.panel-i:focus-visible {
+  border-color: var(--border-strong);
+}
+
+/* The primary action. With no accent hue this is the only inverted block on a
+   given view, which is what makes it read as primary. */
+.cta {
   background: var(--primary);
   color: var(--primary-foreground);
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition:
+    box-shadow 180ms ease,
+    opacity 180ms ease;
 }
 
-/* --- Editorial preview: display face on headings ------------------------- */
-/* --- Neubrutalist primitives --------------------------------------------- */
-.nb {
-  /* Deliberately sets no background. This rule lives after @tailwind utilities, so a
-     `background` here would beat every `bg-*` utility on the same element — which is
-     exactly how the terminal ended up rendering cream instead of near-black. Each
-     usage brings its own bg utility. */
-  border: var(--border-hard) solid var(--border);
-  box-shadow: var(--shadow-hard);
-  border-radius: 6px;
-}
-.nb-sm { box-shadow: var(--shadow-hard-sm); }
-/* Press-in on interaction: the shadow collapses and the element moves into it.
-   Instant, not eased — the style has no smooth transitions. */
-.nb-press { transition: transform 80ms steps(2), box-shadow 80ms steps(2); }
-.nb-press:hover { transform: translate(2px, 2px); box-shadow: var(--shadow-hard-sm); }
-.nb-press:active { transform: translate(4px, 4px); box-shadow: none; }
-@media (prefers-reduced-motion: reduce) {
-  .nb-press { transition: none; }
-  .nb-press:hover, .nb-press:active { transform: none; box-shadow: var(--shadow-hard); }
+.cta:hover {
+  box-shadow: var(--glow);
 }
 
-h1, h2, h3 {
-  /* Cabinet Grotesk is a grotesk, not a serif: it carries a headline through weight
-     and tight tracking rather than stroke contrast, so 400 at display size reads
-     underset. 700 with tighter tracking is where it has presence. */
-  font-family: var(--font-display), system-ui, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
-  text-wrap: balance;
+.cta:active {
+  opacity: 0.88;
+}
+
+/* Secondary action: outline only, so it cannot compete with the inverted block. */
+.cta-ghost {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.cta-ghost:hover {
+  border-color: var(--foreground);
+  background: var(--elevated);
+}
+
+/* Mono metadata label — category, year, stack, section eyebrows. Carries the
+   structural role the yellow badge blocks used to. */
+.label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* ── Page openers ──────────────────────────────────────────────────────────
+   A section's own `py-16 md:py-24` is tuned for section-to-section rhythm in the
+   middle of a page. Directly under the breadcrumb trail — which already carries
+   `pt-8 md:pt-10` — that padding stacks on top of the trail's and opens a gap of
+   100-170px before the first heading, which is what made every inner page start
+   with a hole.
+
+   Handled here rather than by threading a prop through five section components,
+   because "is this the first thing on the page" is a positional fact and the
+   adjacent-sibling selector is the thing that actually knows it. The selector's
+   specificity (0,1,2) beats a Tailwind `pt-*` utility (0,1,0), and this rule sits
+   after @tailwind utilities, so it wins without !important.
+
+   `border-top` goes with it: a section that draws a rule above itself to separate
+   from the section before has nothing to separate from when it is first. */
+nav[aria-label="Breadcrumb"] + section,
+nav[aria-label="Breadcrumb"] + article {
+  padding-top: 2.5rem;
+  border-top: 0;
+}
+
+@media (min-width: 768px) {
+  nav[aria-label="Breadcrumb"] + section,
+  nav[aria-label="Breadcrumb"] + article {
+    padding-top: 3.5rem;
+  }
+}
+
+/* ── Alternating bands ─────────────────────────────────────────────────────
+   Sections step between the two shades — the page ground and the panel grey — so
+   the page has rhythm instead of running as one continuous field. The tone change
+   is the separator, which is why banded sections drop their `border-t`.
+
+   The catch is that a `.panel` inside a band would be the exact colour of the band
+   it sits on and disappear. Inside a band it takes the page ground instead: the same
+   one-step separation, inverted. Specificity (0,2,0) beats the `bg-card` utility
+   (0,1,0), and this sits after @tailwind utilities, so no !important is needed. */
+.band {
+  background: var(--card);
+}
+
+.band .panel {
+  background: var(--background);
 }

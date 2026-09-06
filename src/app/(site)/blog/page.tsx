@@ -76,7 +76,7 @@ export default async function BlogIndex() {
 
       <section className="px-6 pb-4 pt-10 md:pt-14">
         <div className="container mx-auto max-w-6xl">
-          <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+          <p className="label">
             Articles
           </p>
           <h1 className="mt-4 max-w-[22ch] text-[2rem] md:text-5xl">
@@ -94,7 +94,7 @@ export default async function BlogIndex() {
             {posts.map((post) => (
               <li
                 key={post.slug}
-                className="grid gap-2 border-t-2 border-foreground py-6 md:grid-cols-[140px_1fr] md:gap-10 md:py-8"
+                className="grid gap-2 border-t border-foreground py-6 md:grid-cols-[140px_1fr] md:gap-10 md:py-8"
               >
                 <time
                   dateTime={post.published}

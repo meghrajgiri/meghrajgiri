@@ -51,8 +51,8 @@ function Button({
       aria-pressed={active}
       className={`rounded px-2.5 py-1.5 text-xs font-medium transition-colors ${
         active
-          ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900"
-          : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          ? "bg-card text-primary-foreground"
+          : "text-muted-foreground hover:bg-muted"
       }`}
     >
       {label}
@@ -73,7 +73,7 @@ function Toolbar({ editor }: { editor: Editor }) {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-0.5 border-b border-gray-200 bg-gray-50 px-2 py-1.5 dark:border-gray-800 dark:bg-gray-900">
+    <div className="flex flex-wrap items-center gap-0.5 border-b border-border bg-elevated px-2 py-1.5">
       <Button
         label="H2"
         title="Heading 2"
@@ -86,7 +86,7 @@ function Toolbar({ editor }: { editor: Editor }) {
         active={editor.isActive("heading", { level: 3 })}
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
       />
-      <span className="mx-1 h-4 w-px bg-gray-300 dark:bg-gray-700" />
+      <span className="mx-1 h-4 w-px bg-border" />
       <Button
         label="B"
         title="Bold"
@@ -106,7 +106,7 @@ function Toolbar({ editor }: { editor: Editor }) {
         onClick={() => editor.chain().focus().toggleCode().run()}
       />
       <Button label="Link" title="Add or edit a link" onClick={link} />
-      <span className="mx-1 h-4 w-px bg-gray-300 dark:bg-gray-700" />
+      <span className="mx-1 h-4 w-px bg-border" />
       <Button
         label="• List"
         title="Bullet list"
@@ -178,16 +178,16 @@ export function RichTextEditor({
   if (!editor) {
     return (
       <div
-        className="animate-pulse rounded-lg bg-gray-100 dark:bg-gray-900"
+        className="animate-pulse rounded-[6px] bg-muted"
         style={{ minHeight }}
       />
     );
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-300 dark:border-gray-700">
+    <div className="overflow-hidden rounded-[6px] border border-border">
       <Toolbar editor={editor} />
-      <div style={{ minHeight }} className="bg-white dark:bg-gray-950">
+      <div style={{ minHeight }} className="bg-background">
         <EditorContent editor={editor} />
       </div>
     </div>

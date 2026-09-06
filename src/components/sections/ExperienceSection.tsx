@@ -26,7 +26,7 @@ export function ExperienceSection({ heading = "h2" }: { heading?: "h1" | "h2" })
   return (
     <section id="journey" className="border-t border-border px-6 py-16 md:py-24">
       <div className="container mx-auto max-w-6xl">
-        <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+        <p className="label">
           Experience
         </p>
         <Heading className="mt-4 max-w-[20ch] text-[2rem] md:text-5xl">
@@ -42,7 +42,7 @@ export function ExperienceSection({ heading = "h2" }: { heading?: "h1" | "h2" })
           {roles.map((role) => (
             <li
               key={`${role.company}-${role.year}`}
-              className="grid gap-2 border-t-2 border-foreground py-6 md:grid-cols-[160px_1fr] md:gap-10 md:py-8"
+              className="grid gap-2 border-t border-foreground py-6 md:grid-cols-[160px_1fr] md:gap-10 md:py-8"
             >
               {/* The dates lead on desktop and sit above the role on a phone. A
                   timeline whose dates are buried inside the body copy stops being a

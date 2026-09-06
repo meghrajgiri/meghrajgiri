@@ -31,7 +31,7 @@ export function CaseStudy({ caseStudy }: { caseStudy: NonNullable<Project["caseS
   }
 
   return (
-    <div className="mt-16 border-t border-border/50 pt-12">
+    <div className="mt-16 border-t border-border pt-12">
       {summary && (
         <p className="text-xl leading-relaxed md:text-2xl">{summary}</p>
       )}
@@ -50,7 +50,7 @@ export function CaseStudy({ caseStudy }: { caseStudy: NonNullable<Project["caseS
       )}
 
       {metrics && metrics.length > 0 && (
-        <div className="mt-10 grid gap-6 border-y border-border/50 py-8 sm:grid-cols-3">
+        <div className="mt-10 grid gap-6 border-y border-border py-8 sm:grid-cols-3">
           {metrics.map((m) => (
             <div key={m.label}>
               <div className="text-3xl font-bold tabular-nums md:text-4xl">{m.value}</div>

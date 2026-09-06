@@ -51,7 +51,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ProjectsPage() {
   const config = await getAllConfig();
   const { badge, title, subtitle, callToAction } = config.projects;
-  const projects = config.projects.projects.filter((p) => p.published !== false);
+  const projects = config.projects.projects.filter(
+    (p) => p.published !== false,
+  );
   const baseUrl = config.metadata.url;
 
   const jsonLd = graph([
@@ -93,40 +95,42 @@ export default async function ProjectsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Breadcrumbs trail={TRAIL} />
-    <section className="min-h-screen px-6 pb-24 pt-32">
-      <div className="container mx-auto max-w-7xl">
-        <div className="space-y-16">
-          {/* Header */}
-          <div className="space-y-4 text-center">
-            <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 backdrop-blur-sm dark:border-primary/10 dark:bg-primary/5">
-              <span className="text-sm font-medium text-primary">{badge}</span>
+      <section className="px-6 pb-24 pt-10 md:pt-14">
+        <div className="container mx-auto max-w-6xl">
+          <div className="flex flex-col gap-12 md:gap-16">
+            {/* Header */}
+            <div>
+              <p className="label">{badge}</p>
+              <h1 className="mt-4 max-w-[20ch] text-[2rem] md:text-5xl">
+                {title}
+              </h1>
+              <p className="mt-5 max-w-[62ch] text-lg leading-relaxed text-muted-foreground">
+                {subtitle}
+              </p>
             </div>
-            <h1 className="text-4xl font-bold md:text-5xl lg:text-6xl">
-              {title}
-            </h1>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              {subtitle}
-            </p>
-          </div>
 
-          <ProjectsGrid projects={projects} />
+            <ProjectsGrid projects={projects} />
 
-          {/* CTA */}
-          <div className="space-y-6 text-center">
-            <h2 className="text-2xl font-bold">{callToAction.title}</h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground">
-              {callToAction.description}
-            </p>
-            <Link
-              href="/#contact"
-              className="bg-brand focus-ring hover-lift inline-block rounded-lg px-8 py-4 font-semibold text-[var(--brand-ink)]"
-            >
-              {callToAction.buttonText}
-            </Link>
+            {/* CTA */}
+            <div className="grid gap-6 border-t border-border pt-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+              <div>
+                <h2 className="max-w-[20ch] text-2xl md:text-3xl">
+                  {callToAction.title}
+                </h2>
+                <p className="mt-3 max-w-[54ch] text-muted-foreground">
+                  {callToAction.description}
+                </p>
+              </div>
+              <Link
+                href="/#contact"
+                className="cta focus-ring inline-flex min-h-[48px] items-center px-8"
+              >
+                {callToAction.buttonText}
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 }

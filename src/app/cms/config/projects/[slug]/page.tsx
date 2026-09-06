@@ -69,7 +69,8 @@ export default function ProjectEditorPage() {
         if (!res.ok) {
           setMessage({
             type: "error",
-            text: res.status === 404 ? "No project with that slug." : body.error,
+            text:
+              res.status === 404 ? "No project with that slug." : body.error,
           });
           return;
         }
@@ -136,7 +137,7 @@ export default function ProjectEditorPage() {
         <>
           <Link
             href="/cms/config/projects"
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+            className="rounded-[6px] border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted"
           >
             All projects
           </Link>
@@ -152,15 +153,15 @@ export default function ProjectEditorPage() {
       {project ? (
         <>
           {archived && (
-            <p className="mb-6 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:bg-amber-950/30 dark:text-amber-300">
-              Archived. Edits save normally, but this project is off the site until it is
-              restored from the projects list.
+            <p className="mb-6 rounded-[6px] bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:bg-amber-950/30 dark:text-amber-300">
+              Archived. Edits save normally, but this project is off the site
+              until it is restored from the projects list.
             </p>
           )}
           {autoSlug && (
-            <p className="mb-6 rounded-lg bg-blue-50 px-4 py-3 text-sm text-blue-800 dark:bg-blue-950/30 dark:text-blue-300">
-              New project. Give it a title — the URL follows from it until you edit the
-              slug yourself.
+            <p className="mb-6 rounded-[6px] bg-blue-50 px-4 py-3 text-sm text-blue-800 dark:bg-blue-950/30 dark:text-blue-300">
+              New project. Give it a title — the URL follows from it until you
+              edit the slug yourself.
             </p>
           )}
           <ProjectForm
@@ -171,8 +172,8 @@ export default function ProjectEditorPage() {
           />
         </>
       ) : (
-        <p className="text-gray-500">
-          This project could not be loaded.{" "}
+        <p className="text-muted-foreground">
+          This project could not be loaded.{""}
           <Link href="/cms/config/projects" className="underline">
             Back to all projects
           </Link>

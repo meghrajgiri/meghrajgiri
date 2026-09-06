@@ -103,7 +103,7 @@ export default async function BlogPost({
             <Markdown source={post.body} />
           </div>
 
-          <footer className="mt-14 max-w-[68ch] border-t-2 border-border pt-8">
+          <footer className="mt-14 max-w-[68ch] border-t border-border pt-8">
             <p className="text-[17px] leading-[1.75] text-muted-foreground">
               Written by Meghraj Giri, a full stack developer in Butwal, Nepal.{" "}
               <Link

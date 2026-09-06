@@ -18,8 +18,18 @@ import {
  */
 
 /** `heading` and `intro` only exist for pages that render them. */
-const PAGES: Array<{ key: string; label: string; hint: string; lead?: boolean }> = [
-  { key: "about", label: "About", hint: "/about — the entity anchor page", lead: true },
+const PAGES: Array<{
+  key: string;
+  label: string;
+  hint: string;
+  lead?: boolean;
+}> = [
+  {
+    key: "about",
+    label: "About",
+    hint: "/about — the entity anchor page",
+    lead: true,
+  },
   { key: "experience", label: "Experience", hint: "/experience", lead: true },
   { key: "skills", label: "Skills", hint: "/skills", lead: true },
   { key: "hire", label: "Hire", hint: "/hire — hire-intent hub", lead: true },
@@ -53,8 +63,8 @@ export default function PagesConfigPage() {
             return (
               <div key={key} className="space-y-4">
                 <SectionLabel>{label}</SectionLabel>
-                <p className="-mt-2 text-xs text-gray-500">{hint}</p>
-                <div className="space-y-4 rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+                <p className="-mt-2 text-xs text-muted-foreground">{hint}</p>
+                <div className="space-y-4 rounded-[6px] border border-border p-4">
                   <TextField
                     label="Title tag"
                     value={page.title ?? ""}

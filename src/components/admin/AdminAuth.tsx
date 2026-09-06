@@ -41,10 +41,10 @@ export function AdminAuth({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-950">
+      <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="space-y-4 text-center">
-          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-gray-900 dark:border-gray-700 dark:border-t-gray-100" />
-          <p className="text-sm text-gray-500">Verifying access...</p>
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border border-border border-t-foreground" />
+          <p className="text-sm text-muted-foreground">Verifying access...</p>
         </div>
       </div>
     );

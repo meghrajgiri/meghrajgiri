@@ -62,18 +62,28 @@ const skillSections = [
  * SaaS "features" section, and on a portfolio it competes with the work for attention
  * while saying less than a single project page does. Each project already lists the
  * stack it actually used; this is just the summary.
+ *
+ * No longer rendered on the home page: the work is the point there, and every case
+ * study names the stack it actually used. `/skills` is where this lives now, and it
+ * backs the list with a shipped product per entry.
+ *
+ * The section heading used to be a styled `<p>`, which left the category labels below
+ * it as `<h3>` elements with no `<h2>` above them — a screen-reader user tabbing the
+ * heading outline went straight from the page title to a level three. The badge is now
+ * the real `<h2>` it was always pretending to be, so nothing changes visually and the
+ * outline is contiguous.
  */
 export function SkillsSection() {
   const { skills } = useSiteConfig();
 
   return (
-    <section id="skills" className="px-6 py-10 md:py-12">
+    <section id="skills" aria-labelledby="skills-heading" className="px-6 py-10 md:py-12">
       <div className="container mx-auto max-w-6xl">
-        <div className="nb bg-card p-6 md:p-8">
+        <div className="panel bg-card p-6 md:p-8">
         <div className="grid gap-8 md:grid-cols-[200px_1fr] md:gap-16">
-          <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+          <h2 id="skills-heading" className="label">
             {skills?.badge ?? "Stack"}
-          </p>
+          </h2>
           <div className="flex flex-col gap-6">
             {skillSections.map((section) => (
               <div key={section.title} className="flex flex-col gap-2 sm:flex-row sm:gap-6">

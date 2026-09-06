@@ -52,14 +52,14 @@ export function AdminSidebar() {
   };
 
   return (
-    <aside className="flex h-screen w-64 flex-col border-r border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+    <aside className="flex h-screen w-64 flex-col border-r border-border bg-card">
       {/* Header */}
-      <div className="flex h-16 items-center border-b border-gray-200 px-6 dark:border-gray-800">
+      <div className="flex h-16 items-center border-b border-border px-6">
         <Link href="/cms/contacts" className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900 text-sm font-bold text-white dark:bg-white dark:text-gray-900">
+          <div className="flex h-8 w-8 items-center justify-center rounded-[6px] bg-card text-sm font-bold text-primary-foreground">
             A
           </div>
-          <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+          <span className="text-sm font-semibold text-foreground">
             Admin Panel
           </span>
         </Link>
@@ -74,10 +74,10 @@ export function AdminSidebar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex items-center gap-3 rounded-[6px] px-3 py-2.5 text-sm font-medium transition-colors ${
                   isActive
-                    ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
-                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-gray-100"
+                    ? "bg-muted text-foreground"
+                    : "text-muted-foreground hover:bg-elevated hover:text-foreground"
                 }`}
               >
                 {item.icon}
@@ -89,7 +89,7 @@ export function AdminSidebar() {
 
         {/* Site Config */}
         <div className="mt-6">
-          <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+          <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-faint">
             Site Config
           </p>
           <div className="space-y-1">
@@ -99,10 +99,10 @@ export function AdminSidebar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-3 rounded-[6px] px-3 py-2.5 text-sm font-medium transition-colors ${
                     isActive
-                      ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-gray-100"
+                      ? "bg-muted text-foreground"
+                      : "text-muted-foreground hover:bg-elevated hover:text-foreground"
                   }`}
                 >
                   {item.label}
@@ -114,10 +114,10 @@ export function AdminSidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-gray-200 p-3 dark:border-gray-800">
+      <div className="border-t border-border p-3">
         <Link
           href="/"
-          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-gray-100"
+          className="flex items-center gap-3 rounded-[6px] px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-elevated hover:text-foreground"
         >
           <svg
             className="h-5 w-5"
@@ -136,7 +136,7 @@ export function AdminSidebar() {
         </Link>
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
+          className="flex w-full items-center gap-3 rounded-[6px] px-3 py-2.5 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
         >
           <svg
             className="h-5 w-5"

@@ -70,7 +70,7 @@ export default async function HirePage() {
 
       <section className="px-6 pb-4 pt-10 md:pt-14">
         <div className="container mx-auto max-w-6xl">
-          <p className="inline-block border-2 border-border bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+          <p className="label">
             Hire
           </p>
           <h1 className="mt-4 max-w-[22ch] text-[2rem] md:text-5xl">
@@ -89,7 +89,7 @@ export default async function HirePage() {
           </h2>
           <div className="mt-8 grid gap-6 md:mt-10 md:grid-cols-2">
             {stacks.map((page) => (
-              <article key={page.slug} className="nb bg-card p-6 md:p-8">
+              <article key={page.slug} className="panel bg-card p-6 md:p-8">
                 <h3 className="text-xl md:text-2xl">
                   <Link
                     href={`/hire/${page.slug}`}
@@ -114,7 +114,7 @@ export default async function HirePage() {
           </h2>
           <div className="mt-10 flex max-w-[68ch] flex-col gap-8 md:mt-14">
             {qa.map((item) => (
-              <div key={item.q} className="border-t-2 border-border pt-5">
+              <div key={item.q} className="border-t border-border pt-5">
                 <h3 className="text-xl">{item.q}</h3>
                 <p className="mt-3 text-[17px] leading-[1.75] text-muted-foreground">
                   {item.a}
@@ -123,14 +123,14 @@ export default async function HirePage() {
             ))}
           </div>
 
-          <div className="mt-14 border-t-2 border-border pt-10">
+          <div className="mt-14 border-t border-border pt-10">
             <p className="max-w-[54ch] text-lg text-muted-foreground">
               The fastest way to find out whether this is a fit is to describe what you
               are building.
             </p>
             <Link
               href="/contact"
-              className="nb nb-press focus-ring mt-6 inline-flex min-h-[48px] items-center bg-brand px-7 font-bold text-[var(--brand-ink)]"
+              className="cta focus-ring mt-6 inline-flex min-h-[48px] items-center px-7"
             >
               Start a conversation
             </Link>

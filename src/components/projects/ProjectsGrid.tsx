@@ -1,26 +1,20 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
+import {
+  ProjectCard,
+  type ProjectCardData,
+} from "@/components/projects/ProjectCard";
 
-interface Project {
+interface Project extends ProjectCardData {
   id: number;
-  slug: string;
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  category: string;
-  status: string;
-  year: string;
 }
 
 export function ProjectsGrid({ projects }: { projects: Project[] }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const categories = [
-    { id: "all", name: "All Projects" },
+    { id: "all", name: "All projects" },
     ...Array.from(new Set(projects.map((p) => p.category))).map((cat) => ({
       id: cat,
       name: cat,
@@ -33,85 +27,54 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
       : projects.filter((p) => p.category === selectedCategory);
 
   return (
-    <>
-      {/* Category Filter */}
-      <div className="flex flex-wrap justify-center gap-2">
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => setSelectedCategory(category.id)}
-            className={`focus-ring rounded-lg px-6 py-3 font-medium transition-all duration-200 ${
-              selectedCategory === category.id
-                ? "bg-brand text-[var(--brand-ink)]"
-                : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
-            }`}
-          >
-            {category.name}
-          </button>
-        ))}
+    <div className="flex flex-col gap-8">
+      {/* Filter.
+          
+          The selected state used to be the brand fill and nothing else, which under a
+          monochrome palette would leave selection carried by luminance alone. It is now
+          an inverted block *and* `aria-pressed`, so the state is announced rather than
+          only shown — colour was never an acceptable sole indicator, and here there is
+          no colour left to lean on anyway. */}
+      <div
+        className="flex flex-wrap gap-2"
+        role="group"
+        aria-label="Filter projects by category"
+      >
+        {categories.map((category) => {
+          const active = selectedCategory === category.id;
+          return (
+            <button
+              key={category.id}
+              type="button"
+              onClick={() => setSelectedCategory(category.id)}
+              aria-pressed={active}
+              className={`focus-ring min-h-[44px] rounded-[6px] px-5 py-2.5 text-[15px] font-medium transition-colors duration-200 ${
+                active
+                  ? "bg-primary text-primary-foreground"
+                  : "border border-border text-muted-foreground hover:border-border-strong hover:text-foreground"
+              }`}
+            >
+              {category.name}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {filteredProjects.map((project, index) => (
-          <Link
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {filteredProjects.map((project) => (
+          <ProjectCard
             key={project.id}
-            href={`/projects/${project.slug}`}
-            className="hover-lift group overflow-hidden rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm"
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
-            <div className="relative aspect-video overflow-hidden bg-muted">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              {project.status === "In Progress" && (
-                <div className="absolute right-3 top-3 rounded-full bg-amber-500/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                  In Progress
-                </div>
-              )}
-            </div>
-
-            <div className="space-y-3 p-5">
-              <div className="flex items-start justify-between gap-2">
-                <h3 className="text-xl font-semibold transition-colors duration-200 group-hover:text-primary">
-                  {project.title}
-                </h3>
-                <span className="bg-brand shrink-0 rounded-md px-2 py-1 text-xs font-semibold text-[var(--brand-ink)]">
-                  {project.category}
-                </span>
-              </div>
-              <p className="line-clamp-2 leading-relaxed text-muted-foreground">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.slice(0, 4).map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground"
-                  >
-                    {tech}
-                  </span>
-                ))}
-                {project.technologies.length > 4 && (
-                  <span className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
-                    +{project.technologies.length - 4}
-                  </span>
-                )}
-              </div>
-              <div className="flex items-center justify-between text-sm text-muted-foreground">
-                <span>{project.year}</span>
-                <span className="font-medium text-primary transition-transform duration-200 group-hover:translate-x-1">
-                  View Details &rarr;
-                </span>
-              </div>
-            </div>
-          </Link>
+            project={project}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
         ))}
       </div>
-    </>
+
+      {filteredProjects.length === 0 && (
+        <p className="text-center text-muted-foreground">
+          No projects in this category yet.
+        </p>
+      )}
+    </div>
   );
 }

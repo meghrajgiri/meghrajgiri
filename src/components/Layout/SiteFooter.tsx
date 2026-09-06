@@ -2,12 +2,22 @@ import Link from "next/link";
 import type { SiteConfig } from "@/lib/config";
 
 /**
- * Site footer.
+ * Site footer: identity, every page link, and every way to make contact.
  *
- * Replaces a single centred copyright line, and an unused `Footer.tsx` that was never
- * imported anywhere. Stacked on a phone, three columns from `sm` up — the columns are
- * the enhancement, the stack is the base.
+ * The previous version declared three columns and passed four children, so the social
+ * links wrapped onto a second grid row under the identity block and left two thirds of
+ * that row empty — the hole in the middle of the footer was grid arity, not spacing.
+ * Three columns, three children, and the count is now structural rather than a thing
+ * to keep in your head.
+ *
+ * It also ran to roughly 700px, because every link carried `min-h-[40px]` in a
+ * vertical list and half the content was already on the page: the display-size name
+ * repeated the header logo, the paragraph was `metadata.description` (the meta
+ * description already in every page's <head>), and "Available for new projects" was
+ * the third copy after the header — where it is pinned on every route — and the
+ * closing contact band. Those are gone; the links are all still here.
  */
+
 /** Pages that earn a link but not a slot in the header. */
 const SECONDARY = [
   { href: "/experience", label: "Experience" },
@@ -16,116 +26,106 @@ const SECONDARY = [
   { href: "/hire/nextjs-developer-nepal", label: "Hire: Next.js" },
 ];
 
+const linkClass =
+  "focus-ring inline-flex min-h-[32px] items-center text-[14px] text-muted-foreground transition-colors hover:text-foreground";
+
 export function SiteFooter({ config }: { config: SiteConfig }) {
   const { personal, contact, navigation, metadata } = config;
-  const socials = (contact?.socialLinks ?? []).filter((l) => l.url?.startsWith("http"));
+
+  /**
+   * Every stored link, in stored order — including the `mailto:` one.
+   *
+   * The old filter was `url.startsWith("http")`, which silently dropped the Email
+   * entry, so the footer re-added the address from `contactInfo` as a separate item
+   * and the two could disagree. Rendering the array whole means this column is pure
+   * CMS data: adding Calendly is a new row in Contact → Social Links, not a code
+   * change, and it will appear here and nowhere else that has to be kept in sync.
+   */
+  const links = (contact?.socialLinks ?? []).filter((l) => l.url?.trim());
 
   return (
-    <footer className="border-t-2 border-border">
-      <div className="container mx-auto max-w-6xl px-6 py-14 md:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+    <footer id="site-footer" className="border-t border-border px-6">
+      <div className="container mx-auto max-w-6xl py-12 md:py-14">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr] lg:gap-16">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-              {personal?.role}
-            </p>
-            {/* Deliberately not `personal.tagline` — that string is identical to the
-                hero headline, so using it here just repeats the top of the page. */}
-            <p className="mt-3 max-w-[30ch] font-display text-3xl leading-[1.1] md:text-4xl">
+            <p className="text-[15px] font-semibold text-foreground">
               {personal?.name}
             </p>
-            {metadata?.description && (
-              <p className="mt-4 max-w-[42ch] text-[15px] leading-relaxed text-muted-foreground">
-                {metadata.description}
+            <p className="label mt-2">{personal?.role}</p>
+            {contact?.contactInfo?.location && (
+              <p className="mt-3 text-[14px] text-muted-foreground">
+                {contact.contactInfo.location}
               </p>
             )}
             {contact?.availability?.status && (
-              <p className="mt-5 inline-flex items-center gap-2.5 text-sm text-muted-foreground">
-                <span className="h-3 w-3 border-2 border-border bg-brand" aria-hidden />
+              <p className="mt-4 inline-flex items-center gap-2.5 text-[14px] text-muted-foreground">
+                <span
+                  aria-hidden
+                  className="h-2 w-2 shrink-0 rounded-full bg-foreground"
+                />
                 {contact.availability.status}
               </p>
             )}
           </div>
 
-          <div>
-            <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+          {/* Navigate.
+              
+              The header can only carry five items before it stops being scannable, so
+              `/experience` and `/skills` are linked from here. Without this they would
+              be reachable only from the sitemap and a single link inside the About
+              copy, which is thin footing for pages that carry the `worksFor` and
+              `alumniOf` evidence. */}
+          <nav aria-labelledby="footer-nav-heading">
+            <h2 id="footer-nav-heading" className="label">
               Navigate
             </h2>
-            <ul className="mt-4 flex flex-col gap-1">
-              {(navigation?.items ?? []).map((item) => (
+            <ul className="mt-4 flex flex-col">
+              {[...(navigation?.items ?? []), ...SECONDARY].map((item) => (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="focus-ring flex min-h-[40px] items-center text-[15px] text-muted-foreground transition-colors hover:text-foreground"
-                  >
+                  <Link href={item.href} className={linkClass}>
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* The header can only carry five items before it stops being scannable, so
-              `/experience` and `/skills` are linked from here instead. Without this
-              they would be reachable only from the sitemap and a single link inside
-              the About copy, which is thin footing for pages that carry the
-              `worksFor` and `alumniOf` evidence. */}
-          <div>
-            <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-              More
-            </h2>
-            <ul className="mt-4 flex flex-col gap-1">
-              {SECONDARY.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="focus-ring flex min-h-[40px] items-center text-[15px] text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          </nav>
 
           <div>
-            <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-              Elsewhere
-            </h2>
-            <ul className="mt-4 flex flex-col gap-1">
-              {contact?.contactInfo?.email && (
-                <li>
-                  <a
-                    href={`mailto:${contact.contactInfo.email}`}
-                    className="focus-ring flex min-h-[40px] items-center break-all text-[15px] text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {contact.contactInfo.email}
-                  </a>
-                </li>
-              )}
-              {socials.map((link) => (
-                <li key={link.url}>
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="focus-ring flex min-h-[40px] items-center text-[15px] text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
+            <h2 className="label">Connect</h2>
+            <ul className="mt-4 flex flex-col">
+              {links.map((link) => {
+                // `mailto:` and `tel:` must not get a new tab or a noopener rel —
+                // both are meaningless on a handler URL, and `target="_blank"` on a
+                // mailto leaves an orphaned blank tab behind in some browsers.
+                const external = link.url.startsWith("http");
+                return (
+                  <li key={link.url}>
+                    <a
+                      href={link.url}
+                      {...(external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className={linkClass}
+                    >
+                      {link.name ?? link.platform}
+                      {external && (
+                        <span className="sr-only"> (opens in a new tab)</span>
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t-2 border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-            &copy; {new Date().getFullYear()} {metadata?.author ?? personal?.name}
+        <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="label">
+            &copy; {new Date().getFullYear()}{" "}
+            {metadata?.author ?? personal?.name}
           </p>
-          {contact?.contactInfo?.location && (
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-              {contact.contactInfo.location}
-            </p>
+          {metadata?.url && (
+            <p className="label">{metadata.url.replace(/^https?:\/\//, "")}</p>
           )}
         </div>
       </div>

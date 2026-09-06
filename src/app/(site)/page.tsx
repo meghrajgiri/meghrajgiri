@@ -4,10 +4,8 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { getAllConfig } from "@/lib/config";
 import { buildPerson, buildProfilePage, buildWebSite, graph } from "@/lib/schema";
 
-const SkillsSection = dynamic(() => import("@/components/sections/SkillsSection").then((m) => ({ default: m.SkillsSection })), { ssr: true });
-const AboutSection = dynamic(() => import("@/components/sections/AboutSection").then((m) => ({ default: m.AboutSection })), { ssr: true });
-const TestimonialsSection = dynamic(() => import("@/components/sections/TestimonialsSection").then((m) => ({ default: m.TestimonialsSection })), { ssr: true });
-const ContactSection = dynamic(() => import("@/components/sections/ContactSection").then((m) => ({ default: m.ContactSection })), { ssr: true });
+const BioStrip = dynamic(() => import("@/components/sections/BioStrip").then((m) => ({ default: m.BioStrip })), { ssr: true });
+const ContactCTA = dynamic(() => import("@/components/sections/ContactCTA").then((m) => ({ default: m.ContactCTA })), { ssr: true });
 
 export default async function Home() {
   const config = await getAllConfig();
@@ -32,14 +30,22 @@ export default async function Home() {
           <HeroSection />
         </div>
         <div className="animate-fadeIn">
-          {/* Work first and work biggest. The previous order — pitch, work, a
-              features-style tech grid, about, a contact form — is landing-page
-              anatomy. A portfolio leads with the work and keeps the selling short. */}
+          {/* Four sections, down from six.
+              
+              Work first and work biggest — a portfolio leads with the work and keeps
+              the selling short. What changed is how much of the page the work gets:
+              the stack logo grid, the testimonial rail and the second contact form
+              are gone, and featured projects went from three to six to fill the space
+              they were occupying.
+              
+              Each cut removed a duplicate or a dead section rather than content:
+              the logo grid restated what every case study already lists and `/skills`
+              covers properly; the testimonial rail rendered nothing, because every
+              stored testimonial is an unattributed placeholder; the About spread was
+              `/about` verbatim; and the contact form was `/contact` verbatim. */}
           <ProjectsSection />
-          <AboutSection />
-          <TestimonialsSection />
-          <SkillsSection />
-          <ContactSection />
+          <BioStrip />
+          <ContactCTA />
         </div>
       </div>
     </>

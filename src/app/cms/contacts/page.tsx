@@ -54,7 +54,9 @@ function ContactsContent() {
   };
 
   const filtered =
-    filter === "all" ? submissions : submissions.filter((s) => s.status === filter);
+    filter === "all"
+      ? submissions
+      : submissions.filter((s) => s.status === filter);
 
   const counts = {
     all: submissions.length,
@@ -73,13 +75,13 @@ function ContactsContent() {
   return (
     <div className="flex-1 overflow-auto">
       {/* Top bar */}
-      <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-gray-200 bg-white/80 px-8 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/80">
-        <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+      <div className="bg-card/80 /80 sticky top-0 z-10 flex h-16 items-center justify-between border-b border-border px-8 backdrop-blur-sm">
+        <h1 className="text-lg font-semibold text-foreground">
           Contact Submissions
         </h1>
         <button
           onClick={fetchSubmissions}
-          className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-900"
+          className="rounded-[6px] border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-elevated"
         >
           Refresh
         </button>
@@ -90,22 +92,34 @@ function ContactsContent() {
         <div className="mb-6 grid grid-cols-4 gap-4">
           {(
             [
-              { key: "all", label: "Total", color: "text-gray-900 dark:text-gray-100" },
-              { key: "unread", label: "Unread", color: "text-red-600 dark:text-red-400" },
-              { key: "read", label: "Read", color: "text-amber-600 dark:text-amber-400" },
-              { key: "replied", label: "Replied", color: "text-green-600 dark:text-green-400" },
+              { key: "all", label: "Total", color: "text-foreground" },
+              {
+                key: "unread",
+                label: "Unread",
+                color: "text-red-600 dark:text-red-400",
+              },
+              {
+                key: "read",
+                label: "Read",
+                color: "text-amber-600 dark:text-amber-400",
+              },
+              {
+                key: "replied",
+                label: "Replied",
+                color: "text-green-600 dark:text-green-400",
+              },
             ] as const
           ).map((stat) => (
             <button
               key={stat.key}
               onClick={() => setFilter(stat.key)}
-              className={`rounded-xl border p-4 text-left transition-colors ${
+              className={`rounded-[6px] border p-4 text-left transition-colors ${
                 filter === stat.key
-                  ? "border-gray-900 bg-gray-50 dark:border-gray-100 dark:bg-gray-900"
-                  : "border-gray-200 bg-white hover:border-gray-300 dark:border-gray-800 dark:bg-gray-950 dark:hover:border-gray-700"
+                  ? "border-foreground bg-elevated"
+                  : "border-border bg-card hover:border-border"
               }`}
             >
-              <p className="text-sm text-gray-500">{stat.label}</p>
+              <p className="text-sm text-muted-foreground">{stat.label}</p>
               <p className={`text-2xl font-semibold ${stat.color}`}>
                 {counts[stat.key]}
               </p>
@@ -115,40 +129,40 @@ function ContactsContent() {
 
         {/* Table */}
         {loading ? (
-          <div className="py-20 text-center text-gray-500">
+          <div className="py-20 text-center text-muted-foreground">
             Loading submissions...
           </div>
         ) : filtered.length === 0 ? (
-          <div className="py-20 text-center text-gray-500">
+          <div className="py-20 text-center text-muted-foreground">
             No {filter === "all" ? "" : filter} submissions found.
           </div>
         ) : (
-          <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
+          <div className="overflow-hidden rounded-[6px] border border-border">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                <tr className="border-b border-border bg-elevated">
+                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     From
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     Subject
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     Date
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
+                  <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+              <tbody className="divide-y divide-border">
                 {filtered.map((submission) => (
                   <tr
                     key={submission.id}
-                    className="bg-white transition-colors hover:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-900"
+                    className="bg-card transition-colors hover:bg-background"
                   >
                     <td className="px-6 py-4">
                       <span
@@ -158,7 +172,7 @@ function ContactsContent() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                      <div className="text-sm font-medium text-foreground">
                         {submission.name}
                       </div>
                       <a
@@ -169,14 +183,14 @@ function ContactsContent() {
                       </a>
                     </td>
                     <td className="max-w-xs px-6 py-4">
-                      <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                      <div className="text-sm font-medium text-foreground">
                         {submission.subject}
                       </div>
-                      <div className="truncate text-xs text-gray-500">
+                      <div className="truncate text-xs text-muted-foreground">
                         {submission.message}
                       </div>
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">
                       {new Date(submission.created_at).toLocaleDateString(
                         "en-US",
                         {
@@ -222,7 +236,7 @@ function ContactsContent() {
 export default function ContactsAdmin() {
   return (
     <AdminAuth>
-      <div className="flex h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="flex h-screen bg-background">
         <AdminSidebar />
         <ContactsContent />
       </div>
