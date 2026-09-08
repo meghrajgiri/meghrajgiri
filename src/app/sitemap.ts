@@ -1,4 +1,5 @@
 import { getAllConfig, getConfigTimestamps } from "@/lib/config";
+import { projectsLastModifiedBySlug } from "@/lib/projects";
 import type { MetadataRoute } from "next";
 
 /**
@@ -31,9 +32,10 @@ function resolveBaseUrl(configured: string | undefined): string {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [config, timestamps] = await Promise.all([
+  const [config, timestamps, projectModified] = await Promise.all([
     getAllConfig(),
     getConfigTimestamps(),
+    projectsLastModifiedBySlug(),
   ]);
 
   const baseUrl = resolveBaseUrl(config.metadata?.url);
@@ -124,7 +126,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ?.filter((p) => p.published !== false)
       .map((project) => ({
         url: `${baseUrl}/projects/${project.slug}`,
-        lastModified: projectsModified,
+        // This project's own edit time, falling back to the collection's only if the
+        // row is somehow missing. Sharing one timestamp across every project told
+        // Google nothing — worse, it told Google the lastmod could not be trusted.
+        lastModified: projectModified.get(project.slug) ?? projectsModified,
         changeFrequency: "monthly" as const,
         priority: 0.6,
       })) || [];

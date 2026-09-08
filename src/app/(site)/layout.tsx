@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/Layout/Navigation";
 import { SiteFooter } from "@/components/Layout/SiteFooter";
 import { SiteConfigProvider } from "@/components/providers/SiteConfigProvider";
+import { toProjectCard, type ClientSiteConfig } from "@/lib/client-config";
 import { getAllConfig } from "@/lib/config";
 import type { Metadata } from "next";
 
@@ -44,27 +45,40 @@ export default async function SiteLayout({
   const config = await getAllConfig();
 
   // `SiteConfigProvider` is a client component, so whatever it is handed is serialised
-  // into the RSC payload of every page under this layout. `pages`, `hire` and `blog`
-  // are read only by server components — and `blog` carries the full Markdown of every
-  // article, so passing the whole object shipped all three posts on every route,
-  // roughly 28KB of HTML that nothing on the page could use.
-  const clientConfig = { ...config };
-  delete clientConfig.pages;
-  delete clientConfig.hire;
-  delete clientConfig.blog;
+  // into the RSC payload of every page under this layout. Everything below is about
+  // what does NOT need to make that trip.
+  //
+  // `pages`, `hire` and `blog` are read only by server components — and `blog` carries
+  // the full Markdown of every article, so passing the whole object shipped all three
+  // posts on every route, roughly 28KB that nothing on the page could use.
+  const { pages: _pages, hire: _hire, blog: _blog, projects, ...rest } = config;
 
-  // `published: false` decides what *renders*. It does not decide what travels: the
-  // whole projects array was reaching the client, so an unpublished draft — client
-  // name, case study and all — sat in the HTML source of every page, invisible to a
-  // reader and perfectly readable to anyone who viewed source or crawled it. Drafts
-  // are exactly the thing that must not leak, so they are removed here rather than
-  // merely skipped at render time.
-  if (clientConfig.projects?.projects) {
-    clientConfig.projects = {
-      ...clientConfig.projects,
-      projects: clientConfig.projects.projects.filter((p) => p.published !== false),
-    };
-  }
+  const clientConfig: ClientSiteConfig = {
+    ...rest,
+    projects: {
+      ...projects,
+      // Two separate reductions, for two separate reasons.
+      //
+      // `published: false` decides what *renders*. It does not decide what travels: the
+      // whole array reached the client, so an unpublished draft — client name, case
+      // study and all — sat in the HTML source of every page, invisible to a reader and
+      // perfectly readable to anyone who viewed source. Drafts are exactly the thing
+      // that must not leak.
+      //
+      // Then the published ones still travelled whole. Every page carried all fifteen
+      // case studies, their screenshot lists and their long descriptions, so /contact
+      // shipped 170KB of prose it never renders — 103KB of it, 91% of the projects
+      // payload, unusable by anything on the page. Only cards are client-rendered and a
+      // card needs none of it; /projects/[slug] reads its own project server-side.
+      //
+      // Brotli hides most of the transfer cost, so the honest case here is not
+      // bandwidth — it is the JSON a mid-range phone parses and hydrates, and not
+      // shipping text no page on the route can display.
+      projects: (projects?.projects ?? [])
+        .filter((p) => p.published !== false)
+        .map(toProjectCard),
+    },
+  };
 
   return (
     <SiteConfigProvider config={clientConfig}>

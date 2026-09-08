@@ -1,6 +1,7 @@
 "use client";
 
 import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
+import { yearsSince } from "@/lib/duration";
 
 /**
  * Employment history, as a dated timeline.
@@ -16,8 +17,37 @@ import { useSiteConfig } from "@/components/providers/SiteConfigProvider";
  * what lets a search engine — or an AI answer — attribute work to a specific developer
  * rather than to one of the several unrelated people sharing the name.
  */
+/**
+ * Small counts read better as words in a heading, and this one is prose rather than
+ * data. Falls back to the digits past twelve, where words start to read worse than
+ * numerals.
+ */
+const WORDS = [
+  "Zero", "One", "Two", "Three", "Four", "Five", "Six",
+  "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
+];
+function spell(n: number) {
+  return (WORDS[n] ?? String(n)).toLowerCase();
+}
+
 export function ExperienceSection({ heading = "h2" }: { heading?: "h1" | "h2" }) {
-  const { experience } = useSiteConfig();
+  const { experience, personal } = useSiteConfig();
+
+  /**
+   * Both numbers in the heading, derived.
+   *
+   * It read "Five roles, five years" as literal text while the data said five roles and
+   * six years, and while the hero — which already derives its count from
+   * `personal.careerStart` — said six. A number typed into a heading is a number that
+   * goes stale on the next birthday or the next job, silently, on the page whose whole
+   * job is to be the record of both.
+   */
+  const roleCount = experience?.experiences?.length ?? 0;
+  const years = personal?.careerStart ? yearsSince(personal.careerStart) : null;
+  const title =
+    roleCount && years
+      ? `${WORDS[roleCount] ?? roleCount} roles, ${spell(years)} years, one thread`
+      : "One thread";
   const roles = experience?.experiences ?? [];
   if (roles.length === 0) return null;
 
@@ -30,7 +60,7 @@ export function ExperienceSection({ heading = "h2" }: { heading?: "h1" | "h2" })
           Experience
         </p>
         <Heading className="mt-4 max-w-[20ch] text-[2rem] md:text-5xl">
-          Five roles, five years, one thread
+          {title}
         </Heading>
         <p className="mt-5 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">
           Every position below is a product team shipping to real users — mobile

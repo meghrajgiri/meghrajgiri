@@ -96,8 +96,14 @@ export function HeroSection() {
                 {personal?.role ?? "Full stack developer"} &middot;{" "}
                 {personal?.location ?? "Remote"}
               </p>
+              {/* The {" "} is load-bearing. JSX drops the newline between these two
+                  children, and `block` on the span breaks the line visually without
+                  putting a character between them — so the H1 serialised as
+                  "…developer in Nepalbuilding products…". That is what screen readers
+                  announced and what every crawler read, in the one element where the
+                  primary keyword has to survive intact. */}
               <h1 className="mt-5 text-[2.4rem] leading-[1.03] sm:text-5xl lg:text-[3.4rem]">
-                {mainTitle?.line1}
+                {mainTitle?.line1}{" "}
                 <span className="block text-muted-foreground">
                   {mainTitle?.line2}
                 </span>

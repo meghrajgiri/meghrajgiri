@@ -12,7 +12,7 @@ const FALLBACK = {
     "Hire Meghraj Giri, a Toptal-verified full stack and frontend developer in Butwal, Nepal. Five years across React, Next.js and React Native, working remotely with clients in Nepal, Australia and the United States.",
   heading: "Hire a full stack developer in Nepal",
   intro:
-    "Meghraj Giri is a full stack and frontend developer based in Butwal, Nepal, with five years of production experience and Toptal Verified Expert status in engineering.",
+    "Meghraj Giri is a full stack and frontend developer based in Butwal, Nepal, with six years of production experience and Toptal Verified Expert status in engineering.",
 };
 
 /** One source of truth for the visible trail and the BreadcrumbList schema. */

@@ -1,4 +1,5 @@
 import { AboutSection } from "@/components/sections/AboutSection";
+import { CredentialsSection } from "@/components/sections/CredentialsSection";
 import { EducationSection } from "@/components/sections/EducationSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { Breadcrumbs } from "@/components/Layout/Breadcrumbs";
@@ -17,7 +18,7 @@ import type { Metadata } from "next";
 const FALLBACK = {
   title: "About Meghraj Giri — Full Stack Developer in Butwal, Nepal",
   description:
-    "Meghraj Giri is a full stack developer based in Butwal, Nepal, with five years building web and mobile products for teams in Nepal, Australia and the United States. BSc CSIT, Tribhuvan University. Toptal-verified engineer.",
+    "Meghraj Giri is a full stack developer based in Butwal, Nepal, with six years building web and mobile products for teams in Nepal, Australia and the United States. BSc CSIT, Tribhuvan University. Toptal-verified engineer.",
   heading: "Meghraj Giri — full stack developer in Butwal, Nepal",
 };
 
@@ -86,6 +87,9 @@ export default async function AboutPage() {
       />
       <ExperienceSection />
       <EducationSection />
+      {/* Renders what the Person node has been asserting all along. Schema is supposed
+          to reflect the page, and hasCredential listed a certificate no page showed. */}
+      <CredentialsSection />
     </>
   );
 }

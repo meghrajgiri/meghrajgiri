@@ -179,6 +179,27 @@ export async function projectsForSite(): Promise<Project[]> {
   return rows.map((row) => row.data);
 }
 
+/**
+ * Per-project modification times, keyed by slug.
+ *
+ * The sitemap used to stamp every project page with one shared timestamp, so all fifteen
+ * claimed to have changed in the same millisecond. Google discards a lastmod it judges
+ * unreliable, and identical timestamps across unrelated URLs is the textbook trigger — so
+ * the signal was not merely wrong, it was inert. Each row has carried its own
+ * `updated_at` since the projects table landed; this just reads it.
+ */
+export async function projectsLastModifiedBySlug(): Promise<Map<string, Date>> {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("projects")
+    .select("slug, updated_at")
+    .is("archived_at", null)
+    .returns<{ slug: string; updated_at: string }[]>();
+
+  if (error || !data) return new Map();
+  return new Map(data.map((r) => [r.slug, new Date(r.updated_at)]));
+}
+
 /** Newest `updated_at` across projects, for the sitemap's lastmod. */
 export async function projectsLastModified(): Promise<Date | null> {
   const supabase = createAdminClient();

@@ -84,7 +84,25 @@ export const getAllConfig = unstable_cache(
     // keeps the badge, title, subtitle and call to action; the array is composed here so
     // every consumer still reads `config.projects.projects` and none of them had to
     // learn where it came from.
-    config.projects = { ...config.projects, projects: await projectsForSite() };
+    const liveProjects = await projectsForSite();
+
+    // `{count}` in the section subtitle is resolved here rather than in a renderer.
+    //
+    // It was substituted in /projects only, and the homepage renders the same string
+    // from the same row — so the literal "{count} case studies…" shipped to the most
+    // visible page on the site. A token resolved per renderer is a token that leaks the
+    // first time a second renderer appears. Resolving it at composition means nothing
+    // downstream — page, client payload or JSON-LD — can see it unresolved.
+    const publishedCount = liveProjects.filter((p) => p.published !== false).length;
+
+    config.projects = {
+      ...config.projects,
+      projects: liveProjects,
+      subtitle: (config.projects?.subtitle ?? "").replace(
+        /\{count\}/g,
+        String(publishedCount),
+      ),
+    };
 
     return config as unknown as SiteConfig;
   },

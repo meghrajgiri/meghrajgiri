@@ -1,0 +1,1016 @@
+[
+  {
+    "url": "https://www.meghrajgiri.com",
+    "status": 200,
+    "ms": 612,
+    "bytes": 191842,
+    "title": "Meghraj Giri \u2014 Full Stack Developer in Nepal | React & Next.js",
+    "description": "Meghraj Giri is a full stack and frontend developer in Butwal, Nepal, building fast, scalable web and mobile products with React, Next.js, TypeScript and React Native. Toptal-verified. Available for new projects.",
+    "canonical": "https://www.meghrajgiri.com",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image?e5aa51a6d0504c56",
+    "h1": [
+      "Full stack developer in Nepalbuilding products people love to use"
+    ],
+    "h2": [
+      "Selected Work",
+      "Let's build something meaningful",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "React Native E-commerce App - Thriftverse",
+      "Clinic Management System - Cannabiz Elite (Australia)",
+      "The LYVE app",
+      "Khatapata \u2014 Retail & Inventory Platform",
+      "College Cost Secrets",
+      "Bookvid - Live Video Booking Marketplace"
+    ],
+    "words": 574,
+    "schema": [
+      "Person",
+      "ProfilePage",
+      "WebSite"
+    ],
+    "imgs": 6,
+    "imgs_no_alt": 0,
+    "internal_links": 22
+  },
+  {
+    "url": "https://www.meghrajgiri.com/about",
+    "status": 200,
+    "ms": 591,
+    "bytes": 176527,
+    "title": "About Meghraj Giri \u2014 Full Stack Developer in Butwal, Nepal",
+    "description": "Meghraj Giri is a full stack developer based in Butwal, Nepal, with five years building web and mobile products for teams in Nepal, Australia and the United States. BSc CSIT, Tribhuvan University. Toptal-verified engineer.",
+    "canonical": "https://www.meghrajgiri.com/about",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "Meghraj Giri \u2014 full stack developer in Butwal, Nepal"
+    ],
+    "h2": [
+      "Five roles, five years, one thread",
+      "Academic Journey",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "Let's build something meaningful",
+      "Full Stack Developer \u00b7 SCSS Consulting",
+      "React Native Developer \u00b7 Inseed",
+      "Software Engineer \u00b7 Gurzu Inc.",
+      "React Developer \u00b7 Prabidhi Labs",
+      "React Developer \u00b7 Lightweb Group",
+      "BSc CSIT in Computer Science",
+      "High School Diploma in Computer Engineering"
+    ],
+    "words": 625,
+    "schema": [
+      "AboutPage",
+      "BreadcrumbList",
+      "Person",
+      "ProfilePage"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/blog",
+    "status": 200,
+    "ms": 636,
+    "bytes": 169741,
+    "title": "Articles \u2014 Hiring and Building Software in Nepal",
+    "description": "Practical writing on hiring developers in Nepal, what software actually costs here, and building for international clients from Butwal \u2014 by Meghraj Giri.",
+    "canonical": "https://www.meghrajgiri.com/blog",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "Hiring and building software in Nepal"
+    ],
+    "h2": [
+      "How to find a good full stack developer in Nepal",
+      "What it costs to hire a freelance developer in Nepal",
+      "Working as a full stack developer from Butwal",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 190,
+    "schema": [
+      "Blog",
+      "BreadcrumbList",
+      "Person"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 19
+  },
+  {
+    "url": "https://www.meghrajgiri.com/blog/best-full-stack-developer-in-nepal-2026",
+    "status": 200,
+    "ms": 642,
+    "bytes": 183199,
+    "title": "Best Full Stack Developers in Nepal (2026) \u2014 How to Find and Verify One",
+    "description": "A practical guide to finding and verifying a full stack developer in Nepal in 2026: where they actually are, what to check before hiring, what it costs, and the trade-offs between agencies, marketplaces and independents.",
+    "canonical": "https://www.meghrajgiri.com/blog/best-full-stack-developer-in-nepal-2026",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "How to find a good full stack developer in Nepal"
+    ],
+    "h2": [
+      "Where Nepali developers actually are",
+      "What to actually check",
+      "What it costs",
+      "The honest summary",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 829,
+    "schema": [
+      "BlogPosting",
+      "BreadcrumbList",
+      "Person"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/blog/cost-to-hire-a-freelance-developer-in-nepal",
+    "status": 200,
+    "ms": 1670,
+    "bytes": 181050,
+    "title": "Cost to Hire a Freelance Developer in Nepal (2026) \u2014 What Drives the Price",
+    "description": "What actually determines the cost of hiring a freelance developer in Nepal: the difference between hourly and project pricing, what marketplace fees add, and the hidden costs that show up after the quote.",
+    "canonical": "https://www.meghrajgiri.com/blog/cost-to-hire-a-freelance-developer-in-nepal",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "What it costs to hire a freelance developer in Nepal"
+    ],
+    "h2": [
+      "Hourly rate is the least informative part",
+      "What actually drives cost",
+      "Marketplace fees",
+      "The costs that show up later",
+      "How to ask for a number",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 696,
+    "schema": [
+      "BlogPosting",
+      "BreadcrumbList",
+      "Person"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/blog/full-stack-developer-in-butwal-nepal",
+    "status": 200,
+    "ms": 770,
+    "bytes": 180318,
+    "title": "Full Stack Developer in Butwal, Nepal \u2014 Meghraj Giri",
+    "description": "What it is like building software for international clients from Butwal, Nepal \u2014 timezone overlap, the local developer scene outside Kathmandu, and how remote work actually runs from Lumbini Province.",
+    "canonical": "https://www.meghrajgiri.com/blog/full-stack-developer-in-butwal-nepal",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "Working as a full stack developer from Butwal"
+    ],
+    "h2": [
+      "Why this works now and did not before",
+      "The timezone maths",
+      "What the work has looked like",
+      "On the local scene",
+      "If you are hiring from here",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 715,
+    "schema": [
+      "BlogPosting",
+      "BreadcrumbList",
+      "Person"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/contact",
+    "status": 200,
+    "ms": 598,
+    "bytes": 175362,
+    "title": "Contact Meghraj Giri \u2014 Full Stack Developer in Butwal, Nepal",
+    "description": "Get in touch with Meghraj Giri, a full stack and frontend developer based in Butwal, Nepal. Available for new web and mobile projects, remote, working 9 AM \u2013 6 PM Nepal time (UTC+5:45).",
+    "canonical": "https://www.meghrajgiri.com/contact",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "Let's build something meaningful"
+    ],
+    "h2": [
+      "What I take on",
+      "Before you write",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "Build an MVP",
+      "Ship a feature into an existing product",
+      "Fix what is slow or breaking",
+      "How do I hire Meghraj Giri?",
+      "Where is he based, and does that matter for remote work?",
+      "Does he work with clients outside Nepal?",
+      "What does he need to give a useful answer?"
+    ],
+    "words": 501,
+    "schema": [
+      "BreadcrumbList",
+      "ContactPage",
+      "Person"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/experience",
+    "status": 200,
+    "ms": 622,
+    "bytes": 170960,
+    "title": "Experience \u2014 Meghraj Giri, Full Stack Developer in Nepal",
+    "description": "Five years and five roles: full stack development at SCSS Consulting, React Native at Inseed, software engineering at Gurzu, and React at Prabidhi Labs and Lightweb Group \u2014 built from Butwal, Nepal.",
+    "canonical": "https://www.meghrajgiri.com/experience",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "Five roles, five years, one thread"
+    ],
+    "h2": [
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "Full Stack Developer \u00b7 SCSS Consulting",
+      "React Native Developer \u00b7 Inseed",
+      "Software Engineer \u00b7 Gurzu Inc.",
+      "React Developer \u00b7 Prabidhi Labs",
+      "React Developer \u00b7 Lightweb Group"
+    ],
+    "words": 272,
+    "schema": [
+      "BreadcrumbList",
+      "ItemList",
+      "Person",
+      "WebPage"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/hire",
+    "status": 200,
+    "ms": 564,
+    "bytes": 172913,
+    "title": "Hire a Full Stack Developer in Nepal \u2014 Meghraj Giri",
+    "description": "Hire Meghraj Giri, a Toptal-verified full stack and frontend developer in Butwal, Nepal. Five years across React, Next.js and React Native, working remotely with clients in Nepal, Australia and the United States.",
+    "canonical": "https://www.meghrajgiri.com/hire",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "Hire a full stack developer in Nepal"
+    ],
+    "h2": [
+      "Hire by what you need built",
+      "What people ask before hiring",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "Hire a React Native developer in Nepal",
+      "Hire a Next.js developer in Nepal",
+      "Why hire an independent developer rather than an agency?",
+      "What does it cost to hire a developer in Nepal?",
+      "How do you verify someone before hiring them?",
+      "What are the timezone implications?"
+    ],
+    "words": 474,
+    "schema": [
+      "BreadcrumbList",
+      "Person",
+      "WebPage"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/hire/nextjs-developer-nepal",
+    "status": 200,
+    "ms": 745,
+    "bytes": 174323,
+    "title": "Hire a Next.js Developer in Nepal \u2014 Meghraj Giri",
+    "description": "Meghraj Giri is a Next.js and React developer in Butwal, Nepal. Five years in the React ecosystem, including server-side rendering work that cut initial load time by 30% and an admin panel rebuilt to load five times faster.",
+    "canonical": "https://www.meghrajgiri.com/hire/nextjs-developer-nepal",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "Hire a Next.js developer in Nepal"
+    ],
+    "h2": [
+      "Shipped with Next.js",
+      "Questions",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "Do you work with the App Router and React Server Components?",
+      "Can you improve an existing Next.js site rather than start over?",
+      "Do you handle the backend too?"
+    ],
+    "words": 343,
+    "schema": [
+      "BreadcrumbList",
+      "Person",
+      "WebPage"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 19
+  },
+  {
+    "url": "https://www.meghrajgiri.com/hire/react-native-developer-nepal",
+    "status": 200,
+    "ms": 605,
+    "bytes": 174225,
+    "title": "Hire a React Native Developer in Nepal \u2014 Meghraj Giri",
+    "description": "Meghraj Giri is a React Native developer in Butwal, Nepal, with apps shipped to the App Store and Google Play. Two years building cross-platform apps at Inseed Tech, plus marketplace and support apps of his own.",
+    "canonical": "https://www.meghrajgiri.com/hire/react-native-developer-nepal",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "Hire a React Native developer in Nepal"
+    ],
+    "h2": [
+      "Shipped with React Native",
+      "Questions",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "Can you publish to the App Store and Google Play?",
+      "Do you use Expo or bare React Native?",
+      "Can one developer handle both the app and its backend?"
+    ],
+    "words": 353,
+    "schema": [
+      "BreadcrumbList",
+      "Person",
+      "WebPage"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 19
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects",
+    "status": 200,
+    "ms": 696,
+    "bytes": 344079,
+    "title": "Case Studies \u2014 Web & Mobile Projects by Meghraj Giri, Nepal",
+    "description": "Explore my portfolio of projects spanning E-Commerce, Healthcare, Ed-Tech, Fin-Tech, and more. Built with React, Next.js, TypeScript, and modern technologies.",
+    "canonical": "https://www.meghrajgiri.com/projects",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/opengraph-image-cpktv7?597acbab3cebd1b6",
+    "h1": [
+      "Selected Work"
+    ],
+    "h2": [
+      "Interested in working together?",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "React Native E-commerce App - Thriftverse",
+      "Clinic Management System - Cannabiz Elite (Australia)",
+      "The LYVE app",
+      "Khatapata \u2014 Retail & Inventory Platform",
+      "College Cost Secrets",
+      "Bookvid - Live Video Booking Marketplace",
+      "Gambling Recovery App - Yume",
+      "React Weekly Availability Calendar",
+      "Thrive Rx \u2014 Telehealth Platform (Australia)",
+      "Artizan \u2014 AI Art Marketplace",
+      "Playlists \u2014 Vibe Search",
+      "Epiphra \u2014 AI Reflection App",
+      "Sunaulo Shopping \u2014 Nepal Marketplace",
+      "Selfbet \u2014 Recovery Non-profit",
+      "HamroTrips \u2014 Online Travel Agency (Nepal)"
+    ],
+    "words": 860,
+    "schema": [
+      "BreadcrumbList",
+      "CollectionPage",
+      "ItemList",
+      "Person"
+    ],
+    "imgs": 15,
+    "imgs_no_alt": 0,
+    "internal_links": 31
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/artizan",
+    "status": 200,
+    "ms": 1406,
+    "bytes": 203923,
+    "title": "Artizan \u2014 AI Art Marketplace | Meghraj Giri",
+    "description": "An AI-powered art marketplace with price valuations and auction data aggregated from more than 17 auction houses.",
+    "canonical": "https://www.meghrajgiri.com/projects/artizan",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/artizan/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Artizan \u2014 AI Art Marketplace"
+    ],
+    "h2": [
+      "The problem",
+      "What the app does",
+      "What I owned",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 513,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 8,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/bookvid",
+    "status": 200,
+    "ms": 625,
+    "bytes": 214224,
+    "title": "Bookvid - Live Video Booking Marketplace | Meghraj Giri",
+    "description": "Bookvid is a platform that facilitates the booking and managing of digital events and video sessions.",
+    "canonical": "https://www.meghrajgiri.com/projects/bookvid",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/bookvid/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Bookvid - Live Video Booking Marketplace"
+    ],
+    "h2": [
+      "The problem",
+      "What the platform does",
+      "What I owned",
+      "Key decisions",
+      "What the team would do differently",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 673,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 10,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/cannabiz-elite",
+    "status": 200,
+    "ms": 614,
+    "bytes": 230430,
+    "title": "Clinic Management System - Cannabiz Elite (Australia) | Meghraj Giri",
+    "description": "Cannabiz Elite is a clinic management system purpose-built for Australian cannabis and telehealth clinics",
+    "canonical": "https://www.meghrajgiri.com/projects/cannabiz-elite",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/cannabiz-elite/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Clinic Management System - Cannabiz Elite (Australia)"
+    ],
+    "h2": [
+      "The problem",
+      "What the platform does",
+      "What I owned",
+      "Constraints",
+      "Where the abstraction breaks",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 767,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 15,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/college-cost-secrets",
+    "status": 200,
+    "ms": 558,
+    "bytes": 205221,
+    "title": "College Cost Secrets | Meghraj Giri",
+    "description": "A bootstrapped financial planning service helping US families reduce college costs",
+    "canonical": "https://www.meghrajgiri.com/projects/college-cost-secrets",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/college-cost-secrets/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "College Cost Secrets"
+    ],
+    "h2": [
+      "The problem",
+      "What the platform does",
+      "What I owned",
+      "Key decisions",
+      "Technologies",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 652,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 8,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/epiphra",
+    "status": 200,
+    "ms": 605,
+    "bytes": 207066,
+    "title": "Epiphra \u2014 AI Reflection App | Meghraj Giri",
+    "description": "An AI reflection app and chatbot with real-time voice and memory that persists across conversations.",
+    "canonical": "https://www.meghrajgiri.com/projects/epiphra",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/epiphra/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Epiphra \u2014 AI Reflection App"
+    ],
+    "h2": [
+      "The problem",
+      "Voice through the model, not around it",
+      "Memory as retrieval, not as a longer prompt",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 585,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 8,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/hamrotrips",
+    "status": 200,
+    "ms": 760,
+    "bytes": 198324,
+    "title": "HamroTrips \u2014 Online Travel Agency (Nepal) | Meghraj Giri",
+    "description": "Flight and hotel booking platform for the Nepali market \u2014 live Amadeus inventory, nationality and fare-category pricing, and an admin panel that books directly.",
+    "canonical": "https://www.meghrajgiri.com/projects/hamrotrips",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/hamrotrips/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "HamroTrips \u2014 Online Travel Agency (Nepal)"
+    ],
+    "h2": [
+      "The problem",
+      "Where the flights come from",
+      "What the platform does",
+      "What I owned",
+      "Why it is built the way it is",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 949,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 2,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/khatapata",
+    "status": 200,
+    "ms": 594,
+    "bytes": 233212,
+    "title": "Khatapata \u2014 Retail & Inventory Platform | Meghraj Giri",
+    "description": "Retail platform for small businesses in Nepal \u2014 point of sale, stock, staff roles, an online storefront and the credit ledger a shop runs on.",
+    "canonical": "https://www.meghrajgiri.com/projects/khatapata",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/khatapata/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Khatapata \u2014 Retail & Inventory Platform"
+    ],
+    "h2": [
+      "The problem",
+      "What the platform does",
+      "What I owned",
+      "Why it is built the way it is",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 654,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 18,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/lyve",
+    "status": 200,
+    "ms": 712,
+    "bytes": 205855,
+    "title": "The LYVE app | Meghraj Giri",
+    "description": "The Lyve App is a next-generation marketplace focused on transforming how users buy and sell event tickets and resell costume reservations",
+    "canonical": "https://www.meghrajgiri.com/projects/lyve",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/lyve/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "The LYVE app"
+    ],
+    "h2": [
+      "The problem",
+      "What the platform does",
+      "What I owned",
+      "Key decisions",
+      "What I'd do differently",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 821,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 6,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/playlists",
+    "status": 200,
+    "ms": 521,
+    "bytes": 207877,
+    "title": "Playlists \u2014 Vibe Search | Meghraj Giri",
+    "description": "A location discovery app where you search the way you talk \u2014 \"cozy caf\u00e9\", \"quiet park to read in\" \u2014 matched by meaning rather than keywords.",
+    "canonical": "https://www.meghrajgiri.com/projects/playlists",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/playlists/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Playlists \u2014 Vibe Search"
+    ],
+    "h2": [
+      "The problem",
+      "What was built",
+      "What I owned",
+      "Key decisions",
+      "What the team would do differently",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 745,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 6,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/react-weekly-availability-calendar",
+    "status": 200,
+    "ms": 619,
+    "bytes": 234872,
+    "title": "React Weekly Availability Calendar | Meghraj Giri",
+    "description": "An open-source React component for picking weekly availability \u2014 drag to create a slot, then resize or move it.",
+    "canonical": "https://www.meghrajgiri.com/projects/react-weekly-availability-calendar",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/react-weekly-availability-calendar/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "React Weekly Availability Calendar"
+    ],
+    "h2": [
+      "The problem",
+      "What it is",
+      "Where it got hard",
+      "The bug that inspection could not find",
+      "Accessibility, in three passes",
+      "Key decisions",
+      "What I'd do differently",
+      "Technologies",
+      "Key Highlights",
+      "The component",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "Out of the box",
+      "Customised",
+      "Interaction"
+    ],
+    "words": 1718,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 5,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/selfbet",
+    "status": 200,
+    "ms": 569,
+    "bytes": 198182,
+    "title": "Selfbet \u2014 Recovery Non-profit | Meghraj Giri",
+    "description": "Marketing site for a non-profit offering free therapy, self-exclusion and community support for gambling addiction.",
+    "canonical": "https://www.meghrajgiri.com/projects/selfbet",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/selfbet/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Selfbet \u2014 Recovery Non-profit"
+    ],
+    "h2": [
+      "The problem",
+      "What was built",
+      "What I owned",
+      "What mattered here",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 488,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 6,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/sunaulo-shopping",
+    "status": 200,
+    "ms": 936,
+    "bytes": 214336,
+    "title": "Sunaulo Shopping \u2014 Nepal Marketplace | Meghraj Giri",
+    "description": "A Nepal marketplace serving shoppers, sellers, a franchise network and internal staff from one codebase \u2014 with local payment rails and over-the-air updates.",
+    "canonical": "https://www.meghrajgiri.com/projects/sunaulo-shopping",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/sunaulo-shopping/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Sunaulo Shopping \u2014 Nepal Marketplace"
+    ],
+    "h2": [
+      "The problem",
+      "What was built",
+      "What I owned",
+      "Key decisions",
+      "What I'd do differently",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 811,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 8,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/thriftverse",
+    "status": 200,
+    "ms": 1477,
+    "bytes": 234754,
+    "title": "React Native E-commerce App - Thriftverse | Meghraj Giri",
+    "description": "Thriftverse is a thrift marketplace platform where users can create their own online stores and get a unique storefront URL to sell curated products.",
+    "canonical": "https://www.meghrajgiri.com/projects/thriftverse",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/thriftverse/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "React Native E-commerce App - Thriftverse"
+    ],
+    "h2": [
+      "The problem",
+      "What the platform does",
+      "What I owned",
+      "Constraints",
+      "Key decisions",
+      "Where it got hard",
+      "What I'd do differently",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 1115,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 13,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/thrive-rx",
+    "status": 200,
+    "ms": 1328,
+    "bytes": 211603,
+    "title": "Thrive Rx \u2014 Telehealth Platform (Australia) | Meghraj Giri",
+    "description": "An Australian telehealth platform for clinician-led health optimisation \u2014 blood panels, biomarker tracking and practitioner-issued protocols.",
+    "canonical": "https://www.meghrajgiri.com/projects/thrive-rx",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/thrive-rx/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Thrive Rx \u2014 Telehealth Platform (Australia)"
+    ],
+    "h2": [
+      "The problem",
+      "What I owned",
+      "Constraints",
+      "Key decisions",
+      "Where it got hard",
+      "What I'd do differently",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "Patient Portal",
+      "Practitioner Portal",
+      "Admin Portal"
+    ],
+    "words": 1147,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 20,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/projects/yume",
+    "status": 200,
+    "ms": 560,
+    "bytes": 211144,
+    "title": "Gambling Recovery App - Yume | Meghraj Giri",
+    "description": "Yume is an app designed to help individuals overcome gambling addiction.",
+    "canonical": "https://www.meghrajgiri.com/projects/yume",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/projects/yume/opengraph-image-umay0l?559c1ddfb10ed3ac",
+    "h1": [
+      "Gambling Recovery App - Yume"
+    ],
+    "h2": [
+      "The problem",
+      "What the platform does",
+      "What I owned",
+      "Key decisions",
+      "Where it got hard",
+      "What the team would do differently",
+      "Technologies",
+      "Key Highlights",
+      "A look inside",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [],
+    "words": 848,
+    "schema": [
+      "BreadcrumbList",
+      "CreativeWork",
+      "Person"
+    ],
+    "imgs": 7,
+    "imgs_no_alt": 0,
+    "internal_links": 16
+  },
+  {
+    "url": "https://www.meghrajgiri.com/skills",
+    "status": 200,
+    "ms": 693,
+    "bytes": 180115,
+    "title": "Skills & Tech Stack \u2014 Meghraj Giri, Developer in Nepal",
+    "description": "The stack Meghraj Giri builds with: React, Next.js, TypeScript and React Native on the front end; Node.js, PostgreSQL, Supabase and GraphQL behind it. Shipped across e-commerce, telehealth and marketplace products.",
+    "canonical": "https://www.meghrajgiri.com/skills",
+    "robots": "index, follow",
+    "og_image": "https://www.meghrajgiri.com/opengraph-image",
+    "h1": [
+      "What I build with"
+    ],
+    "h2": [
+      "Tech Stack",
+      "Where each part of the stack has shipped",
+      "Common questions",
+      "Navigate",
+      "Connect"
+    ],
+    "h3": [
+      "Frontend",
+      "Backend",
+      "Tools & Cloud",
+      "What tech stack does Meghraj Giri use?",
+      "Does he build mobile apps as well as websites?",
+      "What kind of products has he worked on?"
+    ],
+    "words": 451,
+    "schema": [
+      "BreadcrumbList",
+      "Person",
+      "WebPage"
+    ],
+    "imgs": 0,
+    "imgs_no_alt": 0,
+    "internal_links": 23
+  }
+]

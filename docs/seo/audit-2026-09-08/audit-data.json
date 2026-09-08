@@ -1,0 +1,265 @@
+{
+  "summary": {
+    "health_score": 82,
+    "previous_score": 61,
+    "business_type": "Solo developer portfolio / personal brand (services)",
+    "urls_audited": 28,
+    "top_findings": [
+      "Homepage H1 renders without a space: 'Full stack developer in Nepalbuilding products people love to use'",
+      "Case-study count stated as 7, 7, 7 and 13 across four pages; the real count is 15, and /projects contradicts its own ItemList",
+      "Homepage says six years of experience; five other pages and the Experience data say five",
+      "/about claims Bookvid onboarding raised adoption 35% and retention 25%; the Bookvid case study contains none of those terms",
+      "A '30% faster load / 5x faster admin panel' claim repeated four times with no Prabidhi Labs case study to support it"
+    ],
+    "quick_wins": [
+      "One-line JSX fix restores the homepage H1 keyword",
+      "Render the case-study count from the projects array instead of restating it",
+      "Trim 11 meta descriptions from 185-223 chars to under 160",
+      "Give each project page its own sitemap lastmod from projects.updated_at",
+      "Resolve the /cms robots.txt Disallow vs meta noindex conflict"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 93,
+      "what_works": [
+        "All 28 URLs return 200 with a self-referencing canonical",
+        "Three .com.np hosts and the .com apex all 308, path-preserving, no loops",
+        "Security headers byte-identical across every host; HSTS max-age 2 years",
+        "Trailing slash, double slash, uppercase host and query strings all canonicalise correctly",
+        "Server-rendered: substantive text present without JS, x-nextjs-prerender: 1"
+      ],
+      "findings": [
+        {
+          "title": "Sitemap lastmod is a build timestamp, not per-page data",
+          "severity": "Medium",
+          "description": "25 of 28 URLs share the identical millisecond 2026-09-06T14:44:26.193Z. Only the three blog posts carry real dates. Google discards lastmod it judges unreliable, so this signal is currently inert.",
+          "recommendation": "Source per-project lastmod from projects.updated_at, which exists since migration 007."
+        },
+        {
+          "title": "/cms Disallow and noindex conflict",
+          "severity": "Low",
+          "description": "/cms returns 200 with meta robots noindex, nofollow, but robots.txt disallows the path, so Googlebot never fetches it and never sees the tag. The URL can still be listed bare if discovered elsewhere.",
+          "recommendation": "Drop the Disallow and rely on noindex plus authentication, or accept the tag is inert."
+        },
+        {
+          "title": "Two-hop HTTP to HTTPS on non-canonical hosts",
+          "severity": "Low",
+          "description": "http://meghrajgiri.com and the .com.np hosts take two 308s. Vercel's edge upgrade fires before the domain redirect.",
+          "recommendation": "Platform behaviour, not fixable in the app. HSTS preload would remove the HTTP leg for repeat visitors."
+        },
+        {
+          "title": "/favicon.ico returns 404",
+          "severity": "Low",
+          "description": "The link rel=icon declaration covers modern browsers and satisfies Google, but older crawlers probe the path directly.",
+          "recommendation": "Serve a favicon.ico. Cosmetic."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 72,
+      "what_works": [
+        "Zero placeholders or lorem ipsum across 28 pages and every JSON-LD block",
+        "Identity signals identical across /about, /skills, /hire, /contact and all blog posts",
+        "react-weekly-availability-calendar is exceptional first-hand E-E-A-T material at 1,718 words",
+        "Honest restraint where it costs something, e.g. selfbet: 'saying otherwise would be dressing it up'"
+      ],
+      "findings": [
+        {
+          "title": "Bookvid metric unsupported by its own case study",
+          "severity": "High",
+          "description": "/about states adoption +35% and retention +25% from an onboarding redesign. /projects/bookvid contains none of: onboarding, 35%, 25%, adoption, retention.",
+          "recommendation": "Restore the figures to the case study with their source, or remove the sentence."
+        },
+        {
+          "title": "Repeated Prabidhi Labs performance claim with no case study",
+          "severity": "Medium-High",
+          "description": "'30% faster load' and 'five times faster admin panel' appear four times across /about, /contact and /hire/nextjs-developer-nepal. /experience confirms the role; no case study substantiates the numbers.",
+          "recommendation": "Write the case study or soften the claim."
+        },
+        {
+          "title": "Five case studies stop before the documented structure does",
+          "severity": "Medium",
+          "description": "epiphra 585w, selfbet 488w, artizan 513w, khatapata 654w, hamrotrips 949w each omit some of Constraints / Key decisions / Where it got hard / What I'd do differently.",
+          "recommendation": "Supply the hard part for each; the structure and the writing pattern already exist."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 82,
+      "what_works": [
+        "28 unique titles and 28 unique descriptions, zero duplicates",
+        "Exactly one H1 per page",
+        "No orphan pages; ten hub pages linked from all 27 others"
+      ],
+      "findings": [
+        {
+          "title": "Homepage H1 renders with no space",
+          "severity": "High",
+          "description": "JSX strips the newline between {mainTitle?.line1} and a block span, so every text extractor reads 'Nepalbuilding'. Only instance on the site.",
+          "recommendation": "Add {\" \"} before the span in HeroSection.tsx:100."
+        },
+        {
+          "title": "Eleven meta descriptions truncated, five titles over length",
+          "severity": "Medium",
+          "description": "Descriptions run 185-223 characters against a ~160 limit; titles up to 74 against ~60.",
+          "recommendation": "Trim to fit so Google shows the intended sentence."
+        },
+        {
+          "title": "Eight project pages and all three blog posts have one inbound link",
+          "severity": "Medium",
+          "description": "Only their index links to them. The blog posts target the priority commercial queries and are the least-linked pages on the site.",
+          "recommendation": "Cross-link case studies from the blog posts and from the /skills evidence rows."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 85,
+      "what_works": [
+        "Valid JSON-LD on all 28 pages, single @graph, one stable Person @id referenced throughout",
+        "BreadcrumbList textbook-correct on every non-root page and correctly absent on the root",
+        "worksFor cross-checks against the dated Experience data and passes",
+        "ContactPage.description matches the visible copy word for word"
+      ],
+      "findings": [
+        {
+          "title": "CollectionPage.description contradicts its own ItemList",
+          "severity": "High",
+          "description": "/projects description says 'Seven case studies' while the ItemList beside it carries numberOfItems: 15 with 15 entries.",
+          "recommendation": "Derive the count rather than restating it."
+        },
+        {
+          "title": "freeCodeCamp credential asserted but never shown",
+          "severity": "Medium",
+          "description": "Person.hasCredential lists the JavaScript Algorithms and Data Structures certificate; it appears in no visible copy.",
+          "recommendation": "State it on /about or remove it from the graph."
+        },
+        {
+          "title": "BlogPosting has no image, Person.image is a single URL",
+          "severity": "Low",
+          "description": "Not validation errors. Costs thumbnail eligibility and multi-aspect-ratio reuse.",
+          "recommendation": "Add image to the three posts; make Person.image an array."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 78,
+      "what_works": [
+        "TTFB 237-450ms once warm",
+        "Brotli confirmed; one stylesheet; 218 KB JS across 10 files",
+        "AVIF/WebP with a one-year cache TTL on project images"
+      ],
+      "findings": [
+        {
+          "title": "Every page ships every case study",
+          "severity": "Medium",
+          "description": "/contact is 170.9 KB uncompressed carrying all 15 case studies it never renders. 103 KB of the projects payload is unused, 91% of it. Measured gzip saving from a partial strip: 2.6 KB.",
+          "recommendation": "Strip caseStudy, screenshots, screenshotGroups, longDescription and imageSizes from the client config; the detail page fetches its own project server-side."
+        },
+        {
+          "title": "Core Web Vitals not measured",
+          "severity": "Info",
+          "description": "PageSpeed Insights keyless API quota was exhausted during this audit.",
+          "recommendation": "Run PSI in a browser for / and one project page; revisit this score."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 74,
+      "what_works": [
+        "GPTBot, ClaudeBot, PerplexityBot, CCBot, Bingbot, OAI-SearchBot and Google-Extended all return 200",
+        "Server-rendered text available without JS execution",
+        "Question-form H3s with named-subject answers already working on /skills and /hire"
+      ],
+      "findings": [
+        {
+          "title": "The entity contradicts itself on its two most basic facts",
+          "severity": "High",
+          "description": "Case-study count and years of experience differ across pages. An engine synthesising 'who is Meghraj Giri' has to reconcile 15/7/13 and five/six.",
+          "recommendation": "One number each, derived where possible."
+        },
+        {
+          "title": "First-person passages are unattributable out of context",
+          "severity": "Medium",
+          "description": "/hire uses 'Meghraj Giri is a React Native developer in Butwal'; its sub-pages use 'I build cross-platform mobile apps'. Retrieval lifts sentences out of context.",
+          "recommendation": "Third person in passages meant to be citable."
+        },
+        {
+          "title": "Blog H2s are declarative on the page built to answer a question",
+          "severity": "Medium",
+          "description": "/blog/best-full-stack-developer-in-nepal-2026 uses 'Where Nepali developers actually are' rather than the question a user would ask.",
+          "recommendation": "Rewrite the H2s to match query shape."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 100,
+      "what_works": [
+        "Zero images missing alt text across all 28 pages",
+        "og:image on every page including per-project OG cards",
+        "Intrinsic dimensions recorded at upload, so no CLS"
+      ],
+      "findings": []
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Accuracy",
+        "timeframe": "Week 1",
+        "items": [
+          "Fix the homepage H1 spacing",
+          "Derive the case-study count from the projects array",
+          "Decide five or six years and make it consistent",
+          "Resolve the Bookvid 35%/25% claim",
+          "Resolve the Prabidhi Labs 30%/5x claim",
+          "State or drop the freeCodeCamp credential"
+        ]
+      },
+      {
+        "name": "Phase 2: Cheap technical wins",
+        "timeframe": "Week 1",
+        "items": [
+          "Per-project sitemap lastmod from projects.updated_at",
+          "Resolve the /cms Disallow vs noindex conflict",
+          "Trim 11 descriptions and 5 titles",
+          "Strip the unused project payload from the client config",
+          "Add BlogPosting image and dateModified",
+          "Serve /favicon.ico"
+        ]
+      },
+      {
+        "name": "Phase 3: Content depth",
+        "timeframe": "Weeks 2-4",
+        "items": [
+          "Finish five thin case studies",
+          "Rewrite blog H2s as questions",
+          "Third person in citable passages",
+          "Remove bare 'Yes.' answer openers",
+          "Cross-link case studies from blog posts and /skills"
+        ]
+      },
+      {
+        "name": "Phase 4: Off-site",
+        "timeframe": "Ongoing",
+        "items": [
+          "Update external links still pointing at .com.np",
+          "Earn one independent sameAs citation",
+          "Directory placements from the previous audit",
+          "Treat the knowledge panel as an off-site outcome, not a schema one"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "crawl": "crawl.json"
+  }
+}
