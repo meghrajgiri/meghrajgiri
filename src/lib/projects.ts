@@ -87,22 +87,32 @@ export async function getProject(slug: string): Promise<ProjectRow | null> {
 /**
  * Append a project.
  *
- * Position is computed from the current maximum rather than the caller's count, which
- * would be a stale number the moment two tabs are open.
+ * Position and `data.id` are both computed from the current rows rather than from
+ * anything the caller supplies, which would be a stale number the moment two tabs are
+ * open. That is not hypothetical for the id: two projects ended up sharing id 15, and
+ * because a list keyed on it reused one card's DOM node across filter changes, the same
+ * project appeared under every category on /projects.
+ *
+ * The row's own primary key is the real identity and the slug is the real unique
+ * constraint; `data.id` is a leftover from when projects were an array in one JSON
+ * blob. It is kept because existing content carries it, and kept unique here so it
+ * cannot cause that again.
  */
 export async function createProject(project: Project): Promise<ProjectRow> {
   const supabase = createAdminClient();
 
-  const { data: last } = await supabase
-    .from("projects")
-    .select("position")
-    .order("position", { ascending: false })
-    .limit(1)
-    .maybeSingle<{ position: number }>();
+  const existing = await listProjects();
+  const nextPosition =
+    existing.reduce((max, row) => Math.max(max, row.position), -1) + 1;
+  const nextId =
+    existing.reduce((max, row) => Math.max(max, Number(row.data?.id) || 0), 0) + 1;
 
   const { data, error } = await supabase
     .from("projects")
-    .insert({ position: (last?.position ?? -1) + 1, data: project })
+        // Ours wins over anything the caller sent: a supplied id is exactly how the
+    // collision happened, and this field is not meaningful enough to be worth
+    // preserving at the cost of uniqueness.
+    .insert({ position: nextPosition, data: { ...project, id: nextId } })
     .select(COLUMNS)
     .single<ProjectRow>();
 

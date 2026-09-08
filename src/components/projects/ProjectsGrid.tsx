@@ -63,7 +63,12 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {filteredProjects.map((project) => (
           <ProjectCard
-            key={project.id}
+            // Keyed on slug, not id. `id` is a leftover from when projects were an
+            // array in one JSON blob, and nothing enforces its uniqueness — two rows
+            // ended up sharing id 15, so React reused one card's DOM node across
+            // filter changes and the same project appeared under every category.
+            // `slug` is the URL and carries a unique index in the database.
+            key={project.slug}
             project={project}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
