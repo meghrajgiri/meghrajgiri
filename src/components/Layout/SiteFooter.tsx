@@ -124,9 +124,16 @@ export function SiteFooter({ config }: { config: SiteConfig }) {
             &copy; {new Date().getFullYear()}{" "}
             {metadata?.author ?? personal?.name}
           </p>
-          {metadata?.url && (
-            <p className="label">{metadata.url.replace(/^https?:\/\//, "")}</p>
-          )}
+          <div className="flex items-center gap-6">
+            {/* On every page, not just the blog: AdSense reviewers look for it from
+                the home page, and it covers the contact form too. */}
+            <Link href="/privacy" className="label focus-ring hover:text-foreground">
+              Privacy
+            </Link>
+            {metadata?.url && (
+              <p className="label">{metadata.url.replace(/^https?:\/\//, "")}</p>
+            )}
+          </div>
         </div>
       </div>
     </footer>

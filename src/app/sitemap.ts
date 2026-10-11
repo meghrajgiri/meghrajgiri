@@ -97,6 +97,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: siteModified,
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
   ];
 
   // Derived from the same CMS rows the pages render from, so publishing an article or

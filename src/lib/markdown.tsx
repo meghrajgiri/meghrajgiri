@@ -45,9 +45,9 @@ function renderInline(src: string, keyPrefix: string): ReactNode[] {
   return parseInline(src).map((run, i) => {
     const key = `${keyPrefix}-${i}`;
     if (run.href) {
-      // Only http(s) and same-site paths. A `javascript:` href in CMS copy would
-      // otherwise become a live link.
-      const safe = /^(https?:\/\/|\/|#)/.test(run.href) ? run.href : "#";
+      // Only http(s), mailto and same-site paths. A `javascript:` href in CMS copy
+      // would otherwise become a live link.
+      const safe = /^(https?:\/\/|mailto:|\/|#)/.test(run.href) ? run.href : "#";
       const external = safe.startsWith("http");
       return (
         <a
