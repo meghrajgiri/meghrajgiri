@@ -1,4 +1,6 @@
+import { AdUnit } from "@/components/blog/AdUnit";
 import { Breadcrumbs } from "@/components/Layout/Breadcrumbs";
+import { adsenseClient, articleAdSlot } from "@/lib/adsense";
 import { getAllConfig } from "@/lib/config";
 import { Markdown } from "@/lib/markdown";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -102,6 +104,12 @@ export default async function BlogPost({
           <div className="prose-measure mt-12 max-w-[68ch] md:mt-16">
             <Markdown source={post.body} />
           </div>
+
+          {/* Keyed on the slug so moving from one article to another mounts a fresh
+              unit instead of reusing the previous article's filled one. */}
+          {adsenseClient && articleAdSlot && (
+            <AdUnit key={post.slug} client={adsenseClient} slot={articleAdSlot} />
+          )}
 
           <footer className="mt-14 max-w-[68ch] border-t border-border pt-8">
             <p className="text-[17px] leading-[1.75] text-muted-foreground">
